@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "AvojN+T1sMg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\moens\\source\\repos\\A_Apocrypha\\A_Apocrypha\\A_Apocrypha.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\moens\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\moens\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

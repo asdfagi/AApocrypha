@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace A_Apocrypha.CustomOther
+{
+    public class CustomIntents
+    {
+        public static void Add()
+        {
+            IntentInfoBasic CopyThatIntent = new()
+            {
+                _color = Color.white,
+                _sprite = ResourceLoader.LoadSprite("IconCopyThat"),
+            };
+            LoadedDBsHandler.IntentDB.AddNewBasicIntent("Passive_CopyThat", CopyThatIntent);
+
+            IntentInfoBasic RemCopyThatIntent = new()
+            {
+                _color = Color.grey,
+                _sprite = ResourceLoader.LoadSprite("IconCopyThat"),
+            };
+            LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Passive_CopyThat", RemCopyThatIntent);
+        }
+    }
+}
