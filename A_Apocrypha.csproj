@@ -35,6 +35,9 @@
 	<None Remove="Sprites\IconShy.png" />
 	<None Remove="Sprites\IconConfrontational.png" />
 	<None Remove="Sprites\IconCopyThat.png" />
+	<None Remove="Sprites\UnlockComedySimulacrumKillSelf.png" />
+	<None Remove="Sprites\UnlockComedySimulacrumKillSelfLocked.png" />
+	<None Remove="Sprites\ItemHumanHeartAbility.png" />
   </ItemGroup>
   
   <ItemGroup>
@@ -66,6 +69,9 @@
 	<EmbeddedResource Include="Sprites\IconShy.png" />
 	<EmbeddedResource Include="Sprites\IconConfrontational.png" />
 	<EmbeddedResource Include="Sprites\IconCopyThat.png" />
+	<EmbeddedResource Include="Sprites\UnlockComedySimulacrumKillSelf.png" />
+	<EmbeddedResource Include="Sprites\UnlockComedySimulacrumKillSelfLocked.png" />
+	<EmbeddedResource Include="Sprites\ItemHumanHeartAbility.png" />
   </ItemGroup>
 
   <ItemGroup>

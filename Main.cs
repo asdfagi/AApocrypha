@@ -9,6 +9,7 @@ global using BrutalAPI;
 global using UnityEngine;
 using System.Collections.Generic;
 using A_Apocrypha.CustomOther;
+using A_Apocrypha.Items;
 using BepInEx.Bootstrap;
 using HarmonyLib;
 
@@ -76,6 +77,10 @@ namespace A_Apocrypha
             //Passives
             CustomPassives.Add();
 
+            // ITEMS & ACHIEVEMENTS
+            // Comedies
+            HumanHeart.Add();
+
             //Characters
             //TestCharacter.Add();
 
@@ -90,6 +95,7 @@ namespace A_Apocrypha
             SculptorBird.Add();
             //AnomalyMiniboss.Add();
             Simulacrum.Add();
+            MachineGnomes.Add();
 
             //Encounters
             TestEncounters.Add();
@@ -102,6 +108,7 @@ namespace A_Apocrypha
             SharpenedAnomalyEncounters.Add();
             SculptorBirdEncounters.Add();
             //AnomalyMinibossEncounters.Add();
+            SimulacrumEncounters.Add();
 
             Logger.LogInfo("Asdfagi's Abominable Apocrypha activated.");
         }
