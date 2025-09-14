@@ -12,12 +12,12 @@ namespace A_Apocrypha.Encounters
             EnemyEncounter_API testMedium = new EnemyEncounter_API(0, "H_Zone01_Test_Medium_EnemyBundle", "Test_Sign")
             {
                 MusicEvent = "event:/AAMusic/DoYouHearGnomes",
-                RoarEvent = "event:/Characters/Enemies/DLC_01/Keko/CHR_ENM_Keko_Roar",
+                RoarEvent = "event:/AAEnemy/GnomesRoar",
             };
             testMedium.CreateNewEnemyEncounterData(
             [
                 "MachineGnomes_EN",
-            ], null);
+            ], [2]);
             testMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Test_Medium_EnemyBundle", 9999, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);
         }

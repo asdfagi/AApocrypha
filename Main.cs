@@ -23,6 +23,7 @@ namespace A_Apocrypha
     [BepInDependency("000.saltenemies", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("Dui_Mauris_Football.Hell_Island_Fell", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("millieamp.intoTheAbyss", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("Stew.STEWS_SPECIMENS", BepInDependency.DependencyFlags.SoftDependency)]
     public class AApocrypha : BaseUnityPlugin
     {
         public static AssetBundle assetBundle;
@@ -34,6 +35,7 @@ namespace A_Apocrypha
             public static bool SaltEnemies = false;
             public static bool HellIslandFell = false;
             public static bool IntoTheAbyss = false;
+            public static bool StewSpecimens = false;
             public static void Check()
             {
                 foreach (var plugin in Chainloader.PluginInfos)
@@ -46,6 +48,7 @@ namespace A_Apocrypha
                     if (metadata.GUID == "000.saltenemies") { SaltEnemies = true; }
                     if (metadata.GUID == "Dui_Mauris_Football.Hell_Island_Fell") { HellIslandFell = true; }
                     if (metadata.GUID == "millieamp.intoTheAbyss") { IntoTheAbyss = true; }
+                    if (metadata.GUID == "Stew.STEWS_SPECIMENS") { StewSpecimens = true; }
                 }
                 if (Colophons) { Debug.Log("hello colophons"); }
                 if (EnemyPack) { Debug.Log("hello packed enemies"); }
@@ -53,6 +56,7 @@ namespace A_Apocrypha
                 if (SaltEnemies) { Debug.Log("hello salt enemies"); }
                 if (HellIslandFell) { Debug.Log("hello fallen hell island"); }
                 if (IntoTheAbyss) { Debug.Log("hello abyss"); }
+                if (StewSpecimens) { Debug.Log("hello specimens of stew"); }
             }
         }
         public void Awake()
@@ -83,6 +87,7 @@ namespace A_Apocrypha
 
             //Characters
             //TestCharacter.Add();
+            GnomeCharacter.Add();
 
             //Enemies
             Macerator.Add();

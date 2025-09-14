@@ -31,13 +31,30 @@
 	<None Remove="Sprites\AsterismDead.png" />
 	<None Remove="Sprites\AsterismTimeline.png" />
 	<None Remove="Sprites\SimulacrumTimeline.png" />
+	<None Remove="Sprites\GnomesOverworld.png" />
+	<None Remove="Sprites\GnomesTimeline.png" />
 	<None Remove="Sprites\IconCometGaze.png" />
 	<None Remove="Sprites\IconShy.png" />
 	<None Remove="Sprites\IconConfrontational.png" />
 	<None Remove="Sprites\IconCopyThat.png" />
+	<None Remove="Sprites\IconStewSpecimensFreeWill.png" />
+	<None Remove="Sprites\IconHemochromia.png" />
 	<None Remove="Sprites\UnlockComedySimulacrumKillSelf.png" />
 	<None Remove="Sprites\UnlockComedySimulacrumKillSelfLocked.png" />
+	<None Remove="Sprites\AchievementComedySimulacrumKillSelf.png" />
 	<None Remove="Sprites\ItemHumanHeartAbility.png" />
+	<None Remove="Sprites\GnomeCharacterFront.png" />
+	<None Remove="Sprites\GnomeCharacterBack.png" />
+	<None Remove="Sprites\GnomeCharacterOverworld.png" />
+	<None Remove="Sprites\GnomeCharacterPurpleFront.png" />
+	<None Remove="Sprites\GnomeCharacterPurpleBack.png" />
+	<None Remove="Sprites\GnomeCharacterPurpleOverworld.png" />
+	<None Remove="Sprites\GnomeCharacterBlueFront.png" />
+	<None Remove="Sprites\GnomeCharacterBlueBack.png" />
+	<None Remove="Sprites\GnomeCharacterBlueOverworld.png" />
+	<None Remove="Sprites\GnomeCharacterGreenFront.png" />
+	<None Remove="Sprites\GnomeCharacterGreenBack.png" />
+	<None Remove="Sprites\GnomeCharacterGreenOverworld.png" />
   </ItemGroup>
   
   <ItemGroup>
@@ -65,13 +82,30 @@
 	<EmbeddedResource Include="Sprites\AsterismDead.png" />
 	<EmbeddedResource Include="Sprites\AsterismTimeline.png" />
 	<EmbeddedResource Include="Sprites\SimulacrumTimeline.png" />
+	<EmbeddedResource Include="Sprites\GnomesOverworld.png" />
+	<EmbeddedResource Include="Sprites\GnomesTimeline.png" />
 	<EmbeddedResource Include="Sprites\IconCometGaze.png" />
 	<EmbeddedResource Include="Sprites\IconShy.png" />
 	<EmbeddedResource Include="Sprites\IconConfrontational.png" />
 	<EmbeddedResource Include="Sprites\IconCopyThat.png" />
+	<EmbeddedResource Include="Sprites\IconStewSpecimensFreeWill.png" />
+	<EmbeddedResource Include="Sprites\IconHemochromia.png" />
 	<EmbeddedResource Include="Sprites\UnlockComedySimulacrumKillSelf.png" />
 	<EmbeddedResource Include="Sprites\UnlockComedySimulacrumKillSelfLocked.png" />
+	<EmbeddedResource Include="Sprites\AchievementComedySimulacrumKillSelf.png" />
 	<EmbeddedResource Include="Sprites\ItemHumanHeartAbility.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterFront.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterBack.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterOverworld.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterPurpleFront.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterPurpleBack.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterPurpleOverworld.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterBlueFront.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterBlueBack.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterBlueOverworld.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterGreenFront.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterGreenBack.png" />
+	<EmbeddedResource Include="Sprites\GnomeCharacterGreenOverworld.png" />
   </ItemGroup>
 
   <ItemGroup>

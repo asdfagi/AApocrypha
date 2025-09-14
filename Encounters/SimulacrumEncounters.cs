@@ -12,7 +12,7 @@ namespace A_Apocrypha.Encounters
             EnemyEncounter_API simulacrumMedium = new EnemyEncounter_API(0, "H_Zone03_Simulacrum_Medium_EnemyBundle", "Simulacrum_Sign")
             {
                 MusicEvent = "event:/AAMusic/Homunculus",
-                RoarEvent = "event:/AAEnemy/SandSifterRoar",
+                RoarEvent = "event:/AAEnemy/SimulacrumRoar",
             };
             simulacrumMedium.CreateNewEnemyEncounterData(
             [
@@ -35,7 +35,7 @@ namespace A_Apocrypha.Encounters
                 "InHerImage_EN",
             ], null);
             simulacrumMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_Simulacrum_Medium_EnemyBundle", 9999, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_Simulacrum_Medium_EnemyBundle", 10999, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Medium);
         }
     }
 }

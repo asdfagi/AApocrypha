@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace A_Apocrypha.Custom_Passives
 {
@@ -18,7 +19,7 @@ namespace A_Apocrypha.Custom_Passives
             PreviousEffectCondition PreviousFalse = ScriptableObject.CreateInstance<PreviousEffectCondition>();
             PreviousFalse.wasSuccessful = false;
 
-            // Evasive - Skittish, but only if there is an opposing unit.
+            // Shy - Skittish, but only if there is an opposing unit.
             PerformEffectPassiveAbility shy = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             shy.name = "Shy_PA";
             shy._passiveName = "Shy";
@@ -62,19 +63,101 @@ namespace A_Apocrypha.Custom_Passives
             DecayAbandonedAltar.effects = [Effects.GenerateEffect(SpawnAnomalyMiniboss, 1)];
             DecayAbandonedAltar._triggerOn = [TriggerCalls.OnDeath];*/
 
+            // Gnome - A passive with no proper effect, serves as both flavour and targetting assistant.
+            PerformEffectPassiveAbility gnomePassive = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            gnomePassive.name = "Gnome_PA";
+            gnomePassive._passiveName = "Gnome";
+            gnomePassive.m_PassiveID = "Gnome_PA";
+            gnomePassive.passiveIcon = ResourceLoader.LoadSprite("GnomesTimeline");
+            gnomePassive._characterDescription = "This party member is a gnome.";
+            gnomePassive._enemyDescription = "This enemy is one or more gnomes.";
+            gnomePassive._triggerOn = [TriggerCalls.TimelineEndReached];
+            gnomePassive.doesPassiveTriggerInformationPanel = false;
+            gnomePassive.effects =
+            [
+                Effects.GenerateEffect(ScriptableObject.CreateInstance<ExtraVariableForNextEffect>(), 1, Targeting.Slot_SelfSlot),
+            ];
+
+            // Free-Willed - A passive that works similarly to the Wheel of Fortune item - copied from Stew's Specimens
+            PerformRandomAbilityEffect performRandomAbilityEffect = ScriptableObject.CreateInstance<PerformRandomAbilityEffect>();
+
+            RefreshAbilityUseEffect refreshAbilityUseEffect = ScriptableObject.CreateInstance<RefreshAbilityUseEffect>();
+            refreshAbilityUseEffect._doesExhaustInstead = true;
+
+            PerformDoubleEffectPassiveAbility freeWillPassive = ScriptableObject.CreateInstance<PerformDoubleEffectPassiveAbility>();
+            freeWillPassive.name = "AA_FreeWilled_PA";
+            freeWillPassive._passiveName = "Free-Willed";
+            freeWillPassive.m_PassiveID = "AA_FreeWilled_PA";
+            freeWillPassive._characterDescription = "This party member acts of their own free will, but can still be manually moved.";
+            freeWillPassive._enemyDescription = "Enemies already have free will. What did you expect would happen?";
+            freeWillPassive._triggerOn = [TriggerCalls.OnTurnFinished];
+            freeWillPassive.effects =
+            [
+                Effects.GenerateEffect(performRandomAbilityEffect, 1, Targeting.Slot_SelfSlot, null),
+                Effects.GenerateEffect(refreshAbilityUseEffect, 1, Targeting.Slot_SelfSlot, null)
+            ];
+            freeWillPassive._secondTriggerOn = [TriggerCalls.OnTurnStart];
+            freeWillPassive._secondEffects =
+            [
+                Effects.GenerateEffect(refreshAbilityUseEffect, 1, Targeting.Slot_SelfSlot, null)
+            ];
+            freeWillPassive.passiveIcon = ResourceLoader.LoadSprite("IconStewSpecimensFreeWill", null, 32, null);
+
+            // Heterochromia - Essentially Four-Faced.
+            PerformEffectPassiveAbility colors = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            colors.name = "AA_Heterochromia_PA";
+            colors._passiveName = "Heterochromia";
+            colors.m_PassiveID = "AA_Heterochromia_PA";
+            colors.passiveIcon = ResourceLoader.LoadSprite("IconHemochromia");
+            colors._enemyDescription = "Upon receiving any kind of damage, randomize this enemy's health colour.";
+            colors._characterDescription = "Upon receiving any kind of damage, randomize this party member's health colour.";
+            ChangeToRandomHealthColorEffect randomize = ScriptableObject.CreateInstance<ChangeToRandomHealthColorEffect>();
+            randomize._healthColors = 
+            [
+                        Pigments.Blue,
+                        Pigments.Red,
+                        Pigments.Yellow,
+                        Pigments.Purple
+            ];
+            colors.effects =
+            [
+                        Effects.GenerateEffect(randomize, 1, Targeting.Slot_SelfSlot)
+            ];
+            colors._triggerOn = 
+            [
+                        TriggerCalls.OnDamaged
+            ];
+
             // Adding to pool
             Passives.AddCustomPassiveToPool("Shy_PA", "Shy", shy);
             Passives.AddCustomPassiveToPool("Confrontational_PA", "Confrontational", confrontational);
             //Passives.AddCustomPassiveToPool("DecayAbandonedAltar_PA", "Decay", DecayAbandonedAltar);
+            Passives.AddCustomPassiveToPool("Gnome_PA", "Gnome", gnomePassive);
+            Passives.AddCustomPassiveToPool("AA_FreeWilled_PA", "Free-Willed", freeWillPassive);
+            Passives.AddCustomPassiveToPool("AA_Heterochromia_PA", "Heterochromia", colors);
 
             // Glossary entries
             GlossaryPassives AAShyInfo = new GlossaryPassives("Shy", "Upon performing an ability, this party member/enemy will move to the left or right if there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconShy"));
             GlossaryPassives AAConfrontationalInfo = new GlossaryPassives("Confrontational", "Upon performing an ability, this party member/enemy will move to the left or right unless there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconConfrontational"));
             GlossaryPassives AACopyThatInfo = new GlossaryPassives("Copy That", "At the start of combat, select a set amount of random party members. Copy one passive and two abilities (excluding Slap) from each selected party member onto this enemy. Change this enemy's health color to a combination of all selected party members' health colors.", ResourceLoader.LoadSprite("IconCopyThat"));
-
+            GlossaryPassives AAGnomeInfo = new GlossaryPassives("Gnome", "This unit is one or more gnomes.", ResourceLoader.LoadSprite("GnomesTimeline"));
+            
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAShyInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAConfrontationalInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AACopyThatInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AAGnomeInfo);
+
+            if (/*!AApocrypha.CrossMod.StewSpecimens*/true) // turns out the original Free-Willed doesn't have a glossary entry, so this adds one regardless
+            {
+                GlossaryPassives AAFreeWillInfo = new GlossaryPassives("Free-Willed", "This party member acts of their own free will, but can still be manually moved.", ResourceLoader.LoadSprite("IconStewSpecimensFreeWill"));
+                LoadedDBsHandler.GlossaryDB.AddNewPassive(AAFreeWillInfo);
+            }
+
+            if (!AApocrypha.CrossMod.SaltEnemies)
+            {
+                GlossaryPassives AAHeterochromiaInfo = new GlossaryPassives("Heterochromia", "Upon receiving any kind of damage, randomize this unit's health colour.", ResourceLoader.LoadSprite("IconHemochromia"));
+                LoadedDBsHandler.GlossaryDB.AddNewPassive(AAHeterochromiaInfo);
+            }
         }
 
         // Copy That - The unhinged ability copying passive of the Simulacrum.
