@@ -160,14 +160,20 @@ namespace A_Apocrypha.Custom_Passives
             }
         }
 
-        // Copy That - The unhinged ability copying passive of the Simulacrum.
+        // Copy That - The unhinged ability copying passive of the Simulacrum. Also handles an achievement.
         private static readonly Dictionary<int, BasePassiveAbilitySO> GeneratedCopyThat = [];
 
         public static BasePassiveAbilitySO CopyThatGenerator(int amount)
         {
+            TryUnlockAchievementEffect SimulacrumAchievement = ScriptableObject.CreateInstance<TryUnlockAchievementEffect>();
+            SimulacrumAchievement._unlockID = "ComedySimulacrumKillSelf";
+
+            PreviousEffectCondition PreviousFalse = ScriptableObject.CreateInstance<PreviousEffectCondition>();
+            PreviousFalse.wasSuccessful = false;
+
             return GetOrCreatePassive(GeneratedCopyThat, amount, delegate (int x)
             {
-                PerformEffectPassiveAbility copythat = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                PerformDoubleEffectPassiveAbility copythat = ScriptableObject.CreateInstance<PerformDoubleEffectPassiveAbility>();
                 copythat.name = $"CopyThat_{x}_PA";
                 copythat.m_PassiveID = "CopyThat_PA";
                 copythat._passiveName = $"Copy That ({x})";
@@ -178,6 +184,13 @@ namespace A_Apocrypha.Custom_Passives
                 copythat.effects = [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CopyThatEffect>(), x, Targeting.Unit_AllOpponents),
                 ];
+                copythat._secondTriggerOn = [TriggerCalls.OnDeath];
+                copythat._secondEffects = [
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckIsPlayerTurnEffect>(), 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(SimulacrumAchievement, 1, Targeting.Slot_SelfSlot, PreviousFalse)
+                ];
+                copythat.doesPassiveTriggerInformationPanel = true;
+                copythat._secondDoesPerformPopUp = false;
                 return copythat;
             });
         }
