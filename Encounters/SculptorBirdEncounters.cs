@@ -34,6 +34,55 @@ namespace A_Apocrypha.Encounters
                     "Spoggle_Ruminating_EN",
                     "Jumbleguts_Clotted_EN",
                 ], null);
+            if (AApocrypha.CrossMod.GlitchsFreaks)
+            {
+                sculptorBirdMedium.CreateNewEnemyEncounterData(
+                    [
+                        "SculptorBird_EN",
+                        "SculptorBirdSculpture_EN",
+                        "Frostbite_EN",
+                        "Frostbite_EN",
+                    ], null);
+            };
+            if (AApocrypha.CrossMod.Colophons)
+            {
+                sculptorBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBird_EN",
+                    "SculptorBirdSculpture_EN",
+                    "ColophonDelighted_EN",
+                ], null);
+                sculptorBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBird_EN",
+                    "SculptorBirdSculpture_EN",
+                    "ColophonMaladjusted_EN",
+                ], null);
+                sculptorBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBird_EN",
+                    "SculptorBirdSculpture_EN",
+                    "ColophonDelighted_EN",
+                    "Scrungie_EN",
+                ], null);
+                sculptorBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBird_EN",
+                    "SculptorBirdSculpture_EN",
+                    "ColophonMaladjusted_EN",
+                    "Spoggle_Resonant_EN",
+                ], null);
+                if (AApocrypha.CrossMod.IntoTheAbyss)
+                {
+                    sculptorBirdMedium.CreateNewEnemyEncounterData(
+                    [
+                        "SculptorBird_EN",
+                        "SculptorBirdSculpture_EN",
+                        "ColophonDisaffected_EN",
+                        "Jumbleguts_Flummoxing_EN",
+                    ], null);
+                }
+            };
             sculptorBirdMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_SculptorBird_Medium_EnemyBundle", 10, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }

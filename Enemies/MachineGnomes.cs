@@ -9,6 +9,11 @@ namespace A_Apocrypha.Enemies
     {
         public static void Add()
         {
+            GainLootOneOfCustomCharactersEffect GnomeReward = ScriptableObject.CreateInstance<GainLootOneOfCustomCharactersEffect>();
+            GnomeReward._characterCopies = ["Gnome_CH", "GnomePurple_CH", "GnomeBlue_CH", "GnomeGreen_CH"];
+            GnomeReward._rank = 0;
+            GnomeReward._nameAddition = new NameAdditionLocID();
+
             Enemy gnomes = new Enemy("Machine Gnomes", "MachineGnomes_EN")
             {
                 Health = 50,
@@ -19,6 +24,10 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("GnomesOverworld", new Vector2(0.5f, 0f), 32),
                 DamageSound = "event:/AAEnemy/GnomesHurt",
                 DeathSound = "event:/AAEnemy/GnomesDeath",
+                CombatExitEffects = 
+                [
+                    Effects.GenerateEffect(GnomeReward, 1, Targeting.Slot_SelfSlot),    
+                ]
             };
             gnomes.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Gnomes_Enemy/Gnomes_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Gnomes_Enemy/Gnomes_Giblets.prefab").GetComponent<ParticleSystem>());
 
@@ -27,6 +36,7 @@ namespace A_Apocrypha.Enemies
 
             SpawnEnemyAnywhereWithHealthByPreviousEffect GnomeSpawn = ScriptableObject.CreateInstance<SpawnEnemyAnywhereWithHealthByPreviousEffect>();
             GnomeSpawn.enemy = gnomes.enemy;
+            GnomeSpawn._spawnTypeID = CombatType_GameIDs.Spawn_Basic.ToString();
 
             SpecificUnitsByPassiveTargeting AllGnomes = ScriptableObject.CreateInstance<SpecificUnitsByPassiveTargeting>();
             AllGnomes._passive = Passives.GetCustomPassive("Gnome_PA");
@@ -117,7 +127,7 @@ namespace A_Apocrypha.Enemies
                 playwiththem.GenerateEnemyAbility(true),
             ]);
 
-            gnomes.AddEnemy(false, false, false);
+            gnomes.AddEnemy(true, true, true);
         }
     }
 }

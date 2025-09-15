@@ -34,6 +34,50 @@ namespace A_Apocrypha.Encounters
                     "SandSifter_EN",
                     "Keko_EN",
                 ], null);
+            sandSifterEasy.CreateNewEnemyEncounterData(
+                [
+                    "SandSifter_EN",
+                    "Keko_EN",
+                    "Keko_EN",
+                ], null);
+            if (AApocrypha.CrossMod.HellIslandFell)
+            {
+                sandSifterEasy.CreateNewEnemyEncounterData(
+                [
+                    "SandSifter_EN",
+                    "Draugr_EN",
+                ], null);
+                sandSifterEasy.CreateNewEnemyEncounterData(
+                [
+                    "SandSifter_EN",
+                    "Mung_EN",
+                    "Keklung_EN",
+                ], null);
+            }
+            if (AApocrypha.CrossMod.SaltEnemies)
+            {
+                sandSifterEasy.CreateNewEnemyEncounterData(
+                [
+                    "SandSifter_EN",
+                    "Minana_EN",
+                    "Mung_EN",
+                ], null);
+                sandSifterEasy.CreateNewEnemyEncounterData(
+                [
+                    "SandSifter_EN",
+                    "Mung_EN",
+                    "LittleBeak_EN",
+                ], null);
+            }
+            if (AApocrypha.CrossMod.StewSpecimens)
+            {
+                sandSifterEasy.CreateNewEnemyEncounterData(
+                [
+                    "SandSifter_EN",
+                    "Scylla_EN",
+                    "Mung_EN",
+                ], null);
+            }
             sandSifterEasy.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_SandSifter_Easy_EnemyBundle", 8, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Easy);
         }

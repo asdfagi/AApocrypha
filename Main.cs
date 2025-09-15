@@ -103,7 +103,7 @@ namespace A_Apocrypha
             MachineGnomes.Add();
 
             //Encounters
-            TestEncounters.Add();
+            //TestEncounters.Add();
             MaceratorEncounters.Add();
             AcolyteFarShoreEncounters.Add();
             AsterismEncounters.Add();
@@ -114,6 +114,7 @@ namespace A_Apocrypha
             SculptorBirdEncounters.Add();
             //AnomalyMinibossEncounters.Add();
             SimulacrumEncounters.Add();
+            MachineGnomesEncounters.Add();
 
             Logger.LogInfo("Asdfagi's Abominable Apocrypha activated.");
         }

@@ -69,6 +69,36 @@ namespace A_Apocrypha.Encounters
                     "UnboundAnomaly_EN",
                     "UnboundAnomaly_EN",
                 ], null);
+            anomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "UnboundAnomaly_EN",
+                    "UnboundAnomaly_EN",
+                    "Spoggle_Resonant_EN",
+                ], null);
+            if (AApocrypha.CrossMod.Colophons)
+            {
+                anomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "UnboundAnomaly_EN",
+                    "UnboundAnomaly_EN",
+                    "ColophonDelighted_EN",
+                ], null);
+                anomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "UnboundAnomaly_EN",
+                    "UnboundAnomaly_EN",
+                    "ColophonMaladjusted_EN",
+                ], null);
+                if (AApocrypha.CrossMod.IntoTheAbyss)
+                {
+                    anomalyMedium.CreateNewEnemyEncounterData(
+                    [
+                        "UnboundAnomaly_EN",
+                        "UnboundAnomaly_EN",
+                        "ColophonDisaffected_EN",
+                    ], null);
+                }
+            }
             anomalyMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_UnboundAnomaly_Medium_EnemyBundle", 4, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }

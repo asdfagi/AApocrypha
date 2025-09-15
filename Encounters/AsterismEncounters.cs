@@ -38,6 +38,18 @@ namespace A_Apocrypha.Encounters
                     "Asterism_EN",
                     "Asterism_EN",
                 ], null);
+            asterismMedium.CreateNewEnemyEncounterData(
+                [
+                    "Asterism_EN",
+                    "Acolyte_EN",
+                ], null);
+            asterismMedium.CreateNewEnemyEncounterData(
+                [
+                    "Asterism_EN",
+                    "SandSifter_EN",
+                    "MudLung_EN",
+                    "Mung_EN",
+                ], null);
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
                 asterismMedium.CreateNewEnemyEncounterData(
@@ -57,6 +69,7 @@ namespace A_Apocrypha.Encounters
                 [
                     "Asterism_EN",
                     "Minana_EN",
+                    "Minana_EN",
                 ], null);
                 asterismMedium.CreateNewEnemyEncounterData(
                 [
@@ -69,8 +82,85 @@ namespace A_Apocrypha.Encounters
                     "Wall_EN",
                 ], null);
             }
+            if (AApocrypha.CrossMod.Colophons)
+            {
+                asterismMedium.CreateNewEnemyEncounterData(
+                [
+                    "Asterism_EN",
+                    "Mung_EN",
+                    "ColophonDefeated_EN",
+                ], null);
+                asterismMedium.CreateNewEnemyEncounterData(
+                [
+                    "Asterism_EN",
+                    "Mung_EN",
+                    "ColophonComposed_EN",
+                ], null);
+            }
+            if (AApocrypha.CrossMod.StewSpecimens)
+            {
+                asterismMedium.CreateNewEnemyEncounterData(
+                [
+                    "Asterism_EN",
+                    "Scylla_EN",
+                    "Mung_EN",
+                ], null);
+            }
+            if (AApocrypha.CrossMod.IntoTheAbyss)
+            {
+                asterismMedium.CreateNewEnemyEncounterData(
+                [
+                    "Asterism_EN",
+                    "Goomba_EN",
+                ], null);
+                asterismMedium.CreateNewEnemyEncounterData(
+                [
+                    "Asterism_EN",
+                    "MycotoxicSpoggle_EN",
+                    "Acolyte_EN",
+                ], null);
+            }
             asterismMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Asterism_Medium_EnemyBundle", 8, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);
+
+            EnemyEncounter_API asterismHard = new EnemyEncounter_API(0, "H_Zone01_Asterism_Hard_EnemyBundle", "Asterism_Sign")
+            {
+                MusicEvent = "event:/AAMusic/BeautifulButWrong",
+                RoarEvent = "event:/Characters/Enemies/Spoggle_Purple/CHR_ENM_Spoggle_Purple_Roar",
+            };
+            asterismHard.CreateNewEnemyEncounterData(
+            [
+                "Asterism_EN",
+                "Asterism_EN",
+                "Asterism_EN",
+                "Asterism_EN",
+            ], null);
+            asterismHard.CreateNewEnemyEncounterData(
+            [
+                "Asterism_EN",
+                "Asterism_EN",
+                "Asterism_EN",
+                "Spoggle_Ruminating_EN",
+            ], null);
+            if (AApocrypha.CrossMod.IntoTheAbyss)
+            {
+                asterismHard.CreateNewEnemyEncounterData(
+                [
+                    "Asterism_EN",
+                    "Follower_EN",
+                    "Asterism_EN",
+                ], null);
+                asterismHard.CreateNewEnemyEncounterData(
+                [
+                    "Asterism_EN",
+                    "Asterism_EN",
+                    "Asterism_EN",
+                    "MycotoxicSpoggle_EN",
+                ], null);
+            }
+            ;
+            asterismHard.AddEncounterToDataBases();
+            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Asterism_Hard_EnemyBundle", 6, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
         }
     }
 }

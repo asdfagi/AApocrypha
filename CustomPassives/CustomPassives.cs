@@ -23,7 +23,7 @@ namespace A_Apocrypha.Custom_Passives
             PerformEffectPassiveAbility shy = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             shy.name = "Shy_PA";
             shy._passiveName = "Shy";
-            shy.m_PassiveID = "Shy_PA";
+            shy.m_PassiveID = "Shy";
             shy.passiveIcon = ResourceLoader.LoadSprite("IconShy");
             shy._characterDescription = "Upon performing an ability, this party member will move to the left or right if there is an enemy opposing them.";
             shy._enemyDescription = "Upon performing an ability, this enemy will move to the left or right if there is a party member opposing them.";
@@ -38,7 +38,7 @@ namespace A_Apocrypha.Custom_Passives
             PerformEffectPassiveAbility confrontational = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             confrontational.name = "Confrontational_PA";
             confrontational._passiveName = "Confrontational";
-            confrontational.m_PassiveID = "Confrontational_PA";
+            confrontational.m_PassiveID = "Confrontational";
             confrontational.passiveIcon = ResourceLoader.LoadSprite("IconConfrontational");
             confrontational._characterDescription = "Upon performing an ability, this party member will move to the left or right unless there is an enemy opposing them.";
             confrontational._enemyDescription = "Upon performing an ability, this enemy will move to the left or right unless there is a party member opposing them.";
@@ -67,7 +67,7 @@ namespace A_Apocrypha.Custom_Passives
             PerformEffectPassiveAbility gnomePassive = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             gnomePassive.name = "Gnome_PA";
             gnomePassive._passiveName = "Gnome";
-            gnomePassive.m_PassiveID = "Gnome_PA";
+            gnomePassive.m_PassiveID = "Gnome";
             gnomePassive.passiveIcon = ResourceLoader.LoadSprite("GnomesTimeline");
             gnomePassive._characterDescription = "This party member is a gnome.";
             gnomePassive._enemyDescription = "This enemy is one or more gnomes.";
@@ -87,7 +87,7 @@ namespace A_Apocrypha.Custom_Passives
             PerformDoubleEffectPassiveAbility freeWillPassive = ScriptableObject.CreateInstance<PerformDoubleEffectPassiveAbility>();
             freeWillPassive.name = "AA_FreeWilled_PA";
             freeWillPassive._passiveName = "Free-Willed";
-            freeWillPassive.m_PassiveID = "AA_FreeWilled_PA";
+            freeWillPassive.m_PassiveID = "FreeWilled";
             freeWillPassive._characterDescription = "This party member acts of their own free will, but can still be manually moved.";
             freeWillPassive._enemyDescription = "Enemies already have free will. What did you expect would happen?";
             freeWillPassive._triggerOn = [TriggerCalls.OnTurnFinished];
@@ -107,7 +107,7 @@ namespace A_Apocrypha.Custom_Passives
             PerformEffectPassiveAbility colors = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             colors.name = "AA_Heterochromia_PA";
             colors._passiveName = "Heterochromia";
-            colors.m_PassiveID = "AA_Heterochromia_PA";
+            colors.m_PassiveID = "Heterochromia";
             colors.passiveIcon = ResourceLoader.LoadSprite("IconHemochromia");
             colors._enemyDescription = "Upon receiving any kind of damage, randomize this enemy's health colour.";
             colors._characterDescription = "Upon receiving any kind of damage, randomize this party member's health colour.";
@@ -147,7 +147,7 @@ namespace A_Apocrypha.Custom_Passives
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AACopyThatInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAGnomeInfo);
 
-            if (/*!AApocrypha.CrossMod.StewSpecimens*/true) // turns out the original Free-Willed doesn't have a glossary entry, so this adds one regardless
+            if (!AApocrypha.CrossMod.StewSpecimens)
             {
                 GlossaryPassives AAFreeWillInfo = new GlossaryPassives("Free-Willed", "This party member acts of their own free will, but can still be manually moved.", ResourceLoader.LoadSprite("IconStewSpecimensFreeWill"));
                 LoadedDBsHandler.GlossaryDB.AddNewPassive(AAFreeWillInfo);

@@ -74,6 +74,13 @@ namespace A_Apocrypha.Encounters
                     "BackupDancer_EN",
                     "MusicMan_EN",
                 ], null);
+                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "SharpenedAnomaly_EN",
+                    "EncasedAnomaly_EN",
+                    "BipedalFrostbite_EN",
+                    "Frostbite_EN",
+                ], null);
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
@@ -90,6 +97,18 @@ namespace A_Apocrypha.Encounters
                     "Enigma_EN",
                     "MusicMan_EN",
                     "MusicMan_EN",
+                ], null);
+                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "SharpenedAnomaly_EN",
+                    "RedBot_EN",
+                    "MusicMan_EN",
+                ], null);
+                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "SharpenedAnomaly_EN",
+                    "YellowBot_EN",
+                    "Scrungie_EN",
                 ], null);
             }
             sharpenedAnomalyMedium.AddEncounterToDataBases();

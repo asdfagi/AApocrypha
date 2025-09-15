@@ -19,7 +19,7 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("SculptorBirdTimeline", new Vector2(0.5f, 0f), 32),
                 DamageSound = LoadedAssetsHandler.GetEnemy("Scrungie_EN").damageSound,
                 DeathSound = LoadedAssetsHandler.GetEnemy("Scrungie_EN").deathSound,
-                UnitTypes = ["BirdID"],
+                UnitTypes = ["Bird"],
                 AbilitySelector = ScriptableObject.CreateInstance<AbilitySelector_SculptorBird>(),
             };
             sculptorbird.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/SculptorBird_Enemy/SculptorBird_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/SculptorBird_Enemy/SculptorBird_Giblets.prefab").GetComponent<ParticleSystem>());
@@ -82,43 +82,45 @@ namespace A_Apocrypha.Enemies
 
             Ability shellscraper = new Ability("Shell Scraper", "AApocrypha_ShellScraper_A")
             {
-                Description = "Move this enemy to the Left.\nRemove all Shield from the Opposing position. If no Shield was removed, deal a Painful amount of damage to the Opposing party member, then apply 2 Frail to them.",
+                Description = "Remove all Shield from the Left position. If no Shield was removed, deal a Painful amount of damage to the Left party member, then apply 2 Frail to them.\nMove this enemy to the Left.",
                 Cost = [Pigments.Blue, Pigments.Red],
                 Visuals = Visuals.Talons,
-                AnimationTarget = Targeting.Slot_Front,
+                AnimationTarget = Targeting.Slot_OpponentLeft,
                 Effects =
                 [
+                    Effects.GenerateEffect(RemoveShield, 1, Targeting.Slot_OpponentLeft),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_OpponentLeft, PreviousFalse),
+                    Effects.GenerateEffect(FrailApply, 2, Targeting.Slot_OpponentLeft, Previous2False),
                     Effects.GenerateEffect(SwapLeft, 1, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(RemoveShield, 1, Targeting.Slot_Front),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_Front, PreviousFalse),
-                    Effects.GenerateEffect(FrailApply, 2, Targeting.Slot_Front, Previous2False),
                 ],
                 Rarity = Rarity.VeryRare,
                 Priority = Priority.Normal,
             };
-            shellscraper.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Rem_Field_Shield)]);
-            shellscraper.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_3_6)]);
-            shellscraper.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Status_Frail)]);
+            shellscraper.AddIntentsToTarget(Targeting.Slot_OpponentLeft, [nameof(IntentType_GameIDs.Rem_Field_Shield)]);
+            shellscraper.AddIntentsToTarget(Targeting.Slot_OpponentLeft, [nameof(IntentType_GameIDs.Damage_3_6)]);
+            shellscraper.AddIntentsToTarget(Targeting.Slot_OpponentLeft, [nameof(IntentType_GameIDs.Status_Frail)]);
+            shellscraper.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
 
             Ability skinscraper = new Ability("Skin Scraper", "AApocrypha_SkinScraper_A")
             {
-                Description = "Move this enemy to the Right.\nRemove all Shield from the Opposing position. If no Shield was removed, deal a Painful amount of damage to the Opposing party member, then apply 2 Frail to them.",
+                Description = "Remove all Shield from the Right position. If no Shield was removed, deal a Painful amount of damage to the Right party member, then apply 2 Frail to them.\nMove this enemy to the Right.",
                 Cost = [Pigments.Blue, Pigments.Red],
                 Visuals = Visuals.Talons,
-                AnimationTarget = Targeting.Slot_Front,
+                AnimationTarget = Targeting.Slot_OpponentRight,
                 Effects =
                 [
+                    Effects.GenerateEffect(RemoveShield, 1, Targeting.Slot_OpponentRight),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_OpponentRight, PreviousFalse),
+                    Effects.GenerateEffect(FrailApply, 2, Targeting.Slot_OpponentRight, Previous2False),
                     Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(RemoveShield, 1, Targeting.Slot_Front),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_Front, PreviousFalse),
-                    Effects.GenerateEffect(FrailApply, 2, Targeting.Slot_Front, Previous2False),
                 ],
                 Rarity = Rarity.VeryRare,
                 Priority = Priority.Normal,
             };
-            skinscraper.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Rem_Field_Shield)]);
-            skinscraper.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_3_6)]);
-            skinscraper.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Status_Frail)]);
+            skinscraper.AddIntentsToTarget(Targeting.Slot_OpponentRight, [nameof(IntentType_GameIDs.Rem_Field_Shield)]);
+            skinscraper.AddIntentsToTarget(Targeting.Slot_OpponentRight, [nameof(IntentType_GameIDs.Damage_3_6)]);
+            skinscraper.AddIntentsToTarget(Targeting.Slot_OpponentRight, [nameof(IntentType_GameIDs.Status_Frail)]);
+            skinscraper.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
 
             Ability marrowscraper = new Ability("Marrow Scraper", "AApocrypha_MarrowScraper_A")
             {

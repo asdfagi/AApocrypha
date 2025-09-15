@@ -124,12 +124,12 @@ namespace A_Apocrypha.Encounters
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
-                acolyteEasy.CreateNewEnemyEncounterData(
+                acolyteMedium.CreateNewEnemyEncounterData(
                 [
                     "Acolyte_EN",
                     "Chiito_EN",
                 ], null);
-                acolyteEasy.CreateNewEnemyEncounterData(
+                acolyteMedium.CreateNewEnemyEncounterData(
                 [
                     "Acolyte_EN",
                     "Arceles_EN",
