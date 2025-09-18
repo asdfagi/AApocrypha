@@ -8,7 +8,7 @@ namespace A_Apocrypha.Encounters
     {
         public static void Add()
         {
-            Portals.AddPortalSign("MachineGnomes_Sign", ResourceLoader.LoadSprite("MachineGnomesTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
+            Portals.AddPortalSign("MachineGnomes_Sign", ResourceLoader.LoadSprite("GnomesTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API gnomesMedium = new EnemyEncounter_API(0, "H_Zone03_MachineGnomes_Medium_EnemyBundle", "MachineGnomes_Sign")
             {
                 MusicEvent = "event:/AAMusic/DoYouHearGnomes",

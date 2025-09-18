@@ -34,6 +34,13 @@ namespace A_Apocrypha.Encounters
                     "Spoggle_Ruminating_EN",
                     "Jumbleguts_Clotted_EN",
                 ], null);
+            sculptorBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBird_EN",
+                    "SculptorBirdSculpture_EN",
+                    "DevotedSpoggle_EN",
+                    "Jumbleguts_Waning_EN",
+                ], null);
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
                 sculptorBirdMedium.CreateNewEnemyEncounterData(
@@ -84,7 +91,7 @@ namespace A_Apocrypha.Encounters
                 }
             };
             sculptorBirdMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_SculptorBird_Medium_EnemyBundle", 10, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_SculptorBird_Medium_EnemyBundle", 18, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }
     }
 }

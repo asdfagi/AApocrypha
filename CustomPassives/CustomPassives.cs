@@ -68,7 +68,7 @@ namespace A_Apocrypha.Custom_Passives
             gnomePassive.name = "Gnome_PA";
             gnomePassive._passiveName = "Gnome";
             gnomePassive.m_PassiveID = "Gnome";
-            gnomePassive.passiveIcon = ResourceLoader.LoadSprite("GnomesTimeline");
+            gnomePassive.passiveIcon = ResourceLoader.LoadSprite("IconGnome");
             gnomePassive._characterDescription = "This party member is a gnome.";
             gnomePassive._enemyDescription = "This enemy is one or more gnomes.";
             gnomePassive._triggerOn = [TriggerCalls.TimelineEndReached];
@@ -103,7 +103,7 @@ namespace A_Apocrypha.Custom_Passives
             ];
             freeWillPassive.passiveIcon = ResourceLoader.LoadSprite("IconStewSpecimensFreeWill", null, 32, null);
 
-            // Heterochromia - Essentially Four-Faced.
+            // Heterochromia - Essentially Four-Faced but with any damage.
             PerformEffectPassiveAbility colors = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             colors.name = "AA_Heterochromia_PA";
             colors._passiveName = "Heterochromia";
@@ -128,6 +128,16 @@ namespace A_Apocrypha.Custom_Passives
                         TriggerCalls.OnDamaged
             ];
 
+            // Torn Apart - Gutted Restrictor.
+            StatusEffectPassiveAbility tornApart = ScriptableObject.CreateInstance<StatusEffectPassiveAbility>();
+            tornApart.name = "AA_TornApart_PA";
+            tornApart._passiveName = "Torn Apart";
+            tornApart.m_PassiveID = "TornApart";
+            tornApart.passiveIcon = StatusField.Gutted._EffectInfo.icon;
+            tornApart._enemyDescription = "This enemy is permanently Gutted.";
+            tornApart._characterDescription = "This party member is permanently Gutted.";
+            tornApart._Status = StatusField.Gutted;
+
             // Adding to pool
             Passives.AddCustomPassiveToPool("Shy_PA", "Shy", shy);
             Passives.AddCustomPassiveToPool("Confrontational_PA", "Confrontational", confrontational);
@@ -135,12 +145,13 @@ namespace A_Apocrypha.Custom_Passives
             Passives.AddCustomPassiveToPool("Gnome_PA", "Gnome", gnomePassive);
             Passives.AddCustomPassiveToPool("AA_FreeWilled_PA", "Free-Willed", freeWillPassive);
             Passives.AddCustomPassiveToPool("AA_Heterochromia_PA", "Heterochromia", colors);
+            Passives.AddCustomPassiveToPool("AA_TornApart_PA", "Torn Apart", tornApart);
 
             // Glossary entries
             GlossaryPassives AAShyInfo = new GlossaryPassives("Shy", "Upon performing an ability, this party member/enemy will move to the left or right if there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconShy"));
             GlossaryPassives AAConfrontationalInfo = new GlossaryPassives("Confrontational", "Upon performing an ability, this party member/enemy will move to the left or right unless there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconConfrontational"));
             GlossaryPassives AACopyThatInfo = new GlossaryPassives("Copy That", "At the start of combat, select a set amount of random party members. Copy one passive and two abilities (excluding Slap) from each selected party member onto this enemy. Change this enemy's health color to a combination of all selected party members' health colors.", ResourceLoader.LoadSprite("IconCopyThat"));
-            GlossaryPassives AAGnomeInfo = new GlossaryPassives("Gnome", "This unit is one or more gnomes.", ResourceLoader.LoadSprite("GnomesTimeline"));
+            GlossaryPassives AAGnomeInfo = new GlossaryPassives("Gnome", "This unit is one or more gnomes.", ResourceLoader.LoadSprite("IconGnome"));
             
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAShyInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAConfrontationalInfo);

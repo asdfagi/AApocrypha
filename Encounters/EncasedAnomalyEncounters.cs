@@ -60,6 +60,12 @@ namespace A_Apocrypha.Encounters
                     "Spoggle_Ruminating_EN",
                     "ColophonMaladjusted_EN",
                 ], null);
+                encasedAnomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "EncasedAnomaly_EN",
+                    "CellularSpoggle_EN",
+                    "ColophonMaladjusted_EN",
+                ], null);
                 if (AApocrypha.CrossMod.IntoTheAbyss)
                 {
                     encasedAnomalyMedium.CreateNewEnemyEncounterData(
@@ -82,13 +88,19 @@ namespace A_Apocrypha.Encounters
                 [
                     "EncasedAnomaly_EN",
                     "Spoggle_Resonant_EN",
-                    "AffluentJumbleGuts_EN",
+                    "Follower_EN",
+                ], null);
+                encasedAnomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "EncasedAnomaly_EN",
+                    "DevotedSpoggle_EN",
+                    "Follower_EN",
                 ], null);
                 encasedAnomalyMedium.CreateNewEnemyEncounterData(
                 [
                     "EncasedAnomaly_EN",
                     "Fanatic_EN",
-                    "AffluentJumbleGuts_EN",
+                    "Follower_EN",
                 ], null);
             }
             if (AApocrypha.CrossMod.GlitchsFreaks)
@@ -143,7 +155,7 @@ namespace A_Apocrypha.Encounters
                 ], null);
             }
             encasedAnomalyMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_EncasedAnomaly_Medium_EnemyBundle", 10, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_EncasedAnomaly_Medium_EnemyBundle", 15, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }
     }
 }

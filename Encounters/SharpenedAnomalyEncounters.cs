@@ -35,6 +35,18 @@ namespace A_Apocrypha.Encounters
             sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
                 [
                     "SharpenedAnomaly_EN",
+                    "DevotedSpoggle_EN",
+                    "Jumbleguts_Clotted_EN",
+                ], null);
+            sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "SharpenedAnomaly_EN",
+                    "CellularSpoggle_EN",
+                    "Jumbleguts_Waning_EN",
+                ], null);
+            sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "SharpenedAnomaly_EN",
                     "SilverSuckle_EN",
                     "SilverSuckle_EN",
                     "SilverSuckle_EN",
@@ -59,6 +71,15 @@ namespace A_Apocrypha.Encounters
                     "ColophonDelighted_EN",
                     "SingingStone_EN",
                 ], null);
+                if (AApocrypha.CrossMod.IntoTheAbyss)
+                {
+                    sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
+                    [
+                        "SharpenedAnomaly_EN",
+                        "ColophonDisaffected_EN",
+                        "CellularSpoggle_EN",
+                    ], null);
+                }
             }
             if (AApocrypha.CrossMod.GlitchsFreaks) 
             {
@@ -112,7 +133,7 @@ namespace A_Apocrypha.Encounters
                 ], null);
             }
             sharpenedAnomalyMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_SharpenedAnomaly_Medium_EnemyBundle", 10, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_SharpenedAnomaly_Medium_EnemyBundle", 15, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }
     }
 }

@@ -121,7 +121,7 @@ namespace A_Apocrypha.Encounters
                 ], null);
             }
             asterismMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Asterism_Medium_EnemyBundle", 8, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Asterism_Medium_EnemyBundle", 12, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);
 
             EnemyEncounter_API asterismHard = new EnemyEncounter_API(0, "H_Zone01_Asterism_Hard_EnemyBundle", "Asterism_Sign")
             {
@@ -160,7 +160,7 @@ namespace A_Apocrypha.Encounters
             }
             ;
             asterismHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Asterism_Hard_EnemyBundle", 6, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
+            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Asterism_Hard_EnemyBundle", 18, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
         }
     }
 }

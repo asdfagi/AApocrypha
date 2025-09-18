@@ -136,7 +136,7 @@ namespace A_Apocrypha.Encounters
                 ], null);
             }
             acolyteMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Acolyte_Medium_EnemyBundle", 10, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium); //default: 10
+            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Acolyte_Medium_EnemyBundle", 20, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium); //default: 10
         }
     }
 }

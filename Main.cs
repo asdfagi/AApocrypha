@@ -101,6 +101,7 @@ namespace A_Apocrypha
             //AnomalyMiniboss.Add();
             Simulacrum.Add();
             MachineGnomes.Add();
+            CustomSpoggles.Add();
 
             //Encounters
             //TestEncounters.Add();
@@ -112,6 +113,8 @@ namespace A_Apocrypha
             EncasedAnomalyEncounters.Add();
             SharpenedAnomalyEncounters.Add();
             SculptorBirdEncounters.Add();
+            CellularSpoggleEncounters.Add();
+            DevotedSpoggleEncounters.Add();
             //AnomalyMinibossEncounters.Add();
             SimulacrumEncounters.Add();
             MachineGnomesEncounters.Add();

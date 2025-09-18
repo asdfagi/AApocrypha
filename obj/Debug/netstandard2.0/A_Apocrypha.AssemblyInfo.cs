@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("A_Apocrypha")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3651a7d73359a7438d219bc74c125b7bf9dd9a07")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04a21493e08dadbfd74883cd98676810fab4ccc7")]
 [assembly: System.Reflection.AssemblyProductAttribute("A_Apocrypha")]
 [assembly: System.Reflection.AssemblyTitleAttribute("A_Apocrypha")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
