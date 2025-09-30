@@ -15,6 +15,7 @@ namespace A_Apocrypha.Fools
             string gnomeDamageSound = "event:/AAEnemy/GnomesHurt";
             string gnomeDeathSound = "event:/AAEnemy/GnomesDeath";
             string gnomeTalkSound = "event:/AAEnemy/GnomesRoar";
+            List<string> gnomeTypes = ["Sandwich_Silly"];
             BasePassiveAbilitySO[] gnomePassives = [Passives.Slippery, Passives.GetCustomPassive("Gnome_PA"), Passives.GetCustomPassive("AA_FreeWilled_PA"), Passives.Withering];
 
             SpecificUnitsByPassiveTargeting AllGnomes = ScriptableObject.CreateInstance<SpecificUnitsByPassiveTargeting>();
@@ -141,6 +142,7 @@ namespace A_Apocrypha.Fools
                 DamageSound = gnomeDamageSound,
                 DeathSound = gnomeDeathSound,
                 DialogueSound = gnomeTalkSound,
+                UnitTypes = gnomeTypes,
             };
             gnomeCharacter.AddPassives(gnomePassives);
 
@@ -159,6 +161,7 @@ namespace A_Apocrypha.Fools
                 DamageSound = gnomeDamageSound,
                 DeathSound = gnomeDeathSound,
                 DialogueSound = gnomeTalkSound,
+                UnitTypes = gnomeTypes,
             };
             gnomeCharacterPurple.AddPassives(gnomePassives);
 
@@ -177,6 +180,7 @@ namespace A_Apocrypha.Fools
                 DamageSound = gnomeDamageSound,
                 DeathSound = gnomeDeathSound,
                 DialogueSound = gnomeTalkSound,
+                UnitTypes = gnomeTypes,
             };
             gnomeCharacterBlue.AddPassives(gnomePassives);
 
@@ -195,6 +199,7 @@ namespace A_Apocrypha.Fools
                 DamageSound = gnomeDamageSound,
                 DeathSound = gnomeDeathSound,
                 DialogueSound = gnomeTalkSound,
+                UnitTypes = gnomeTypes,
             };
             gnomeCharacterGreen.AddPassives(gnomePassives);
 

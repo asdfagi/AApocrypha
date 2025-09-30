@@ -37,6 +37,10 @@
 	<None Remove="Sprites\DevotedSpoggleTimeline.png" />
 	<None Remove="Sprites\CellularSpoggleDead.png" />
 	<None Remove="Sprites\CellularSpoggleTimeline.png" />
+	<None Remove="Sprites\RiftTimeline.png" />
+	<None Remove="Sprites\RiftTimelineOutlined.png" />
+	<None Remove="Sprites\TearDrinkerDead.png" />
+	<None Remove="Sprites\TearDrinkerTimeline.png" />
 	<None Remove="Sprites\IconCometGaze.png" />
 	<None Remove="Sprites\IconShy.png" />
 	<None Remove="Sprites\IconConfrontational.png" />
@@ -44,6 +48,10 @@
 	<None Remove="Sprites\IconStewSpecimensFreeWill.png" />
 	<None Remove="Sprites\IconHemochromia.png" />
 	<None Remove="Sprites\IconGnome.png" />
+	<None Remove="Sprites\IconJumpy.png" />
+	<None Remove="Sprites\IconOmnichromia.png" />
+	<None Remove="Sprites\IconColoIntent.png" />
+	<None Remove="Sprites\IconGouged.png" />
 	<None Remove="Sprites\UnlockComedySimulacrumKillSelf.png" />
 	<None Remove="Sprites\UnlockComedySimulacrumKillSelfLocked.png" />
 	<None Remove="Sprites\AchievementComedySimulacrumKillSelf.png" />
@@ -93,6 +101,10 @@
 	<EmbeddedResource Include="Sprites\DevotedSpoggleTimeline.png" />
 	<EmbeddedResource Include="Sprites\CellularSpoggleDead.png" />
 	<EmbeddedResource Include="Sprites\CellularSpoggleTimeline.png" />
+	<EmbeddedResource Include="Sprites\RiftTimeline.png" />
+	<EmbeddedResource Include="Sprites\RiftTimelineOutlined.png" />
+	<EmbeddedResource Include="Sprites\TearDrinkerDead.png" />
+	<EmbeddedResource Include="Sprites\TearDrinkerTimeline.png" />
 	<EmbeddedResource Include="Sprites\IconCometGaze.png" />
 	<EmbeddedResource Include="Sprites\IconShy.png" />
 	<EmbeddedResource Include="Sprites\IconConfrontational.png" />
@@ -100,6 +112,10 @@
 	<EmbeddedResource Include="Sprites\IconStewSpecimensFreeWill.png" />
 	<EmbeddedResource Include="Sprites\IconHemochromia.png" />
 	<EmbeddedResource Include="Sprites\IconGnome.png" />
+	<EmbeddedResource Include="Sprites\IconJumpy.png" />
+	<EmbeddedResource Include="Sprites\IconOmnichromia.png" />
+	<EmbeddedResource Include="Sprites\IconColoIntent.png" />
+	<EmbeddedResource Include="Sprites\IconGouged.png" />
 	<EmbeddedResource Include="Sprites\UnlockComedySimulacrumKillSelf.png" />
 	<EmbeddedResource Include="Sprites\UnlockComedySimulacrumKillSelfLocked.png" />
 	<EmbeddedResource Include="Sprites\AchievementComedySimulacrumKillSelf.png" />
@@ -139,6 +155,9 @@
     </Reference>
     <Reference Include="HarmonyXInterop">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Brutal Orchestra\BepInEx\core\HarmonyXInterop.dll</HintPath>
+    </Reference>
+    <Reference Include="Marosi.SerializableCollections">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Brutal Orchestra\BrutalOrchestra_Data\Managed\Marosi.SerializableCollections.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Brutal Orchestra\BepInEx\core\Mono.Cecil.dll</HintPath>

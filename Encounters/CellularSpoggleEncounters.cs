@@ -22,6 +22,11 @@ namespace A_Apocrypha.Encounters
             cellularSpoggleMedium.CreateNewEnemyEncounterData(
                 [
                     "CellularSpoggle_EN",
+                    "DevotedSpoggle_EN",
+                ], null);
+            cellularSpoggleMedium.CreateNewEnemyEncounterData(
+                [
+                    "CellularSpoggle_EN",
                     "MusicMan_EN",
                     "MusicMan_EN",
                 ], null);
@@ -91,12 +96,12 @@ namespace A_Apocrypha.Encounters
             {
                 cellularSpoggleMedium.CreateNewEnemyEncounterData(
                 [
-                    "DevotedSpoggle_EN",
+                    "CellularSpoggle_EN",
                     "Rabies_EN",
                 ], null);
                 cellularSpoggleMedium.CreateNewEnemyEncounterData(
                 [
-                    "DevotedSpoggle_EN",
+                    "CellularSpoggle_EN",
                     "Spoggle_Spitfire_EN",
                     "BlueBot_EN",
                 ], null);

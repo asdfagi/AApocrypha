@@ -109,3 +109,5 @@ C:\Users\moens\source\repos\A_Apocrypha\A_Apocrypha\obj\Debug\netstandard2.0\A_A
 C:\Users\moens\source\repos\A_Apocrypha\A_Apocrypha\obj\Debug\netstandard2.0\A_Apocrypha.pdb
 C:\Users\moens\source\repos\A_Apocrypha\A_Apocrypha\bin\Debug\netstandard2.0\FMODUnity.dll
 C:\Users\moens\source\repos\A_Apocrypha\A_Apocrypha\obj\Debug\netstandard2.0\A_Apocrypha.sourcelink.json
+C:\Users\moens\source\repos\A_Apocrypha\A_Apocrypha\bin\Debug\netstandard2.0\Marosi.SerializableCollections.dll
+C:\Users\moens\source\repos\A_Apocrypha\A_Apocrypha\bin\Debug\netstandard2.0\Marosi.Utility.dll

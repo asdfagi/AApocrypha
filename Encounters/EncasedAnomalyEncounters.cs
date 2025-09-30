@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("EncasedAnomaly_Sign", ResourceLoader.LoadSprite("EncasedAnomalyTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API encasedAnomalyMedium = new EnemyEncounter_API(0, "H_Zone02_EncasedAnomaly_Medium_EnemyBundle", "EncasedAnomaly_Sign")
             {
-                MusicEvent = "event:/Music/Mx_Spoggle",
+                MusicEvent = "event:/AAMusic/MillieAmp-SecondaryColors",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
             encasedAnomalyMedium.CreateNewEnemyEncounterData(
@@ -52,7 +52,7 @@ namespace A_Apocrypha.Encounters
                 [
                     "EncasedAnomaly_EN",
                     "Spoggle_Writhing_EN",
-                    "ColophonDelighted_EN",
+                    "ColophonMaladjusted_EN",
                 ], null);
                 encasedAnomalyMedium.CreateNewEnemyEncounterData(
                 [
@@ -78,7 +78,7 @@ namespace A_Apocrypha.Encounters
                     [
                         "EncasedAnomaly_EN",
                         "Fanatic_EN",
-                        "ColophonDelighted_EN",
+                        "ColophonDisaffected_EN",
                     ], null);
                 }
             };
@@ -88,6 +88,7 @@ namespace A_Apocrypha.Encounters
                 [
                     "EncasedAnomaly_EN",
                     "Spoggle_Resonant_EN",
+                    "CellularSpoggle_EN",
                     "Follower_EN",
                 ], null);
                 encasedAnomalyMedium.CreateNewEnemyEncounterData(
@@ -114,7 +115,7 @@ namespace A_Apocrypha.Encounters
                 encasedAnomalyMedium.CreateNewEnemyEncounterData(
                 [
                     "EncasedAnomaly_EN",
-                    "UnboundAnomaly_EN",
+                    "CellularSpoggle_EN",
                     "Jansuli_EN",
                 ], null);
             }
@@ -129,7 +130,7 @@ namespace A_Apocrypha.Encounters
                 encasedAnomalyMedium.CreateNewEnemyEncounterData(
                 [
                     "EncasedAnomaly_EN",
-                    "UnboundAnomaly_EN",
+                    "Moone_EN",
                     "Moone_EN",
                 ], null);
                 encasedAnomalyMedium.CreateNewEnemyEncounterData(
@@ -152,6 +153,11 @@ namespace A_Apocrypha.Encounters
                     "EncasedAnomaly_EN",
                     "SharpenedAnomaly_EN",
                     "NakedGizo_EN",
+                ], null);
+                encasedAnomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "EncasedAnomaly_EN",
+                    "NeoplasmHeap_EN",
                 ], null);
             }
             encasedAnomalyMedium.AddEncounterToDataBases();

@@ -26,7 +26,7 @@ namespace A_Apocrypha.Encounters
             maceratorEasy.CreateNewEnemyEncounterData(
                 [
                     "Macerator_EN",
-                    "Mudlung_EN",
+                    "MudLung_EN",
                     "Mung_EN",
                 ], null);
             maceratorEasy.CreateNewEnemyEncounterData(

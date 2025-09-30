@@ -9,7 +9,7 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("AnomalyMiniboss_Sign", ResourceLoader.LoadSprite("AbandonedAltarTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            EnemyEncounter_API anomalyMinibossEncounter = new EnemyEncounter_API(0, "H_Zone02_AnomalyMiniboss_Hard_EnemyBundle", "AnomalyMiniboss_Sign")
+            EnemyEncounter_API anomalyMinibossEncounter = new EnemyEncounter_API((EncounterType)1, "H_Zone02_AnomalyMiniboss_Hard_EnemyBundle", "AnomalyMiniboss_Sign")
             {
                 MusicEvent = "event:/Music/Mx_Spoggle",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",

@@ -58,6 +58,11 @@ namespace A_Apocrypha.Enemies
             SwapToOneSideEffect SwapRight = ScriptableObject.CreateInstance<SwapToOneSideEffect>();
             SwapRight._swapRight = true;
 
+            AnomalyFreeMusicHandlerEffect MusicToggleReset = ScriptableObject.CreateInstance<AnomalyFreeMusicHandlerEffect>();
+            MusicToggleReset.ResetEffect = true;
+
+            sharpenedanomaly.CombatEnterEffects = [Effects.GenerateEffect(MusicToggleReset)];
+
             Ability frontstrike = new Ability("Central Strike", "AApocrypha_CentralStrike_A")
             {
                 Description = "Remove all Shield from the Opposing slot, then deal an Agonizing amount of damage to the Opposing party member.",

@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("Anomaly_Sign", ResourceLoader.LoadSprite("AnomalyTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API anomalyEasy = new EnemyEncounter_API(0, "H_Zone02_UnboundAnomaly_Easy_EnemyBundle", "Anomaly_Sign")
             {
-                MusicEvent = "event:/Music/Mx_Spoggle",
+                MusicEvent = "event:/AAMusic/MillieAmp-SecondaryColors",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
             anomalyEasy.CreateNewEnemyEncounterData(

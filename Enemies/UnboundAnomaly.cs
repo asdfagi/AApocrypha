@@ -43,6 +43,15 @@ namespace A_Apocrypha.Enemies
             RandomDamageBetweenPreviousAndEntryEffect IndirectRandom = ScriptableObject.CreateInstance<RandomDamageBetweenPreviousAndEntryEffect>();
             IndirectRandom._indirect = true;
 
+            AnomalyFreeMusicHandlerEffect MusicToggleOn = ScriptableObject.CreateInstance<AnomalyFreeMusicHandlerEffect>();
+            MusicToggleOn.Add = true;
+
+            AnomalyFreeMusicHandlerEffect MusicToggleOff = ScriptableObject.CreateInstance<AnomalyFreeMusicHandlerEffect>();
+            MusicToggleOff.Add = false;
+
+            unboundanomaly.CombatEnterEffects = [Effects.GenerateEffect(MusicToggleOn)];
+            unboundanomaly.CombatExitEffects = [Effects.GenerateEffect(MusicToggleOff)];
+
             Ability stare = new Ability("Stare", "AApocrypha_Stare_A")
             {
                 Description = "This enemy does nothing.",

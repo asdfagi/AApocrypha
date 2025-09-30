@@ -47,6 +47,11 @@ namespace A_Apocrypha.Enemies
             PreviousEffectCondition PreviousFalse = ScriptableObject.CreateInstance<PreviousEffectCondition>();
             PreviousFalse.wasSuccessful = false;
 
+            AnomalyFreeMusicHandlerEffect MusicToggleReset = ScriptableObject.CreateInstance<AnomalyFreeMusicHandlerEffect>();
+            MusicToggleReset.ResetEffect = true;
+
+            encasedanomaly.CombatEnterEffects = [Effects.GenerateEffect(MusicToggleReset)];
+
             Ability expelmatter = new Ability("Expel Matter", "AApocrypha_ExpelMatter_A")
             {
                 Description = "Deals a Painful amount of damage to the Opposing party member and produces 2 Purple Pigment.\nAfterwards, if there is a party member opposing this enemy, applies 3 Shield to the Left and Right enemy positions.",

@@ -101,6 +101,12 @@ namespace A_Apocrypha.Encounters
             acolyteMedium.CreateNewEnemyEncounterData(
                 [
                     "Acolyte_EN",
+                    "TearDrinker_EN",
+                    "Mung_EN",
+                ], null);
+            acolyteMedium.CreateNewEnemyEncounterData(
+                [
+                    "Acolyte_EN",
                     "Spoggle_Ruminating_EN",
                 ], null);
             acolyteMedium.CreateNewEnemyEncounterData(

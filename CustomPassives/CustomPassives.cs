@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using HarmonyLib;
 using UnityEngine;
 
 namespace A_Apocrypha.Custom_Passives
@@ -138,6 +139,108 @@ namespace A_Apocrypha.Custom_Passives
             tornApart._characterDescription = "This party member is permanently Gutted.";
             tornApart._Status = StatusField.Gutted;
 
+            // Jumpy - Erratic movement passive from Salt Enemies
+            PerformEffectPassiveAbility jumpy = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            jumpy.name = "AA_Jumpy_PA";
+            jumpy._passiveName = "Jumpy";
+            jumpy.m_PassiveID = "Jumpy_PA";
+            jumpy.passiveIcon = ResourceLoader.LoadSprite("IconJumpy");
+            jumpy._characterDescription = "Upon being damaged, move to a random position. Upon performing an ability, move to a random position.";
+            jumpy._enemyDescription = "Upon being damaged, move to a random position. Upon performing an ability, move to a random position.";
+            jumpy.doesPassiveTriggerInformationPanel = true;
+            jumpy.effects =
+            [
+                Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapToRandomZoneEffect>(), 1, Targeting.GenerateSlotTarget(new int[9] { -4, -3, -2, -1, 0, 1, 2, 3, 4 }, true)),
+            ];
+            jumpy._triggerOn = [ TriggerCalls.OnDirectDamaged, TriggerCalls.OnAbilityUsed ];
+
+            // Omnichromia - Heterochromia with additional crazy.
+            PerformEffectPassiveAbility hypercolors = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            hypercolors.name = "Omnichromia_PA";
+            hypercolors._passiveName = "Omnichromia";
+            hypercolors.m_PassiveID = "Omnichromia";
+            hypercolors.passiveIcon = ResourceLoader.LoadSprite("IconOmnichromia");
+            hypercolors._enemyDescription = "Upon receiving any kind of damage or performing an ability, randomize this enemy's health colour. This includes unusual and split pigment.";
+            hypercolors._characterDescription = "Upon receiving any kind of damage or performing an ability, randomize this party member's health colour. This includes unusual and split pigment.";
+            ChangeToRandomHealthColorEffect hyperrandomize = ScriptableObject.CreateInstance<ChangeToRandomHealthColorEffect>();
+            List<ManaColorSO> omniColorsList = new List<ManaColorSO>();
+            omniColorsList.AddRange([
+                Pigments.Red,
+                Pigments.Red,
+                Pigments.Blue,
+                Pigments.Blue,
+                Pigments.Yellow,
+                Pigments.Yellow,
+                Pigments.Purple,
+                Pigments.Purple,
+                Pigments.RedBlue,
+                Pigments.BlueRed,
+                Pigments.YellowRed,
+                Pigments.YellowBlue,
+                Pigments.RedPurple,
+                Pigments.BluePurple,
+                Pigments.YellowPurple,
+                Pigments.Grey,
+                Pigments.SplitPigment(Pigments.Red, Pigments.Blue, Pigments.Yellow),
+                Pigments.SplitPigment(Pigments.Red, Pigments.Blue, Pigments.Purple),
+                Pigments.SplitPigment(Pigments.Yellow, Pigments.Purple, Pigments.Red),
+                Pigments.SplitPigment(Pigments.Yellow, Pigments.Purple, Pigments.Blue),
+                Pigments.SplitPigment(Pigments.Red, Pigments.Blue, Pigments.Yellow, Pigments.Purple),
+            ]);
+            if (AApocrypha.CrossMod.IntoTheAbyss)
+            {
+                Debug.Log("Omnichromia - Into The Abyss pigments loaded");
+                omniColorsList.Add(LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"));
+                omniColorsList.Add(LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"));
+                omniColorsList.Add(LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"));
+            }
+            if (AApocrypha.CrossMod.pigmentGilded)
+            {
+                omniColorsList.Add(LoadedDBsHandler.PigmentDB.GetPigment("Gilded"));
+                Debug.Log("Omnichromia - Gilded pigment loaded");
+            }
+            if (AApocrypha.CrossMod.pigmentRainbow)
+            {
+                omniColorsList.Add(LoadedDBsHandler.PigmentDB.GetPigment("Rainbow"));
+                Debug.Log("Omnichromia - Rainbow pigment loaded");
+            }
+            if (AApocrypha.CrossMod.pigmentPeppermint)
+            {
+                omniColorsList.Add(LoadedDBsHandler.PigmentDB.GetPigment("Peppermint"));
+                Debug.Log("Omnichromia - Peppermint pigment loaded");
+            }
+            if (AApocrypha.CrossMod.pigmentPink)
+            {
+                omniColorsList.Add(LoadedDBsHandler.PigmentDB.GetPigment("Pink"));
+                Debug.Log("Omnichromia - Pink pigment loaded");
+            }
+            hyperrandomize._healthColors = omniColorsList.ToArray();
+            hypercolors.effects =
+            [
+                        Effects.GenerateEffect(hyperrandomize, 1, Targeting.Slot_SelfSlot)
+            ];
+            hypercolors._triggerOn =
+            [
+                        TriggerCalls.OnDamaged,
+                        TriggerCalls.OnAbilityUsed,
+                        TriggerCalls.OnCombatStart,
+            ];
+
+            // Gouged - Missing an eye! Reduces damage dealt by 25%.
+            PercDmgModPassiveAbility gougedPassive = ScriptableObject.CreateInstance<PercDmgModPassiveAbility>();
+            gougedPassive.name = "Gouged_PA";
+            gougedPassive._passiveName = "Gouged";
+            gougedPassive.m_PassiveID = "Gouged";
+            gougedPassive.passiveIcon = ResourceLoader.LoadSprite("IconGouged");
+            gougedPassive._characterDescription = "This party member is missing an eye, their reduced accuracy decreasing damage dealt by 25%.";
+            gougedPassive._enemyDescription = "This enemy is missing an eye, their reduced accuracy decreasing damage dealt by 25%.";
+            gougedPassive.doesPassiveTriggerInformationPanel = true;
+            gougedPassive._triggerOn = [TriggerCalls.OnWillApplyDamage];
+            gougedPassive._doesIncrease = false;
+            gougedPassive._useDealt = true;
+            gougedPassive._useSimpleInt = false;
+            gougedPassive._percentageToModify = 25;
+
             // Adding to pool
             Passives.AddCustomPassiveToPool("Shy_PA", "Shy", shy);
             Passives.AddCustomPassiveToPool("Confrontational_PA", "Confrontational", confrontational);
@@ -145,18 +248,25 @@ namespace A_Apocrypha.Custom_Passives
             Passives.AddCustomPassiveToPool("Gnome_PA", "Gnome", gnomePassive);
             Passives.AddCustomPassiveToPool("AA_FreeWilled_PA", "Free-Willed", freeWillPassive);
             Passives.AddCustomPassiveToPool("AA_Heterochromia_PA", "Heterochromia", colors);
+            Passives.AddCustomPassiveToPool("Omnichromia_PA", "Omnichromia", hypercolors);
             Passives.AddCustomPassiveToPool("AA_TornApart_PA", "Torn Apart", tornApart);
+            Passives.AddCustomPassiveToPool("AA_Jumpy_PA", "Jumpy", jumpy);
+            Passives.AddCustomPassiveToPool("Gouged_PA", "Gouged", gougedPassive);
 
             // Glossary entries
             GlossaryPassives AAShyInfo = new GlossaryPassives("Shy", "Upon performing an ability, this party member/enemy will move to the left or right if there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconShy"));
             GlossaryPassives AAConfrontationalInfo = new GlossaryPassives("Confrontational", "Upon performing an ability, this party member/enemy will move to the left or right unless there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconConfrontational"));
             GlossaryPassives AACopyThatInfo = new GlossaryPassives("Copy That", "At the start of combat, select a set amount of random party members. Copy one passive and two abilities (excluding Slap) from each selected party member onto this enemy. Change this enemy's health color to a combination of all selected party members' health colors.", ResourceLoader.LoadSprite("IconCopyThat"));
             GlossaryPassives AAGnomeInfo = new GlossaryPassives("Gnome", "This unit is one or more gnomes.", ResourceLoader.LoadSprite("IconGnome"));
-            
+            GlossaryPassives AAOmnichromiaInfo = new GlossaryPassives("Omnichromia", "Upon receiving any kind of damage or performing an ability, randomize this unit's health colour. This includes unusual and split pigment.", ResourceLoader.LoadSprite("IconOmnichromia"));
+            GlossaryPassives AAGougedInfo = new GlossaryPassives("Gouged", "This unit is missing an eye, their reduced accuracy decreasing damage dealt by 25%.", ResourceLoader.LoadSprite("IconGouged"));
+
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAShyInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAConfrontationalInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AACopyThatInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAGnomeInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AAOmnichromiaInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AAGougedInfo);
 
             if (!AApocrypha.CrossMod.StewSpecimens)
             {
@@ -168,6 +278,10 @@ namespace A_Apocrypha.Custom_Passives
             {
                 GlossaryPassives AAHeterochromiaInfo = new GlossaryPassives("Heterochromia", "Upon receiving any kind of damage, randomize this unit's health colour.", ResourceLoader.LoadSprite("IconHemochromia"));
                 LoadedDBsHandler.GlossaryDB.AddNewPassive(AAHeterochromiaInfo);
+                GlossaryPassives AAJumpyInfo = new GlossaryPassives("Jumpy", "Upon being damaged, move to a random position. Upon performing an ability, move to a random position.", ResourceLoader.LoadSprite("IconJumpy"));
+                LoadedDBsHandler.GlossaryDB.AddNewPassive(AAJumpyInfo);
+                GlossaryPassives AATornApartInfo = new GlossaryPassives("Torn Apart", "This unit is permanently Gutted.", StatusField.Gutted._EffectInfo.icon);
+                LoadedDBsHandler.GlossaryDB.AddNewPassive(AATornApartInfo);
             }
         }
 

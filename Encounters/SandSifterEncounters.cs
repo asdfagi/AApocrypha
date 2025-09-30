@@ -26,7 +26,7 @@ namespace A_Apocrypha.Encounters
             sandSifterEasy.CreateNewEnemyEncounterData(
                 [
                     "SandSifter_EN",
-                    "Mudlung_EN",
+                    "MudLung_EN",
                     "Mung_EN",
                 ], null);
             sandSifterEasy.CreateNewEnemyEncounterData(

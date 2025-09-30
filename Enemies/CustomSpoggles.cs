@@ -105,7 +105,7 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(ScarAnim, 1, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(ScarsApply, 1, AllLinkedUnits),
                 ],
-                Rarity = Rarity.Rare,
+                Rarity = Rarity.Uncommon,
                 Priority = Priority.Normal,
             };
             torturouswhispers.AddIntentsToTarget(AllLinkedUnits, [nameof(IntentType_GameIDs.Status_Scars)]);
@@ -173,6 +173,7 @@ namespace A_Apocrypha.Enemies
             catabolize.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Status_Gutted)]);
             catabolize.AddIntentsToTarget(Targeting.Slot_AllySides, [nameof(IntentType_GameIDs.Damage_1_2)]);
             catabolize.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Heal_1_4)]);
+            catabolize.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Status_Scars)]);
 
             Ability mitosis = new Ability("Mitosis", "AApocrypha_Mitosis_A")
             {
