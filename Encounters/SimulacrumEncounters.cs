@@ -40,6 +40,11 @@ namespace A_Apocrypha.Encounters
                 "MachineGnomes_EN",
                 "MachineGnomes_EN",
             ], null);
+            simulacrumHard.CreateNewEnemyEncounterData(
+            [
+                "Simulacrum_EN",
+                "ShiveringHomunculus_EN",
+            ], null);
             simulacrumHard.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_Simulacrum_Hard_EnemyBundle", 7, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
         }

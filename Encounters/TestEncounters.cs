@@ -11,12 +11,12 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("Test_Sign", ResourceLoader.LoadSprite("IconCometGaze", new Vector2(0.5f, 0f), 32), Portals.BossIDColor);
             EnemyEncounter_API testMedium = new EnemyEncounter_API((EncounterType)1, "H_Zone01_Test_Medium_EnemyBundle", "Test_Sign")
             {
-                MusicEvent = "event:/AAMusic/YellowFrog",
-                RoarEvent = "event:/Characters/Enemies/DLC_01/Keko/CHR_ENM_Keko_Roar",
+                MusicEvent = "event:/AAMusic/WhyWeWearFaces",
+                RoarEvent = "event:/Characters/Enemies/DLC_01/SilverSuckle/CHR_ENM_SilverSuckle_Dth",
             };
             testMedium.CreateNewEnemyEncounterData(
             [
-                "TearDrinker_EN",
+                "Bloatfinger_EN"
             ], [2]);
             testMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Test_Medium_EnemyBundle", 9999, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);

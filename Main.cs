@@ -9,13 +9,14 @@ global using BrutalAPI;
 global using UnityEngine;
 using System.Collections.Generic;
 using A_Apocrypha.CustomOther;
+using A_Apocrypha.CustomStatusField;
 using A_Apocrypha.Items;
 using BepInEx.Bootstrap;
 using HarmonyLib;
 
 namespace A_Apocrypha
 {
-    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.1.2")]
+    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.0")]
     [BepInDependency("BrutalOrchestra.BrutalAPI", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("Tairbaz.ColophonConundrum", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("TairbazPeep.EnemyPack", BepInDependency.DependencyFlags.SoftDependency)]
@@ -107,10 +108,15 @@ namespace A_Apocrypha
             //Custom Animations
             CustomVisuals.Add();
 
+            //Status & Field Effects
+            CustomStatus.Add();
+
             //Passives
             CustomPassives.Add();
 
             // ITEMS & ACHIEVEMENTS
+            // Miniboss Unlocks
+            HyperdimensionalPearl.Add();
             // Comedies
             HumanHeart.Add();
 
@@ -119,38 +125,55 @@ namespace A_Apocrypha
             GnomeCharacter.Add();
 
             //Enemies
+            //Far Shore
             Macerator.Add();
             Acolyte.Add();
             Asterism.Add();
             SandSifter.Add();
             TearDrinker.Add();
+            FungusColumn.Add();
+            //Orpheum
             UnboundAnomaly.Add();
             EncasedAnomaly.Add();
             SharpenedAnomaly.Add();
             SculptorBird.Add();
             //AnomalyMiniboss.Add();
+            Rift.Add();
+            Bloatfinger.Add();
+            //Garden
             Simulacrum.Add();
             MachineGnomes.Add();
+            //Unclassified, Multiple
             CustomSpoggles.Add();
-            Rift.Add();
+            Logos.Add();
 
             //Encounters
             //TestEncounters.Add();
+            //Far Shore
             MaceratorEncounters.Add();
             AcolyteFarShoreEncounters.Add();
             AsterismEncounters.Add();
             SandSifterEncounters.Add();
             TearDrinkerEncounters.Add();
+            FungusColumnEncounters.Add();
             CompatFarShoreEncounters.Add();
+            //Orpheum
             UnboundAnomalyEncounters.Add();
             EncasedAnomalyEncounters.Add();
             SharpenedAnomalyEncounters.Add();
             SculptorBirdEncounters.Add();
             CellularSpoggleEncounters.Add();
             DevotedSpoggleEncounters.Add();
-            //AnomalyMinibossEncounters.Add();
+            BloatfingerEncounters.Add();
+            CompatOrpheumEncounters.Add();
+            //Garden
             SimulacrumEncounters.Add();
             MachineGnomesEncounters.Add();
+            RedLogosEncounters.Add();
+            CompatGardenEncounters.Add();
+            //Minibosses
+            RiftEncounters.Add();
+            //AnomalyMinibossEncounters.Add();
 
             Logger.LogInfo("Asdfagi's Abominable Apocrypha activated.");
         }

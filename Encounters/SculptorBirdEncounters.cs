@@ -30,6 +30,13 @@ namespace A_Apocrypha.Encounters
             sculptorBirdMedium.CreateNewEnemyEncounterData(
                 [
                     "SculptorBird_EN",
+                    "BloatfingerHiddenOrpheum_EN",
+                    "MusicMan_EN",
+                    "MusicMan_EN",
+                ], null);
+            sculptorBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBird_EN",
                     "SculptorBirdSculpture_EN",
                     "Spoggle_Ruminating_EN",
                     "Jumbleguts_Clotted_EN",
@@ -50,7 +57,22 @@ namespace A_Apocrypha.Encounters
                         "Frostbite_EN",
                         "Frostbite_EN",
                     ], null);
-            };
+                sculptorBirdMedium.CreateNewEnemyEncounterData(
+                    [
+                        "SculptorBird_EN",
+                        "SculptorBirdSculpture_EN",
+                        "Frostbite_EN",
+                        "Frostbite_Bipedal_EN",
+                    ], null);
+                sculptorBirdMedium.CreateNewEnemyEncounterData(
+                    [
+                        "SculptorBird_EN",
+                        "BloatfingerHiddenOrpheum_EN",
+                        "Frostbite_EN",
+                        "Frostbite_EN",
+                    ], null);
+            }
+            ;
             if (AApocrypha.CrossMod.Colophons)
             {
                 sculptorBirdMedium.CreateNewEnemyEncounterData(
@@ -87,6 +109,12 @@ namespace A_Apocrypha.Encounters
                         "SculptorBirdSculpture_EN",
                         "ColophonDisaffected_EN",
                         "Jumbleguts_Flummoxing_EN",
+                    ], null);
+                    sculptorBirdMedium.CreateNewEnemyEncounterData(
+                    [
+                        "SculptorBird_EN",
+                        "BloatfingerHiddenOrpheum_EN",
+                        "ColophonDisaffected_EN",
                     ], null);
                 }
             };

@@ -93,7 +93,7 @@ namespace A_Apocrypha.Encounters
                 [
                     "SharpenedAnomaly_EN",
                     "EncasedAnomaly_EN",
-                    "BipedalFrostbite_EN",
+                    "Frostbite_Bipedal_EN",
                     "Frostbite_EN",
                 ], null);
             }

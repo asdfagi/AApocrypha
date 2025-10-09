@@ -12,7 +12,7 @@ namespace A_Apocrypha.Encounters
             EnemyEncounter_API devotedSpoggleMedium = new EnemyEncounter_API(0, "H_Zone02_DevotedSpoggle_Medium_EnemyBundle", "DevotedSpoggle_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp-WhimperAndWhine",
-                RoarEvent = "event:/Characters/Enemies/WrithingSpoggle/CHR_ENM_ResonantSpoggle_Roar",
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Spoggle_Resonant_Medium_EnemyBundle")._roarReference.roarEvent,
             };
             devotedSpoggleMedium.CreateNewEnemyEncounterData(
                 [

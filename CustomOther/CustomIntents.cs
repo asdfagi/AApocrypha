@@ -42,6 +42,13 @@ namespace A_Apocrypha.CustomOther
                 _sprite = ResourceLoader.LoadSprite("IconColoIntent"),
             };
             LoadedDBsHandler.IntentDB.AddNewBasicIntent("AA_Pigment_Transform", ColophonPigmentIntent);
+
+            IntentInfoBasic MultiIntent = new()
+            {
+                _color = Color.white,
+                _sprite = ResourceLoader.LoadSprite("IconMultIntent"),
+            };
+            LoadedDBsHandler.IntentDB.AddNewBasicIntent("AA_Multi", MultiIntent);
         }
     }
 }

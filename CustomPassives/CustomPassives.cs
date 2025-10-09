@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using HarmonyLib;
 using UnityEngine;
+using static A_Apocrypha.Enemies.Bloatfinger;
 
 namespace A_Apocrypha.Custom_Passives
 {
@@ -241,6 +242,18 @@ namespace A_Apocrypha.Custom_Passives
             gougedPassive._useSimpleInt = false;
             gougedPassive._percentageToModify = 25;
 
+            // Made of Fire - simple fire immunity passivr
+            DamageTypeImmunityPassiveAbility fireproofPassive = ScriptableObject.CreateInstance<DamageTypeImmunityPassiveAbility>();
+            fireproofPassive.name = "MadeOfFire_PA";
+            fireproofPassive._passiveName = "Made Of Fire";
+            fireproofPassive.m_PassiveID = "MadeOfFire";
+            fireproofPassive.passiveIcon = ResourceLoader.LoadSprite("IconFireskull");
+            fireproofPassive._characterDescription = "This party member is immune to fire damage.";
+            fireproofPassive._enemyDescription = "This enemy is immune to fire damage.";
+            fireproofPassive.doesPassiveTriggerInformationPanel = false;
+            fireproofPassive._triggerOn = [TriggerCalls.OnBeingDamaged];
+            fireproofPassive._damageType = CombatType_GameIDs.Dmg_Fire.ToString();
+
             // Adding to pool
             Passives.AddCustomPassiveToPool("Shy_PA", "Shy", shy);
             Passives.AddCustomPassiveToPool("Confrontational_PA", "Confrontational", confrontational);
@@ -252,6 +265,7 @@ namespace A_Apocrypha.Custom_Passives
             Passives.AddCustomPassiveToPool("AA_TornApart_PA", "Torn Apart", tornApart);
             Passives.AddCustomPassiveToPool("AA_Jumpy_PA", "Jumpy", jumpy);
             Passives.AddCustomPassiveToPool("Gouged_PA", "Gouged", gougedPassive);
+            Passives.AddCustomPassiveToPool("MadeOfFire_PA", "Made Of Fire", fireproofPassive);
 
             // Glossary entries
             GlossaryPassives AAShyInfo = new GlossaryPassives("Shy", "Upon performing an ability, this party member/enemy will move to the left or right if there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconShy"));
@@ -260,6 +274,7 @@ namespace A_Apocrypha.Custom_Passives
             GlossaryPassives AAGnomeInfo = new GlossaryPassives("Gnome", "This unit is one or more gnomes.", ResourceLoader.LoadSprite("IconGnome"));
             GlossaryPassives AAOmnichromiaInfo = new GlossaryPassives("Omnichromia", "Upon receiving any kind of damage or performing an ability, randomize this unit's health colour. This includes unusual and split pigment.", ResourceLoader.LoadSprite("IconOmnichromia"));
             GlossaryPassives AAGougedInfo = new GlossaryPassives("Gouged", "This unit is missing an eye, their reduced accuracy decreasing damage dealt by 25%.", ResourceLoader.LoadSprite("IconGouged"));
+            GlossaryPassives AAMadeOfFireInfo = new GlossaryPassives("Made Of Fire", "This unit is immune to fire damage.", ResourceLoader.LoadSprite("IconFireskull"));
 
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAShyInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAConfrontationalInfo);
@@ -267,6 +282,7 @@ namespace A_Apocrypha.Custom_Passives
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAGnomeInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAOmnichromiaInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAGougedInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AAMadeOfFireInfo);
 
             if (!AApocrypha.CrossMod.StewSpecimens)
             {
@@ -282,6 +298,12 @@ namespace A_Apocrypha.Custom_Passives
                 LoadedDBsHandler.GlossaryDB.AddNewPassive(AAJumpyInfo);
                 GlossaryPassives AATornApartInfo = new GlossaryPassives("Torn Apart", "This unit is permanently Gutted.", StatusField.Gutted._EffectInfo.icon);
                 LoadedDBsHandler.GlossaryDB.AddNewPassive(AATornApartInfo);
+            }
+
+            if (!AApocrypha.CrossMod.HellIslandFell)
+            {
+                GlossaryPassives AltAttacksInfo = new GlossaryPassives("Alt Attacks", "This enemy will perform an additional ability each turn, this ability is randomly selected from a given set", ResourceLoader.LoadSprite("PassiveAltAttacks"));
+                LoadedDBsHandler.GlossaryDB.AddNewPassive(AltAttacksInfo);
             }
         }
 
@@ -310,6 +332,7 @@ namespace A_Apocrypha.Custom_Passives
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CopyThatEffect>(), x, Targeting.Unit_AllOpponents),
                 ];
                 copythat._secondTriggerOn = [TriggerCalls.OnDeath];
+                copythat._secondPerformConditions = [ScriptableObject.CreateInstance<IsSelfDeathCondition>()];
                 copythat._secondEffects = [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckIsPlayerTurnEffect>(), 1, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(SimulacrumAchievement, 1, Targeting.Slot_SelfSlot, PreviousFalse)
@@ -318,6 +341,50 @@ namespace A_Apocrypha.Custom_Passives
                 copythat._secondDoesPerformPopUp = false;
                 return copythat;
             });
+        }
+
+        // Alt Attacks: multi-ability variant of Bonus Attack from Hell Island Fell
+        public static BasePassiveAbilitySO AltAttacksGenerator(List<ExtraAbilityInfo> bonusAbilities)
+        {
+            List<string> names = [];
+            List<ExtraAbilityInfo> weights = [];
+            foreach (ExtraAbilityInfo ability in bonusAbilities)
+            {
+                if (ability == null || ability.ability == null)
+                {
+                    Debug.Log("Null alt ability: " + ability.ability.name);
+                    return null;
+                }
+                names.Add(ability.ability._abilityName);
+                for (int i = 0; i < ability.rarity.rarityValue; i++)
+                {
+                    weights.Add(ability);
+                }
+                if (ability.rarity.canBeRerolled)
+                {
+                    ability.rarity = Rarity.Impossible;
+                } 
+                else
+                {
+                    ability.rarity = Rarity.ImpossibleNoReroll;
+                }
+            }
+
+            AltAttacksPassiveAbility altAttacksPassiveAbility = ScriptableObject.CreateInstance<AltAttacksPassiveAbility>();
+
+            altAttacksPassiveAbility.name = string.Join("_", names) + "_PA";
+            altAttacksPassiveAbility.m_PassiveID = string.Join("_", names);
+            altAttacksPassiveAbility._passiveName = "Alt Attacks";
+            altAttacksPassiveAbility._characterDescription = "This passive is not meant for party members.";
+            altAttacksPassiveAbility._enemyDescription = "This enemy will perform an additional ability each turn, this ability is randomly selected from the following:" + "\n" + string.Join("\n", names);
+            altAttacksPassiveAbility.passiveIcon = ResourceLoader.LoadSprite("PassiveAltAttacks");
+            altAttacksPassiveAbility._triggerOn = [TriggerCalls.ExtraAdditionalAttacks];
+            altAttacksPassiveAbility.conditions = [];
+            altAttacksPassiveAbility.doesPassiveTriggerInformationPanel = false;
+            altAttacksPassiveAbility.specialStoredData = null;
+            altAttacksPassiveAbility._altAbilities = bonusAbilities;
+            altAttacksPassiveAbility._weights = weights;
+            return altAttacksPassiveAbility;
         }
 
         // from hell island fell (custom passives)
@@ -329,6 +396,14 @@ namespace A_Apocrypha.Custom_Passives
             }
 
             return readFrom[key] = create(key);
+        }
+    }
+    public class IsSelfDeathCondition : EffectorConditionSO
+    {
+        public override bool MeetCondition(IEffectorChecks effector, object args)
+        {
+            if (args is DeathReference reffe && reffe.killer == effector) return true;
+            return false;
         }
     }
 }
