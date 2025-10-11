@@ -16,8 +16,9 @@ namespace A_Apocrypha.Encounters
             };
             testMedium.CreateNewEnemyEncounterData(
             [
-                "Bloatfinger_EN"
-            ], [2]);
+                "FungusColumn_EN",
+                "SandSifter_EN",
+            ], [1, 3]);
             testMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Test_Medium_EnemyBundle", 9999, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);
         }

@@ -50,6 +50,7 @@ namespace A_Apocrypha.Encounters
             devotedSpoggleMedium.CreateNewEnemyEncounterData(
                 [
                     "DevotedSpoggle_EN",
+                    "DevotedSpoggle_EN",
                     "ManicMan_EN",
                     "ManicMan_EN",
                 ], null);
