@@ -145,6 +145,7 @@ namespace A_Apocrypha
             MachineGnomes.Add();
             //Unclassified, Multiple
             CustomSpoggles.Add();
+            CustomJumbleGuts.Add();
             Logos.Add();
 
             //Encounters
