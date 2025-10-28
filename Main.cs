@@ -153,7 +153,7 @@ namespace A_Apocrypha
             Logos.Add();
 
             //Encounters
-            TestEncounters.Add();
+            //TestEncounters.Add();
             //Far Shore
             MaceratorEncounters.Add();
             AcolyteFarShoreEncounters.Add();

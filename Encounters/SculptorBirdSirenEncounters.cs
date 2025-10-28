@@ -93,7 +93,7 @@ namespace A_Apocrypha.Encounters
                 ], null);
             }
             sirenBirdMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToCustomZoneSelector("H_ZoneSiren_SculptorBird_Medium_EnemyBundle", 8999, "TheSiren_Zone1", BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToCustomZoneSelector("H_ZoneSiren_SculptorBird_Medium_EnemyBundle", 8, "TheSiren_Zone1", BundleDifficulty.Medium);
         }
     }
 }
