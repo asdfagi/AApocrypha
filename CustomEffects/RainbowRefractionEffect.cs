@@ -23,13 +23,13 @@ namespace A_Apocrypha.CustomEffects
                         ManaColorSO targetColor = targetUnit.HealthColor;
                         List<ManaColorSO> newColors = [];
                         List<ManaColorSO> validInputColors = [];
-                        Debug.Log($"testing unit {targetUnit.Name} with health color {targetColor.pigmentID}");
+                        //Debug.Log($"testing unit {targetUnit.Name} with health color {targetColor.pigmentID}");
                         foreach (ManaColorSO loadedPigment in LoadedDBsHandler.PigmentDB._PigmentPool.Values)
                         {
-                            Debug.Log($"testing pigment {loadedPigment.pigmentID}...");
+                            //Debug.Log($"testing pigment {loadedPigment.pigmentID}...");
                             if (targetColor.ContainsPigment([loadedPigment.pigmentID]))
                             {
-                                Debug.Log($"match found - adding {loadedPigment.pigmentID}");
+                                //Debug.Log($"match found - adding {loadedPigment.pigmentID}");
                                 newColors.Add( loadedPigment );
                             }
                         }
@@ -44,15 +44,15 @@ namespace A_Apocrypha.CustomEffects
                                 validInputColors.Add( mana );
                             }
                         }
-                        Debug.Log($"unit {targetUnit.Name} checked - matching colors: {newColors.Count}");
+                        //Debug.Log($"unit {targetUnit.Name} checked - matching colors: {newColors.Count}");
                         if (validInputColors.Count <= 0 || newColors.Count >= entryVariable)
                         {
                             targetUnit.ChangeHealthColor(LoadedDBsHandler.PigmentDB.GetPigment("Rainbow"));
-                            Debug.Log($"unit {targetUnit.Name} meets criteria - rainbowed");
+                            //Debug.Log($"unit {targetUnit.Name} meets criteria - rainbowed");
                         } else
                         {
                             int randomIndex = UnityEngine.Random.Range(0, validInputColors.Count);
-                            Debug.Log($"adding pigment {validInputColors[randomIndex].pigmentID} to unit {targetUnit.Name}...");
+                            //Debug.Log($"adding pigment {validInputColors[randomIndex].pigmentID} to unit {targetUnit.Name}...");
                             newColors.Add(validInputColors[randomIndex]);
                             targetUnit.ChangeHealthColor(Pigments.SplitPigment(newColors.ToArray()));
                         }
