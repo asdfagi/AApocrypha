@@ -49,7 +49,7 @@ namespace A_Apocrypha.Enemies
                 Description = "Vomits and produces 3 Pigment of this enemy's health colour.",
                 Cost = [],
                 Visuals = Visuals.Puke,
-                AnimationTarget = Targeting.Slot_Front,
+                AnimationTarget = Targeting.Slot_SelfSlot,
                 Effects =
                 [
                     Effects.GenerateEffect(PigmentHealth, 3, Targeting.Slot_SelfSlot),
