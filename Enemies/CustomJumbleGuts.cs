@@ -18,8 +18,8 @@ namespace A_Apocrypha.Enemies
                 AnimationTarget = Targeting.Slot_Front,
                 Effects =
                 [
-                    Effects.GenerateEffect(PigmentHealth, 1, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_Front),
+                    Effects.GenerateEffect(PigmentHealth, 1, Targeting.Slot_SelfSlot),
                 ],
                 Rarity = Rarity.Common,
                 Priority = Priority.Normal,
@@ -35,8 +35,8 @@ namespace A_Apocrypha.Enemies
                 AnimationTarget = Targeting.Slot_Front,
                 Effects =
                 [
-                    Effects.GenerateEffect(PigmentHealth, 1, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 8, Targeting.Slot_Front),
+                    Effects.GenerateEffect(PigmentHealth, 1, Targeting.Slot_SelfSlot),
                 ],
                 Rarity = Rarity.Common,
                 Priority = Priority.Normal,
@@ -135,13 +135,16 @@ namespace A_Apocrypha.Enemies
                     AnimationTarget = Targeting.AllUnits,
                     Effects =
                     [
-                        Effects.GenerateEffect(RefractionEffect, 4, Targeting.AllUnits),
-                        Effects.GenerateEffect(PigmentSpam, 1, Targeting.Unit_AllOpponents),
+                        Effects.GenerateEffect(RefractionEffect, 4, Targeting.Unit_OtherAllies),
+                        Effects.GenerateEffect(RefractionEffect, 4, Targeting.Unit_AllOpponents),
                         Effects.GenerateEffect(PigmentSpam, 1, Targeting.Unit_OtherAllies),
+                        Effects.GenerateEffect(PigmentSpam, 1, Targeting.Unit_AllOpponents),
                 ],
                     Rarity = Rarity.Common,
                     Priority = Priority.Normal,
                 };
+                refraction.AddIntentsToTarget(Targeting.Unit_OtherAllies, ["AA_Pigment_Transform"]);
+                refraction.AddIntentsToTarget(Targeting.Unit_AllOpponents, ["AA_Pigment_Transform"]);
                 refraction.AddIntentsToTarget(Targeting.Unit_OtherAllies, [nameof(IntentType_GameIDs.Mana_Generate)]);
                 refraction.AddIntentsToTarget(Targeting.Unit_AllOpponents, [nameof(IntentType_GameIDs.Mana_Generate)]);
 

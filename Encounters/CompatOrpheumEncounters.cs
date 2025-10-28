@@ -16,6 +16,16 @@ namespace A_Apocrypha.Encounters
                 ]),
             };
             ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_MusicMan_Easy_EnemyBundle"))._enemyBundles = musicmanEasy;
+            List<RandomEnemyGroup> scrungieMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Scrungie_Medium_EnemyBundle"))._enemyBundles)
+            {
+                new([
+                   "Scrungie_EN",
+                   "Scrungie_EN",
+                   "CoruscatingJumbleGuts_EN",
+                   "JumbleGuts_Clotted_EN",
+                ]),
+            };
+            ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Scrungie_Medium_EnemyBundle"))._enemyBundles = scrungieMedium;
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
                 List<RandomEnemyGroup> frostbiteMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("FrostbiteMed"))._enemyBundles)

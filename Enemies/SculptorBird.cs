@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using A_Apocrypha.CustomOther;
+using UnityEngine;
 
 namespace A_Apocrypha.Enemies
 {
@@ -29,6 +30,10 @@ namespace A_Apocrypha.Enemies
 
             PreviousEffectCondition PreviousTrue = ScriptableObject.CreateInstance<PreviousEffectCondition>();
             PreviousTrue.wasSuccessful = true;
+
+            PreviousEffectCondition Previous2True = ScriptableObject.CreateInstance<PreviousEffectCondition>();
+            Previous2True.wasSuccessful = true;
+            Previous2True.previousAmount = 2;
 
             PreviousEffectCondition PreviousFalse = ScriptableObject.CreateInstance<PreviousEffectCondition>();
             PreviousFalse.wasSuccessful = false;
@@ -228,6 +233,129 @@ namespace A_Apocrypha.Enemies
             sculpture.AddPassives([Passives.Inanimate, Passives.Anchored, Passives.Infantile, Passives.Withering]);
 
             sculpture.AddEnemy(true, false, false);
+
+            if (AApocrypha.CrossMod.Siren)
+            {
+                AnimationVisualsEffect PaintAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                PaintAnim._animationTarget = Targeting.Slot_SelfSlot;
+                PaintAnim._visuals = Visuals.OilSlicked;
+
+                CheckHasUnitWithIDsEffect HasBirdBath = ScriptableObject.CreateInstance<CheckHasUnitWithIDsEffect>();
+                HasBirdBath._ids = ["BirdBath_EN", "Boiler_EN"];
+
+                StatusEffect_Apply_Effect CurseApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+                CurseApply._Status = StatusField.Cursed;
+
+                RemoveStatusEffectEffect CurseRemove = ScriptableObject.CreateInstance<RemoveStatusEffectEffect>();
+                CurseRemove._status = StatusField.Cursed;
+
+                StatusEffectCheckerEffect HasCurse = ScriptableObject.CreateInstance<StatusEffectCheckerEffect>();
+                HasCurse._status = StatusField.Cursed;
+
+                Ability wetpaint = new Ability("Wet Paint", "AApocrypha_WetPaint_A")
+                {
+                    Description = "If there is a Boiler or Bird Bath to the Left or Right of this enemy, Curse this enemy.",
+                    Cost = [Pigments.Blue, Pigments.Red],
+                    Visuals = Visuals.OilSlicked,
+                    AnimationTarget = Targeting.Slot_SelfSlot,
+                    Effects =
+                    [
+                        Effects.GenerateEffect(HasBirdBath, 1, Targeting.Slot_AllyLeft),
+                        Effects.GenerateEffect(CurseApply, 1, Targeting.Slot_SelfSlot, PreviousTrue),
+                        Effects.GenerateEffect(HasBirdBath, 1, Targeting.Slot_AllyRight),
+                        Effects.GenerateEffect(CurseApply, 1, Targeting.Slot_SelfSlot, PreviousTrue),
+                    ],
+                    Rarity = Rarity.Impossible,
+                    Priority = Priority.VeryFast,
+                };
+                wetpaint.AddIntentsToTarget(Targeting.Slot_AllySides, [nameof(IntentType_GameIDs.Misc)]);
+                wetpaint.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Status_Cursed)]);
+
+                ExtraAbilityInfo wetpaintextra = new()
+                {
+                    ability = wetpaint.GenerateEnemyAbility().ability,
+                    rarity = Rarity.Impossible,
+                };
+
+                Ability shellscraper2 = new Ability("Shell Scraper", "AApocrypha_ShellScraperSiren_A")
+                {
+                    Description = "Remove all Shield from the Left position. If no Shield was removed, deal a Painful amount of damage to the Left party member, then apply 2 Frail to them.\nIf this enemy is Cursed, Curse the Left party member.\nRemove Cursed from this enemy and move it to the Left.",
+                    Cost = [Pigments.Blue, Pigments.Red],
+                    Visuals = Visuals.Talons,
+                    AnimationTarget = Targeting.Slot_OpponentLeft,
+                    Effects =
+                    [
+                        Effects.GenerateEffect(RemoveShield, 1, Targeting.Slot_OpponentLeft),
+                        Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_OpponentLeft, PreviousFalse),
+                        Effects.GenerateEffect(FrailApply, 2, Targeting.Slot_OpponentLeft, Previous2False),
+                        Effects.GenerateEffect(HasCurse, 1, Targeting.Slot_SelfSlot),
+                        Effects.GenerateEffect(CurseApply, 1, Targeting.Slot_OpponentLeft, PreviousTrue),
+                        Effects.GenerateEffect(CurseRemove, 1, Targeting.Slot_SelfSlot),
+                        Effects.GenerateEffect(SwapLeft, 1, Targeting.Slot_SelfSlot),
+                    ],
+                    Rarity = Rarity.VeryRare,
+                    Priority = Priority.Normal,
+                };
+                shellscraper2.AddIntentsToTarget(Targeting.Slot_OpponentLeft, [nameof(IntentType_GameIDs.Rem_Field_Shield)]);
+                shellscraper2.AddIntentsToTarget(Targeting.Slot_OpponentLeft, [nameof(IntentType_GameIDs.Damage_3_6)]);
+                shellscraper2.AddIntentsToTarget(Targeting.Slot_OpponentLeft, [nameof(IntentType_GameIDs.Status_Frail)]);
+                shellscraper2.AddIntentsToTarget(Targeting.Slot_OpponentLeft, [nameof(IntentType_GameIDs.Status_Cursed)]);
+                shellscraper2.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Rem_Status_Cursed)]);
+                shellscraper2.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
+
+                Ability skinscraper2 = new Ability("Skin Scraper", "AApocrypha_SkinScraperSiren_A")
+                {
+                    Description = "Remove all Shield from the Right position. If no Shield was removed, deal a Painful amount of damage to the Right party member, then apply 2 Frail to them.\nIf this enemy is Cursed, Curse the Right party member.\nRemove Cursed from this enemy and move it to the Right.",
+                    Cost = [Pigments.Blue, Pigments.Red],
+                    Visuals = Visuals.Talons,
+                    AnimationTarget = Targeting.Slot_OpponentRight,
+                    Effects =
+                    [
+                        Effects.GenerateEffect(RemoveShield, 1, Targeting.Slot_OpponentRight),
+                        Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_OpponentRight, PreviousFalse),
+                        Effects.GenerateEffect(FrailApply, 2, Targeting.Slot_OpponentRight, Previous2False),
+                        Effects.GenerateEffect(HasCurse, 1, Targeting.Slot_SelfSlot),
+                        Effects.GenerateEffect(CurseApply, 1, Targeting.Slot_OpponentRight, PreviousTrue),
+                        Effects.GenerateEffect(CurseRemove, 1, Targeting.Slot_SelfSlot),
+                        Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot),
+                    ],
+                    Rarity = Rarity.VeryRare,
+                    Priority = Priority.Normal,
+                };
+                skinscraper2.AddIntentsToTarget(Targeting.Slot_OpponentRight, [nameof(IntentType_GameIDs.Rem_Field_Shield)]);
+                skinscraper2.AddIntentsToTarget(Targeting.Slot_OpponentRight, [nameof(IntentType_GameIDs.Damage_3_6)]);
+                skinscraper2.AddIntentsToTarget(Targeting.Slot_OpponentRight, [nameof(IntentType_GameIDs.Status_Frail)]);
+                skinscraper2.AddIntentsToTarget(Targeting.Slot_OpponentRight, [nameof(IntentType_GameIDs.Status_Cursed)]);
+                skinscraper2.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Rem_Status_Cursed)]);
+                skinscraper2.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
+
+                Enemy sirenbird = new Enemy("Sculptor Bird", "SculptorBirdSiren_EN")
+                {
+                    Health = 35,
+                    HealthColor = Pigments.Red,
+                    Size = 1,
+                    CombatSprite = ResourceLoader.LoadSprite("SirenBirdTimeline", new Vector2(0.5f, 0f), 32),
+                    OverworldDeadSprite = ResourceLoader.LoadSprite("SirenBirdDead", new Vector2(0.5f, 0f), 32),
+                    OverworldAliveSprite = ResourceLoader.LoadSprite("SirenBirdTimeline", new Vector2(0.5f, 0f), 32),
+                    DamageSound = LoadedAssetsHandler.GetEnemy("Scrungie_EN").damageSound,
+                    DeathSound = LoadedAssetsHandler.GetEnemy("Scrungie_EN").deathSound,
+                    UnitTypes = ["Bird"],
+                    AbilitySelector = ScriptableObject.CreateInstance<AbilitySelector_SculptorBird>(),
+                };
+                sirenbird.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/SculptorBird_Enemy/SirenBird_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/SculptorBird_Enemy/SculptorBird_Giblets.prefab").GetComponent<ParticleSystem>());
+
+                sirenbird.AddPassives([Passives.Slippery, Passives.BonusAttackGenerator(wetpaintextra)]);
+
+                sirenbird.AddEnemyAbilities(
+                [
+                    shellscraper2.GenerateEnemyAbility(true),
+                    skinscraper2.GenerateEnemyAbility(true),
+                    demandperfection.GenerateEnemyAbility(true),
+                    exciseflaws.GenerateEnemyAbility(true),
+                ]);
+
+                sirenbird.AddEnemy(true, true, true);
+            }
         }
     }
 }

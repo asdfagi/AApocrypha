@@ -61,6 +61,22 @@ namespace A_Apocrypha.Encounters
                     "ManicMan_EN",
                     "ManicMan_EN",
                 ], null);
+            if (AApocrypha.CrossMod.pigmentRainbow)
+            {
+                devotedSpoggleMedium.CreateNewEnemyEncounterData(
+                [
+                    "DevotedSpoggle_EN",
+                    "ManicMan_EN",
+                    "ManicMan_EN",
+                    "CoruscatingJumbleGuts_EN",
+                ], null);
+                devotedSpoggleMedium.CreateNewEnemyEncounterData(
+                [
+                    "DevotedSpoggle_EN",
+                    "Scrungie_EN",
+                    "CoruscatingJumbleGuts_EN",
+                ], null);
+            }
             if (AApocrypha.CrossMod.Colophons)
             {
                 devotedSpoggleMedium.CreateNewEnemyEncounterData(

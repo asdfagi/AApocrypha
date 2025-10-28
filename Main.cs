@@ -28,6 +28,7 @@ namespace A_Apocrypha
     [BepInDependency("Devron.UnluckyGuys", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("AnimatedGlitch.NumerousLads", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("embercoral.embercoralsMonsterMixtape", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("AnimatedGlitch.Siren", BepInDependency.DependencyFlags.SoftDependency)]
     //[BepInDependency("Marmo.Sasha", BepInDependency.DependencyFlags.SoftDependency)]
 
     public class AApocrypha : BaseUnityPlugin
@@ -42,6 +43,7 @@ namespace A_Apocrypha
             public static bool HellIslandFell = false;
             public static bool IntoTheAbyss = false;
             public static bool StewSpecimens = false;
+            public static bool Siren = false;
             public static bool pigmentGilded = false;
             public static bool pigmentRainbow = false;
             public static bool pigmentPeppermint = false;
@@ -59,6 +61,7 @@ namespace A_Apocrypha
                     if (metadata.GUID == "Dui_Mauris_Football.Hell_Island_Fell") { HellIslandFell = true; }
                     if (metadata.GUID == "millieamp.intoTheAbyss") { IntoTheAbyss = true; }
                     if (metadata.GUID == "Stew.STEWS_SPECIMENS") { StewSpecimens = true; }
+                    if (metadata.GUID == "AnimatedGlitch.Siren") { Siren = true; }
                     if (metadata.GUID == "AnimatedGlitch.NumerousLads") { pigmentGilded = true; }
                     if (metadata.GUID == "Devron.UnluckyGuys") { pigmentRainbow = true; }
                     if (metadata.GUID == "embercoral.embercoralsMonsterMixtape") { pigmentPeppermint = true; }
@@ -71,6 +74,7 @@ namespace A_Apocrypha
                 if (HellIslandFell) { Debug.Log("hello fallen hell island"); }
                 if (IntoTheAbyss) { Debug.Log("hello abyss"); }
                 if (StewSpecimens) { Debug.Log("hello specimens of stew"); }
+                if (Siren) { Debug.Log("hello the siren"); }
                 if (pigmentGilded && LoadedDBsHandler.PigmentDB.GetPigment("Gilded") != null)
                 {
                     Debug.Log("hello gilded pigment from numerous lads");
@@ -149,7 +153,7 @@ namespace A_Apocrypha
             Logos.Add();
 
             //Encounters
-            //TestEncounters.Add();
+            TestEncounters.Add();
             //Far Shore
             MaceratorEncounters.Add();
             AcolyteFarShoreEncounters.Add();
@@ -166,7 +170,17 @@ namespace A_Apocrypha
             CellularSpoggleEncounters.Add();
             DevotedSpoggleEncounters.Add();
             BloatfingerEncounters.Add();
+            if (CrossMod.pigmentRainbow)
+            {
+                CoruscatingJumbleGutsEncounters.Add();
+            }
             CompatOrpheumEncounters.Add();
+            //Siren
+            if (CrossMod.Siren)
+            {
+                SculptorBirdSirenEncounters.Add();
+                CompatSirenEncounters.Add();
+            }
             //Garden
             SimulacrumEncounters.Add();
             MachineGnomesEncounters.Add();

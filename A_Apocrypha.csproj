@@ -49,6 +49,8 @@
 	<None Remove="Sprites\BloatfingerTimeline.png" />
 	<None Remove="Sprites\RainbowGutsDead.png" />
 	<None Remove="Sprites\RainbowGutsTimeline.png" />
+	<None Remove="Sprites\SirenBirdDead.png" />
+	<None Remove="Sprites\SirenBirdTimeline.png" />
 	<None Remove="Sprites\IconCometGaze.png" />
 	<None Remove="Sprites\IconShy.png" />
 	<None Remove="Sprites\IconConfrontational.png" />
@@ -128,6 +130,8 @@
 	<EmbeddedResource Include="Sprites\BloatfingerTimeline.png" />
 	<EmbeddedResource Include="Sprites\RainbowGutsDead.png" />
 	<EmbeddedResource Include="Sprites\RainbowGutsTimeline.png" />
+	<EmbeddedResource Include="Sprites\SirenBirdDead.png" />
+	<EmbeddedResource Include="Sprites\SirenBirdTimeline.png" />
 	<EmbeddedResource Include="Sprites\IconCometGaze.png" />
 	<EmbeddedResource Include="Sprites\IconShy.png" />
 	<EmbeddedResource Include="Sprites\IconConfrontational.png" />

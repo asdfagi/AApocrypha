@@ -51,12 +51,6 @@ namespace A_Apocrypha.Encounters
                     "SilverSuckle_EN",
                     "SilverSuckle_EN",
                 ], null);
-            sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "EncasedAnomaly_EN",
-                    "SingingStone_EN",
-                ], null);
             if (AApocrypha.CrossMod.Colophons)
             {
                 sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
@@ -72,6 +66,15 @@ namespace A_Apocrypha.Encounters
                         "SharpenedAnomaly_EN",
                         "ColophonDisaffected_EN",
                         "CellularSpoggle_EN",
+                    ], null);
+                }
+                if (AApocrypha.CrossMod.pigmentRainbow)
+                {
+                    sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
+                    [   
+                        "SharpenedAnomaly_EN",
+                        "ColophonMaladjusted_EN",
+                        "CoruscatingJumbleGuts_EN",
                     ], null);
                 }
             }
@@ -152,6 +155,21 @@ namespace A_Apocrypha.Encounters
                     "SharpenedAnomaly_EN",
                     "MusicMan_EN",
                     "Hagwitch_EN",
+                ], null);
+            }
+            if (AApocrypha.CrossMod.pigmentRainbow)
+            {
+                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "SharpenedAnomaly_EN",
+                    "Spoggle_Spitfire_EN",
+                    "CoruscatingJumbleGuts_EN",
+                ], null);
+                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
+                [
+                    "SharpenedAnomaly_EN",
+                    "CellularSpoggle_EN",
+                    "CoruscatingJumbleGuts_EN",
                 ], null);
             }
             sharpenedAnomalyMedium.AddEncounterToDataBases();
