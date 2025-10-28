@@ -17,10 +17,6 @@ namespace A_Apocrypha.Encounters
             gnomesMedium.CreateNewEnemyEncounterData(
             [
                 "MachineGnomes_EN",
-            ], null);
-            gnomesMedium.CreateNewEnemyEncounterData(
-            [
-                "MachineGnomes_EN",
                 "NextOfKin_EN",
                 "NextOfKin_EN",
             ], null);
@@ -54,6 +50,27 @@ namespace A_Apocrypha.Encounters
                 [
                     "MachineGnomes_EN",
                     "Streetlight_EN",
+                ], null);
+                gnomesMedium.CreateNewEnemyEncounterData(
+                [
+                    "MachineGnomes_EN",
+                    "ShiveringHomunculus_EN",
+                    "YieldSign_EN",
+                ], null);
+                gnomesMedium.CreateNewEnemyEncounterData(
+                [
+                    "MachineGnomes_EN",
+                    "InHisImage_EN",
+                    "ParkingSign_EN",
+                ], null);
+            }
+            if (AApocrypha.CrossMod.SaltEnemies)
+            {
+                gnomesMedium.CreateNewEnemyEncounterData(
+                [
+                    "MachineGnomes_EN",
+                    "TortureMeNot_EN",
+                    "TortureMeNot_EN",
                 ], null);
             }
             gnomesMedium.AddEncounterToDataBases();
@@ -125,6 +142,18 @@ namespace A_Apocrypha.Encounters
                     "MachineGnomes_EN",
                     "Streetlight_EN",
                     "Streetlight_EN",
+                ], null);
+                gnomesHard.CreateNewEnemyEncounterData(
+                [
+                    "MachineGnomes_EN",
+                    "MachineGnomes_EN",
+                    "Eater_Invis_EN",
+                ], null);
+                gnomesHard.CreateNewEnemyEncounterData(
+                [
+                    "MachineGnomes_EN",
+                    "MachineGnomes_EN",
+                    "Monad_EN",
                 ], null);
             }
             gnomesHard.AddEncounterToDataBases();

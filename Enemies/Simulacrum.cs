@@ -74,7 +74,7 @@ namespace A_Apocrypha.Enemies
 
             simulacrum.AddPassives([Passives.Skittish3, Passives.MultiAttack2, CustomPassives.CopyThatGenerator(2), Passives.BonusAttackGenerator(comeagainextra)]);
 
-            simulacrum.AddEnemy(false, false, false);
+            simulacrum.AddEnemy(true, false, false);
 
         }
     }

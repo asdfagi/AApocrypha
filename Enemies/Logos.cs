@@ -190,7 +190,7 @@ namespace A_Apocrypha.Enemies
                     eastwheel,
                 ]);
 
-            redlogos.AddEnemy(false, false, false);
+            redlogos.AddEnemy(true, true, false);
         }
     }
 }

@@ -29,6 +29,18 @@ namespace A_Apocrypha.Encounters
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("ChaliceMed"))._enemyBundles = chaliceMedium;
             }
+            if (AApocrypha.CrossMod.EnemyPack)
+            {
+                List<RandomEnemyGroup> metatronHard = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("MetatronHard"))._enemyBundles)
+                {
+                    new([
+                       "Metatron_EN",
+                       "MachineGnomes_EN",
+                       "MachineGnomes_EN",
+                    ]),
+                };
+                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("MetatronHard"))._enemyBundles = metatronHard;
+            }
         }
     }
 }

@@ -215,7 +215,7 @@ namespace A_Apocrypha.Enemies
                     quiet,
                     forget,
                 ]);
-            rift.AddEnemy(false, false, false);
+            rift.AddEnemy(true, false, false);
         }
     }
 }

@@ -45,6 +45,28 @@ namespace A_Apocrypha.Encounters
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("FrostbiteMed"))._enemyBundles = frostbiteMedium;
             }
+            if (AApocrypha.CrossMod.SaltEnemies)
+            {
+                List<RandomEnemyGroup> mawMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Maw_Medium_EnemyBundle"))._enemyBundles)
+                {
+                    new([
+                       "Maw_EN",
+                       "Acolyte_EN",
+                       "Acolyte_EN",
+                    ]),
+                    new([
+                       "Maw_EN",
+                       "DevotedSpoggle_EN",
+                       "MusicMan_EN",
+                    ]),
+                    new([
+                       "Maw_EN",
+                       "CellularSpoggle_EN",
+                       "MusicMan_EN",
+                    ]),
+                };
+                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Maw_Medium_EnemyBundle"))._enemyBundles = mawMedium;
+            }
         }
     }
 }
