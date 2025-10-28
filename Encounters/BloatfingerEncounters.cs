@@ -95,6 +95,15 @@ namespace A_Apocrypha.Encounters
                     "SilverSuckle_EN",
                     "SilverSuckle_EN",
                 ], null);
+            if (AApocrypha.CrossMod.pigmentRainbow)
+            {
+                bloatfingerMedium.CreateNewEnemyEncounterData(
+                [
+                    "Bloatfinger_EN",
+                    "BloatfingerHiddenOrpheum_EN",
+                    "CoruscatingJumbleGuts_EN",
+                ], null);
+            }
             bloatfingerMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_Bloatfinger_Medium_EnemyBundle", 12, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }

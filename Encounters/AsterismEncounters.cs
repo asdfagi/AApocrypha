@@ -142,6 +142,13 @@ namespace A_Apocrypha.Encounters
                 "Asterism_EN",
                 "Spoggle_Ruminating_EN",
             ], null);
+            asterismHard.CreateNewEnemyEncounterData(
+            [
+                "Asterism_EN",
+                "Asterism_EN",
+                "Asterism_EN",
+                "Spoggle_Spitfire_EN",
+            ], null);
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
                 asterismHard.CreateNewEnemyEncounterData(
@@ -160,7 +167,7 @@ namespace A_Apocrypha.Encounters
             }
             ;
             asterismHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Asterism_Hard_EnemyBundle", 18, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
+            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Asterism_Hard_EnemyBundle", 14, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
         }
     }
 }
