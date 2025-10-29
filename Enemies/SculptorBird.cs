@@ -277,7 +277,7 @@ namespace A_Apocrypha.Enemies
                     rarity = Rarity.Impossible,
                 };
 
-                Ability shellscraper2 = new Ability("Shell Scraper", "AApocrypha_ShellScraperSiren_A")
+                Ability shellscraper2 = new Ability("Slate Scraper", "AApocrypha_ShellScraperSiren_A")
                 {
                     Description = "Remove all Shield from the Left position. If no Shield was removed, deal a Painful amount of damage to the Left party member, then apply 2 Frail to them.\nIf this enemy is Cursed, Curse the Left party member.\nRemove Cursed from this enemy and move it to the Left.",
                     Cost = [Pigments.Blue, Pigments.Red],
@@ -303,7 +303,7 @@ namespace A_Apocrypha.Enemies
                 shellscraper2.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Rem_Status_Cursed)]);
                 shellscraper2.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
 
-                Ability skinscraper2 = new Ability("Skin Scraper", "AApocrypha_SkinScraperSiren_A")
+                Ability skinscraper2 = new Ability("Strata Scraper", "AApocrypha_SkinScraperSiren_A")
                 {
                     Description = "Remove all Shield from the Right position. If no Shield was removed, deal a Painful amount of damage to the Right party member, then apply 2 Frail to them.\nIf this enemy is Cursed, Curse the Right party member.\nRemove Cursed from this enemy and move it to the Right.",
                     Cost = [Pigments.Blue, Pigments.Red],
