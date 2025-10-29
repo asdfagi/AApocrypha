@@ -29,6 +29,12 @@ namespace A_Apocrypha.Encounters
             rainbowGutsMedium.CreateNewEnemyEncounterData(
             [
                 "CoruscatingJumbleGuts_EN",
+                "JumbleGuts_Flummoxing_EN",
+                "JumbleGuts_Clotted_EN",
+            ], null);
+            rainbowGutsMedium.CreateNewEnemyEncounterData(
+            [
+                "CoruscatingJumbleGuts_EN",
                 "JumbleGuts_Hollowing_EN",
                 "Spoggle_Writhing_EN",
             ], null);
@@ -60,6 +66,27 @@ namespace A_Apocrypha.Encounters
                     "MusicMan_EN",
                     "SingingStone_EN",
                 ], null);
+            }
+            if (AApocrypha.CrossMod.IntoTheAbyss)
+            {
+                if (AApocrypha.CrossMod.Colophons)
+                {
+                    rainbowGutsMedium.CreateNewEnemyEncounterData(
+                    [
+                        "CoruscatingJumbleGuts_EN",
+                        "SingingStone_EN",
+                        "ColophonDisaffected_EN",
+                    ], null);
+                }
+                if (AApocrypha.CrossMod.pigmentGilded)
+                {
+                    rainbowGutsMedium.CreateNewEnemyEncounterData(
+                    [
+                        "CoruscatingJumbleGuts_EN",
+                        "AffluentJumbleguts_EN",
+                        "MusicMan_EN",
+                    ], null);
+                }
             }
             rainbowGutsMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_CoruscatingJumbleGuts_Medium_EnemyBundle", 10, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
