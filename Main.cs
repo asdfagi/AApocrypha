@@ -16,7 +16,7 @@ using HarmonyLib;
 
 namespace A_Apocrypha
 {
-    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.1")]
+    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.2")]
     [BepInDependency("BrutalOrchestra.BrutalAPI", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("Tairbaz.ColophonConundrum", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("TairbazPeep.EnemyPack", BepInDependency.DependencyFlags.SoftDependency)]
@@ -123,10 +123,30 @@ namespace A_Apocrypha
             HyperdimensionalPearl.Add();
             // Comedies
             HumanHeart.Add();
+            // Osman Unlocks
+            TinctureOfVigour.Add();
+            // Heaven Unlocks
+            HesperideanCider.Add();
+            // Doula Unlocks
+            if (CrossMod.EnemyPack)
+            {
+                DarkdropCoffee.Add();
+            }
+            // March Unlocks
+            if (CrossMod.GlitchsFreaks)
+            {
+                EyelessSkull.Add();
+            }
+            // Nobody Unlocks
+            if (CrossMod.IntoTheAbyss)
+            {
+                CardinalHoney.Add();
+            }
 
             //Characters
             //TestCharacter.Add();
             GnomeCharacter.Add();
+            WhitlockCharacter.Add();
 
             //Enemies
             //Far Shore

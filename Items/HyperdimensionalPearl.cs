@@ -16,7 +16,7 @@ namespace A_Apocrypha.Items
             ExtraPassiveAbility_Wearable_SMS wearablePassiveLeaky = ScriptableObject.CreateInstance<ExtraPassiveAbility_Wearable_SMS>();
             wearablePassiveLeaky._extraPassiveAbility = Passives.Leaky1;
 
-            PerformEffect_Item hyperdimensionalPearl = new PerformEffect_Item("HumanHeart_ID", null, false)
+            PerformEffect_Item hyperdimensionalPearl = new PerformEffect_Item("HyperdimensionalPearl_ID", null, false)
             {
                 Item_ID = "HyperdimensionalPearl_TW",
                 Name = "Hyperdimensional Pearl",
@@ -39,7 +39,7 @@ namespace A_Apocrypha.Items
             [];
 
             ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(hyperdimensionalPearl.item, new ItemModdedUnlockInfo("HyperdimensionalPearl_TW", ResourceLoader.LoadSprite("UnlockMinibossRiftLocked", null, 32, null), "AApocrypha_Miniboss_Rift_ACH"));
-            BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement("AApocrypha_Comedy_SimulacrumKillSelf_ACH", "HumanHeart_TW");
+            BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement("AApocrypha_Miniboss_Rift_ACH", "HyperdimensionalPearl_TW");
 
             UnlockableModData riftMinibossUnlockData = new UnlockableModData("MinibossRift")
             {

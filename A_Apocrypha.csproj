@@ -73,6 +73,23 @@
 	<None Remove="Sprites\UnlockMinibossRiftLocked.png" />
 	<None Remove="Sprites\AchievementMinibossRift.png" />
 	<None Remove="Sprites\ItemHumanHeartAbility.png" />
+	<None Remove="Sprites\UnlockOsmanWhitlock.png" />
+	<None Remove="Sprites\UnlockOsmanWhitlockAlt.png" />
+	<None Remove="Sprites\UnlockOsmanWhitlockLocked.png" />
+	<None Remove="Sprites\AchievementOsmanWhitlock.png" />
+	<None Remove="Sprites\UnlockHeavenWhitlock.png" />
+	<None Remove="Sprites\UnlockHeavenWhitlockLocked.png" />
+	<None Remove="Sprites\AchievementHeavenWhitlock.png" />
+	<None Remove="Sprites\ItemCiderAbility.png" />
+	<None Remove="Sprites\UnlockDoulaWhitlock.png" />
+	<None Remove="Sprites\UnlockDoulaWhitlockLocked.png" />
+	<None Remove="Sprites\AchievementDoulaWhitlock.png" />
+	<None Remove="Sprites\UnlockMarchWhitlock.png" />
+	<None Remove="Sprites\UnlockMarchWhitlockLocked.png" />
+	<None Remove="Sprites\AchievementMarchWhitlock.png" />
+	<None Remove="Sprites\UnlockNobodyWhitlock.png" />
+	<None Remove="Sprites\UnlockNobodyWhitlockLocked.png" />
+	<None Remove="Sprites\AchievementNobodyWhitlock.png" />
 	<None Remove="Sprites\GnomeCharacterFront.png" />
 	<None Remove="Sprites\GnomeCharacterBack.png" />
 	<None Remove="Sprites\GnomeCharacterOverworld.png" />
@@ -85,6 +102,18 @@
 	<None Remove="Sprites\GnomeCharacterGreenFront.png" />
 	<None Remove="Sprites\GnomeCharacterGreenBack.png" />
 	<None Remove="Sprites\GnomeCharacterGreenOverworld.png" />
+	<None Remove="Sprites\WhitlockFront.png" />
+	<None Remove="Sprites\WhitlockBack.png" />
+	<None Remove="Sprites\WhitlockTalk.png" />
+	<None Remove="Sprites\WhitlockOverworld.png" />
+	<None Remove="Sprites\WhitlockMenu.png" />
+	<None Remove="Sprites\WhitlockLocked.png" />
+	<None Remove="Sprites\IconWhitlockFace.png" />
+	<None Remove="Sprites\IconWhitlockTransplant.png" />
+	<None Remove="Sprites\IconWhitlockOintment.png" />
+	<None Remove="Sprites\DoulaPearl.png" />
+	<None Remove="Sprites\MarchPearl.png" />
+	<None Remove="Sprites\NobodyPearl.png" />
   </ItemGroup>
   
   <ItemGroup>
@@ -154,6 +183,23 @@
 	<EmbeddedResource Include="Sprites\UnlockMinibossRiftLocked.png" />
 	<EmbeddedResource Include="Sprites\AchievementMinibossRift.png" />
 	<EmbeddedResource Include="Sprites\ItemHumanHeartAbility.png" />
+	<EmbeddedResource Include="Sprites\UnlockOsmanWhitlock.png" />
+	<EmbeddedResource Include="Sprites\UnlockOsmanWhitlockAlt.png" />
+	<EmbeddedResource Include="Sprites\UnlockOsmanWhitlockLocked.png" />
+	<EmbeddedResource Include="Sprites\AchievementOsmanWhitlock.png" />
+	<EmbeddedResource Include="Sprites\UnlockHeavenWhitlock.png" />
+	<EmbeddedResource Include="Sprites\UnlockHeavenWhitlockLocked.png" />
+	<EmbeddedResource Include="Sprites\AchievementHeavenWhitlock.png" />
+	<EmbeddedResource Include="Sprites\ItemCiderAbility.png" />
+	<EmbeddedResource Include="Sprites\UnlockDoulaWhitlock.png" />
+	<EmbeddedResource Include="Sprites\UnlockDoulaWhitlockLocked.png" />
+	<EmbeddedResource Include="Sprites\AchievementDoulaWhitlock.png" />
+	<EmbeddedResource Include="Sprites\UnlockMarchWhitlock.png" />
+	<EmbeddedResource Include="Sprites\UnlockMarchWhitlockLocked.png" />
+	<EmbeddedResource Include="Sprites\AchievementMarchWhitlock.png" />
+	<EmbeddedResource Include="Sprites\UnlockNobodyWhitlock.png" />
+	<EmbeddedResource Include="Sprites\UnlockNobodyWhitlockLocked.png" />
+	<EmbeddedResource Include="Sprites\AchievementNobodyWhitlock.png" />
 	<EmbeddedResource Include="Sprites\GnomeCharacterFront.png" />
 	<EmbeddedResource Include="Sprites\GnomeCharacterBack.png" />
 	<EmbeddedResource Include="Sprites\GnomeCharacterOverworld.png" />
@@ -166,6 +212,18 @@
 	<EmbeddedResource Include="Sprites\GnomeCharacterGreenFront.png" />
 	<EmbeddedResource Include="Sprites\GnomeCharacterGreenBack.png" />
 	<EmbeddedResource Include="Sprites\GnomeCharacterGreenOverworld.png" />
+	<EmbeddedResource Include="Sprites\WhitlockFront.png" />
+	<EmbeddedResource Include="Sprites\WhitlockBack.png" />
+	<EmbeddedResource Include="Sprites\WhitlockTalk.png" />
+	<EmbeddedResource Include="Sprites\WhitlockOverworld.png" />
+	<EmbeddedResource Include="Sprites\WhitlockMenu.png" />
+	<EmbeddedResource Include="Sprites\WhitlockLocked.png" />
+	<EmbeddedResource Include="Sprites\IconWhitlockFace.png" />
+	<EmbeddedResource Include="Sprites\IconWhitlockTransplant.png" />
+	<EmbeddedResource Include="Sprites\IconWhitlockOintment.png" />
+	<EmbeddedResource Include="Sprites\DoulaPearl.png" />
+	<EmbeddedResource Include="Sprites\MarchPearl.png" />
+	<EmbeddedResource Include="Sprites\NobodyPearl.png" />
   </ItemGroup>
 
   <ItemGroup>
