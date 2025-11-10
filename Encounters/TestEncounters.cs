@@ -11,13 +11,15 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("Test_Sign", ResourceLoader.LoadSprite("IconCometGaze", new Vector2(0.5f, 0f), 32), Portals.BossIDColor);
             EnemyEncounter_API testMedium = new EnemyEncounter_API((EncounterType)1, "H_Zone01_Test_Medium_EnemyBundle", "Test_Sign")
             {
-                MusicEvent = "event:/AAMusic/DepressionShop",
-                RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Scrungie_Medium_EnemyBundle")._roarReference.roarEvent,
+                MusicEvent = "event:/AAMusic/MaddieDoktor-HurtPeopleFullCircle",
+                RoarEvent = "event:/AAEnemy/ColophonSaccharineRoar",
             };
             testMedium.CreateNewEnemyEncounterData(
             [
-                "SculptorBirdSiren_EN",
-            ], [2]);
+                "ColophonSaccharine_EN",
+                "MudLung_EN",
+                "MunglingMudLung_EN",
+            ], [2, 1, 3]);
             testMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Test_Medium_EnemyBundle", 9999, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);
         }

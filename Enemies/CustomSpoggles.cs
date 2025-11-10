@@ -49,6 +49,21 @@ namespace A_Apocrypha.Enemies
             };
             siphon.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Consume)]);
 
+            Ability evaporate = new Ability("Evaporate", "AApocrypha_SpoggleEvaporate_A")
+            {
+                Description = "This enemy consumes 6 Pigment not of this enemy's health colour.",
+                Cost = [],
+                Visuals = Visuals.Leech,
+                AnimationTarget = Targeting.Slot_SelfSlot,
+                Effects =
+                [
+                    Effects.GenerateEffect(ConsumeNotHealth, 6, Targeting.Slot_SelfSlot),
+                ],
+                Rarity = Rarity.Common,
+                Priority = Priority.Normal,
+            };
+            evaporate.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Consume)]);
+
             Enemy devotedSpoggle = new Enemy("Devoted Spoggle", "DevotedSpoggle_EN")
             {
                 Health = 25,

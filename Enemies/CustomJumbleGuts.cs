@@ -44,6 +44,23 @@ namespace A_Apocrypha.Enemies
             scald.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_7_10)]);
             scald.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Generate)]);
 
+            Ability heath = new Ability("Blasted Heath", "AApocrypha_JumbleHeath_A")
+            {
+                Description = "Produces 2 Pigment of this enemy's health color. Deals a Deadly amount of damage to the Opposing party member.",
+                Cost = [],
+                Visuals = Visuals.Melt,
+                AnimationTarget = Targeting.Slot_Front,
+                Effects =
+                [
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 11, Targeting.Slot_Front),
+                    Effects.GenerateEffect(PigmentHealth, 2, Targeting.Slot_SelfSlot),
+                ],
+                Rarity = Rarity.Common,
+                Priority = Priority.Normal,
+            };
+            heath.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_11_15)]);
+            heath.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Generate)]);
+
             Ability flood = new Ability("Flood", "AApocrypha_JumbleFlood_A")
             {
                 Description = "Vomits and produces 3 Pigment of this enemy's health colour.",
@@ -58,6 +75,21 @@ namespace A_Apocrypha.Enemies
                 Priority = Priority.Normal,
             };
             flood.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Generate)]);
+
+            Ability deluge = new Ability("Deluge", "AApocrypha_JumbleDeluge_A")
+            {
+                Description = "Issue forth 5 Pigment of this enemy's health color.",
+                Cost = [],
+                Visuals = Visuals.Puke,
+                AnimationTarget = Targeting.Slot_SelfSlot,
+                Effects =
+                [
+                    Effects.GenerateEffect(PigmentHealth, 5, Targeting.Slot_SelfSlot),
+                ],
+                Rarity = Rarity.Common,
+                Priority = Priority.Normal,
+            };
+            deluge.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Generate)]);
 
             Enemy testJumble = new Enemy("Testing Jumble Guts", "TestJumbleGuts_EN")
             {
@@ -135,7 +167,7 @@ namespace A_Apocrypha.Enemies
                     AnimationTarget = Targeting.AllUnits,
                     Effects =
                     [
-                        Effects.GenerateEffect(RefractionEffect, 4, Targeting.Unit_OtherAllies),
+                        Effects.GenerateEffect(RefractionEffect, 4, Targeting.Slot_OpponentAllSlots),
                         Effects.GenerateEffect(RefractionEffect, 4, Targeting.Unit_AllOpponents),
                         Effects.GenerateEffect(PigmentSpam, 1, Targeting.Unit_OtherAllies),
                         Effects.GenerateEffect(PigmentSpam, 1, Targeting.Unit_AllOpponents),

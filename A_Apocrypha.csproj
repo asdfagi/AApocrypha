@@ -51,6 +51,10 @@
 	<None Remove="Sprites\RainbowGutsTimeline.png" />
 	<None Remove="Sprites\SirenBirdDead.png" />
 	<None Remove="Sprites\SirenBirdTimeline.png" />
+	<None Remove="Sprites\ColophonPeppermintDead.png" />
+	<None Remove="Sprites\ColophonPeppermintTimeline.png" />
+	<None Remove="Sprites\ColophonPeppermintAltDead.png" />
+	<None Remove="Sprites\ColophonPeppermintAltTimeline.png" />
 	<None Remove="Sprites\IconCometGaze.png" />
 	<None Remove="Sprites\IconShy.png" />
 	<None Remove="Sprites\IconConfrontational.png" />
@@ -66,6 +70,7 @@
 	<None Remove="Sprites\IconPoisoned.png" />
 	<None Remove="Sprites\IconColoIntent.png" />
 	<None Remove="Sprites\IconMultIntent.png" />
+	<None Remove="Sprites\Haste.png" />
 	<None Remove="Sprites\UnlockComedySimulacrumKillSelf.png" />
 	<None Remove="Sprites\UnlockComedySimulacrumKillSelfLocked.png" />
 	<None Remove="Sprites\AchievementComedySimulacrumKillSelf.png" />
@@ -161,6 +166,10 @@
 	<EmbeddedResource Include="Sprites\RainbowGutsTimeline.png" />
 	<EmbeddedResource Include="Sprites\SirenBirdDead.png" />
 	<EmbeddedResource Include="Sprites\SirenBirdTimeline.png" />
+	<EmbeddedResource Include="Sprites\ColophonPeppermintDead.png" />
+	<EmbeddedResource Include="Sprites\ColophonPeppermintTimeline.png" />
+	<EmbeddedResource Include="Sprites\ColophonPeppermintAltDead.png" />
+	<EmbeddedResource Include="Sprites\ColophonPeppermintAltTimeline.png" />
 	<EmbeddedResource Include="Sprites\IconCometGaze.png" />
 	<EmbeddedResource Include="Sprites\IconShy.png" />
 	<EmbeddedResource Include="Sprites\IconConfrontational.png" />
@@ -176,6 +185,7 @@
 	<EmbeddedResource Include="Sprites\IconPoisoned.png" />
 	<EmbeddedResource Include="Sprites\IconColoIntent.png" />
 	<EmbeddedResource Include="Sprites\IconMultIntent.png" />
+	<EmbeddedResource Include="Sprites\Haste.png" />
 	<EmbeddedResource Include="Sprites\UnlockComedySimulacrumKillSelf.png" />
 	<EmbeddedResource Include="Sprites\UnlockComedySimulacrumKillSelfLocked.png" />
 	<EmbeddedResource Include="Sprites\AchievementComedySimulacrumKillSelf.png" />

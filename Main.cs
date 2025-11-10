@@ -16,7 +16,7 @@ using HarmonyLib;
 
 namespace A_Apocrypha
 {
-    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.2")]
+    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.3")]
     [BepInDependency("BrutalOrchestra.BrutalAPI", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("Tairbaz.ColophonConundrum", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("TairbazPeep.EnemyPack", BepInDependency.DependencyFlags.SoftDependency)]
@@ -29,6 +29,7 @@ namespace A_Apocrypha
     [BepInDependency("AnimatedGlitch.NumerousLads", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("embercoral.embercoralsMonsterMixtape", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("AnimatedGlitch.Siren", BepInDependency.DependencyFlags.SoftDependency)]
+    //[BepInDependency("Tairbaz.MythosFriends", BepInDependency.DependencyFlags.SoftDependency)]
     //[BepInDependency("Marmo.Sasha", BepInDependency.DependencyFlags.SoftDependency)]
 
     public class AApocrypha : BaseUnityPlugin
@@ -44,6 +45,7 @@ namespace A_Apocrypha
             public static bool IntoTheAbyss = false;
             public static bool StewSpecimens = false;
             public static bool Siren = false;
+            public static bool Mythos = false;
             public static bool pigmentGilded = false;
             public static bool pigmentRainbow = false;
             public static bool pigmentPeppermint = false;
@@ -62,6 +64,7 @@ namespace A_Apocrypha
                     if (metadata.GUID == "millieamp.intoTheAbyss") { IntoTheAbyss = true; }
                     if (metadata.GUID == "Stew.STEWS_SPECIMENS") { StewSpecimens = true; }
                     if (metadata.GUID == "AnimatedGlitch.Siren") { Siren = true; }
+                    //if (metadata.GUID == "Tairbaz.MythosFriends") { Mythos = true; }
                     if (metadata.GUID == "AnimatedGlitch.NumerousLads") { pigmentGilded = true; }
                     if (metadata.GUID == "Devron.UnluckyGuys") { pigmentRainbow = true; }
                     if (metadata.GUID == "embercoral.embercoralsMonsterMixtape") { pigmentPeppermint = true; }
@@ -75,6 +78,7 @@ namespace A_Apocrypha
                 if (IntoTheAbyss) { Debug.Log("hello abyss"); }
                 if (StewSpecimens) { Debug.Log("hello specimens of stew"); }
                 if (Siren) { Debug.Log("hello the siren"); }
+                if (Mythos) { Debug.Log("hello mythos friends"); }
                 if (pigmentGilded && LoadedDBsHandler.PigmentDB.GetPigment("Gilded") != null)
                 {
                     Debug.Log("hello gilded pigment from numerous lads");
@@ -114,9 +118,19 @@ namespace A_Apocrypha
 
             //Status & Field Effects
             CustomStatus.Add();
+            //Modded Status & Field Effects (ignored if already exists)
+            if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Haste_ID"))
+            {
+                Debug.Log("Status | Haste not found - loading Haste");
+                SaltHaste.Add();
+            }
+            else
+            {
+                Debug.Log("Status | Haste found");
+            }
 
-            //Passives
-            CustomPassives.Add();
+                //Passives
+                CustomPassives.Add();
 
             // ITEMS & ACHIEVEMENTS
             // Miniboss Unlocks
@@ -170,6 +184,10 @@ namespace A_Apocrypha
             //Unclassified, Multiple
             CustomSpoggles.Add();
             CustomJumbleGuts.Add();
+            if (CrossMod.Colophons)
+            {
+                CustomColophons.Add();
+            }
             Logos.Add();
 
             //Encounters
@@ -209,6 +227,11 @@ namespace A_Apocrypha
             //Minibosses
             RiftEncounters.Add();
             //AnomalyMinibossEncounters.Add();
+            //Unclassified, Multiple
+            if (CrossMod.pigmentPeppermint && CrossMod.Colophons)
+            {
+                ColophonSaccharineEncounters.Add();
+            }
 
             Logger.LogInfo("Asdfagi's Abominable Apocrypha activated.");
         }

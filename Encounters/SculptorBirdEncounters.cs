@@ -101,6 +101,23 @@ namespace A_Apocrypha.Encounters
                     "ColophonMaladjusted_EN",
                     "Spoggle_Resonant_EN",
                 ], null);
+                if (AApocrypha.CrossMod.pigmentPeppermint)
+                {
+                    sculptorBirdMedium.CreateNewEnemyEncounterData(
+                    [
+                        "SculptorBird_EN",
+                        "SculptorBirdSculpture_EN",
+                        "ColophonSaccharine_EN",
+                        "Scrungie_EN",
+                    ], null);
+                    sculptorBirdMedium.CreateNewEnemyEncounterData(
+                    [
+                        "SculptorBird_EN",
+                        "SculptorBirdSculpture_EN",
+                        "ColophonSaccharine_EN",
+                        "Spoggle_Spitfire_EN",
+                    ], null);
+                }
                 if (AApocrypha.CrossMod.IntoTheAbyss)
                 {
                     sculptorBirdMedium.CreateNewEnemyEncounterData(
