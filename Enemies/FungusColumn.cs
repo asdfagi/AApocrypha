@@ -18,6 +18,7 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("FungusColumnTimeline", new Vector2(0.5f, 0f), 32),
                 DamageSound = LoadedAssetsHandler.GetEnemy("SilverSuckle_EN").damageSound,
                 DeathSound = LoadedAssetsHandler.GetEnemy("SilverSuckle_EN").deathSound,
+                UnitTypes = ["Neathy"],
             };
             funguscolumm.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/FungusColumn_Enemy/FungusColumn_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/FungusColumn_Enemy/FungusColumn_Giblets.prefab").GetComponent<ParticleSystem>());
             funguscolumm.AddPassives([]);

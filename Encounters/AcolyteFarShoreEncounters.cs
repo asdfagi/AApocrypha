@@ -141,6 +141,21 @@ namespace A_Apocrypha.Encounters
                     "Arceles_EN",
                 ], null);
             }
+            if (AApocrypha.CrossMod.Mythos)
+            {
+                acolyteMedium.CreateNewEnemyEncounterData(
+                [
+                    "Acolyte_EN",
+                    "MudLung_EN",
+                    "Madman_EN",
+                ], null);
+                acolyteMedium.CreateNewEnemyEncounterData(
+                [
+                    "Acolyte_EN",
+                    "Acolyte_EN",
+                    "Madman_EN",
+                ], null);
+            }
             acolyteMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Acolyte_Medium_EnemyBundle", 20, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium); //default: 20
         }

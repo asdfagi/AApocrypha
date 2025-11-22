@@ -27,6 +27,10 @@ namespace A_Apocrypha.Encounters
                    "TearDrinker_EN",
                    "Flarblet_EN",
                 ]),
+                new([
+                    "Flarb_EN",
+                    "Gammamite_EN",
+                ]),
             };
             ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_Flarb_Hard_EnemyBundle"))._enemyBundles = flarbHard;
             List<RandomEnemyGroup> flamingoMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_FlaMingGoa_Medium_EnemyBundle"))._enemyBundles)
@@ -84,6 +88,19 @@ namespace A_Apocrypha.Encounters
                     ]),
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_ToyUfo_Medium_EnemyBundle"))._enemyBundles = ufoMedium;
+                    List<RandomEnemyGroup> graveEasy = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_NobodyGrave_Easy_EnemyBundle"))._enemyBundles)
+                {
+                    new([
+                       "NobodyGrave_EN",
+                       "SandSifter_EN",
+                    ]),
+                    new([
+                       "NobodyGrave_EN",
+                       "ToyUfo_EN",
+                       "SandSifter_EN",
+                    ]),
+                };
+                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_NobodyGrave_Easy_EnemyBundle"))._enemyBundles = ufoMedium;
             }
         }
     }

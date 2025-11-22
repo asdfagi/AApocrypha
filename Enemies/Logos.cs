@@ -19,6 +19,7 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("LogosTimelineRed", new Vector2(0.5f, 0f), 32),
                 DamageSound = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Dmg",
                 DeathSound = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Dth",
+                UnitTypes = ["Neathy"],
             };
             redlogos.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/Logos_Enemy.prefab", AApocrypha.assetBundle, null/*AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Logos_Enemy/Logos_Giblets.prefab").GetComponent<ParticleSystem>()*/);
 

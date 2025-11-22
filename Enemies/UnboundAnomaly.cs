@@ -13,7 +13,7 @@ namespace A_Apocrypha.Enemies
         {
             Enemy unboundanomaly = new Enemy("Unbound Anomaly", "UnboundAnomaly_EN")
             {
-                Health = 30,
+                Health = 16,
                 HealthColor = Pigments.Purple,
                 Size = 1,
                 CombatSprite = ResourceLoader.LoadSprite("AnomalyTimeline", new Vector2(0.5f, 0f), 32),

@@ -78,6 +78,15 @@ namespace A_Apocrypha.Encounters
                     "NotAn_EN",
                 ], null);
             }
+            if (AApocrypha.CrossMod.Mythos)
+            {
+                fungusMedium.CreateNewEnemyEncounterData(
+                [
+                    "FungusColumn_EN",
+                    "MudLung_EN",
+                    "RatThing_EN",
+                ], null);
+            }
             fungusMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_FungusColumn_Medium_EnemyBundle", 16, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium); //default: 16
         }

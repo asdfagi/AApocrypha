@@ -21,7 +21,7 @@ namespace A_Apocrypha.Fools
                 DamageSound = LoadedAssetsHandler.GetCharacter("Rags_CH").damageSound,
                 DeathSound = LoadedAssetsHandler.GetCharacter("Rags_CH").deathSound,
                 DialogueSound = LoadedAssetsHandler.GetCharacter("Rags_CH").dxSound,
-                UnitTypes = ["FemaleID", "Sandwich_Gore"],
+                UnitTypes = ["FemaleID", "Sandwich_Gore", "Neathy"],
             };
             whitlock.GenerateMenuCharacter(ResourceLoader.LoadSprite("WhitlockMenu"), ResourceLoader.LoadSprite("WhitlockLocked")); //Whitlocked, one might say...
             whitlock.AddPassives([]);
@@ -260,7 +260,14 @@ namespace A_Apocrypha.Fools
             if (AApocrypha.CrossMod.EnemyPack) { whitlock.AddFinalBossAchievementData("DoulaBoss", "AApocrypha_Whitlock_Abstraction_ACH"); }
             if (AApocrypha.CrossMod.GlitchsFreaks) { whitlock.AddFinalBossAchievementData("March_BOSS", "AApocrypha_Whitlock_Inevitable_ACH"); }
             if (AApocrypha.CrossMod.IntoTheAbyss) { whitlock.AddFinalBossAchievementData("Nobody_BOSS", "AApocrypha_Whitlock_Forgotten_ACH"); }
+            if (AApocrypha.CrossMod.SaltEnemies) { whitlock.AddFinalBossAchievementData("BlueSky_BOSS", "AApocrypha_Whitlock_Dreamer_ACH"); }
             whitlock.AddCharacter(true, false);
+
+            SpeakerBundle speakerBundleWhitlock = new SpeakerBundle();
+            speakerBundleWhitlock.bundleTextColor = new Color(0.65f, 0.21f, 0.21f);
+            speakerBundleWhitlock.dialogueSound = LoadedAssetsHandler.GetCharacter("Whitlock_CH").dxSound;
+            speakerBundleWhitlock.portrait = ResourceLoader.LoadSprite("WhitlockTalk", new Vector2(0.5f, 0f), 32);
+            var dia = Dialogues.CreateAndAddCustom_SpeakerData("Whitlock", speakerBundleWhitlock, true, false, new SpeakerEmote[0]);
         }
     }
 }

@@ -15,11 +15,23 @@ namespace A_Apocrypha.Custom_Passives
 
             SwapToSidesEffect LeftOrRight = ScriptableObject.CreateInstance<SwapToSidesEffect>();
 
+            SwapToOneSideEffect Left = ScriptableObject.CreateInstance<SwapToOneSideEffect>();
+            Left._swapRight = false;
+
+            SwapToOneSideEffect Right = ScriptableObject.CreateInstance<SwapToOneSideEffect>();
+            Right._swapRight = true;
+
             PreviousEffectCondition PreviousTrue = ScriptableObject.CreateInstance<PreviousEffectCondition>();
             PreviousTrue.wasSuccessful = true;
 
             PreviousEffectCondition PreviousFalse = ScriptableObject.CreateInstance<PreviousEffectCondition>();
             PreviousFalse.wasSuccessful = false;
+
+            LeftOrRightToOpposeEnemyChanceForNextEffect NavigatorNotOpposing = ScriptableObject.CreateInstance<LeftOrRightToOpposeEnemyChanceForNextEffect>();
+            NavigatorNotOpposing._inverted = true;
+
+            LeftOrRightToOpposeEnemyChanceForNextEffect NavigatorOpposing = ScriptableObject.CreateInstance<LeftOrRightToOpposeEnemyChanceForNextEffect>();
+            NavigatorOpposing._inverted = false;
 
             // Shy - Skittish, but only if there is an opposing unit.
             PerformEffectPassiveAbility shy = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
@@ -27,13 +39,15 @@ namespace A_Apocrypha.Custom_Passives
             shy._passiveName = "Shy";
             shy.m_PassiveID = "Shy";
             shy.passiveIcon = ResourceLoader.LoadSprite("IconShy");
-            shy._characterDescription = "Upon performing an ability, this party member will move to the left or right if there is an enemy opposing them.";
-            shy._enemyDescription = "Upon performing an ability, this enemy will move to the left or right if there is a party member opposing them.";
+            shy._characterDescription = "Upon performing an ability, this party member will move to the left or right, prioritizing unopposed spaces, if there is an enemy opposing them.";
+            shy._enemyDescription = "Upon performing an ability, this enemy will move to the left or right, prioritizing unopposed spaces, if there is a party member opposing them.";
             shy._triggerOn = [TriggerCalls.OnAbilityUsed];
             shy.effects =
             [
                 Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
-                Effects.GenerateEffect(LeftOrRight, 1, Targeting.Slot_SelfSlot, PreviousTrue),
+                Effects.GenerateEffect(NavigatorNotOpposing, 1, Targeting.Slot_SelfSlot, PreviousTrue),
+                Effects.GenerateEffect(Right, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, true], [1, 2])),
+                Effects.GenerateEffect(Left, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, true], [2, 3])),
             ];
 
             // Confrontational - Skittish, but only if there is NOT an opposing unit.
@@ -42,13 +56,15 @@ namespace A_Apocrypha.Custom_Passives
             confrontational._passiveName = "Confrontational";
             confrontational.m_PassiveID = "Confrontational";
             confrontational.passiveIcon = ResourceLoader.LoadSprite("IconConfrontational");
-            confrontational._characterDescription = "Upon performing an ability, this party member will move to the left or right unless there is an enemy opposing them.";
-            confrontational._enemyDescription = "Upon performing an ability, this enemy will move to the left or right unless there is a party member opposing them.";
+            confrontational._characterDescription = "Upon performing an ability, this party member will move to the left or right, prioritizing, opposed spaces, unless there is an enemy opposing them.";
+            confrontational._enemyDescription = "Upon performing an ability, this enemy will move to the left or right, prioritizing, opposed spaces, unless there is a party member opposing them.";
             confrontational._triggerOn = [TriggerCalls.OnAbilityUsed];
             confrontational.effects =
             [
                 Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
-                Effects.GenerateEffect(LeftOrRight, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                Effects.GenerateEffect(NavigatorOpposing, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                Effects.GenerateEffect(Right, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                Effects.GenerateEffect(Left, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, false], [2, 3])),
             ];
 
             // Decay (Abandoned Altar) - Decay variant for the Anomaly Miniboss including center position and a unique description.
@@ -254,6 +270,18 @@ namespace A_Apocrypha.Custom_Passives
             fireproofPassive._triggerOn = [TriggerCalls.OnBeingDamaged];
             fireproofPassive._damageType = CombatType_GameIDs.Dmg_Fire.ToString();
 
+            // Dried Out - ruptured *damage* immunity passive
+            DamageTypeImmunityPassiveAbility dryPassive = ScriptableObject.CreateInstance<DamageTypeImmunityPassiveAbility>();
+            dryPassive.name = "DriedOut_PA";
+            dryPassive._passiveName = "Dried Out";
+            dryPassive.m_PassiveID = "DriedOut";
+            dryPassive.passiveIcon = ResourceLoader.LoadSprite("IconDriedOut");
+            dryPassive._characterDescription = "This party member is immune to damage from Ruptured.";
+            dryPassive._enemyDescription = "This enemy is immune to damage from Ruptured.";
+            dryPassive.doesPassiveTriggerInformationPanel = false;
+            dryPassive._triggerOn = [TriggerCalls.OnBeingDamaged];
+            dryPassive._damageType = CombatType_GameIDs.Dmg_Ruptured.ToString();
+
             // Adding to pool
             Passives.AddCustomPassiveToPool("Shy_PA", "Shy", shy);
             Passives.AddCustomPassiveToPool("Confrontational_PA", "Confrontational", confrontational);
@@ -266,15 +294,17 @@ namespace A_Apocrypha.Custom_Passives
             Passives.AddCustomPassiveToPool("AA_Jumpy_PA", "Jumpy", jumpy);
             Passives.AddCustomPassiveToPool("Gouged_PA", "Gouged", gougedPassive);
             Passives.AddCustomPassiveToPool("MadeOfFire_PA", "Made Of Fire", fireproofPassive);
+            Passives.AddCustomPassiveToPool("DriedOut_PA", "Dried Out", dryPassive);
 
             // Glossary entries
-            GlossaryPassives AAShyInfo = new GlossaryPassives("Shy", "Upon performing an ability, this party member/enemy will move to the left or right if there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconShy"));
-            GlossaryPassives AAConfrontationalInfo = new GlossaryPassives("Confrontational", "Upon performing an ability, this party member/enemy will move to the left or right unless there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconConfrontational"));
+            GlossaryPassives AAShyInfo = new GlossaryPassives("Shy", "Upon performing an ability, this party member/enemy will move to the left or right, prioritizing unopposed spaces, if there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconShy"));
+            GlossaryPassives AAConfrontationalInfo = new GlossaryPassives("Confrontational", "Upon performing an ability, this party member/enemy will move to the left or right, prioritizing opposed spaces, unless there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconConfrontational"));
             GlossaryPassives AACopyThatInfo = new GlossaryPassives("Copy That", "At the start of combat, select a set amount of random party members. Copy one passive and two abilities (excluding Slap) from each selected party member onto this enemy. Change this enemy's health color to a combination of all selected party members' health colors.", ResourceLoader.LoadSprite("IconCopyThat"));
             GlossaryPassives AAGnomeInfo = new GlossaryPassives("Gnome", "This unit is one or more gnomes.", ResourceLoader.LoadSprite("IconGnome"));
             GlossaryPassives AAOmnichromiaInfo = new GlossaryPassives("Omnichromia", "Upon receiving any kind of damage or performing an ability, randomize this unit's health colour. This includes unusual and split pigment.", ResourceLoader.LoadSprite("IconOmnichromia"));
             GlossaryPassives AAGougedInfo = new GlossaryPassives("Gouged", "This unit is missing an eye, their reduced accuracy decreasing damage dealt by 25%.", ResourceLoader.LoadSprite("IconGouged"));
             GlossaryPassives AAMadeOfFireInfo = new GlossaryPassives("Made Of Fire", "This unit is immune to fire damage.", ResourceLoader.LoadSprite("IconFireskull"));
+            GlossaryPassives AADriedOutInfo = new GlossaryPassives("Dried Out", "This unit is immune to damage from Ruptured.", ResourceLoader.LoadSprite("IconDriedOut"));
 
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAShyInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAConfrontationalInfo);
@@ -283,6 +313,7 @@ namespace A_Apocrypha.Custom_Passives
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAOmnichromiaInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAGougedInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAMadeOfFireInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AADriedOutInfo);
 
             if (!AApocrypha.CrossMod.StewSpecimens)
             {
@@ -396,6 +427,13 @@ namespace A_Apocrypha.Custom_Passives
             }
 
             return readFrom[key] = create(key);
+        }
+        static PreviousEffectCondition PreviousGenerator(bool wasTrue, int number)
+        {
+            PreviousEffectCondition previous = ScriptableObject.CreateInstance<PreviousEffectCondition>();
+            previous.wasSuccessful = wasTrue;
+            previous.previousAmount = number;
+            return previous;
         }
     }
     public class IsSelfDeathCondition : EffectorConditionSO

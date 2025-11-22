@@ -43,6 +43,41 @@ namespace A_Apocrypha.CustomStatusField
                 };
                 LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Poisoned", PoisonedRemIntent);
             }
+
+            if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Irradiated_ID"))
+            {
+                StatusEffectInfoSO IrradiatedInfo = ScriptableObject.CreateInstance<StatusEffectInfoSO>();
+                IrradiatedInfo._statusName = "Irradiated";
+                IrradiatedInfo._description = "On performing an ability, reduce this unit's max health by 2. Irradiated is reduced by 1 at the end of each turn.";
+                IrradiatedInfo.icon = ResourceLoader.LoadSprite("IconIrradiated");
+
+                LoadedDBsHandler.StatusFieldDB.TryGetStatusEffect("Scars_ID", out StatusEffect_SO scars);
+                StatusEffectInfoSO baseinfo = scars.EffectInfo;
+
+                IrradiatedInfo._applied_SE_Event = "event:/AASFX/RadiationApply";
+                IrradiatedInfo._removed_SE_Event = baseinfo._removed_SE_Event;
+                IrradiatedInfo._updated_SE_Event = baseinfo._updated_SE_Event;
+
+                Irradiated irradiated = ScriptableObject.CreateInstance<Irradiated>();
+                irradiated._StatusID = "Irradiated_ID";
+                irradiated._EffectInfo = IrradiatedInfo;
+
+                LoadedDBsHandler.StatusFieldDB.AddNewStatusEffect(irradiated, true);
+
+                IntentInfoBasic IrradiatedIntent = new()
+                {
+                    _color = Color.white,
+                    _sprite = ResourceLoader.LoadSprite("IconIrradiated")
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Status_Irradiated", IrradiatedIntent);
+
+                IntentInfoBasic IrradiatedRemIntent = new()
+                {
+                    _color = Color.gray,
+                    _sprite = ResourceLoader.LoadSprite("IconIrradiated")
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Irradiated", IrradiatedRemIntent);
+            }
         }
     }
 }

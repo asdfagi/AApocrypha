@@ -18,6 +18,7 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("BloatfingerTimeline", new Vector2(0.5f, 0f), 32),
                 DamageSound = LoadedAssetsHandler.GetEnemy("SilverSuckle_EN").damageSound,
                 DeathSound = LoadedAssetsHandler.GetEnemy("SilverSuckle_EN").deathSound,
+                UnitTypes = ["Neathy"],
             };
             bloatfinger.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Bloatfinger_Enemy/Bloatfinger_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Bloatfinger_Enemy/Bloatfinger_Giblets.prefab").GetComponent<ParticleSystem>());
             bloatfinger.AddPassives([Passives.Slippery]);

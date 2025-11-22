@@ -19,6 +19,12 @@ namespace A_Apocrypha.Enemies
             MigraineAnim._visuals = Visuals.InvadeTheVeins;
             MigraineAnim._animationTarget = Targeting.Slot_Front;
 
+            SwapToOneSideEffect SwapLeft = ScriptableObject.CreateInstance<SwapToOneSideEffect>();
+            SwapLeft._swapRight = false;
+
+            SwapToOneSideEffect SwapRight = ScriptableObject.CreateInstance<SwapToOneSideEffect>();
+            SwapRight._swapRight = true;
+
             Ability bias = new Ability("Bias", "AApocrypha_ColoBias_A")
             {
                 Description = "Transform 4 Pigment not of this Enemy's health colour, into this Enemy's health colour.",
@@ -85,6 +91,99 @@ namespace A_Apocrypha.Enemies
             tensionheadache.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Pigment_Transform"]);
             tensionheadache.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_7_10)]);
 
+            Enemy redblueColo = new Enemy("Dualistic Colophon", "ColophonDualistic_EN")
+            {
+                Health = 12,
+                HealthColor = Pigments.RedBlue,
+                Size = 1,
+                CombatSprite = ResourceLoader.LoadSprite("ColophonDualisticTimeline", new Vector2(0.5f, 0f), 32),
+                OverworldDeadSprite = ResourceLoader.LoadSprite("ColophonDualisticDead", new Vector2(0.5f, 0f), 32),
+                OverworldAliveSprite = ResourceLoader.LoadSprite("ColophonDualisticTimeline", new Vector2(0.5f, 0f), 32),
+                DamageSound = LoadedAssetsHandler.GetEnemy("ColophonComposed_EN").damageSound,
+                DeathSound = LoadedAssetsHandler.GetEnemy("ColophonDefeated_EN").deathSound,
+                //DamageSound = "event:/AAEnemy/ColophonSaccharineHurt",
+                //DeathSound = "event:/AAEnemy/ColophonSaccharineDeath",
+            };
+            redblueColo.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/ColophonDualistic_Enemy/ColophonDualistic_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/ColophonDualistic_Enemy/ColophonDualistic_Giblets.prefab").GetComponent<ParticleSystem>());
+            redblueColo.AddPassives([Passives.Pure, Passives.GetCustomPassive("Pollute_PA")]);
+
+            StatusEffect_Apply_Effect RupturedApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            RupturedApply._Status = StatusField.Ruptured;
+
+            StatusEffect_Apply_Effect FrailApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            FrailApply._Status = StatusField.Frail;
+
+            ChangeToRandomHealthColorEffect YoureBlueNow = ScriptableObject.CreateInstance<ChangeToRandomHealthColorEffect>();
+            YoureBlueNow._healthColors = [Pigments.Blue];
+
+            ChangeToRandomHealthColorEffect YoureRedNow = ScriptableObject.CreateInstance<ChangeToRandomHealthColorEffect>();
+            YoureRedNow._healthColors = [Pigments.Red];
+
+            AnimationVisualsEffect TranquilityAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            TranquilityAnim._visuals = Visuals.Equal;
+            TranquilityAnim._animationTarget = Targeting.Slot_OpponentAllLefts;
+
+            AnimationVisualsEffect SufferingAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            SufferingAnim._visuals = Visuals.Misery;
+            SufferingAnim._animationTarget = Targeting.Slot_OpponentAllRights;
+
+            Ability tranquility = new Ability("Tranquility", "AApocrypha_Tranquility_A")
+            {
+                Description = "Move this enemy to the Right.\nChange the health colour of All party members to the Left of this enemy to blue.\nApply 1 Ruptured to All party members whose health colour did not change.",
+                Cost = [Pigments.BlueRed, Pigments.Blue],
+                Effects =
+                [
+                    Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(TranquilityAnim, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(YoureBlueNow, 1, Targeting.Slot_OpponentLeft),
+                    Effects.GenerateEffect(RupturedApply, 1, Targeting.Slot_OpponentLeft, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(YoureBlueNow, 1, Targeting.GenerateSlotTarget([-2], false)),
+                    Effects.GenerateEffect(RupturedApply, 1, Targeting.GenerateSlotTarget([-2], false), PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(YoureBlueNow, 1, Targeting.GenerateSlotTarget([-3], false)),
+                    Effects.GenerateEffect(RupturedApply, 1, Targeting.GenerateSlotTarget([-3], false), PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(YoureBlueNow, 1, Targeting.GenerateSlotTarget([-4], false)),
+                    Effects.GenerateEffect(RupturedApply, 1, Targeting.GenerateSlotTarget([-4], false), PreviousGenerator(false, 1)),
+                ],
+                Rarity = Rarity.Uncommon,
+                Priority = Priority.Normal,
+            };
+            tranquility.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
+            tranquility.AddIntentsToTarget(Targeting.Slot_OpponentAllLefts, [nameof(IntentType_GameIDs.Mana_Modify)]);
+            tranquility.AddIntentsToTarget(Targeting.Slot_OpponentAllLefts, [nameof(IntentType_GameIDs.Status_Ruptured)]);
+
+            Ability suffering = new Ability("Suffering", "AApocrypha_Suffering_A")
+            {
+                Description = "Move this enemy to the Left.\nChange the health colour of All party members to the Right of this enemy to red.\nApply 2 Frail to All party members whose health colour did not change.",
+                Cost = [Pigments.RedBlue, Pigments.Red],
+                Effects =
+                [
+                    Effects.GenerateEffect(SwapLeft, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(SufferingAnim, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(YoureRedNow, 1, Targeting.Slot_OpponentRight),
+                    Effects.GenerateEffect(FrailApply, 1, Targeting.Slot_OpponentRight, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(YoureRedNow, 1, Targeting.GenerateSlotTarget([2], false)),
+                    Effects.GenerateEffect(FrailApply, 1, Targeting.GenerateSlotTarget([2], false), PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(YoureRedNow, 1, Targeting.GenerateSlotTarget([3], false)),
+                    Effects.GenerateEffect(FrailApply, 1, Targeting.GenerateSlotTarget([3], false), PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(YoureRedNow, 1, Targeting.GenerateSlotTarget([4], false)),
+                    Effects.GenerateEffect(FrailApply, 1, Targeting.GenerateSlotTarget([4], false), PreviousGenerator(false, 1)),
+                ],
+                Rarity = Rarity.Uncommon,
+                Priority = Priority.Normal,
+            };
+            suffering.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
+            suffering.AddIntentsToTarget(Targeting.Slot_OpponentAllRights, [nameof(IntentType_GameIDs.Mana_Modify)]);
+            suffering.AddIntentsToTarget(Targeting.Slot_OpponentAllRights, [nameof(IntentType_GameIDs.Status_Frail)]);
+
+            redblueColo.AddEnemyAbilities(
+            [
+                bias,
+                migraine,
+                tranquility,
+                suffering,
+            ]);
+            redblueColo.AddEnemy(true, false, false);
+
             if (AApocrypha.CrossMod.pigmentPeppermint)
             {
                 Enemy peppermintColo = new Enemy("Saccharine Colophon", "ColophonSaccharine_EN")
@@ -103,12 +202,6 @@ namespace A_Apocrypha.Enemies
 
                 StatusEffect_Apply_Effect HasteApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
                 HasteApply._Status = StatusField.GetCustomStatusEffect("Haste_ID");
-
-                SwapToOneSideEffect SwapLeft = ScriptableObject.CreateInstance<SwapToOneSideEffect>();
-                SwapLeft._swapRight = false;
-
-                SwapToOneSideEffect SwapRight = ScriptableObject.CreateInstance<SwapToOneSideEffect>();
-                SwapRight._swapRight = true;
 
                 QueueTimelineAbilityByNameEffect QueueRush = ScriptableObject.CreateInstance<QueueTimelineAbilityByNameEffect>();
                 QueueRush._abilityName = "Sugar Rush";
@@ -130,9 +223,11 @@ namespace A_Apocrypha.Enemies
                         Effects.GenerateEffect(HasteApply, 1, Targeting.Slot_AllyRight, PreviousGenerator(true, 1)),
                         Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot, PreviousGenerator(true, 6)),
                         Effects.GenerateEffect(ScriptableObject.CreateInstance<PercentageChanceForNextEffect>(), 50, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, false], [7, 5])),
-                        Effects.GenerateEffect(QueueRush, 1, Targeting.Slot_SelfSlot, PreviousGenerator(true, 1)),
+                        Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Unit_OtherAlliesSlots),
+                        Effects.GenerateEffect(QueueRush, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, true], [1, 2])),
                         Effects.GenerateEffect(ScriptableObject.CreateInstance<PercentageChanceForNextEffect>(), 50, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [9, 4])),
-                        Effects.GenerateEffect(QueueRush, 1, Targeting.Slot_SelfSlot, PreviousGenerator(true, 1)),
+                        Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Unit_OtherAlliesSlots),
+                        Effects.GenerateEffect(QueueRush, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, true], [1, 2])),
                     ],
                     Rarity = Rarity.Common,
                     Priority = Priority.Normal,

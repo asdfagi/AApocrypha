@@ -135,6 +135,15 @@ namespace A_Apocrypha.Encounters
                     ], null);
                 }
             };
+            if (AApocrypha.CrossMod.Mythos)
+            {
+                sculptorBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBird_EN",
+                    "SculptorBirdSculpture_EN",
+                    "Lloigor_EN",
+                ], null);
+            }
             sculptorBirdMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_SculptorBird_Medium_EnemyBundle", 18, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }

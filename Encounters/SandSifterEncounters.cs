@@ -78,6 +78,20 @@ namespace A_Apocrypha.Encounters
                     "Mung_EN",
                 ], null);
             }
+            if (AApocrypha.CrossMod.Mythos)
+            {
+                sandSifterEasy.CreateNewEnemyEncounterData(
+                [
+                    "SandSifter_EN",
+                    "RatThing_EN",
+                    "Mung_EN",
+                ], null);
+                sandSifterEasy.CreateNewEnemyEncounterData(
+                [
+                    "SandSifter_EN",
+                    "Madman_EN",
+                ], null);
+            }
             sandSifterEasy.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_SandSifter_Easy_EnemyBundle", 8, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Easy);
         }

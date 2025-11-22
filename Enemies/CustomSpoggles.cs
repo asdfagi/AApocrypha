@@ -34,6 +34,23 @@ namespace A_Apocrypha.Enemies
             gnaw.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Damage_3_6)]);
             gnaw.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Consume)]);
 
+            Ability manducate = new Ability("Manducate", "AApocrypha_SpoggleManducate_A")
+            {
+                Description = "Deals an Agonizing amount of damage to the Left and Right party members.\nThis enemy consumes 2 Pigment not of this enemy's health colour.",
+                Cost = [],
+                Visuals = Visuals.Gnaw,
+                AnimationTarget = Targeting.Slot_OpponentSides,
+                Effects =
+                [
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 8, Targeting.Slot_OpponentSides),
+                    Effects.GenerateEffect(ConsumeNotHealth, 2, Targeting.Slot_SelfSlot),
+                ],
+                Rarity = Rarity.Common,
+                Priority = Priority.Normal,
+            };
+            manducate.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Damage_7_10)]);
+            manducate.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Consume)]);
+
             Ability siphon = new Ability("Siphon", "AApocrypha_SpoggleSiphon_A")
             {
                 Description = "This enemy consumes 3 Pigment not of this enemy's health colour.",

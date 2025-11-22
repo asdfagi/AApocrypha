@@ -25,7 +25,7 @@ namespace A_Apocrypha.CustomStatusField
             if (sender is IUnit u)
             {
                 int randomDamage = UnityEngine.Random.Range(1, holder.m_ContentMain+1);
-                u.Damage(randomDamage, null, DeathType_GameIDs.Basic.ToString(), 0, false, false, true);
+                u.Damage(randomDamage, null, DeathType_GameIDs.Basic.ToString(), 0, false, false, true, "AA_Poison_Damage");
             }
             ReduceDuration(holder, sender as IStatusEffector);
         }

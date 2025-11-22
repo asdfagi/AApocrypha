@@ -92,6 +92,25 @@ namespace A_Apocrypha.Encounters
                     "Euryale_EN",
                 ], null);
             }
+            if (AApocrypha.CrossMod.Mythos)
+            {
+                sirenBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBirdSiren_EN",
+                    "BirdBath_EN",
+                    "StarVampire_EN",
+                ], null);
+            }
+            if (AApocrypha.CrossMod.SaltEnemies)
+            {
+                sirenBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBirdSiren_EN",
+                    "Boiler_EN",
+                    "BirdBath_EN",
+                    "Ecstasy_Yellow_EN",
+                ], null);
+            }
             sirenBirdMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToCustomZoneSelector("H_ZoneSiren_SculptorBird_Medium_EnemyBundle", 8, "TheSiren_Zone1", BundleDifficulty.Medium);
         }

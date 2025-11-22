@@ -11,6 +11,7 @@ namespace A_Apocrypha.Animations
         public static AttackVisualsSO StarfallVisualsSO;
         public static AttackVisualsSO StaticVisualsSO;
         public static AttackVisualsSO StaticColorVisualsSO;
+        public static AttackVisualsSO MicrowaveVisualsSO;
 
         public static void Add()
         {
@@ -38,6 +39,11 @@ namespace A_Apocrypha.Animations
             StaticColorVisualsSO.audioReference = "event:/AASFX/Static_SFX";
             StaticColorVisualsSO.isAnimationFullScreen = false;
             StaticColorVisualsSO.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/Apocrypha_Animations/StaticColorAnim.anim");
+
+            MicrowaveVisualsSO = ScriptableObject.CreateInstance<AttackVisualsSO>();
+            MicrowaveVisualsSO.audioReference = "event:/AASFX/Microwave_SFX";
+            MicrowaveVisualsSO.isAnimationFullScreen = false;
+            MicrowaveVisualsSO.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/Apocrypha_Animations/MicrowaveAnim.anim");
         }
     }
 }

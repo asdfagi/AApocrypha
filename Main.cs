@@ -10,13 +10,16 @@ global using UnityEngine;
 using System.Collections.Generic;
 using A_Apocrypha.CustomOther;
 using A_Apocrypha.CustomStatusField;
+using A_Apocrypha.DamageTypes;
+using A_Apocrypha.Events;
 using A_Apocrypha.Items;
 using BepInEx.Bootstrap;
+using BepInEx.Configuration;
 using HarmonyLib;
 
 namespace A_Apocrypha
 {
-    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.3")]
+    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.4")]
     [BepInDependency("BrutalOrchestra.BrutalAPI", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("Tairbaz.ColophonConundrum", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("TairbazPeep.EnemyPack", BepInDependency.DependencyFlags.SoftDependency)]
@@ -29,12 +32,14 @@ namespace A_Apocrypha
     [BepInDependency("AnimatedGlitch.NumerousLads", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("embercoral.embercoralsMonsterMixtape", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("AnimatedGlitch.Siren", BepInDependency.DependencyFlags.SoftDependency)]
-    //[BepInDependency("Tairbaz.MythosFriends", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("Tairbaz.MythosFriends", BepInDependency.DependencyFlags.SoftDependency)]
     //[BepInDependency("Marmo.Sasha", BepInDependency.DependencyFlags.SoftDependency)]
 
     public class AApocrypha : BaseUnityPlugin
     {
         public static AssetBundle assetBundle;
+        public static ConfigEntry<bool> hemisphere;
+        public static ConfigEntry<bool> eyebitevisual;
         public static class CrossMod
         {
             public static bool Colophons = false;
@@ -104,8 +109,17 @@ namespace A_Apocrypha
             var harmony = new Harmony("asdfagi.A_Apocrypha");
             harmony.PatchAll();
 
+            ConfigFile config = new ConfigFile(System.IO.Path.Combine(Paths.ConfigPath, "AApocrypha.cfg"), true);
+            hemisphere = config.Bind("Preferences", "Southern Hemisphere Override", false, "Set this to true if you're more of a southern hemisphere kind of individual. Adjusts Season and Moon Phase.");
+            eyebitevisual = config.Bind("Triggers & Phobias", "Eye Gouging Animation", false, "Set this to true to enable the eye gouging animation for the Tear Drinker. [CURRENTLY UNIMPLEMENTED]");
+
             //Asset Bundles
             assetBundle = AssetBundle.LoadFromMemory(ResourceLoader.ResourceBinary("aapocrypha_assetbundle"));
+
+            //Calendar Test
+            var MoonData = Moon.Now(hemisphere.Value ? "south" : "north");
+            Debug.Log($"Calendar | current moon phase is {MoonData.Name} - visible as {MoonData.Visual} from the {MoonData.Hemisphere}ern hemisphere");
+            Debug.Log($"Calendar | current season is {Season.Name} (numbered {Season.Number})");
 
             //Intents
             CustomIntents.Add();
@@ -115,6 +129,9 @@ namespace A_Apocrypha
 
             //Custom Animations
             CustomVisuals.Add();
+
+            //Damage Types
+            PoisonDamage.Add();
 
             //Status & Field Effects
             CustomStatus.Add();
@@ -129,8 +146,8 @@ namespace A_Apocrypha
                 Debug.Log("Status | Haste found");
             }
 
-                //Passives
-                CustomPassives.Add();
+            //Passives
+            CustomPassives.Add();
 
             // ITEMS & ACHIEVEMENTS
             // Miniboss Unlocks
@@ -139,28 +156,46 @@ namespace A_Apocrypha
             HumanHeart.Add();
             // Osman Unlocks
             TinctureOfVigour.Add();
+            CosmogoneSpectacles.Add();
             // Heaven Unlocks
             HesperideanCider.Add();
+            SerpentEffigy.Add();
             // Doula Unlocks
             if (CrossMod.EnemyPack)
             {
                 DarkdropCoffee.Add();
+                Dustwine.Add();
             }
             // March Unlocks
             if (CrossMod.GlitchsFreaks)
             {
                 EyelessSkull.Add();
+                Emergence.Add();
             }
             // Nobody Unlocks
             if (CrossMod.IntoTheAbyss)
             {
                 CardinalHoney.Add();
+                Moondial.Add();
+            }
+            // Bluw Sky Unlocks
+            if (CrossMod.SaltEnemies)
+            {
+                FourthCityAirag.Add();
             }
 
             //Characters
             //TestCharacter.Add();
             GnomeCharacter.Add();
             WhitlockCharacter.Add();
+            KneynsbergCharacter.Add();
+
+            //Free Fool Events
+            WhitlockFreeEvent.Add();
+            KneynsbergFreeEvent.Add();
+
+            //Free Fool Event Tester
+            //FreeFoolEventTester.Add();
 
             //Enemies
             //Far Shore
@@ -170,6 +205,7 @@ namespace A_Apocrypha
             SandSifter.Add();
             TearDrinker.Add();
             FungusColumn.Add();
+            Gammamite.Add();
             //Orpheum
             UnboundAnomaly.Add();
             EncasedAnomaly.Add();
@@ -199,6 +235,11 @@ namespace A_Apocrypha
             SandSifterEncounters.Add();
             TearDrinkerEncounters.Add();
             FungusColumnEncounters.Add();
+            GammamiteEncounters.Add();
+            if (CrossMod.Colophons)
+            {
+                ColophonDualisticEncounters.Add();
+            }
             CompatFarShoreEncounters.Add();
             //Orpheum
             UnboundAnomalyEncounters.Add();
