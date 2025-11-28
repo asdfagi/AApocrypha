@@ -25,7 +25,7 @@ namespace A_Apocrypha.Fools //replace this with your mod's name. EX. "BRUTAL_ORC
                 IgnoredAbilitiesForDPSBuilds = [1], //For excluding abilities when game chooses fool loadout, not necessary for all fools
             };
             testCharacter.GenerateMenuCharacter(ResourceLoader.LoadSprite("TestCharacterMenu"), ResourceLoader.LoadSprite("TestCharacterLocked")); //Menu Locked and Unlocked sprites are 32x48.
-            testCharacter.AddPassives([Passives.Catalyst, Passives.SkittishGenerator(2)]); // If you want a different existing passive at a different degree, most of them have a built-in generator.
+            testCharacter.AddPassives([Passives.CatalystGenerator(103), Passives.Transfusion, Passives.Absorb, Passives.EssenceYellow]); // If you want a different existing passive at a different degree, most of them have a built-in generator.
             testCharacter.SetMenuCharacterAsFullDPS(); // Sets a Support/DPS bias for your fool. Used when your Fool is picked randomly by the game.
             // Support - .SetMenuCharacterAsFullSupport()
 

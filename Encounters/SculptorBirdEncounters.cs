@@ -143,6 +143,13 @@ namespace A_Apocrypha.Encounters
                     "SculptorBirdSculpture_EN",
                     "Lloigor_EN",
                 ], null);
+                sculptorBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBird_EN",
+                    "SculptorBirdSculpture_EN",
+                    "StarVampire_EN",
+                    "MusicMan_EN",
+                ], null);
             }
             sculptorBirdMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_SculptorBird_Medium_EnemyBundle", 18, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);

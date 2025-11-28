@@ -69,6 +69,12 @@ namespace A_Apocrypha.Encounters
             redLogosHard.CreateNewEnemyEncounterData(
             [
                 "CrimsonLogos_EN",
+                "GigglingMinister_EN",
+                "SomeoneSister_EN",
+            ], null);
+            redLogosHard.CreateNewEnemyEncounterData(
+            [
+                "CrimsonLogos_EN",
                 "SkinningHomunculus_EN",
                 "ShiveringHomunculus_EN",
             ], null);

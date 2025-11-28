@@ -100,6 +100,19 @@ namespace A_Apocrypha.Encounters
                     "BirdBath_EN",
                     "StarVampire_EN",
                 ], null);
+                sirenBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBirdSiren_EN",
+                    "Boiler_EN",
+                    "StarVampire_EN",
+                    "BirdBath_EN",
+                ], null);
+                sirenBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBirdSiren_EN",
+                    "BirdBath_EN",
+                    "Lloigor_EN",
+                ], null);
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {

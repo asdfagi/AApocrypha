@@ -13,19 +13,33 @@ namespace A_Apocrypha.CustomEffects
             Debug.Log(targets.Count());
             if (targets.Count() != 2) 
             { 
-                return false; 
+                return false;
             }
+            bool areTargetsEN = false;
+            bool areTargetsCH = false;
+            if (targets[0].IsTargetCharacterSlot && targets[1].IsTargetCharacterSlot) { areTargetsCH = true; }
+            else if (!targets[0].IsTargetCharacterSlot && !targets[1].IsTargetCharacterSlot) { areTargetsEN = true; }
             if (targets[1].HasUnit && !targets[0].HasUnit)
             {
-                if (stats.combatSlots.CanEnemiesSwap(targets[1].SlotID, targets[0].SlotID, out int num, out int num2))
+                if (areTargetsEN)
                 {
-                    if (num >= 5 || num2 >= 5 || num < 0 || num2 < 0)
+                    if (stats.combatSlots.CanEnemiesSwap(targets[1].SlotID, targets[0].SlotID, out int num, out int num2))
                     {
-                        Debug.LogWarning("Enemy Swapper | Out of Bounds! Skipping...");
-                        return false;
+                        if (num >= 5 || num2 >= 5 || num < 0 || num2 < 0)
+                        {
+                            Debug.LogWarning("Enemy Swapper | Out of Bounds! Skipping...");
+                            return false;
+                        }
+                        if (stats.combatSlots.SwapEnemies(targets[1].SlotID, num, targets[0].SlotID, num2, true, ""))
+                        {
+                            exitAmount++;
+                            return exitAmount > 0;
+                        }
                     }
-                    bool flag3 = stats.combatSlots.SwapEnemies(targets[1].SlotID, num, targets[0].SlotID, num2, true, "");
-                    if (flag3)
+                }
+                else if (areTargetsCH)
+                {
+                    if (stats.combatSlots.SwapCharacters(targets[1].SlotID, targets[0].SlotID, true, ""))
                     {
                         exitAmount++;
                         return exitAmount > 0;
@@ -34,15 +48,25 @@ namespace A_Apocrypha.CustomEffects
             }
             else
             {
-                if (stats.combatSlots.CanEnemiesSwap(targets[0].SlotID, targets[1].SlotID, out int num, out int num2))
+                if (areTargetsEN)
                 {
-                    if (num >= 5 || num2 >= 5 || num < 0 || num2 < 0)
+                    if (stats.combatSlots.CanEnemiesSwap(targets[0].SlotID, targets[1].SlotID, out int num, out int num2))
                     {
-                        Debug.LogWarning("Enemy Swapper | Out of Bounds! Skipping...");
-                        return false;
+                        if (num >= 5 || num2 >= 5 || num < 0 || num2 < 0)
+                        {
+                            Debug.LogWarning("Enemy Swapper | Out of Bounds! Skipping...");
+                            return false;
+                        }
+                        if (stats.combatSlots.SwapEnemies(targets[0].SlotID, num, targets[1].SlotID, num2, true, ""))
+                        {
+                            exitAmount++;
+                            return exitAmount > 0;
+                        }
                     }
-                    bool flag3 = stats.combatSlots.SwapEnemies(targets[0].SlotID, num, targets[1].SlotID, num2, true, "");
-                    if (flag3)
+                }
+                else if (areTargetsCH)
+                {
+                    if (stats.combatSlots.SwapCharacters(targets[0].SlotID, targets[1].SlotID, true, ""))
                     {
                         exitAmount++;
                         return exitAmount > 0;

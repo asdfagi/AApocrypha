@@ -88,7 +88,7 @@ namespace A_Apocrypha.Encounters
                     ]),
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_ToyUfo_Medium_EnemyBundle"))._enemyBundles = ufoMedium;
-                    List<RandomEnemyGroup> graveEasy = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_NobodyGrave_Easy_EnemyBundle"))._enemyBundles)
+                List<RandomEnemyGroup> graveEasy = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_NobodyGrave_Easy_EnemyBundle"))._enemyBundles)
                 {
                     new([
                        "NobodyGrave_EN",
@@ -102,6 +102,18 @@ namespace A_Apocrypha.Encounters
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_NobodyGrave_Easy_EnemyBundle"))._enemyBundles = ufoMedium;
             }
+            /*if (AApocrypha.CrossMod.StewSpecimens)
+            {
+                List<RandomEnemyGroup> bardMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_Bard_Med_EnemyBundle"))._enemyBundles)
+                {
+                    new([
+                       "TravellingBard_S_EN",
+                       "TearDrinker_EN",
+                       "TearDrinker_EN",
+                    ]),
+                };
+                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_Bard_Med_EnemyBundle"))._enemyBundles = bardMedium;
+            }*/
         }
     }
 }

@@ -12,7 +12,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API gammamiteHard = new EnemyEncounter_API(0, "H_Zone01_Gammamite_Hard_EnemyBundle", "Gammamite_Sign")
             {
-                MusicEvent = "event:/AAMusic/SentientTombs",
+                MusicEvent = "event:/AAMusic/MillieAmp-Raytrot",
                 RoarEvent = "event:/AAEnemy/RadtickRoar",
             };
             gammamiteHard.CreateNewEnemyEncounterData(
@@ -140,6 +140,22 @@ namespace A_Apocrypha.Encounters
                     "Gammamite_EN",
                     "Waltz_EN",
                     "Waltz_EN",
+                ], null);
+            }
+            if (AApocrypha.CrossMod.Mythos)
+            {
+                gammamiteHard.CreateNewEnemyEncounterData(
+                [
+                    "Gammamite_EN",
+                    "MudLung_EN",
+                    "Madman_EN",
+                ], null);
+                gammamiteHard.CreateNewEnemyEncounterData(
+                [
+                    "Gammamite_EN",
+                    "TearDrinker_EN",
+                    "Mung_EN",
+                    "Madman_EN",
                 ], null);
             }
             gammamiteHard.AddEncounterToDataBases();

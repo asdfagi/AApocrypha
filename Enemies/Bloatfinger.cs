@@ -21,7 +21,7 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Neathy"],
             };
             bloatfinger.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Bloatfinger_Enemy/Bloatfinger_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Bloatfinger_Enemy/Bloatfinger_Giblets.prefab").GetComponent<ParticleSystem>());
-            bloatfinger.AddPassives([Passives.Slippery]);
+            bloatfinger.AddPassives([Passives.Slippery, Passives.Abomination1, Passives.Fleeting4]);
 
             AttackVisualsSO PoisonVisuals = Visuals.Exsanguinate;
             if (AApocrypha.CrossMod.IntoTheAbyss) { PoisonVisuals = LoadedAssetsHandler.GetCharacterAbility("FlorenzBasic_A").visuals; }
@@ -120,7 +120,7 @@ namespace A_Apocrypha.Enemies
             causticpanic.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Rem_Field_Shield)]);
             causticpanic.AddIntentsToTarget(Targeting.Slot_Front, ["Status_Poisoned"]);
             causticpanic.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Sides)]);
-            causticpanic.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Multi"]);
+            causticpanic.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Multi5"]);
 
             bloatfinger.AddEnemyAbilities(
                 [

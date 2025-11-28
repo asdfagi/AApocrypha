@@ -305,6 +305,7 @@ namespace A_Apocrypha.Custom_Passives
             GlossaryPassives AAGougedInfo = new GlossaryPassives("Gouged", "This unit is missing an eye, their reduced accuracy decreasing damage dealt by 25%.", ResourceLoader.LoadSprite("IconGouged"));
             GlossaryPassives AAMadeOfFireInfo = new GlossaryPassives("Made Of Fire", "This unit is immune to fire damage.", ResourceLoader.LoadSprite("IconFireskull"));
             GlossaryPassives AADriedOutInfo = new GlossaryPassives("Dried Out", "This unit is immune to damage from Ruptured.", ResourceLoader.LoadSprite("IconDriedOut"));
+            GlossaryPassives AAMercurialInfo = new GlossaryPassives("Mercurial", "At the end of the timeline, if a certain condition is met, this enemy transforms into a different enemy.", ResourceLoader.LoadSprite("IconTransformPassive"));
 
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAShyInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAConfrontationalInfo);
@@ -314,6 +315,7 @@ namespace A_Apocrypha.Custom_Passives
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAGougedInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAMadeOfFireInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AADriedOutInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AAMercurialInfo);
 
             if (!AApocrypha.CrossMod.StewSpecimens)
             {

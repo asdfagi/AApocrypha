@@ -73,6 +73,11 @@ namespace A_Apocrypha.Fools
             IncreaseBadStatus.m_AffectFieldEffects = false;
             IncreaseBadStatus._increasePositives = false;
 
+            IncreaseStatusEffectsEffect IncreaseGoodStatus = ScriptableObject.CreateInstance<IncreaseStatusEffectsEffect>();
+            IncreaseBadStatus.m_AffectStatusEffects = true;
+            IncreaseBadStatus.m_AffectFieldEffects = false;
+            IncreaseBadStatus._increasePositives = true;
+
             DamageEffect IndirectDamage = ScriptableObject.CreateInstance<DamageEffect>();
             IndirectDamage._indirect = true;
 
@@ -89,8 +94,7 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(AddRuptured, 2, Targeting.Slot_Front),
                 ]
             };
-            jaunt1.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Mass)]);
-            jaunt1.AddIntentsToTarget(TbazTargeting.Mirror(true), [nameof(IntentType_GameIDs.Swap_Mass)]);
+            jaunt1.AddIntentsToTarget(TbazTargeting.MirrorAndSelf(true), [nameof(IntentType_GameIDs.Swap_Mass)]);
             jaunt1.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Damage_3_6)]);
             jaunt1.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Status_Ruptured)]);
 
@@ -107,8 +111,7 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(AddRuptured, 2, Targeting.Slot_Front),
                 ]
             };
-            jaunt2.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Mass)]);
-            jaunt2.AddIntentsToTarget(TbazTargeting.Mirror(true), [nameof(IntentType_GameIDs.Swap_Mass)]);
+            jaunt2.AddIntentsToTarget(TbazTargeting.MirrorAndSelf(true), [nameof(IntentType_GameIDs.Swap_Mass)]);
             jaunt2.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Damage_7_10)]);
             jaunt2.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Status_Ruptured)]);
 
@@ -125,8 +128,7 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(AddRuptured, 3, Targeting.Slot_Front),
                 ]
             };
-            jaunt3.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Mass)]);
-            jaunt3.AddIntentsToTarget(TbazTargeting.Mirror(true), [nameof(IntentType_GameIDs.Swap_Mass)]);
+            jaunt3.AddIntentsToTarget(TbazTargeting.MirrorAndSelf(true), [nameof(IntentType_GameIDs.Swap_Mass)]);
             jaunt3.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Damage_7_10)]);
             jaunt3.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Status_Ruptured)]);
 
@@ -143,8 +145,7 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(AddRuptured, 3, Targeting.Slot_Front),
                 ]
             };
-            jaunt4.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Mass)]);
-            jaunt4.AddIntentsToTarget(TbazTargeting.Mirror(true), [nameof(IntentType_GameIDs.Swap_Mass)]);
+            jaunt4.AddIntentsToTarget(TbazTargeting.MirrorAndSelf(true), [nameof(IntentType_GameIDs.Swap_Mass)]);
             jaunt4.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Damage_11_15)]);
             jaunt4.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Status_Ruptured)]);
 

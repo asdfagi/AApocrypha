@@ -21,7 +21,7 @@ namespace A_Apocrypha.Items
                 Item_ID = "HyperdimensionalPearl_TW",
                 Name = "Hyperdimensional Pearl",
                 Flavour = "\"It looks wrsrihoginhngty...\"",
-                Description = "This party member now has Omnichromia and Leaky as passives. On performing an ability, this party member generates 1 Pigment of their health color.",
+                Description = "This party member now has Omnichromia and Leaky as passives. Before performing an ability, this party member generates 1 Pigment of their health color.",
                 IsShopItem = false,
                 ShopPrice = 6,
                 DoesPopUpInfo = true,

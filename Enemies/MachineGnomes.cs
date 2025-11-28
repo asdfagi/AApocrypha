@@ -9,6 +9,15 @@ namespace A_Apocrypha.Enemies
     {
         public static void Add()
         {
+            ChangeToRandomHealthColorEffect randomize = ScriptableObject.CreateInstance<ChangeToRandomHealthColorEffect>();
+            randomize._healthColors =
+            [
+                        Pigments.Blue,
+                        Pigments.Red,
+                        Pigments.Yellow,
+                        Pigments.Purple
+            ];
+
             GainLootOneOfCustomCharactersEffect GnomeReward = ScriptableObject.CreateInstance<GainLootOneOfCustomCharactersEffect>();
             GnomeReward._characterCopies = ["Gnome_CH", "GnomePurple_CH", "GnomeBlue_CH", "GnomeGreen_CH"];
             GnomeReward._rank = 0;
@@ -24,10 +33,14 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("GnomesOverworld", new Vector2(0.5f, 0f), 32),
                 DamageSound = "event:/AAEnemy/GnomesHurt",
                 DeathSound = "event:/AAEnemy/GnomesDeath",
+                CombatEnterEffects =
+                [
+                    Effects.GenerateEffect(randomize, 1, Targeting.Slot_SelfSlot),
+                ],
                 CombatExitEffects = 
                 [
                     Effects.GenerateEffect(GnomeReward, 1, Targeting.Slot_SelfSlot),    
-                ]
+                ],
             };
             gnomes.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Gnomes_Enemy/Gnomes_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Gnomes_Enemy/Gnomes_Giblets.prefab").GetComponent<ParticleSystem>());
 

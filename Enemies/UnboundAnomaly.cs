@@ -65,7 +65,7 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Uncommon,
                 Priority = Priority.Fast,
             };
-            stare.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Misc_Hidden)]);
+            stare.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Nothing"]);
             anomalystare = stare;
 
             Ability screamsfrombeyond = new Ability("Screams from Beyond", "AApocrypha_ScreamsFromBeyond_A")
@@ -92,12 +92,7 @@ namespace A_Apocrypha.Enemies
             screamsfrombeyond.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_1_2)]);
             screamsfrombeyond.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Damage_1_2)]);
             screamsfrombeyond.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Sides)]);
-            screamsfrombeyond.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_1_2)]);
-            screamsfrombeyond.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Damage_1_2)]);
-            screamsfrombeyond.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Sides)]);
-            screamsfrombeyond.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_1_2)]);
-            screamsfrombeyond.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Damage_1_2)]);
-            screamsfrombeyond.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Sides)]);
+            screamsfrombeyond.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Multi3"]);
 
             Ability whispersfrombeyond = new Ability("Whispers from Beyond", "AApocrypha_WhispersFromBeyond_A")
             {

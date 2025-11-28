@@ -19,7 +19,7 @@ using HarmonyLib;
 
 namespace A_Apocrypha
 {
-    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.4")]
+    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.5")]
     [BepInDependency("BrutalOrchestra.BrutalAPI", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("Tairbaz.ColophonConundrum", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("TairbazPeep.EnemyPack", BepInDependency.DependencyFlags.SoftDependency)]
@@ -40,6 +40,9 @@ namespace A_Apocrypha
         public static AssetBundle assetBundle;
         public static ConfigEntry<bool> hemisphere;
         public static ConfigEntry<bool> eyebitevisual;
+
+        public static Moon.PhaseResult MoonData;
+
         public static class CrossMod
         {
             public static bool Colophons = false;
@@ -117,7 +120,7 @@ namespace A_Apocrypha
             assetBundle = AssetBundle.LoadFromMemory(ResourceLoader.ResourceBinary("aapocrypha_assetbundle"));
 
             //Calendar Test
-            var MoonData = Moon.Now(hemisphere.Value ? "south" : "north");
+            MoonData = Moon.Now(hemisphere.Value ? "south" : "north");
             Debug.Log($"Calendar | current moon phase is {MoonData.Name} - visible as {MoonData.Visual} from the {MoonData.Hemisphere}ern hemisphere");
             Debug.Log($"Calendar | current season is {Season.Name} (numbered {Season.Number})");
 
@@ -183,6 +186,8 @@ namespace A_Apocrypha
             {
                 FourthCityAirag.Add();
             }
+            // Miscellaneous Items
+            CranesSavesTheRun.Add();
 
             //Characters
             //TestCharacter.Add();
@@ -217,6 +222,7 @@ namespace A_Apocrypha
             //Garden
             Simulacrum.Add();
             MachineGnomes.Add();
+            Sisters.Add();
             //Unclassified, Multiple
             CustomSpoggles.Add();
             CustomJumbleGuts.Add();
@@ -264,6 +270,7 @@ namespace A_Apocrypha
             SimulacrumEncounters.Add();
             MachineGnomesEncounters.Add();
             RedLogosEncounters.Add();
+            SistersEncounters.Add();
             CompatGardenEncounters.Add();
             //Minibosses
             RiftEncounters.Add();

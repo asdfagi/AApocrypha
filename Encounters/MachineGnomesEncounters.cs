@@ -107,6 +107,12 @@ namespace A_Apocrypha.Encounters
                 "GigglingMinister_EN",
                 "MachineGnomes_EN",
             ], null);
+            gnomesHard.CreateNewEnemyEncounterData(
+            [
+                "MachineGnomes_EN",
+                "SomeoneSister_EN",
+                "MachineGnomes_EN",
+            ], null);
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
                 gnomesHard.CreateNewEnemyEncounterData(

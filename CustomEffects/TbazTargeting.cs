@@ -20,6 +20,14 @@ namespace MythosFriends.Effectsa
             return mirror;
         }
 
+        public static BaseCombatTargettingSO MirrorAndSelf(bool allies)
+        {
+            MirrorTargetting mirror = ScriptableObject.CreateInstance<MirrorTargetting>();
+            mirror.getAllies = allies;
+            mirror.includeCasterSlot = true;
+            return mirror;
+        }
+
         public static BaseCombatTargettingSO Farthest(bool allies)
         {
             FarthestTile mirror = ScriptableObject.CreateInstance<FarthestTile>();
@@ -34,6 +42,8 @@ namespace MythosFriends.Effectsa
 
             public bool ignoreCastSlot = true;
 
+            public bool includeCasterSlot = false;
+
             public override bool AreTargetAllies => getAllies;
 
             public override bool AreTargetSlots => true;
@@ -42,6 +52,7 @@ namespace MythosFriends.Effectsa
             {
                 List<TargetSlotInfo> targets = new List<TargetSlotInfo>();
                 CombatSlot mirror = null;
+                CombatSlot self = null;
                 if ((isCasterCharacter && getAllies) || (!isCasterCharacter && !getAllies))
                 {
                     foreach (CombatSlot slot in slots.CharacterSlots)
@@ -50,27 +61,26 @@ namespace MythosFriends.Effectsa
                         if (casterSlotID == 4)
                         {
                             mirror = slots.CharacterSlots[0];
-
+                            self = slots.CharacterSlots[4];
                         }
                         else if (casterSlotID == 3)
                         {
                             mirror = slots.CharacterSlots[1];
-
+                            self = slots.CharacterSlots[3];
                         }
                         else if (casterSlotID == 2)
                         {
                             mirror = slots.CharacterSlots[casterSlotID];
-
                         }
                         else if (casterSlotID == 1)
                         {
                             mirror = slots.CharacterSlots[3];
-
+                            self = slots.CharacterSlots[1];
                         }
                         else if (casterSlotID == 0)
                         {
                             mirror = slots.CharacterSlots[4];
-
+                            self = slots.CharacterSlots[0];
                         }
                         else
                         {
@@ -87,27 +97,26 @@ namespace MythosFriends.Effectsa
                         if (casterSlotID == 4)
                         {
                             mirror = slots.EnemySlots[0];
-
+                            self = slots.EnemySlots[4];
                         }
                         else if (casterSlotID == 3)
                         {
                             mirror = slots.EnemySlots[1];
-
+                            self = slots.EnemySlots[3];
                         }
                         else if (casterSlotID == 2)
                         {
                             mirror = slots.EnemySlots[casterSlotID];
-
                         }
                         else if (casterSlotID == 1)
                         {
                             mirror = slots.EnemySlots[3];
-
+                            self = slots.EnemySlots[1];
                         }
                         else if (casterSlotID == 0)
                         {
                             mirror = slots.EnemySlots[4];
-
+                            self = slots.EnemySlots[0];
                         }
                         else
                         {
@@ -118,6 +127,10 @@ namespace MythosFriends.Effectsa
                 if (mirror != null)
                 {
                     targets.Add(mirror.TargetSlotInformation);
+                    if (self != null && includeCasterSlot)
+                    {
+                        targets.Add(self.TargetSlotInformation);
+                    }
                 }
                 return targets.ToArray();
             }
