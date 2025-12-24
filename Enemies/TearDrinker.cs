@@ -88,6 +88,11 @@ namespace A_Apocrypha.Enemies
 
             ExtraVariableForNextEffect Blank = ScriptableObject.CreateInstance<ExtraVariableForNextEffect>();
 
+            TargetPerformEffectViaSubaction GougedNameHandler = ScriptableObject.CreateInstance<TargetPerformEffectViaSubaction>();
+            GougedNameHandler.effects = [
+                Effects.GenerateEffect(ScriptableObject.CreateInstance<CasterGougedNameEffect>()),
+            ];
+
             Ability nibble = new Ability("Nibble", "AApocrypha_TearDrinkerNibble_A")
             {
                 Description = "If no party members are Opposing this enemy, move Left or Right.\nDeal a Little damage to the Opposing party member.\nIf damage is dealt, All Gouged party members produce 1 Blue Pigment as they relive the experience.",
@@ -143,10 +148,11 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(GougeAnim, 1, Targeting.Slot_Front, PreviousGenerator(false, 2)),
                     Effects.GenerateEffect(ApplyGouged, 1, Targeting.Slot_Front, PreviousGenerator(false, 3)),
                     Effects.GenerateEffect(MusicToggleAdd, 1, Targeting.Slot_SelfSlot, PreviousGenerator(true, 1)),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 7, Targeting.Slot_Front, PreviousGenerator(true, 2)),
-                    Effects.GenerateEffect(TargetsGiveBluePigment, 3, Targeting.Slot_Front, PreviousGenerator(true, 3)),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 4, Targeting.Slot_Front, PreviousGenerator(false, 4)),
-                    Effects.GenerateEffect(TargetsGiveBluePigment, 1, Targeting.Slot_Front, PreviousGenerator(false, 5)),
+                    Effects.GenerateEffect(GougedNameHandler, 1, Targeting.Slot_Front, PreviousGenerator(true, 2)),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 7, Targeting.Slot_Front, PreviousGenerator(true, 3)),
+                    Effects.GenerateEffect(TargetsGiveBluePigment, 3, Targeting.Slot_Front, PreviousGenerator(true, 4)),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 4, Targeting.Slot_Front, PreviousGenerator(false, 5)),
+                    Effects.GenerateEffect(TargetsGiveBluePigment, 1, Targeting.Slot_Front, PreviousGenerator(false, 6)),
                 ],
                 Rarity = Rarity.Uncommon,
                 Priority = Priority.Normal,

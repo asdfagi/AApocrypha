@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("ColophonSaccharine_Sign", ResourceLoader.LoadSprite("ColophonPeppermintTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API colophonSaccharineMedium = new EnemyEncounter_API(0, "H_Zone03_ColophonSaccharine_Medium_EnemyBundle", "ColophonSaccharine_Sign")
             {
-                MusicEvent = "event:/AAMusic/MaddieDoktor-HurtPeopleFullCircle",
+                MusicEvent = "event:/AAMusic/MaddieDoktor/HurtPeopleFullCircle",
                 RoarEvent = "event:/AAEnemy/ColophonSaccharineRoar",
             };
             colophonSaccharineMedium.CreateNewEnemyEncounterData(
@@ -42,7 +42,7 @@ namespace A_Apocrypha.Encounters
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_ColophonSaccharine_Medium_EnemyBundle", 6, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Medium);
             EnemyEncounter_API colophonSaccharineHard = new EnemyEncounter_API(0, "H_Zone02_ColophonSaccharine_Hard_EnemyBundle", "ColophonSaccharine_Sign")
             {
-                MusicEvent = "event:/AAMusic/MaddieDoktor-HurtPeopleFullCircle",
+                MusicEvent = "event:/AAMusic/MaddieDoktor/HurtPeopleFullCircle",
                 RoarEvent = "event:/AAEnemy/ColophonSaccharineRoar",
             };
             colophonSaccharineHard.CreateNewEnemyEncounterData(
@@ -80,7 +80,7 @@ namespace A_Apocrypha.Encounters
                     "Scrungie_EN",
                     "Scrungie_EN",
                 ], null);
-            /*if (AApocrypha.CrossMod.Mythos)
+            if (AApocrypha.CrossMod.Mythos)
             {
                 colophonSaccharineHard.CreateNewEnemyEncounterData(
                 [
@@ -88,7 +88,13 @@ namespace A_Apocrypha.Encounters
                     "ColophonComposed_EN",
                     "Lloigor_EN",
                 ], null);
-            }*/
+                colophonSaccharineHard.CreateNewEnemyEncounterData(
+                [
+                    "ColophonSaccharine_EN",
+                    "ColophonDefeated_EN",
+                    "StarVampire_EN",
+                ], null);
+            }
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
                 colophonSaccharineHard.CreateNewEnemyEncounterData(

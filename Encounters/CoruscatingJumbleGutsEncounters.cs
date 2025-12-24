@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("RainbowGuts_Sign", ResourceLoader.LoadSprite("RainbowGutsTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API rainbowGutsMedium = new EnemyEncounter_API(0, "H_Zone02_CoruscatingJumbleGuts_Medium_EnemyBundle", "RainbowGuts_Sign")
             {
-                MusicEvent = "event:/AAMusic/MillieAmp-SecondaryColors",
+                MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
                 RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone02_JumbleGuts_Flummoxing_Medium_EnemyBundle")._roarReference.roarEvent,
             };
             rainbowGutsMedium.CreateNewEnemyEncounterData(

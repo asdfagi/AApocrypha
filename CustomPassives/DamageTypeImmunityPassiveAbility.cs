@@ -11,8 +11,7 @@ namespace A_Apocrypha.Custom_Passives
         {
             IPassiveEffector passiveEffector = sender as IPassiveEffector;
             DamageReceivedValueChangeException damage = args as DamageReceivedValueChangeException;
-            bool flag = damage.damageTypeID == _damageType;
-            if (flag)
+            if (damage.damageTypeID == _damageType)
             {
                 CombatManager.Instance.AddUIAction(new ShowPassiveInformationUIAction(passiveEffector.ID, passiveEffector.IsUnitCharacter, base.GetPassiveLocData().text, this.passiveIcon));
                 damage.AddModifier(new MultiplyIntValueModifier(false, 0));

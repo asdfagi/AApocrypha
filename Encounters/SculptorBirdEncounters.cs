@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("SculptorBird_Sign", ResourceLoader.LoadSprite("SculptorBirdTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API sculptorBirdMedium = new EnemyEncounter_API(0, "H_Zone02_SculptorBird_Medium_EnemyBundle", "SculptorBird_Sign")
             {
-                MusicEvent = "event:/AAMusic/DepressionShop",
+                MusicEvent = "event:/AAMusic/mudeth/DepressionShop",
                 RoarEvent = "event:/Characters/Enemies/DLC_01/Scrungie/CHR_ENM_Scrungie_Roar",
             };
             sculptorBirdMedium.CreateNewEnemyEncounterData(
@@ -47,6 +47,13 @@ namespace A_Apocrypha.Encounters
                     "SculptorBirdSculpture_EN",
                     "DevotedSpoggle_EN",
                     "Jumbleguts_Waning_EN",
+                ], null);
+            sculptorBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBird_EN",
+                    "SculptorBirdSculpture_EN",
+                    "Blemmigan_EN",
+                    "Blemmigan_EN",
                 ], null);
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {

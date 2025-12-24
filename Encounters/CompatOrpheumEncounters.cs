@@ -59,6 +59,12 @@ namespace A_Apocrypha.Encounters
                        "Frostbite_EN",
                        "BloatfingerHiddenOrpheum_EN",
                     ]),
+                    new([
+                       "Frostbite_EN",
+                       "Frostbite_EN",
+                       "Blemmigan_EN",
+                       "Blemmigan_EN",
+                    ]),
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("FrostbiteMed"))._enemyBundles = frostbiteMedium;
             }
@@ -111,6 +117,12 @@ namespace A_Apocrypha.Encounters
                        "MusicMan_EN",
                        "MusicMan_EN",
                        "SculptorBirdSculpture_EN",
+                    ]),
+                    new([
+                        "StarVampire_EN",
+                        "Blemmigan_EN",
+                        "Blemmigan_EN",
+                        "MusicMan_EN",
                     ]),
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("StarVampireMedium"))._enemyBundles = vampireMedium;

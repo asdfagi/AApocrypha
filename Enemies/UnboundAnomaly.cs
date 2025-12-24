@@ -21,7 +21,7 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("AnomalyTimeline", new Vector2(0.5f, 0f), 32),
                 DamageSound = "event:/AAEnemy/Anomaly1Hurt",
                 DeathSound = "event:/AAEnemy/Anomaly1Death",
-                UnitTypes = ["AnomalyID"],
+                UnitTypes = ["Anomaly"],
             };
             unboundanomaly.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Anomaly_Enemy/Anomaly_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Anomaly_Enemy/Anomaly_Giblets.prefab").GetComponent<ParticleSystem>());
 

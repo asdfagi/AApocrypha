@@ -19,7 +19,7 @@ using HarmonyLib;
 
 namespace A_Apocrypha
 {
-    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.5")]
+    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.6")]
     [BepInDependency("BrutalOrchestra.BrutalAPI", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("Tairbaz.ColophonConundrum", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("TairbazPeep.EnemyPack", BepInDependency.DependencyFlags.SoftDependency)]
@@ -54,6 +54,7 @@ namespace A_Apocrypha
             public static bool StewSpecimens = false;
             public static bool Siren = false;
             public static bool Mythos = false;
+            public static bool MarmoEnemies = false;
             public static bool pigmentGilded = false;
             public static bool pigmentRainbow = false;
             public static bool pigmentPeppermint = false;
@@ -72,7 +73,8 @@ namespace A_Apocrypha
                     if (metadata.GUID == "millieamp.intoTheAbyss") { IntoTheAbyss = true; }
                     if (metadata.GUID == "Stew.STEWS_SPECIMENS") { StewSpecimens = true; }
                     if (metadata.GUID == "AnimatedGlitch.Siren") { Siren = true; }
-                    //if (metadata.GUID == "Tairbaz.MythosFriends") { Mythos = true; }
+                    if (metadata.GUID == "Tairbaz.MythosFriends") { Mythos = true; }
+                    if (metadata.GUID == "Marmo.MarmoEnemies") { MarmoEnemies = true; }
                     if (metadata.GUID == "AnimatedGlitch.NumerousLads") { pigmentGilded = true; }
                     if (metadata.GUID == "Devron.UnluckyGuys") { pigmentRainbow = true; }
                     if (metadata.GUID == "embercoral.embercoralsMonsterMixtape") { pigmentPeppermint = true; }
@@ -87,6 +89,7 @@ namespace A_Apocrypha
                 if (StewSpecimens) { Debug.Log("hello specimens of stew"); }
                 if (Siren) { Debug.Log("hello the siren"); }
                 if (Mythos) { Debug.Log("hello mythos friends"); }
+                if (MarmoEnemies) { Debug.Log("hello beasts of box"); }
                 if (pigmentGilded && LoadedDBsHandler.PigmentDB.GetPigment("Gilded") != null)
                 {
                     Debug.Log("hello gilded pigment from numerous lads");
@@ -132,6 +135,7 @@ namespace A_Apocrypha
 
             //Custom Animations
             CustomVisuals.Add();
+            ITAVisuals.Add();
 
             //Damage Types
             PoisonDamage.Add();
@@ -202,6 +206,8 @@ namespace A_Apocrypha
             //Free Fool Event Tester
             //FreeFoolEventTester.Add();
 
+            //Other Events
+
             //Enemies
             //Far Shore
             Macerator.Add();
@@ -211,6 +217,8 @@ namespace A_Apocrypha
             TearDrinker.Add();
             FungusColumn.Add();
             Gammamite.Add();
+            Smoldergeist.Add();
+            DuneThresher.Add();
             //Orpheum
             UnboundAnomaly.Add();
             EncasedAnomaly.Add();
@@ -219,6 +227,12 @@ namespace A_Apocrypha
             //AnomalyMiniboss.Add();
             Rift.Add();
             Bloatfinger.Add();
+            Blemmigan.Add();
+            //Siren
+            if (CrossMod.Siren)
+            {
+                WinterLantern.Add();
+            }
             //Garden
             Simulacrum.Add();
             MachineGnomes.Add();
@@ -231,6 +245,7 @@ namespace A_Apocrypha
                 CustomColophons.Add();
             }
             Logos.Add();
+            HazardHauler.Add();
 
             //Encounters
             //TestEncounters.Add();
@@ -242,6 +257,8 @@ namespace A_Apocrypha
             TearDrinkerEncounters.Add();
             FungusColumnEncounters.Add();
             GammamiteEncounters.Add();
+            SmoldergeistEncounters.Add();
+            DuneThresherEncounters.Add();
             if (CrossMod.Colophons)
             {
                 ColophonDualisticEncounters.Add();
@@ -255,6 +272,7 @@ namespace A_Apocrypha
             CellularSpoggleEncounters.Add();
             DevotedSpoggleEncounters.Add();
             BloatfingerEncounters.Add();
+            BlemmiganEncounters.Add();
             if (CrossMod.pigmentRainbow)
             {
                 CoruscatingJumbleGutsEncounters.Add();
@@ -264,6 +282,8 @@ namespace A_Apocrypha
             if (CrossMod.Siren)
             {
                 SculptorBirdSirenEncounters.Add();
+                WinterLanternEncounters.Add();
+                HazardHaulerSirenEncounters.Add();
                 CompatSirenEncounters.Add();
             }
             //Garden
@@ -271,6 +291,9 @@ namespace A_Apocrypha
             MachineGnomesEncounters.Add();
             RedLogosEncounters.Add();
             SistersEncounters.Add();
+            BlueLogosEncounters.Add();
+            YellowLogosEncounters.Add();
+            PurpleLogosEncounters.Add();
             CompatGardenEncounters.Add();
             //Minibosses
             RiftEncounters.Add();
@@ -280,6 +303,10 @@ namespace A_Apocrypha
             {
                 ColophonSaccharineEncounters.Add();
             }
+
+            //Gauntlet
+            //GauntletEvents.Add();
+            //GauntletEncounters.Add();
 
             Logger.LogInfo("Asdfagi's Abominable Apocrypha activated.");
         }

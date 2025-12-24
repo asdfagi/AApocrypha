@@ -27,6 +27,7 @@ namespace A_Apocrypha.Enemies
             TwoFacedXR._enemyDescription = "Upon receiving direct damage this enemy will change its health colour from grey to red or vice versa.";
             TwoFacedXR._triggerOn = [TriggerCalls.OnDirectDamaged];
             TwoFacedXR.effects = [Effects.GenerateEffect(GreyRed, 1, Targeting.Slot_SelfSlot)];
+            Passives.AddCustomPassiveToPool("AA_TwoFacedXR_PA", "Two Faced", TwoFacedXR);
 
             PerformEffectPassiveAbility TwoFacedRX = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             TwoFacedRX.name = "AA_TwoFaced_RX";
@@ -37,6 +38,7 @@ namespace A_Apocrypha.Enemies
             TwoFacedRX._enemyDescription = "Upon receiving direct damage this enemy will change its health colour from red to grey or vice versa.";
             TwoFacedRX._triggerOn = [TriggerCalls.OnDirectDamaged];
             TwoFacedRX.effects = [Effects.GenerateEffect(RedGrey, 1, Targeting.Slot_SelfSlot)];
+            Passives.AddCustomPassiveToPool("AA_TwoFacedRX_PA", "Two Faced", TwoFacedRX);
 
             Enemy fullsister = new Enemy("Someone's Sister", "SomeoneSister_EN")
             {
@@ -81,11 +83,26 @@ namespace A_Apocrypha.Enemies
             PreviousEffectCondition PreviousTrue = ScriptableObject.CreateInstance<PreviousEffectCondition>();
             PreviousTrue.wasSuccessful = true;
 
+            PreviousEffectCondition Previous2True = ScriptableObject.CreateInstance<PreviousEffectCondition>();
+            Previous2True.wasSuccessful = true;
+            Previous2True.previousAmount = 2;
+
             SpecificHealthColorEffectorCondition IsRed = ScriptableObject.CreateInstance<SpecificHealthColorEffectorCondition>();
             IsRed._color = Pigments.Red;
 
             SpecificHealthColorEffectorCondition IsGrey = ScriptableObject.CreateInstance<SpecificHealthColorEffectorCondition>();
             IsGrey._color = Pigments.Grey;
+
+            SpecificHealthColorCheckEffect CheckRed = ScriptableObject.CreateInstance<SpecificHealthColorCheckEffect>();
+            CheckRed._color = Pigments.Red;
+
+            SpecificHealthColorCheckEffect CheckGrey = ScriptableObject.CreateInstance<SpecificHealthColorCheckEffect>();
+            CheckGrey._color = Pigments.Grey;
+
+            PassivePopUpOnTargetEffect MercurialPopup = ScriptableObject.CreateInstance<PassivePopUpOnTargetEffect>();
+            MercurialPopup._name = "Mercurial";
+            MercurialPopup._sprite = "IconTransformPassive";
+            MercurialPopup._isUnitCharacter = false;
 
             PerformEffectPassiveAbility MercurialSisterFull = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             MercurialSisterFull.name = "AA_Mercurial_SistersSomeone";
@@ -95,9 +112,13 @@ namespace A_Apocrypha.Enemies
             MercurialSisterFull._characterDescription = "if your health is red on tineline end this shit turns you into Nowak lmao";
             MercurialSisterFull._enemyDescription = "At the end of the timeline, if this enemy's health colour is red, this enemy transforms into No One's Sister.";
             MercurialSisterFull._triggerOn = [TriggerCalls.TimelineEndReached];
-            MercurialSisterFull.conditions = [IsRed];
-            MercurialSisterFull.doesPassiveTriggerInformationPanel = true;
-            MercurialSisterFull.effects = [Effects.GenerateEffect(BecomeEmpty, 1, Targeting.Slot_SelfSlot)];
+            MercurialSisterFull.doesPassiveTriggerInformationPanel = false;
+            MercurialSisterFull.effects = [
+                Effects.GenerateEffect(CheckRed, 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(MercurialPopup, 1, Targeting.Slot_SelfSlot, PreviousTrue),
+                Effects.GenerateEffect(BecomeEmpty, 1, Targeting.Slot_SelfSlot, Previous2True),
+            ];
+            Passives.AddCustomPassiveToPool("AA_Mercurial_SistersSomeone_PA", "Mercurial", MercurialSisterFull);
 
             PerformEffectPassiveAbility MercurialSisterEmpty = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             MercurialSisterEmpty.name = "AA_Mercurial_SistersNoone";
@@ -107,12 +128,16 @@ namespace A_Apocrypha.Enemies
             MercurialSisterEmpty._characterDescription = "if your health is grey on tineline end this shit turns you into Nowak lmao";
             MercurialSisterEmpty._enemyDescription = "At the end of the timeline, if this enemy's health colour is grey, this enemy transforms into Someone's Sister.";
             MercurialSisterEmpty._triggerOn = [TriggerCalls.TimelineEndReached];
-            MercurialSisterEmpty.conditions = [IsGrey];
-            MercurialSisterEmpty.doesPassiveTriggerInformationPanel = true;
-            MercurialSisterEmpty.effects = [Effects.GenerateEffect(BecomeFull, 1, Targeting.Slot_SelfSlot)];
+            MercurialSisterEmpty.doesPassiveTriggerInformationPanel = false;
+            MercurialSisterEmpty.effects = [
+                Effects.GenerateEffect(CheckGrey, 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(MercurialPopup, 1, Targeting.Slot_SelfSlot, PreviousTrue),
+                Effects.GenerateEffect(BecomeFull, 1, Targeting.Slot_SelfSlot, Previous2True),
+            ];
+            Passives.AddCustomPassiveToPool("AA_Mercurial_SistersNoone_PA", "Mercurial", MercurialSisterEmpty);
 
-            fullsister.AddPassives([TwoFacedXR, MercurialSisterFull]);
-            emptysister.AddPassives([TwoFacedRX, MercurialSisterEmpty]);
+            fullsister.AddPassives([Passives.GetCustomPassive("AA_TwoFacedXR_PA"), Passives.GetCustomPassive("AA_Mercurial_SistersSomeone_PA")]);
+            emptysister.AddPassives([Passives.GetCustomPassive("AA_TwoFacedRX_PA"), Passives.GetCustomPassive("AA_Mercurial_SistersNoone_PA")]);
 
             Ability hillchanger = new Ability("Hillchanger", "AApocrypha_Hillchanger_A")
             {

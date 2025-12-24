@@ -18,10 +18,10 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("SharpenedAnomalyTimeline", new Vector2(0.5f, 0f), 32),
                 DamageSound = LoadedAssetsHandler.GetEnemy("TaMaGoa_EN").damageSound,
                 DeathSound = LoadedAssetsHandler.GetEnemy("TaMaGoa_EN").damageSound,
-                UnitTypes = ["AnomalyID"],
+                UnitTypes = ["Anomaly"],
             };
             sharpenedanomaly.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/PiercingAnomaly_Enemy/PiercingAnomaly_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Anomaly_Enemy/AnomalyShell_Giblets.prefab").GetComponent<ParticleSystem>());
-            sharpenedanomaly.AddPassives([Passives.Pure, Passives.GetCustomPassive("Confrontational_PA"), Passives.DecayGenerator(LoadedAssetsHandler.GetEnemy("UnboundAnomaly_EN"), 60)]);
+            sharpenedanomaly.AddPassives([Passives.Pure, Passives.GetCustomPassive("Confrontational_PA"), Passives.DecayGenerator(LoadedAssetsHandler.GetEnemy("UnboundAnomaly_EN"))]);
 
             GenerateColorManaEffect GivePurplePigment = ScriptableObject.CreateInstance<GenerateColorManaEffect>();
             GivePurplePigment.mana = Pigments.Purple;

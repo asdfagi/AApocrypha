@@ -52,7 +52,7 @@ namespace A_Apocrypha.Enemies
             {
                 Description = "Apply 2-4 Poisoned to the Left, Right and Opposing party members.",
                 Cost = [Pigments.Red],
-                Visuals = Visuals.Exsanguinate,
+                Visuals = ITAVisuals.Stank,
                 AnimationTarget = Targeting.Slot_FrontAndSides,
                 Effects =
                 [
@@ -63,10 +63,6 @@ namespace A_Apocrypha.Enemies
                 Priority = Priority.Normal,
             };
             noxiousspores.AddIntentsToTarget(Targeting.Slot_FrontAndSides, ["Status_Poisoned"]);
-            if (AApocrypha.CrossMod.IntoTheAbyss) 
-            { 
-                noxiousspores.Visuals = LoadedAssetsHandler.GetCharacterAbility("FlorenzBasic_A").visuals; 
-            }
 
             Ability lashingfronds = new Ability("Lashing Fronds", "AApocrypha_Lashing Fronds_A")
             {

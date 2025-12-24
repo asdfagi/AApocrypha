@@ -12,7 +12,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API colophonDualisticEasy = new EnemyEncounter_API(0, "H_Zone01_ColophonDualistic_Easy_EnemyBundle", "ColophonDualistic_Sign")
             {
-                MusicEvent = "event:/AAMusic/MaddieDoktor-HurtPeopleFullCircle",
+                MusicEvent = "event:/AAMusic/MaddieDoktor/HurtPeopleFullCircle",
                 RoarEvent = LoadedAssetsHandler.GetEnemyBundle("ComposedEasy")._roarReference.roarEvent,
             };
             colophonDualisticEasy.CreateNewEnemyEncounterData(
@@ -37,7 +37,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API colophonDualisticMedium = new EnemyEncounter_API(0, "H_Zone01_ColophonDualistic_Medium_EnemyBundle", "ColophonDualistic_Sign")
             {
-                MusicEvent = "event:/AAMusic/MaddieDoktor-HurtPeopleFullCircle",
+                MusicEvent = "event:/AAMusic/MaddieDoktor/HurtPeopleFullCircle",
                 RoarEvent = LoadedAssetsHandler.GetEnemyBundle("ComposedEasy")._roarReference.roarEvent,
             };
             colophonDualisticMedium.CreateNewEnemyEncounterData(

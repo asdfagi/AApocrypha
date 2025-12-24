@@ -54,34 +54,39 @@ namespace A_Apocrypha.Fools //replace this with your mod's name. EX. "BRUTAL_ORC
             StatusEffect_Apply_Effect ScarsApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>(); //Sets up the general effect. Can't do anything without further definitions below.
             ScarsApply._Status = StatusField.Scars; //Defines what exact effect will be used. Even if the EffectName reads "ScarsApply", if it calls for StatusField.Rupture, it will apply Rupture.
 
+            DamageOfTypeEffect LinkedDamage = ScriptableObject.CreateInstance<DamageOfTypeEffect>();
+            LinkedDamage._DamageTypeID = CombatType_GameIDs.Dmg_Linked.ToString();
+
             //NOTES: Right Clicking an Effect (like DamageEffect) will tell you what additional definitions can be chosen for certain things, like Indirect Damage or Status Effects.
             //Typing things out manually is helpful, VS will bring up a menu of available items to enter. Use it to your advantage.
 
             //Ability 1. 4 different scales needed, 1 for each level.
             Ability ability0 = new Ability("Unleveled Ability", "Ability_1_A")
             {
-                Description = "Deal 7 indirect damage to the Opposing enemy.",
+                Description = "Deal 7 indirect damage to the Opposing enemy.\nDeal 4 Linked damage to the Opposing enemy.",
                 AbilitySprite = ResourceLoader.LoadSprite("AbilityIcon"),
                 Cost = [Pigments.YellowRed, Pigments.Red],
-                Visuals = CustomVisuals.TestCannonVisualsSO, //Visuals are now under 'Visuals. '. List here: https://github.com/kondorriano/BrutalAPI/wiki/Visuals Visual Aid here: https://www.youtube.com/watch?v=YJsGBPA-OP0
+                Visuals = CustomVisuals.Whispers, //Visuals are now under 'Visuals. '. List here: https://github.com/kondorriano/BrutalAPI/wiki/Visuals Visual Aid here: https://www.youtube.com/watch?v=YJsGBPA-OP0
                 AnimationTarget = Targeting.Slot_Front,
                 Effects =
                 [
                     Effects.GenerateEffect(IndirectDamage, 7, Targeting.Slot_Front), // In order, calls for (EffectToDo, #ToApply, Targeting)
+                    Effects.GenerateEffect(LinkedDamage, 4, Targeting.Slot_Front),
                 ]
             };
             ability0.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_7_10)]); //Damage_#_# is parameters for damage calculations. Heal_#_# for heals. Ranges for all numbers between given #s. EX: 7,8,9,10.
 
             Ability ability1 = new Ability("Crazy Ability", "Ability_2_A") //be sure to rename the ID of the ability too. the game will be unhappy if you don't
             {
-                Description = "Deal 10-11 indirect damage to the Opposing enemy.",
+                Description = "Deal 10-11 indirect damage to the Opposing enemy.\nDeal 6 Linked damage to the Opposing enemy.",
                 AbilitySprite = ResourceLoader.LoadSprite("AbilityIcon"),
                 Cost = [Pigments.YellowRed, Pigments.Red], //Split pigments are under one name now
-                Visuals = CustomVisuals.TestCannonVisualsSO,
+                Visuals = CustomVisuals.Whispers,
                 AnimationTarget = Targeting.Slot_Front,
                 Effects =
                 [
                     Effects.GenerateEffect(IndirectDamage, 11, Targeting.Slot_Front),
+                    Effects.GenerateEffect(LinkedDamage, 6, Targeting.Slot_Front),
                 ]
             };
             ability1.AddIntentsToTarget(Targeting.Slot_Front, new string[] { IntentType_GameIDs.Damage_7_10.ToString(), IntentType_GameIDs.Damage_11_15.ToString() }); //Good format to call multiple calculations.

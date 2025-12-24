@@ -18,8 +18,24 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("SandSifterTimeline", new Vector2(0.5f, 0f), 32),
                 DamageSound = "event:/AAEnemy/SandSifterHurt",
                 DeathSound = "event:/AAEnemy/SandSifterDeath",
+                UnitTypes = ["Robot"],
             };
             sandsifter.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/SandSifter_Enemy/SandSifter_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/SandSifter_Enemy/SandSifter_Giblets.prefab").GetComponent<ParticleSystem>());
+
+            Enemy sandsiftersummon = new Enemy("Sand Sifter", "SandSifterSummon_EN")
+            {
+                Health = 8,
+                HealthColor = Pigments.Grey,
+                Size = 1,
+                CombatSprite = ResourceLoader.LoadSprite("SandSifterTimeline", new Vector2(0.5f, 0f), 32),
+                OverworldDeadSprite = ResourceLoader.LoadSprite("SandSifterDead", new Vector2(0.5f, 0f), 32),
+                OverworldAliveSprite = ResourceLoader.LoadSprite("SandSifterTimeline", new Vector2(0.5f, 0f), 32),
+                DamageSound = "event:/AAEnemy/SandSifterHurt",
+                DeathSound = "event:/AAEnemy/SandSifterDeath",
+                UnitTypes = ["Robot"],
+            };
+            sandsiftersummon.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/SandSifter_Enemy/SandSifter_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/SandSifter_Enemy/SandSifter_Giblets.prefab").GetComponent<ParticleSystem>());
+
 
             SwapToOneRandomSideXTimesEffect SwapRandomFar = ScriptableObject.CreateInstance<SwapToOneRandomSideXTimesEffect>();
 
@@ -164,8 +180,18 @@ namespace A_Apocrypha.Enemies
                 bloodsample.GenerateEnemyAbility(true),
             ]);
 
+            sandsiftersummon.AddEnemyAbilities(
+            [
+                surfacesample.GenerateEnemyAbility(true),
+                coresample.GenerateEnemyAbility(true),
+                bloodsample.GenerateEnemyAbility(true),
+            ]);
+
             sandsifter.AddPassives([]);
             sandsifter.AddEnemy(true, true, true);
+
+            sandsiftersummon.AddPassives([Passives.Withering]);
+            sandsiftersummon.AddEnemy(false, false, false);
         }
     }
 }

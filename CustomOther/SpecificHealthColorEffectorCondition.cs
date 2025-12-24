@@ -4,7 +4,7 @@ using System.Text;
 
 namespace A_Apocrypha.CustomOther
 {
-    internal class SpecificHealthColorEffectorCondition : EffectorConditionSO
+    public class SpecificHealthColorEffectorCondition : EffectorConditionSO
     {
         public ManaColorSO _color;
         public override bool MeetCondition(IEffectorChecks effector, object args)

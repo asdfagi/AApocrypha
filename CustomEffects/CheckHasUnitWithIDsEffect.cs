@@ -15,7 +15,7 @@ namespace A_Apocrypha.CustomEffects
             {
                 if (!targets[i].HasUnit)
                 {
-                    return false;
+                    continue;
                 }
                 if (targets[i].Unit is EnemyCombat enemy)
                 {

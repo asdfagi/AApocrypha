@@ -12,7 +12,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API fungusMedium = new EnemyEncounter_API(0, "H_Zone01_FungusColumn_Medium_EnemyBundle", "FungusColumn_Sign")
             {
-                MusicEvent = "event:/AAMusic/WhyWeWearFaces",
+                MusicEvent = "event:/AAMusic/FallenLondon/WhyWeWearFaces",
                 RoarEvent = LoadedAssetsHandler.GetEnemy("SilverSuckle_EN").deathSound,
             };
             fungusMedium.CreateNewEnemyEncounterData(

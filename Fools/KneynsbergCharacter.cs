@@ -227,7 +227,7 @@ namespace A_Apocrypha.Fools
 
             Ability reflection1 = new Ability("Faint Reflection", "KneynsbergReflection_1")
             {
-                Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all negative status effects on this party member by 2. If this fails, apply 1 Scar to this party member.",
+                Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all status effects on this party member by 2. If this fails, apply 1 Scar to this party member.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergReflection"),
                 Cost = [Pigments.Purple, Pigments.Blue],
                 Visuals = Visuals.Exsanguinate,
@@ -236,8 +236,9 @@ namespace A_Apocrypha.Fools
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CasterSwapStatusWithTargetEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapToSidesEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(IncreaseGoodStatus, 2, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(IncreaseBadStatus, 2, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(AddScars, 1, Targeting.Slot_SelfSlot, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(AddScars, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, false], [1, 2])),
                 ]
             };
             reflection1.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Misc)]);
@@ -247,7 +248,7 @@ namespace A_Apocrypha.Fools
 
             Ability reflection2 = new Ability("Hazy Reflection", "KneynsbergReflection_2")
             {
-                Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all negative status effects on this party member by 2. If this fails, apply 1 Scar to this party member.",
+                Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all status effects on this party member by 2. If this fails, apply 1 Scar to this party member.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergReflection"),
                 Cost = [Pigments.BluePurple, Pigments.Blue],
                 Visuals = Visuals.Exsanguinate,
@@ -256,8 +257,9 @@ namespace A_Apocrypha.Fools
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CasterSwapStatusWithTargetEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapToSidesEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(IncreaseGoodStatus, 2, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(IncreaseBadStatus, 2, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(AddScars, 1, Targeting.Slot_SelfSlot, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(AddScars, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, false], [1, 2])),
                 ]
             };
             reflection2.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Misc)]);
@@ -267,7 +269,7 @@ namespace A_Apocrypha.Fools
 
             Ability reflection3 = new Ability("Blurry Reflection", "KneynsbergReflection_3")
             {
-                Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all negative status effects on this party member by 3. If this fails, apply 2 Scars to this party member.",
+                Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all status effects on this party member by 3. If this fails, apply 2 Scars to this party member.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergReflection"),
                 Cost = [Pigments.BluePurple, Pigments.Blue],
                 Visuals = Visuals.Exsanguinate,
@@ -276,8 +278,9 @@ namespace A_Apocrypha.Fools
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CasterSwapStatusWithTargetEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapToSidesEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(IncreaseGoodStatus, 3, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(IncreaseBadStatus, 3, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(AddScars, 2, Targeting.Slot_SelfSlot, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(AddScars, 2, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, false], [1, 2])),
                 ]
             };
             reflection3.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Misc)]);
@@ -287,7 +290,7 @@ namespace A_Apocrypha.Fools
 
             Ability reflection4 = new Ability("Clear Reflection", "KneynsbergReflection_4")
             {
-                Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all negative status effects on this party member by 3. If this fails, apply 3 Scars to this party member.",
+                Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all status effects on this party member by 3. If this fails, apply 3 Scars to this party member.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergReflection"),
                 Cost = [Pigments.BluePurple, Pigments.BluePurple],
                 Visuals = Visuals.Exsanguinate,
@@ -296,8 +299,9 @@ namespace A_Apocrypha.Fools
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CasterSwapStatusWithTargetEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapToSidesEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(IncreaseGoodStatus, 3, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(IncreaseBadStatus, 3, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(AddScars, 3, Targeting.Slot_SelfSlot, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(AddScars, 3, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, false], [1, 2])),
                 ]
             };
             reflection4.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Misc)]);

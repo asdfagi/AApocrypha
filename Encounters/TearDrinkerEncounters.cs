@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("TearDrinker_Sign", ResourceLoader.LoadSprite("TearDrinkerTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API tearDrinkerEasy = new EnemyEncounter_API(0, "H_Zone01_TearDrinker_Easy_EnemyBundle", "TearDrinker_Sign")
             {
-                MusicEvent = "event:/AAMusic/YellowFrog",
+                MusicEvent = "event:/AAMusic/Everhood/YellowFrog",
                 RoarEvent = "event:/Characters/Enemies/DLC_01/Keko/CHR_ENM_Keko_Roar",
             };
             tearDrinkerEasy.CreateNewEnemyEncounterData(
@@ -34,8 +34,8 @@ namespace A_Apocrypha.Encounters
             
             EnemyEncounter_API tearDrinkerMedium = new EnemyEncounter_API(0, "H_Zone01_TearDrinker_Medium_EnemyBundle", "TearDrinker_Sign")
             {
-                MusicEvent = "event:/AAMusic/YellowFrog",
-                RoarEvent = "event:/Characters/Enemies/DLC_01/Keko/CHR_ENM_Keko_Roar",
+                MusicEvent = "event:/AAMusic/Everhood/YellowFrog",
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone01_Keko_Easy_EnemyBundle")._roarReference.roarEvent,
             };
             tearDrinkerMedium.CreateNewEnemyEncounterData(
                 [
@@ -137,6 +137,15 @@ namespace A_Apocrypha.Encounters
                         "TearDrinker_EN",
                         "LittleBeak_EN",
                     ], null);
+            }
+            if (AApocrypha.CrossMod.MarmoEnemies)
+            {
+                tearDrinkerMedium.CreateNewEnemyEncounterData(
+                [
+                    "TearDrinker_EN",
+                    "Spoggle_Mechanical_EN",
+                    "MudLung_EN",
+                ], null);
             }
             tearDrinkerMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_TearDrinker_Medium_EnemyBundle", 14, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);

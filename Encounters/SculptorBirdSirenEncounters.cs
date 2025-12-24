@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("SirenBird_Sign", ResourceLoader.LoadSprite("SirenBirdTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API sirenBirdMedium = new EnemyEncounter_API(0, "H_ZoneSiren_SculptorBird_Medium_EnemyBundle", "SirenBird_Sign")
             {
-                MusicEvent = "event:/AAMusic/DepressionShop",
+                MusicEvent = "event:/AAMusic/mudeth/DepressionShop",
                 RoarEvent = "event:/Characters/Enemies/DLC_01/Scrungie/CHR_ENM_Scrungie_Roar",
             };
             sirenBirdMedium.CreateNewEnemyEncounterData(
@@ -65,6 +65,13 @@ namespace A_Apocrypha.Encounters
                     "BirdBath_EN",
                     "BirdBath_EN",
                     "Tassnn_EN",
+                ], null);
+            sirenBirdMedium.CreateNewEnemyEncounterData(
+                [
+                    "SculptorBirdSiren_EN",
+                    "BirdBath_EN",
+                    "BirdBath_EN",
+                    "WinterLantern_EN",
                 ], null);
             if (AApocrypha.CrossMod.HellIslandFell)
             {

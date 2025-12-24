@@ -11,6 +11,7 @@ namespace A_Apocrypha.CustomOther
         public int[] slotOffsets;
         public bool targetUnitAllySlots;
         public bool getAllUnitSelfSlots;
+        public bool blacklist = false;
 
         public override bool AreTargetAllies => targetUnitAllySlots;
         public override bool AreTargetSlots => true;
@@ -29,7 +30,11 @@ namespace A_Apocrypha.CustomOther
                     continue;
 
                 var id = ch.Enemy.name;
-                if (string.IsNullOrEmpty(id) || Array.IndexOf(_enemies, id) < 0)
+                if (string.IsNullOrEmpty(id))
+                    continue;
+                if (blacklist == false && Array.IndexOf(_enemies, id) < 0)
+                    continue;
+                if (blacklist == true && Array.IndexOf(_enemies, id) >= 0)
                     continue;
 
                 var chSID = ch.SlotID;

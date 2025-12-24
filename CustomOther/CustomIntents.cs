@@ -84,6 +84,33 @@ namespace A_Apocrypha.CustomOther
                 _sprite = ResourceLoader.LoadSprite("doNothing_intent"),
             };
             LoadedDBsHandler.IntentDB.AddNewBasicIntent("AA_Nothing", NothingIntent);
+            // Glitch
+            IntentInfoBasic DNAIntent = new()
+            {
+                _color = Color.white,
+                _sprite = ResourceLoader.LoadSprite("DNAIntent"),
+            };
+            LoadedDBsHandler.IntentDB.AddNewBasicIntent("AA_AddPassive", DNAIntent);
+            IntentInfoBasic RemDNAIntent = new()
+            {
+                _color = Color.grey,
+                _sprite = ResourceLoader.LoadSprite("DNAIntent"),
+            };
+            LoadedDBsHandler.IntentDB.AddNewBasicIntent("AA_RemPassive", RemDNAIntent);
+
+            IntentInfoBasic MadeOfFireIntent = new()
+            {
+                _color = Color.white,
+                _sprite = ResourceLoader.LoadSprite("IconFireskull"),
+            };
+            LoadedDBsHandler.IntentDB.AddNewBasicIntent("Passive_MadeOfFire", MadeOfFireIntent);
+
+            IntentInfoBasic RemMadeOfFireIntent = new()
+            {
+                _color = Color.grey,
+                _sprite = ResourceLoader.LoadSprite("IconFireskull"),
+            };
+            LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Passive_MadeOfFire", RemMadeOfFireIntent);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API acolyteEasy = new EnemyEncounter_API(0, "H_Zone01_Acolyte_Easy_EnemyBundle", "Acolyte_Sign")
             {
-                MusicEvent = "event:/AAMusic/DarkTower",
+                MusicEvent = "event:/AAMusic/FinalFantasy/DarkTower",
                 RoarEvent = "event:/Characters/Enemies/InHisImage/CHR_ENM_InHisImage_Roar",
             };
             acolyteEasy.CreateNewEnemyEncounterData(
@@ -77,7 +77,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API acolyteMedium = new EnemyEncounter_API(0, "H_Zone01_Acolyte_Medium_EnemyBundle", "Acolyte_Sign")
             {
-                MusicEvent = "event:/AAMusic/DarkTower",
+                MusicEvent = "event:/AAMusic/FinalFantasy/DarkTower",
                 RoarEvent = "event:/Characters/Enemies/InHisImage/CHR_ENM_InHisImage_Roar",
             };
             acolyteMedium.CreateNewEnemyEncounterData(

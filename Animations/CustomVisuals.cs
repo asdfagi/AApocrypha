@@ -13,6 +13,7 @@ namespace A_Apocrypha.Animations
         public static AttackVisualsSO StaticColorVisualsSO;
         public static AttackVisualsSO MicrowaveVisualsSO;
         public static AttackVisualsSO CranesHeavenVisualsSO;
+        public static AttackVisualsSO Whispers;
 
         public static void Add()
         {
@@ -50,6 +51,11 @@ namespace A_Apocrypha.Animations
             CranesHeavenVisualsSO.audioReference = "event:/Characters/Player/Cranes/CHR_PLR_Cranes_Dx";
             CranesHeavenVisualsSO.isAnimationFullScreen = false;
             CranesHeavenVisualsSO.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/Apocrypha_Animations/CranesSavingTheRunAnim.anim");
+
+            Whispers = ScriptableObject.CreateInstance<AttackVisualsSO>();
+            Whispers.audioReference = "event:/AASFX/Whispers_SFX";
+            Whispers.isAnimationFullScreen = false;
+            Whispers.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/Apocrypha_Animations/WhispersAnim.anim");
         }
     }
 }

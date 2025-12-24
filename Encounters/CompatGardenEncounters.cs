@@ -40,6 +40,15 @@ namespace A_Apocrypha.Encounters
                     ]),
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("MetatronHard"))._enemyBundles = metatronHard;
+                List<RandomEnemyGroup> psychopompHard = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("PsychopompHard"))._enemyBundles)
+                {
+                    new([
+                       "Psychopomp_EN",
+                       "MachineGnomes_EN",
+                       "MachineGnomes_EN",
+                    ]),
+                };
+                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("MetatronHard"))._enemyBundles = psychopompHard;
             }
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
@@ -101,6 +110,14 @@ namespace A_Apocrypha.Encounters
                     ]),
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Butterfly_Medium_EnemyBundle"))._enemyBundles = butterflyMedium;
+                List<RandomEnemyGroup> platoHard = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Plato_Hard_EnemyBundle"))._enemyBundles)
+                {
+                    new([
+                        "Plato_EN",
+                        "RegentLogos_EN",
+                    ]),
+                };
+                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Plato_Hard_EnemyBundle"))._enemyBundles = platoHard;
             }
             if (AApocrypha.CrossMod.SaltEnemies) 
             {
@@ -126,8 +143,22 @@ namespace A_Apocrypha.Encounters
                         "SomeoneSister_EN",
                         "SomeoneSister_EN",
                     ]),
+                    new([
+                        "Stoplight_EN",
+                        "MachineGnomes_EN",
+                        "MachineGnomes_EN",
+                    ]),
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_MidnightTrafficLight_Medium_EnemyBundle"))._enemyBundles = trainMedium;
+                List<RandomEnemyGroup> satyrMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Satyr_Medium_EnemyBundle"))._enemyBundles)
+                {
+                    new([
+                        "Satyr_EN",
+                        "MachineGnomes_EN",
+                        "MachineGnomes_EN",
+                    ]),
+                };
+                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Satyr_Medium_EnemyBundle"))._enemyBundles = satyrMedium;
             }
             if (AApocrypha.CrossMod.StewSpecimens) 
             {

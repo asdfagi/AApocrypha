@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using A_Apocrypha.CustomOther;
 
 namespace A_Apocrypha.Enemies
 {
@@ -29,9 +30,10 @@ namespace A_Apocrypha.Enemies
             CopyAnim._animationTarget = Targeting.Slot_SelfSlot;
             CopyAnim._visuals = CustomVisuals.StaticColorVisualsSO;
 
-            DisplayPassiveChangeUIActionEffect CopyThatDisplay = ScriptableObject.CreateInstance<DisplayPassiveChangeUIActionEffect>();
-            CopyThatDisplay.passiveName = "IconCopyThat";
-            CopyThatDisplay.localPassive = true;
+            PassivePopUpOnTargetEffect CopyThatPopup = ScriptableObject.CreateInstance<PassivePopUpOnTargetEffect>();
+            CopyThatPopup._name = "Copy That (2)";
+            CopyThatPopup._sprite = "IconCopyThat";
+            CopyThatPopup._isUnitCharacter = false;
 
             Enemy simulacrum = new Enemy("Simulacrum", "Simulacrum_EN")
             {
@@ -59,6 +61,7 @@ namespace A_Apocrypha.Enemies
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SimulacrumWipeCopyEffect>(), 1, Targeting.Slot_SelfSlot, FiftyPercent),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CopyThatEffect>(), 2, Targeting.Unit_AllOpponents, PreviousTrue),
+                    Effects.GenerateEffect(CopyThatPopup, 1, Targeting.Slot_SelfSlot, PreviousTrue),
                 ],
                 Rarity = Rarity.Impossible,
                 Priority = Priority.ExtremelySlow,

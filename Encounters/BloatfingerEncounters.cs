@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("Bloatfinger_Sign", ResourceLoader.LoadSprite("BloatfingerTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API bloatfingerMedium = new EnemyEncounter_API(0, "H_Zone02_Bloatfinger_Medium_EnemyBundle", "Bloatfinger_Sign")
             {
-                MusicEvent = "event:/AAMusic/WhyWeWearFaces",
+                MusicEvent = "event:/AAMusic/FallenLondon/WhyWeWearFaces",
                 RoarEvent = LoadedAssetsHandler.GetEnemy("SilverSuckle_EN").deathSound,
             };
             bloatfingerMedium.CreateNewEnemyEncounterData(

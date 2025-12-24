@@ -13,7 +13,7 @@ namespace A_Apocrypha.CustomEffects
         public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
         {
             exitAmount = 0;
-
+            Debug.Log($"Copy That | activated with value {entryVariable}");
             // SELECT TARGETS
             List<TargetSlotInfo> targetsList = targets.ToList();
             while (targetsList.Count > entryVariable)

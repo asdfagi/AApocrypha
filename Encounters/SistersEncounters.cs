@@ -16,7 +16,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("Sisters_Sign", ResourceLoader.LoadSprite((bright ? "SomeoneSisterOverworld" : "NooneSisterOverworld"), new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API sistersMedium = new EnemyEncounter_API(0, "H_Zone03_OnesSisters_Medium_EnemyBundle", "Sisters_Sign")
             {
-                MusicEvent = "event:/AAMusic/BelowZion",
+                MusicEvent = "event:/AAMusic/EXCELSIOR/BelowZion",
                 RoarEvent = "event:/AAEnemy/SistersRoar",
             };
             sistersMedium.CreateNewEnemyEncounterData(
@@ -93,7 +93,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API sistersHard = new EnemyEncounter_API(0, "H_Zone03_OnesSisters_Hard_EnemyBundle", "Sisters_Sign")
             {
-                MusicEvent = "event:/AAMusic/BelowZion",
+                MusicEvent = "event:/AAMusic/EXCELSIOR/BelowZion",
                 RoarEvent = "event:/AAEnemy/SistersRoar",
             };
             sistersHard.CreateNewEnemyEncounterData(
@@ -165,6 +165,22 @@ namespace A_Apocrypha.Encounters
                     primarySister,
                     "BlueFlower_EN",
                     "RedFlower_EN",
+                ], null);
+            }
+            if (AApocrypha.CrossMod.MarmoEnemies)
+            {
+                sistersHard.CreateNewEnemyEncounterData(
+                [
+                    primarySister,
+                    secondarySister,
+                    "Bonsai_EN",
+                ], null);
+                sistersHard.CreateNewEnemyEncounterData(
+                [
+                    primarySister,
+                    primarySister,
+                    "Git_EN",
+                    "NextOfKin_EN",
                 ], null);
             }
             sistersHard.AddEncounterToDataBases();

@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("Simulacrum_Sign", ResourceLoader.LoadSprite("SimulacrumTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API simulacrumHard = new EnemyEncounter_API(0, "H_Zone03_Simulacrum_Hard_EnemyBundle", "Simulacrum_Sign")
             {
-                MusicEvent = "event:/AAMusic/Homunculus",
+                MusicEvent = "event:/AAMusic/Everhood/Homunculus",
                 RoarEvent = "event:/AAEnemy/SimulacrumRoar",
             };
             simulacrumHard.CreateNewEnemyEncounterData(

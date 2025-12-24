@@ -19,7 +19,7 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("LogosTimelineRed", new Vector2(0.5f, 0f), 32),
                 DamageSound = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Dmg",
                 DeathSound = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Dth",
-                UnitTypes = ["Neathy"],
+                UnitTypes = ["Neathy", "Logos"],
             };
             redlogos.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/Logos_Enemy.prefab", AApocrypha.assetBundle, null);
 
@@ -33,23 +33,52 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("LogosTimelineBlue", new Vector2(0.5f, 0f), 32),
                 DamageSound = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Dmg",
                 DeathSound = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Dth",
-                UnitTypes = ["Neathy"],
+                UnitTypes = ["Neathy", "Logos"],
             };
             bluelogos.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/LogosBlue_Enemy.prefab", AApocrypha.assetBundle, null);
 
-            Enemy yellowlogos = new Enemy("Cerulean Logos", "CeruleanLogos_EN")
+            Enemy yellowlogos = new Enemy("Aureate Logos", "AureateLogos_EN")
             {
                 Health = 40,
-                HealthColor = Pigments.Blue,
+                HealthColor = Pigments.Yellow,
                 Size = 1,
                 CombatSprite = ResourceLoader.LoadSprite("LogosTimelineYellow", new Vector2(0.5f, 0f), 32),
                 OverworldDeadSprite = ResourceLoader.LoadSprite("AnomalyDead", new Vector2(0.5f, 0f), 32),
                 OverworldAliveSprite = ResourceLoader.LoadSprite("LogosTimelineYellow", new Vector2(0.5f, 0f), 32),
                 DamageSound = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Dmg",
                 DeathSound = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Dth",
-                UnitTypes = ["Neathy"],
+                UnitTypes = ["Neathy", "Logos"],
             };
             yellowlogos.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/LogosYellow_Enemy.prefab", AApocrypha.assetBundle, null);
+
+            Enemy purplelogos = new Enemy("Regent Logos", "RegentLogos_EN")
+            {
+                Health = 40,
+                HealthColor = Pigments.Purple,
+                Size = 1,
+                CombatSprite = ResourceLoader.LoadSprite("LogosTimelinePurple", new Vector2(0.5f, 0f), 32),
+                OverworldDeadSprite = ResourceLoader.LoadSprite("AnomalyDead", new Vector2(0.5f, 0f), 32),
+                OverworldAliveSprite = ResourceLoader.LoadSprite("LogosTimelinePurple", new Vector2(0.5f, 0f), 32),
+                DamageSound = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Dmg",
+                DeathSound = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Dth",
+                UnitTypes = ["Neathy", "Logos"],
+            };
+            purplelogos.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/LogosPurple_Enemy.prefab", AApocrypha.assetBundle, null);
+
+            RegentLogosMusicHandlerEffect MusicReset = ScriptableObject.CreateInstance<RegentLogosMusicHandlerEffect>();
+            MusicReset.ResetEffect = true;
+
+            RegentLogosMusicHandlerEffect MusicToggleOn = ScriptableObject.CreateInstance<RegentLogosMusicHandlerEffect>();
+            MusicToggleOn.Add = true;
+
+            RegentLogosMusicHandlerEffect MusicToggleOff = ScriptableObject.CreateInstance<RegentLogosMusicHandlerEffect>();
+            MusicToggleOff.Add = false;
+
+            purplelogos.CombatEnterEffects = [
+                Effects.GenerateEffect(MusicReset),
+                Effects.GenerateEffect(MusicToggleOn),
+            ];
+            purplelogos.CombatExitEffects = [Effects.GenerateEffect(MusicToggleOff)];
 
             DirectDeathEffect Obliterate = ScriptableObject.CreateInstance<DirectDeathEffect>();
             Obliterate._obliterationDeath = true;
@@ -66,6 +95,18 @@ namespace A_Apocrypha.Enemies
 
             FieldEffect_Apply_Effect ApplyConstricted = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
             ApplyConstricted._Field = StatusField.Constricted;
+
+            StatusEffect_Apply_Effect OilApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            OilApply._Status = StatusField.OilSlicked;
+
+            StatusEffect_ApplyByPrevious_Effect OilByPrevious = ScriptableObject.CreateInstance<StatusEffect_ApplyByPrevious_Effect>();
+            OilByPrevious._Status = StatusField.OilSlicked;
+
+            RemoveStatusEffectEffect OilRemove = ScriptableObject.CreateInstance<RemoveStatusEffectEffect>();
+            OilRemove._status = StatusField.OilSlicked;
+
+            StatusEffect_ApplyByPrevious_Effect IrradiatedByPrevious = ScriptableObject.CreateInstance<StatusEffect_ApplyByPrevious_Effect>();
+            IrradiatedByPrevious._Status = StatusField.GetCustomStatusEffect("Irradiated_ID");
 
             SpecificOpponentsByFieldTargeting OpponentsInFire = ScriptableObject.CreateInstance<SpecificOpponentsByFieldTargeting>();
             OpponentsInFire._fieldEffectID = StatusField.OnFire._FieldID;
@@ -92,6 +133,10 @@ namespace A_Apocrypha.Enemies
             TorchAnim2._visuals = Visuals.Torched;
             TorchAnim2._animationTarget = Targeting.Slot_FrontAndSides;
 
+            AnimationVisualsEffect OilAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            OilAnim._visuals = Visuals.OilSlicked;
+            OilAnim._animationTarget = Targeting.Slot_Front;
+
             DamageEffect DamageByPrevious = ScriptableObject.CreateInstance<DamageEffect>();
             DamageByPrevious._usePreviousExitValue = true;
 
@@ -105,9 +150,18 @@ namespace A_Apocrypha.Enemies
             PreviousEffectCondition PreviousTrue = ScriptableObject.CreateInstance<PreviousEffectCondition>();
             PreviousTrue.wasSuccessful = true;
 
+            PreviousEffectCondition PreviousFalse = ScriptableObject.CreateInstance<PreviousEffectCondition>();
+            PreviousFalse.wasSuccessful = false;
+
             FieldEffect_Apply_Effect ShieldByPrevious = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
             ShieldByPrevious._Field = StatusField.Shield;
             ShieldByPrevious._UsePreviousExitValueAsMultiplier = true;
+
+            FieldEffect_ApplyWithStatusBonus_Effect ShieldWithOilBonus = ScriptableObject.CreateInstance<FieldEffect_ApplyWithStatusBonus_Effect>();
+            ShieldWithOilBonus._Field = StatusField.Shield;
+            ShieldWithOilBonus._Status = StatusField.OilSlicked;
+            ShieldWithOilBonus._bonusStacking = true;
+            ShieldWithOilBonus._bonusAmount = 1;
 
             FieldEffect_Apply_Effect FireByPrevious = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
             FireByPrevious._Field = StatusField.OnFire;
@@ -119,6 +173,74 @@ namespace A_Apocrypha.Enemies
 
             AllTargeting AllUnitsTargeting = ScriptableObject.CreateInstance<AllTargeting>();
             AllUnitsTargeting._units = true;
+
+            Targetting_ByUnit_Side_Specific_Status OilAllyTargeting = ScriptableObject.CreateInstance<Targetting_ByUnit_Side_Specific_Status>();
+            OilAllyTargeting.m_SpecificStatus = [StatusField.OilSlicked];
+            OilAllyTargeting.getAllies = true;
+            OilAllyTargeting.getAllUnitSlots = true;
+            OilAllyTargeting.ignoreCastSlot = false;
+
+            DamageOfTypeEffect FireDamageIndirect = ScriptableObject.CreateInstance<DamageOfTypeEffect>();
+            FireDamageIndirect._indirect = true;
+            FireDamageIndirect._DamageTypeID = CombatType_GameIDs.Dmg_Fire.ToString();
+
+            DamageOfTypePigmentControlEffect FireDamageDirect = ScriptableObject.CreateInstance<DamageOfTypePigmentControlEffect>();
+            FireDamageDirect._indirect = false;
+            FireDamageDirect._DamageTypeID = CombatType_GameIDs.Dmg_Fire.ToString();
+            FireDamageDirect._producePigment = false;
+
+            DamageAdvancedWithCasterStatusBonusEffect FireDamageCasterOilBoosted = ScriptableObject.CreateInstance<DamageAdvancedWithCasterStatusBonusEffect>();
+            FireDamageCasterOilBoosted._indirect = true;
+            FireDamageCasterOilBoosted._bonusAmount = 1;
+            FireDamageCasterOilBoosted._bonusStacking = true;
+            FireDamageCasterOilBoosted._producePigment = false;
+            FireDamageCasterOilBoosted._status = StatusField.OilSlicked;
+            FireDamageCasterOilBoosted._DamageTypeID = CombatType_GameIDs.Dmg_Fire.ToString();
+
+            StatusEffectCheckerEffect HasOil = ScriptableObject.CreateInstance<StatusEffectCheckerEffect>();
+            HasOil._status = StatusField.OilSlicked;
+
+            SpecificAlliesByPassiveTargeting MadeOfFireAllies = ScriptableObject.CreateInstance<SpecificAlliesByPassiveTargeting>();
+            MadeOfFireAllies.slotOffsets = [0];
+            MadeOfFireAllies.targetUnitAllySlots = true;
+            MadeOfFireAllies._passive = Passives.GetCustomPassive("MadeOfFire_PA");
+
+            ConsumeAllColorManaEffect EatPurple = ScriptableObject.CreateInstance<ConsumeAllColorManaEffect>();
+            EatPurple._consumeMana = Pigments.Purple;
+
+            SpecificAlliesByUnitTypeTargeting NotLogoi = ScriptableObject.CreateInstance<SpecificAlliesByUnitTypeTargeting>();
+            NotLogoi._unitTypes = ["Logos"];
+            NotLogoi.blacklist = true;
+            NotLogoi.slotOffsets = [0];
+            NotLogoi.targetUnitAllySlots = true;
+
+            RemovePassiveEffect UnFire = ScriptableObject.CreateInstance<RemovePassiveEffect>();
+            UnFire.m_PassiveID = "MadeOfFire";
+
+            AddPassiveEffect ReFire = ScriptableObject.CreateInstance<AddPassiveEffect>();
+            ReFire._passiveToAdd = Passives.GetCustomPassive("MadeOfFire_PA");
+
+            AnimationVisualsEffect PeerAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            PeerAnim._visuals = Visuals.Conductor;
+            PeerAnim._animationTarget = Targeting.Slot_SelfSlot;
+
+            StatusEffect_Apply_Effect SpotlightApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            SpotlightApply._Status = StatusField.Spotlight;
+
+            RandomTargetPerformEffectViaSubaction PeerSubaction = ScriptableObject.CreateInstance<RandomTargetPerformEffectViaSubaction>();
+            PeerSubaction.effects =
+            [
+                Effects.GenerateEffect(PeerAnim),
+                Effects.GenerateEffect(ReFire, 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(SpotlightApply, 1, Targeting.Slot_SelfSlot),
+            ];
+
+            CheckPassiveAbilityEffect IsFireproof = ScriptableObject.CreateInstance<CheckPassiveAbilityEffect>();
+            IsFireproof.m_PassiveID = "MadeOfFire";
+
+            StatusEffect_ApplyByPrevious_Effect HalfOil = ScriptableObject.CreateInstance<StatusEffect_ApplyByPrevious_Effect>();
+            HalfOil._Status = StatusField.OilSlicked;
+            HalfOil._entryVariableAsPercentage = true;
 
             Ability westwheel = new Ability("Turn To The West", "AApocrypha_LogosLeft_A")
             {
@@ -133,8 +255,8 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Common,
                 Priority = Priority.VeryFast,
             };
-            westwheel.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Field_Fire)]);
             westwheel.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
+            westwheel.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Field_Fire)]);
 
             Ability eastwheel = new Ability("Turn To The East", "AApocrypha_LogosRight_A")
             {
@@ -149,8 +271,44 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Common,
                 Priority = Priority.VeryFast,
             };
-            eastwheel.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Field_Fire)]);
             eastwheel.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
+            eastwheel.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Field_Fire)]);
+
+            Ability westflow = new Ability("Flow To The West", "AApocrypha_LogosLeftOil_A")
+            {
+                Description = "Move Left. If this enemy swapped positions with another, they gain 1 Oil Slicked.\nApply 1 Oil Slicked to the Opposing party member.",
+                Cost = [Pigments.Grey, Pigments.Red],
+                Effects =
+                [
+                    Effects.GenerateEffect(SwapLeft, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(OilApply, 1, Targeting.Slot_AllyRight, PreviousTrue),
+                    Effects.GenerateEffect(OilAnim, 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(OilApply, 1, Targeting.Slot_Front),
+                ],
+                Rarity = Rarity.Common,
+                Priority = Priority.VeryFast,
+            };
+            westflow.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
+            westflow.AddIntentsToTarget(Targeting.Slot_AllyRight, [nameof(IntentType_GameIDs.Status_OilSlicked)]);
+            westflow.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Status_OilSlicked)]);
+
+            Ability eastflow = new Ability("Flow To The East", "AApocrypha_LogosRightOil_A")
+            {
+                Description = "Move Right. If this enemy swapped positions with another, they gain 1 Oil Slicked.\nApply 1 Oil Slicked to the Opposing party member.",
+                Cost = [Pigments.Red, Pigments.Grey],
+                Effects =
+                [
+                    Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(OilApply, 1, Targeting.Slot_AllyLeft, PreviousTrue),
+                    Effects.GenerateEffect(OilAnim, 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(OilApply, 1, Targeting.Slot_Front),
+                ],
+                Rarity = Rarity.Common,
+                Priority = Priority.VeryFast,
+            };
+            eastflow.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
+            eastflow.AddIntentsToTarget(Targeting.Slot_AllyLeft, [nameof(IntentType_GameIDs.Status_OilSlicked)]);
+            eastflow.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Status_OilSlicked)]);
 
             Ability tonguesoffire = new Ability("Tongues Of Fire", "AApocrypha_FireTongues_A")
             {
@@ -190,7 +348,7 @@ namespace A_Apocrypha.Enemies
 
             Ability becomefire = new Ability("To Become Fire", "AApocrypha_BecomeFire_A")
             {
-                Description = "Remove all Fire from the Left, Opposing and Right spaces. Deal damage to the Opposing party member equal to twice the amount of Fire removed. Damage cascades indirectly to the Left and Right with a 25% falloff.\nIf this damage kills, remove all Fire from All party member spaces.",
+                Description = "Remove all Fire from the Left, Opposing and Right positions. Deal damage to the Opposing party member equal to twice the amount of Fire removed. Damage cascades indirectly to the Left and Right with a 25% falloff.\nIf this damage kills, remove all Fire from All party member positions.",
                 Cost = [Pigments.Red, Pigments.Red, Pigments.Red, Pigments.Red],
                 Visuals = Visuals.Conductor,
                 AnimationTarget = Targeting.Slot_Front,
@@ -210,7 +368,7 @@ namespace A_Apocrypha.Enemies
 
             Ability lifepreserved = new Ability("Life Preserved", "AApocrypha_LifePreserved_A")
             {
-                Description = "Remove all Fire from All allied positions and apply Shield to each allied position equal to 3 times the amount of Fire removed from that position.",
+                Description = "Convert all Fire on All allied positions to three times the amount of Shield.",
                 Cost = [Pigments.Blue, Pigments.Blue, Pigments.Blue, Pigments.Blue],
                 Visuals = Visuals.Shield,
                 AnimationTarget = Targeting.Slot_AllyAllSlots,
@@ -230,8 +388,7 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Impossible,
                 Priority = Priority.Fast,
             };
-            lifepreserved.AddIntentsToTarget(Targeting.Slot_AllyAllSlots, [nameof(IntentType_GameIDs.Rem_Field_Fire)]);
-            lifepreserved.AddIntentsToTarget(Targeting.Slot_AllyAllSlots, [nameof(IntentType_GameIDs.Field_Shield)]);
+            lifepreserved.AddIntentsToTarget(Targeting.Slot_AllyAllSlots, [nameof(IntentType_GameIDs.Rem_Field_Fire), nameof(IntentType_GameIDs.Field_Shield)]);
 
             Ability exchangeburdens = new Ability("An Exchange Of Burdens", "AApocrypha_ExchangeBurdens_A")
             {
@@ -251,12 +408,122 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Impossible,
                 Priority = Priority.Fast,
             };
-            exchangeburdens.AddIntentsToTarget(Targeting.Slot_AllyAllSlots, [nameof(IntentType_GameIDs.Rem_Field_Fire)]);
-            exchangeburdens.AddIntentsToTarget(Targeting.Slot_OpponentAllSlots, [nameof(IntentType_GameIDs.Rem_Field_Fire)]);
-            exchangeburdens.AddIntentsToTarget(Targeting.Unit_AllAllySlots, [nameof(IntentType_GameIDs.Field_Fire)]);
-            exchangeburdens.AddIntentsToTarget(Targeting.Unit_AllOpponentSlots, [nameof(IntentType_GameIDs.Field_Fire)]);
+            exchangeburdens.AddIntentsToTarget(Targeting.Slot_AllyAllSlots, [nameof(IntentType_GameIDs.Rem_Field_Fire), nameof(IntentType_GameIDs.Field_Fire)]);
+            exchangeburdens.AddIntentsToTarget(Targeting.Slot_OpponentAllSlots, [nameof(IntentType_GameIDs.Rem_Field_Fire), nameof(IntentType_GameIDs.Field_Fire)]);
+            
+            Ability rotandobliteration = new Ability("Between Rot And Obliteration", "AApocrypha_RotAndObliteration_A")
+            {
+                Description = "Remove all Fire from All party member positions and apply Irradiated to each party member equal to the amount of Fire removed from their position.",
+                Cost = [Pigments.Yellow, Pigments.Yellow, Pigments.Yellow, Pigments.Yellow],
+                Visuals = CustomVisuals.MicrowaveVisualsSO,
+                AnimationTarget = Targeting.Slot_OpponentAllSlots,
+                Effects =
+                [
+                    Effects.GenerateEffect(RemoveFire, 1, Targeting.GenerateGenericTarget([0], false)),
+                    Effects.GenerateEffect(IrradiatedByPrevious, 1, Targeting.GenerateGenericTarget([0], false)),
+                    Effects.GenerateEffect(RemoveFire, 1, Targeting.GenerateGenericTarget([1], false)),
+                    Effects.GenerateEffect(IrradiatedByPrevious, 1, Targeting.GenerateGenericTarget([1], false)),
+                    Effects.GenerateEffect(RemoveFire, 1, Targeting.GenerateGenericTarget([2], false)),
+                    Effects.GenerateEffect(IrradiatedByPrevious, 1, Targeting.GenerateGenericTarget([2], false)),
+                    Effects.GenerateEffect(RemoveFire, 1, Targeting.GenerateGenericTarget([3], false)),
+                    Effects.GenerateEffect(IrradiatedByPrevious, 1, Targeting.GenerateGenericTarget([3], false)),
+                    Effects.GenerateEffect(RemoveFire, 1, Targeting.GenerateGenericTarget([4], false)),
+                    Effects.GenerateEffect(IrradiatedByPrevious, 1, Targeting.GenerateGenericTarget([4], false)),
+                ],
+                Rarity = Rarity.Impossible,
+                Priority = Priority.Fast,
+            };
+            rotandobliteration.AddIntentsToTarget(Targeting.Slot_OpponentAllSlots, [nameof(IntentType_GameIDs.Rem_Field_Fire), "Status_Irradiated"]);
 
-            ExtraAbilityInfo tonguesextra = new()
+            Ability recognitionpeer = new Ability("Recognition Of A Peer", "AApocrypha_RecognitionPeer_A")
+            {
+                Description = "Remove Made Of Fire from All enemies that are not Logoi.\nApply Made Of Fire and Spotlight to a random non-Logos enemy. If there are no valid targets, apply Spotlight to this enemy.",
+                Cost = [Pigments.Yellow, Pigments.Yellow, Pigments.Yellow, Pigments.Yellow],
+                Effects =
+                [
+                    Effects.GenerateEffect(UnFire, 1, NotLogoi),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, NotLogoi),
+                    Effects.GenerateEffect(PeerAnim, 1, Targeting.Slot_SelfSlot, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(SpotlightApply, 1, Targeting.Slot_SelfSlot, PreviousGenerator(false, 2)),
+                    Effects.GenerateEffect(PeerSubaction, 1, NotLogoi, PreviousGenerator(true, 3)),
+                ],
+                Rarity = Rarity.Impossible,
+                Priority = Priority.Fast,
+            };
+            recognitionpeer.AddIntentsToTarget(NotLogoi, ["Rem_Passive_MadeOfFire", "Passive_MadeOfFire", nameof(IntentType_GameIDs.Status_Spotlight)]);
+            recognitionpeer.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Misc_Hidden), nameof(IntentType_GameIDs.Status_Spotlight)]);
+
+            Ability alchemicalregent = new Ability("Alchemical Regent", "AApocrypha_AlchemicalRegent_A")
+            {
+                Description = "Deal a Barely Painful amount of fire damage to the Opposing party member. If the Opposing party member was Oil Slicked, deal Almost No fire damage to the Left and Right party members. The damage dealt by this ability is increased by the amount of Oil Slicked on this enemy.\nRemove half of this enemy's Oil Slicked.",
+                Cost = [Pigments.Purple, Pigments.Purple, Pigments.Purple, Pigments.Purple],
+                Visuals = Visuals.Pyre,
+                AnimationTarget = Targeting.Slot_Front,
+                Effects =
+                [
+                    Effects.GenerateEffect(FireDamageCasterOilBoosted, 3, Targeting.Slot_Front),
+                    Effects.GenerateEffect(HasOil, 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(FireDamageCasterOilBoosted, 1, Targeting.Slot_OpponentSides, PreviousTrue),
+                    Effects.GenerateEffect(OilRemove, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(HalfOil, 50, Targeting.Slot_SelfSlot, PreviousTrue),
+                ],
+                Rarity = Rarity.Impossible,
+                Priority = Priority.Fast,
+            };
+            alchemicalregent.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_3_6), nameof(IntentType_GameIDs.Misc_Hidden)]);
+            alchemicalregent.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Damage_1_2)]);
+            alchemicalregent.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Rem_Status_OilSlicked)]);
+
+            Ability royalblood = new Ability("Of Royal Blood", "AApocrypha_RoyalBlood_A")
+            {
+                Description = "Apply Shield to all occupied enemy positions equal to how many stacks of Oil Slicked they have.\nRemove half of this enemy's Oil Slicked.",
+                Cost = [Pigments.Purple, Pigments.Purple, Pigments.Purple, Pigments.Purple],
+                Visuals = Visuals.Shield,
+                AnimationTarget = OilAllyTargeting,
+                Effects =
+                [
+                    Effects.GenerateEffect(ShieldWithOilBonus, 0, OilAllyTargeting),
+                    Effects.GenerateEffect(OilRemove, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(HalfOil, 50, Targeting.Slot_SelfSlot, PreviousTrue),
+                ],
+                Rarity = Rarity.Impossible,
+                Priority = Priority.Fast,
+            };
+            royalblood.AddIntentsToTarget(OilAllyTargeting, [nameof(IntentType_GameIDs.Field_Shield)]);
+            royalblood.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Rem_Status_OilSlicked)]);
+
+            Ability butcheredlanguage = new Ability("Butchered Language", "AApocrypha_ButcheredLanguage_A")
+            {
+                Description = "Consume all Purple Pigment. Apply Fire to all spaces occupied by a unit Made of Fire equal to the consumed pigment.\nConvert all Fire on this enemy's position into an equal amount of Oil Slicked.",
+                Cost = [Pigments.Purple, Pigments.Purple, Pigments.Purple, Pigments.Purple],
+                Visuals = Visuals.Pyre,
+                AnimationTarget = MadeOfFireAllies,
+                Effects =
+                [
+                    Effects.GenerateEffect(EatPurple, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(FireByPrevious, 1, MadeOfFireAllies),
+                    Effects.GenerateEffect(RemoveFire, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(OilByPrevious, 1, Targeting.Slot_SelfSlot),
+                ],
+                Rarity = Rarity.Impossible,
+                Priority = Priority.Fast,
+            };
+            butcheredlanguage.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Consume)]);
+            butcheredlanguage.AddIntentsToTarget(MadeOfFireAllies, [nameof(IntentType_GameIDs.Field_Fire)]);
+
+            ExtraAbilityInfo tonguesextrared = new()
+            {
+                ability = tonguesoffire.GenerateEnemyAbility().ability,
+                rarity = Rarity.Uncommon,
+            };
+
+            ExtraAbilityInfo tonguesextrablue = new()
+            {
+                ability = tonguesoffire.GenerateEnemyAbility().ability,
+                rarity = Rarity.Uncommon,
+            };
+
+            ExtraAbilityInfo tonguesextrayellow = new()
             {
                 ability = tonguesoffire.GenerateEnemyAbility().ability,
                 rarity = Rarity.Uncommon,
@@ -286,8 +553,40 @@ namespace A_Apocrypha.Enemies
                 rarity = Rarity.Uncommon,
             };
 
-            redlogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), CustomPassives.AltAttacksGenerator([tonguesextra, placeextra, becomeextra])]);
-            bluelogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), CustomPassives.AltAttacksGenerator([tonguesextra, lifeextra, burdensextra])]);
+            ExtraAbilityInfo rotextra = new()
+            {
+                ability = rotandobliteration.GenerateEnemyAbility().ability,
+                rarity = Rarity.Uncommon,
+            };
+
+            ExtraAbilityInfo peerextra = new()
+            {
+                ability = recognitionpeer.GenerateEnemyAbility().ability,
+                rarity = Rarity.Uncommon,
+            };
+
+            ExtraAbilityInfo royalextra = new()
+            {
+                ability = royalblood.GenerateEnemyAbility().ability,
+                rarity = Rarity.Uncommon,
+            };
+
+            ExtraAbilityInfo alchemicalextra = new()
+            {
+                ability = alchemicalregent.GenerateEnemyAbility().ability,
+                rarity = Rarity.Uncommon,
+            };
+
+            ExtraAbilityInfo languageextra = new()
+            {
+                ability = butcheredlanguage.GenerateEnemyAbility().ability,
+                rarity = Rarity.Uncommon,
+            };
+
+            redlogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseRed_PA"), CustomPassives.AltAttacksGenerator([tonguesextrared, placeextra, becomeextra])]);
+            bluelogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseBlue_PA"), CustomPassives.AltAttacksGenerator([tonguesextrablue, lifeextra, burdensextra])]);
+            yellowlogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseYellow_PA"), CustomPassives.AltAttacksGenerator([tonguesextrayellow, rotextra, peerextra])]);
+            purplelogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("BlackTears_2_PA"), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondensePurple_PA"), CustomPassives.AltAttacksGenerator([alchemicalextra, royalextra, languageextra])]);
 
             redlogos.AddEnemyAbilities(
             [
@@ -301,8 +600,29 @@ namespace A_Apocrypha.Enemies
                 eastwheel,
             ]);
 
+            yellowlogos.AddEnemyAbilities(
+            [
+                westwheel,
+                eastwheel,
+            ]);
+
+            purplelogos.AddEnemyAbilities(
+            [
+                westflow,
+                eastflow,
+            ]);
+
             redlogos.AddEnemy(true, true, false);
             bluelogos.AddEnemy(false, false, false);
+            yellowlogos.AddEnemy(false, false, false);
+            purplelogos.AddEnemy(false, false, false);
+        }
+        static PreviousEffectCondition PreviousGenerator(bool wasTrue, int number)
+        {
+            PreviousEffectCondition previous = ScriptableObject.CreateInstance<PreviousEffectCondition>();
+            previous.wasSuccessful = wasTrue;
+            previous.previousAmount = number;
+            return previous;
         }
     }
 }

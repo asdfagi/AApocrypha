@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("SharpenedAnomaly_Sign", ResourceLoader.LoadSprite("SharpenedAnomalyTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API sharpenedAnomalyMedium = new EnemyEncounter_API(0, "H_Zone02_SharpenedAnomaly_Medium_EnemyBundle", "SharpenedAnomaly_Sign")
             {
-                MusicEvent = "event:/AAMusic/MillieAmp-SecondaryColors",
+                MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
             sharpenedAnomalyMedium.CreateNewEnemyEncounterData(

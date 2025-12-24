@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("DevotedSpoggle_Sign", ResourceLoader.LoadSprite("DevotedSpoggleTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API devotedSpoggleMedium = new EnemyEncounter_API(0, "H_Zone02_DevotedSpoggle_Medium_EnemyBundle", "DevotedSpoggle_Sign")
             {
-                MusicEvent = "event:/AAMusic/MillieAmp-WhimperAndWhine",
+                MusicEvent = "event:/AAMusic/MillieAmp/WhimperAndWhine",
                 RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Spoggle_Resonant_Medium_EnemyBundle")._roarReference.roarEvent,
             };
             devotedSpoggleMedium.CreateNewEnemyEncounterData(
@@ -87,6 +87,12 @@ namespace A_Apocrypha.Encounters
                 devotedSpoggleMedium.CreateNewEnemyEncounterData(
                 [
                     "DevotedSpoggle_EN",
+                    "ColophonMaladjusted_EN",
+                    "Blemmigan_EN",
+                ], null);
+                devotedSpoggleMedium.CreateNewEnemyEncounterData(
+                [
+                    "DevotedSpoggle_EN",
                     "ColophonDelighted_EN",
                 ], null);
                 if (AApocrypha.CrossMod.IntoTheAbyss)
@@ -128,6 +134,7 @@ namespace A_Apocrypha.Encounters
                 [
                     "DevotedSpoggle_EN",
                     "Rabies_EN",
+                    "Blemmigan_EN",
                 ], null);
                 devotedSpoggleMedium.CreateNewEnemyEncounterData(
                 [
@@ -139,6 +146,7 @@ namespace A_Apocrypha.Encounters
                 [
                     "DevotedSpoggle_EN",
                     "Something_EN",
+                    "MusicMan_EN",
                 ], null);
             }
             devotedSpoggleMedium.AddEncounterToDataBases();

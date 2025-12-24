@@ -12,7 +12,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API gammamiteHard = new EnemyEncounter_API(0, "H_Zone01_Gammamite_Hard_EnemyBundle", "Gammamite_Sign")
             {
-                MusicEvent = "event:/AAMusic/MillieAmp-Raytrot",
+                MusicEvent = "event:/AAMusic/MillieAmp/Raytrot",
                 RoarEvent = "event:/AAEnemy/RadtickRoar",
             };
             gammamiteHard.CreateNewEnemyEncounterData(

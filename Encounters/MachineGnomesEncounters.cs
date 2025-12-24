@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("MachineGnomes_Sign", ResourceLoader.LoadSprite("GnomesTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API gnomesMedium = new EnemyEncounter_API(0, "H_Zone03_MachineGnomes_Medium_EnemyBundle", "MachineGnomes_Sign")
             {
-                MusicEvent = "event:/AAMusic/DoYouHearGnomes",
+                MusicEvent = "event:/AAMusic/Everhood/DoYouHearGnomes",
                 RoarEvent = "event:/AAEnemy/GnomesRoar",
             };
             gnomesMedium.CreateNewEnemyEncounterData(
@@ -78,7 +78,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API gnomesHard = new EnemyEncounter_API(0, "H_Zone03_MachineGnomes_Hard_EnemyBundle", "MachineGnomes_Sign")
             {
-                MusicEvent = "event:/AAMusic/DoYouHearGnomes",
+                MusicEvent = "event:/AAMusic/Everhood/DoYouHearGnomes",
                 RoarEvent = "event:/AAEnemy/GnomesRoar",
             };
             gnomesHard.CreateNewEnemyEncounterData(

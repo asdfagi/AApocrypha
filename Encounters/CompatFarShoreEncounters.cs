@@ -99,6 +99,11 @@ namespace A_Apocrypha.Encounters
                        "ToyUfo_EN",
                        "SandSifter_EN",
                     ]),
+                    new([
+                       "NobodyGrave_EN",
+                       "Acolyte_EN",
+                       "Acolyte_EN",
+                    ]),
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_NobodyGrave_Easy_EnemyBundle"))._enemyBundles = ufoMedium;
             }

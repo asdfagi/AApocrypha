@@ -12,7 +12,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API asterismMedium = new EnemyEncounter_API(0, "H_Zone01_Asterism_Medium_EnemyBundle", "Asterism_Sign")
             {
-                MusicEvent = "event:/AAMusic/BeautifulButWrong",
+                MusicEvent = "event:/AAMusic/LookOutside/BeautifulButWrong",
                 RoarEvent = "event:/Characters/Enemies/Spoggle_Purple/CHR_ENM_Spoggle_Purple_Roar",
             };
             asterismMedium.CreateNewEnemyEncounterData(
@@ -125,7 +125,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API asterismHard = new EnemyEncounter_API(0, "H_Zone01_Asterism_Hard_EnemyBundle", "Asterism_Sign")
             {
-                MusicEvent = "event:/AAMusic/BeautifulButWrong",
+                MusicEvent = "event:/AAMusic/LookOutside/BeautifulButWrong",
                 RoarEvent = "event:/Characters/Enemies/Spoggle_Purple/CHR_ENM_Spoggle_Purple_Roar",
             };
             asterismHard.CreateNewEnemyEncounterData(

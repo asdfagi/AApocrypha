@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
 using A_Apocrypha.CustomOther;
 
 namespace A_Apocrypha.Enemies
@@ -33,29 +31,7 @@ namespace A_Apocrypha.Enemies
             FrontStaticAnim._animationTarget = Targeting.Slot_Front;
 
             AddRandomPassiveEffect PassiveAdd = ScriptableObject.CreateInstance<AddRandomPassiveEffect>();
-            PassiveAdd._passivesToAdd = 
-            [
-                Passives.Skittish,
-                Passives.Slippery,
-                Passives.Focus,
-                Passives.BoneSpurs2,
-                Passives.Enfeebled,
-                Passives.Delicate,
-                Passives.Immortal,
-                Passives.LeakyGenerator(2),
-                Passives.Unstable,
-                Passives.Pure,
-                Passives.Dying,
-                Passives.Inferno,
-                Passives.TwoFaced,
-                Passives.Infestation2,
-                Passives.GetCustomPassive("Shy_PA"),
-                Passives.GetCustomPassive("Confrontational_PA"),
-                Passives.GetCustomPassive("AA_TornApart_PA"),
-                Passives.GetCustomPassive("AA_Jumpy_PA"),
-                Passives.GetCustomPassive("Gouged_PA"),
-                Passives.GetCustomPassive("Omnichromia_PA"),
-            ];
+            PassiveAdd._passivesToAdd = RiftPassiveGetter();
 
             RemoveRandomPassiveEffect PassiveRemove = ScriptableObject.CreateInstance<RemoveRandomPassiveEffect>();
 
@@ -68,7 +44,7 @@ namespace A_Apocrypha.Enemies
             PreviousEffectCondition Previous2False = ScriptableObject.CreateInstance<PreviousEffectCondition>();
             Previous2False.wasSuccessful = false;
             Previous2False.previousAmount = 2;
-            
+
             PartyMembersByMostPassivesTargeting MostPassivesParty = ScriptableObject.CreateInstance<PartyMembersByMostPassivesTargeting>();
             MostPassivesParty.targetUnitAllySlots = false;
             MostPassivesParty.slotOffsets = [0];
@@ -79,7 +55,7 @@ namespace A_Apocrypha.Enemies
             MostPassivesPartyAll.slotOffsets = [0];
             MostPassivesPartyAll.oneOfTargets = false;
 
-            StatusEffect_ApplyRandom_NegativeEffect RandomStatusNegative = ScriptableObject.CreateInstance <StatusEffect_ApplyRandom_NegativeEffect>();
+            StatusEffect_ApplyRandom_NegativeEffect RandomStatusNegative = ScriptableObject.CreateInstance<StatusEffect_ApplyRandom_NegativeEffect>();
 
             ExtraLootEffect Treasure = ScriptableObject.CreateInstance<ExtraLootEffect>();
             Treasure._isTreasure = true;
@@ -125,11 +101,11 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Uncommon,
                 Priority = Priority.Normal,
             };
-            greater.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.PA_Confusion)]);
+            greater.AddIntentsToTarget(Targeting.Slot_Front, ["AA_AddPassive"]);
             greater.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_3_6)]);
             greater.AddIntentsToTarget(Targeting.GenerateBigUnitSlotTarget([0]), [nameof(IntentType_GameIDs.Swap_Left)]);
             greater.AddIntentsToTarget(Targeting.GenerateBigUnitSlotTarget([1]), [nameof(IntentType_GameIDs.Swap_Right)]);
-            
+
             Ability highrise = new Ability("The Higher You Rise", "AApocrypha_TheHigherYouRise_A")
             {
                 Description = "Apply two random passives (to a maximum of 5) to the party member(s) with the highest health.\nIf no passives were added, deal a Painful amount of damage to them.",
@@ -145,7 +121,7 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Uncommon,
                 Priority = Priority.Normal,
             };
-            highrise.AddIntentsToTarget(Targeting.GenerateUnitTarget_Specific_Health(false, false, false, false), [nameof(IntentType_GameIDs.PA_Confusion)]);
+            highrise.AddIntentsToTarget(Targeting.GenerateUnitTarget_Specific_Health(false, false, false, false), ["AA_AddPassive"]);
             highrise.AddIntentsToTarget(Targeting.GenerateUnitTarget_Specific_Health(false, false, false, false), [nameof(IntentType_GameIDs.Damage_3_6)]);
 
             Ability teardown = new Ability("Tear You Down", "AApocrypha_TearYouDown_A")
@@ -176,7 +152,7 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Uncommon,
                 Priority = Priority.Normal,
             };
-            quiet.AddIntentsToTarget(Targeting.GenerateSlotTarget([-4, -3, -2, -1, 1, 2, 3, 4]), ["Rem_Passive_Confusion"]);
+            quiet.AddIntentsToTarget(Targeting.GenerateSlotTarget([-4, -3, -2, -1, 1, 2, 3, 4]), ["AA_RemPassive"]);
 
             Ability forget = new Ability("They Will Forget You", "AApocrypha_TheyWillForgetYou_A")
             {
@@ -202,7 +178,7 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Uncommon,
                 Priority = Priority.Normal,
             };
-            forget.AddIntentsToTarget(Targeting.Slot_Front, ["Rem_Passive_Confusion"]);
+            forget.AddIntentsToTarget(Targeting.Slot_Front, ["AA_RemPassive"]);
             forget.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Misc_Hidden)]);
 
             rift.AddPassives([Passives.Skittish, Passives.Slippery, Passives.GetCustomPassive("Omnichromia_PA"), Passives.BonusAttackGenerator(realityshiftextra)]);
@@ -216,6 +192,57 @@ namespace A_Apocrypha.Enemies
                     forget,
                 ]);
             rift.AddEnemy(true, false, false);
+        }
+
+        static BasePassiveAbilitySO[] RiftPassiveGetter()
+        {
+            BasePassiveAbilitySO[] resultBase = [
+                Passives.Skittish,
+                Passives.Slippery,
+                Passives.Focus,
+                Passives.BoneSpurs2,
+                Passives.Enfeebled,
+                Passives.Delicate,
+                Passives.Immortal,
+                Passives.LeakyGenerator(2),
+                Passives.Unstable,
+                Passives.Pure,
+                Passives.Dying,
+                Passives.Inferno,
+                Passives.TwoFaced,
+                Passives.Infestation2,
+                Passives.GetCustomPassive("Shy_PA"),
+                Passives.GetCustomPassive("Confrontational_PA"),
+                Passives.GetCustomPassive("AA_TornApart_PA"),
+                Passives.GetCustomPassive("Gouged_PA"),
+                Passives.GetCustomPassive("Omnichromia_PA"),
+                Passives.GetCustomPassive("AA_Condense_PA"),
+            ];
+            var resultList = resultBase.ToList();
+            if (AApocrypha.CrossMod.IntoTheAbyss)
+            {
+                resultList.Add(Passives.GetCustomPassive("Mammal_PA"));
+                resultList.Add(Passives.GetCustomPassive("Refinement_PA"));
+                resultList.Add(Passives.GetCustomPassive("ItemDupe_PA"));
+                resultList.Add(Passives.GetCustomPassive("Tempo2_PA"));
+                resultList.Add(Passives.GetCustomPassive("Bloat_PA"));
+                resultList.Add(Passives.GetCustomPassive("ATwoFacedXY_PA"));
+                resultList.Add(Passives.GetCustomPassive("ThreeFacedRBX_PA"));
+                resultList.Add(Passives.GetCustomPassive("ATwoFacedXB_PA"));
+                resultList.Add(Passives.GetCustomPassive("IsBasil_PA"));
+                resultList.Add(Passives.GetCustomPassive("Euphony2_PA"));
+                resultList.Add(Passives.GetCustomPassive("Foolhardy_PA"));
+                resultList.Add(Passives.GetCustomPassive("Contagious_PA"));
+                resultList.Add(Passives.GetCustomPassive("Lethargic_PA"));
+            }
+            if (AApocrypha.CrossMod.StewSpecimens)
+            {
+                resultList.Add(Passives.GetCustomPassive("StSpCauterizing_PA"));
+                resultList.Add(Passives.GetCustomPassive("Skates_PA"));
+                resultList.Add(Passives.GetCustomPassive("StSpOmniscient2_PA"));
+            }
+            foreach (BasePassiveAbilitySO passive in resultList) {Debug.Log($"Rift Passive Getter | loaded passive {passive._passiveName} ({passive.name})"); }
+            return resultList.ToArray();
         }
     }
 }

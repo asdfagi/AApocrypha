@@ -56,6 +56,10 @@ namespace A_Apocrypha.Enemies
             SadAnim._visuals = Visuals.Cry;
             SadAnim._animationTarget = Targeting.Slot_SelfSlot;
 
+            AnimationVisualsEffect PanicAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            PanicAnim._visuals = Visuals.Scream;
+            PanicAnim._animationTarget = Targeting.Slot_SelfSlot;
+
             QueueTimelineAbilityByNameEffect QueueGnash = ScriptableObject.CreateInstance<QueueTimelineAbilityByNameEffect>();
             QueueGnash._abilityName = "Gnashing Mouths";
 

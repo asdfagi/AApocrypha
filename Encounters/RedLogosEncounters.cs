@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("RedLogos_Sign", ResourceLoader.LoadSprite("LogosTimelineRed", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API redLogosMedium = new EnemyEncounter_API(0, "H_Zone03_CrimsonLogos_Medium_EnemyBundle", "RedLogos_Sign")
             {
-                MusicEvent = "event:/AAMusic/TerrorTrack",
+                MusicEvent = "event:/AAMusic/MillieAmp/TerrorTrack",
                 RoarEvent = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Roar",
             };
             redLogosMedium.CreateNewEnemyEncounterData(
@@ -53,11 +53,19 @@ namespace A_Apocrypha.Encounters
                     "GigglingMinister_EN",
                 ], null);
             }
+            if (AApocrypha.CrossMod.StewSpecimens)
+            {
+                redLogosMedium.CreateNewEnemyEncounterData(
+                [
+                    "CrimsonLogos_EN",
+                    "AloofEnvoy_EN",
+                ], null);
+            }
             redLogosMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_CrimsonLogos_Medium_EnemyBundle", 10, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Medium);
             EnemyEncounter_API redLogosHard = new EnemyEncounter_API(0, "H_Zone03_CrimsonLogos_Hard_EnemyBundle", "RedLogos_Sign")
             {
-                MusicEvent = "event:/AAMusic/TerrorTrack",
+                MusicEvent = "event:/AAMusic/MillieAmp/TerrorTrack",
                 RoarEvent = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Roar",
             };
             redLogosHard.CreateNewEnemyEncounterData(
@@ -110,8 +118,26 @@ namespace A_Apocrypha.Encounters
                     "GigglingMinister_EN",
                 ], null);
             }
+            if (AApocrypha.CrossMod.StewSpecimens)
+            {
+                redLogosHard.CreateNewEnemyEncounterData(
+                [
+                    "CrimsonLogos_EN",
+                    "Key_EN",
+                    "AloofEnvoy_EN",
+                ], null);
+            }
+            if (AApocrypha.CrossMod.HellIslandFell)
+            {
+                redLogosHard.CreateNewEnemyEncounterData(
+                [
+                    "CrimsonLogos_EN",
+                    "GigglingMinister_EN",
+                    "SweatingNosestone_EN",
+                ], null);
+            }
             redLogosHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_CrimsonLogos_Hard_EnemyBundle", 5, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
+            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_CrimsonLogos_Hard_EnemyBundle", 6, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
         }
     }
 }

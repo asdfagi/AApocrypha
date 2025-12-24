@@ -11,7 +11,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("CellularSpoggle_Sign", ResourceLoader.LoadSprite("CellularSpoggleTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API cellularSpoggleMedium = new EnemyEncounter_API(0, "H_Zone02_CellularSpoggle_Medium_EnemyBundle", "CellularSpoggle_Sign")
             {
-                MusicEvent = "event:/AAMusic/MillieAmp-WhimperAndWhine",
+                MusicEvent = "event:/AAMusic/MillieAmp/WhimperAndWhine",
                 RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Spoggle_Writhing_Medium_EnemyBundle")._roarReference.roarEvent,
             };
             cellularSpoggleMedium.CreateNewEnemyEncounterData(
@@ -41,6 +41,13 @@ namespace A_Apocrypha.Encounters
                     "SilverSuckle_EN",
                     "SilverSuckle_EN",
                 ], null);
+            cellularSpoggleMedium.CreateNewEnemyEncounterData(
+                [
+                    "CellularSpoggle_EN",
+                    "MusicMan_EN",
+                    "Blemmigan_EN",
+                    "Blemmigan_EN",
+                ], null);
             if (AApocrypha.CrossMod.Colophons)
             {
                 cellularSpoggleMedium.CreateNewEnemyEncounterData(
@@ -60,6 +67,7 @@ namespace A_Apocrypha.Encounters
                     [
                         "CellularSpoggle_EN",
                         "ColophonDisaffected_EN",
+                        "Blemmigan_EN",
                     ], null);
                 }
             }
@@ -84,6 +92,7 @@ namespace A_Apocrypha.Encounters
                 [
                     "CellularSpoggle_EN",
                     "NakedGizo_EN",
+                    "Blemmigan_EN",
                 ], null);
                 cellularSpoggleMedium.CreateNewEnemyEncounterData(
                 [
