@@ -9,159 +9,52 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("EncasedAnomaly_Sign", ResourceLoader.LoadSprite("EncasedAnomalyTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            EnemyEncounter_API encasedAnomalyMedium = new EnemyEncounter_API(0, "H_Zone02_EncasedAnomaly_Medium_EnemyBundle", "EncasedAnomaly_Sign")
+            EnemyEncounter_API encasedAnomalyMedium = new EnemyEncounter_API(0, Orph.H.Anomaly.Encased.Med, "EncasedAnomaly_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
-            encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "MusicMan_EN",
-                    "MusicMan_EN",
-                ], null);
-            encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "SharpenedAnomaly_EN",
-                    "MusicMan_EN",
-                    "Scrungie_EN",
-                ], null);
-            encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "Spoggle_Ruminating_EN",
-                    "Jumbleguts_Clotted_EN",
-                ], null);
-            encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "SilverSuckle_EN",
-                    "SilverSuckle_EN",
-                    "SilverSuckle_EN",
-                ], null);
-            encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "MusicMan_EN",
-                    "Scrungie_EN",
-                ], null);
+            encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 2, "MusicMan_EN");
+            encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, "MusicMan_EN", 1, "Scrungie_EN");
+            encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, "SharpenedAnomaly_EN", 1, "MusicMan_EN", 1, "Scrungie_EN");
+            encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, Spoggle.Blue, 1, Jumble.Red);
+            encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 3, Enemies.Suckle);
             if (AApocrypha.CrossMod.Colophons)
-            { 
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "Spoggle_Writhing_EN",
-                    "ColophonMaladjusted_EN",
-                ], null);
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "Spoggle_Ruminating_EN",
-                    "ColophonMaladjusted_EN",
-                ], null);
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "CellularSpoggle_EN",
-                    "ColophonMaladjusted_EN",
-                ], null);
+            {
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, Spoggle.Red, 1, Colophon.Yellow);
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, Spoggle.Blue, 1, Colophon.Yellow);
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, Spoggle.BlueYellowSplit, 1, Colophon.Yellow);
                 if (AApocrypha.CrossMod.IntoTheAbyss)
                 {
-                    encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                    [
-                        "EncasedAnomaly_EN",
-                        "Spoggle_Resonant_EN",
-                        "ColophonDisaffected_EN",
-                    ], null);
-                    encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                    [
-                        "EncasedAnomaly_EN",
-                        "Fanatic_EN",
-                        "ColophonDisaffected_EN",
-                    ], null);
+                    encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, Spoggle.Red, 1, Colophon.Green);
+                    encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, "Fanatic_EN", 1, Colophon.PurpleRedSplit);
                 }
             };
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "Spoggle_Resonant_EN",
-                    "CellularSpoggle_EN",
-                    "Follower_EN",
-                ], null);
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "DevotedSpoggle_EN",
-                    "Follower_EN",
-                ], null);
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "Fanatic_EN",
-                    "Follower_EN",
-                ], null);
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, Spoggle.Purple, 1, Spoggle.BlueYellowSplit, 1, "Follower_EN");
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, Spoggle.RedPurpleSplit, 1, "Follower_EN");
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, "Fanatic_EN", 1, "Follower_EN");
             }
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "Frostbite_EN",
-                    "Frostbite_EN",
-                ], null);
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "CellularSpoggle_EN",
-                    "Jansuli_EN",
-                ], null);
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 2, "Frostbite_EN");
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, Spoggle.BlueYellowSplit, 1, "Jansuli_EN");
             }
             if (AApocrypha.CrossMod.HellIslandFell)
             {
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "Thunderdome_EN",
-                    "Spoggle_Resonant_EN",
-                ], null);
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "Moone_EN",
-                    "Moone_EN",
-                ], null);
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "Moone_EN",
-                    "Scrungie_EN",
-                ], null);
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, Spoggle.Purple, 1, "Thunderdome_EN", 1, "MusicMan_EN");
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 2, "Moone_EN");
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, "Moone_EN", 1, "Scrungie_EN");
             }
             if (AApocrypha.CrossMod.EnemyPack)
             {
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "Chapman_EN",
-                    "Chapman_EN",
-                ], null);
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "SharpenedAnomaly_EN",
-                    "NakedGizo_EN",
-                ], null);
-                encasedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "EncasedAnomaly_EN",
-                    "NeoplasmHeap_EN",
-                ], null);
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 2, "Chapman_EN");
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, "SharpenedAnomaly_EN", 1, "NakedGizo_EN");
+                encasedAnomalyMedium.SimpleAddEncounter(1, "EncasedAnomaly_EN", 1, "NeoplasmHeap_EN");
             }
             encasedAnomalyMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_EncasedAnomaly_Medium_EnemyBundle", 15, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Orph.H.Anomaly.Encased.Med, 15, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }
     }
 }

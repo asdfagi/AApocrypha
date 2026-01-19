@@ -9,171 +9,61 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("SharpenedAnomaly_Sign", ResourceLoader.LoadSprite("SharpenedAnomalyTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            EnemyEncounter_API sharpenedAnomalyMedium = new EnemyEncounter_API(0, "H_Zone02_SharpenedAnomaly_Medium_EnemyBundle", "SharpenedAnomaly_Sign")
+            EnemyEncounter_API sharpenedAnomalyMedium = new EnemyEncounter_API(0, Orph.H.Anomaly.Sharpened.Med, "SharpenedAnomaly_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
-            sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "MusicMan_EN",
-                    "MusicMan_EN",
-                ], null);
-            sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "Spoggle_Ruminating_EN",
-                    "Jumbleguts_Clotted_EN",
-                ], null);
-            sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "Spoggle_Spitfire_EN",
-                    "Jumbleguts_Hollowing_EN",
-                ], null);
-            sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "DevotedSpoggle_EN",
-                    "Jumbleguts_Clotted_EN",
-                ], null);
-            sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "CellularSpoggle_EN",
-                    "Jumbleguts_Waning_EN",
-                ], null);
-            sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "SilverSuckle_EN",
-                    "SilverSuckle_EN",
-                    "SilverSuckle_EN",
-                ], null);
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 2, "MusicMan_EN");
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.Blue, 1, Jumble.Red);
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.Yellow, 1, Jumble.Blue);
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.RedPurpleSplit, 1, Jumble.Red);
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.BlueYellowSplit, 1, Jumble.Yellow);
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 3, Enemies.Suckle);
             if (AApocrypha.CrossMod.Colophons)
             {
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "ColophonMaladjusted_EN",
-                    "Jumbleguts_Clotted_EN",
-                ], null);
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Colophon.Yellow, 1, Jumble.Red);
                 if (AApocrypha.CrossMod.IntoTheAbyss)
                 {
-                    sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                    [
-                        "SharpenedAnomaly_EN",
-                        "ColophonDisaffected_EN",
-                        "CellularSpoggle_EN",
-                    ], null);
+                    sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Colophon.Green, 1, Spoggle.BlueYellowSplit);
                 }
                 if (AApocrypha.CrossMod.pigmentRainbow)
                 {
-                    sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                    [   
-                        "SharpenedAnomaly_EN",
-                        "ColophonMaladjusted_EN",
-                        "CoruscatingJumbleGuts_EN",
-                    ], null);
+                    sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Colophon.Yellow, 1, Jumble.Rainbow);
                 }
             }
-            if (AApocrypha.CrossMod.GlitchsFreaks) 
+            if (AApocrypha.CrossMod.GlitchsFreaks)
             {
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "Frostbite_EN",
-                    "Frostbite_EN",
-                ], null);
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "BackupDancer_EN",
-                    "MusicMan_EN",
-                ], null);
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "EncasedAnomaly_EN",
-                    "Frostbite_Bipedal_EN",
-                    "Frostbite_EN",
-                ], null);
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 2, Frostbites.Normal);
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Anomalies.Encased, 1, Frostbites.Normal, 1, Frostbites.Tall);
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, "MusicMan_EN", 1, "BackupDancer_EN");
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "YellowFlower_EN",
-                    "MusicMan_EN",
-                    "MusicMan_EN",
-                ], null);
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "Enigma_EN",
-                    "MusicMan_EN",
-                    "MusicMan_EN",
-                ], null);
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "RedBot_EN",
-                    "MusicMan_EN",
-                ], null);
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 2, "MusicMan_EN", 1, Flower.Yellow);
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 2, "MusicMan_EN", 1, "Enigma_EN");
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, "MusicMan_EN", 1, Bots.Red);
                 if (AApocrypha.CrossMod.EnemyPack)
                 {
-                    sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                    [
-                        "SharpenedAnomaly_EN",
-                        "YellowBot_EN",
-                        "Neoplasm_EN",
-                        "Neoplasm_EN",
-                    ], null);
+                    sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 2, "Neoplasm_EN", 1, Bots.Yellow);
                 }
             }
             if (AApocrypha.CrossMod.IntoTheAbyss && AApocrypha.CrossMod.pigmentGilded)
             {
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "AffluentJumbleguts_EN",
-                    "CellularSpoggle_EN"
-                ], null);
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "AffluentJumbleguts_EN",
-                    "DevotedSpoggle_EN",
-                ], null);
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.BlueYellowSplit, 1, Jumble.Gilded);
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.PurpleRedSplit, 1, Jumble.Gilded);
             }
             if (AApocrypha.CrossMod.StewSpecimens)
             {
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "MusicMan_EN",
-                    "Hagwitch_EN",
-                ], null);
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, "MusicMan_EN", 1, "Hagwitch_EN");
             }
             if (AApocrypha.CrossMod.pigmentRainbow)
             {
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "Spoggle_Spitfire_EN",
-                    "CoruscatingJumbleGuts_EN",
-                ], null);
-                sharpenedAnomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "SharpenedAnomaly_EN",
-                    "CellularSpoggle_EN",
-                    "CoruscatingJumbleGuts_EN",
-                ], null);
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.Yellow, 1, Jumble.Rainbow);
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.YellowBlueSplit, 1, Jumble.Rainbow);
             }
             sharpenedAnomalyMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_SharpenedAnomaly_Medium_EnemyBundle", 15, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Orph.H.Anomaly.Sharpened.Med, 15, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }
     }
 }

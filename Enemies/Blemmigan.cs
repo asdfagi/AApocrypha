@@ -145,8 +145,14 @@ namespace A_Apocrypha.Enemies
 
             ConsumeRandomButCasterHealthManaEffect ConsumeNotHealth = ScriptableObject.CreateInstance<ConsumeRandomButCasterHealthManaEffect>();
 
+            PerformEffectViaSubaction ConsumeDelayed = ScriptableObject.CreateInstance<PerformEffectViaSubaction>();
+            ConsumeDelayed.effects = [Effects.GenerateEffect(ConsumeNotHealth, 3, Targeting.Slot_SelfSlot)];
+
             ChangeToRandomHealthColorEffect YoureRedNow = ScriptableObject.CreateInstance<ChangeToRandomHealthColorEffect>();
             YoureRedNow._healthColors = [Pigments.Red];
+
+            TargetPerformEffectViaSubaction RedAction = ScriptableObject.CreateInstance<TargetPerformEffectViaSubaction>();
+            RedAction.effects = [Effects.GenerateEffect(YoureRedNow, 1, Targeting.Slot_SelfSlot)];
 
             Ability peck = new Ability("Peck", "AApocrypha_BlemmiganPeck_A")
             {
@@ -251,7 +257,7 @@ namespace A_Apocrypha.Enemies
 
             Ability expelchildren = new Ability("Expel Children", "AApocrypha_BlemmiganChildren_A")
             {
-                Description = "Change the health color of All Blemmigans to Red.\nSpawn a Blemmigan. If there were no Blemmigans in combat, spawn an additional Blemmigan.\nConsume 3 Pigment not of this enemy's health color.",
+                Description = "Spawn a Blemmigan. If there were no Blemmigans in combat, spawn an additional Blemmigan.\nChange the health color of All Blemmigans to Red.\nConsume 3 Pigment not of this enemy's health color.",
                 Cost = [Pigments.Blue, Pigments.Purple],
                 Visuals = Visuals.Exsanguinate,
                 AnimationTarget = Targeting.Slot_SelfSlot,
@@ -260,14 +266,14 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, AllBlemmigans),
                     Effects.GenerateEffect(SpawnBlemmigan, 1, Targeting.Slot_SelfSlot, PreviousGenerator(false, 1)),
                     Effects.GenerateEffect(SpawnBlemmigan, 1, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(YoureRedNow, 1, AllBlemmigans),
-                    Effects.GenerateEffect(ConsumeNotHealth, 3, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(RedAction, 1, AllBlemmigans),
+                    Effects.GenerateEffect(ConsumeDelayed),
                 ],
                 Rarity = Rarity.Uncommon,
                 Priority = Priority.VerySlow,
             };
-            expelchildren.AddIntentsToTarget(AllBlemmigans, [nameof(IntentType_GameIDs.Mana_Modify)]);
             expelchildren.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Other_Spawn), nameof(IntentType_GameIDs.Other_Spawn)]);
+            expelchildren.AddIntentsToTarget(AllBlemmigans, [nameof(IntentType_GameIDs.Mana_Modify)]);
             expelchildren.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Consume)]);
 
             Ability protect = new Ability("Protect Mother", "AApocrypha_BlemmiganProtect_A")

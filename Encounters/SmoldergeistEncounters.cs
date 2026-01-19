@@ -9,95 +9,42 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("Smoldergeist_Sign", ResourceLoader.LoadSprite("SmoldergeistTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            EnemyEncounter_API smoldergeistHard = new EnemyEncounter_API(0, "H_Zone01_Smoldergeist_Hard_EnemyBundle", "Smoldergeist_Sign")
+            EnemyEncounter_API smoldergeistHard = new EnemyEncounter_API(0, Shore.H.Smoldergeist.Hard, "Smoldergeist_Sign")
             {
                 MusicEvent = "event:/AAMusic/EXCELSIOR/Sodom&Gomorrah",
-                RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Spoggle_Writhing_Medium_EnemyBundle")._roarReference.roarEvent,
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Orph.Spoggle.Red.Med)._roarReference.roarEvent,
             };
-            smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "MudLung_EN",
-                    "Mung_EN",
-                    "Mung_EN",
-                ], null);
-            smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "Keko_EN",
-                    "Keko_EN",
-                ], null);
-            smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "MunglingMudLung_EN",
-                    "Spoggle_Spitfire_EN",
-                ], null);
-            smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "MunglingMudLung_EN",
-                    "Spoggle_Ruminating_EN",
-                ], null);
-            smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "FlaMinGoa_EN",
-                    "MudLung_EN",
-                ], null);
+            smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "MudLung_EN", 2, "Mung_EN");
+            smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 2, "Keko_EN");
+            smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, Enemies.Mungling, 1, Spoggle.Yellow);
+            smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, Enemies.Mungling, 1, Spoggle.Blue);
+            smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "MudLung_EN", 1, "FlaMinGoa_EN");
             if (AApocrypha.CrossMod.Mythos)
             {
-                smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "MudLung_EN",
-                    "Madman_EN",
-                ], null);
-                smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "MunglingMudLung_EN",
-                    "RatThing_EN",
-                ], null);
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "MudLung_EN", 1, "Madman_EN");
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, Enemies.Mungling, 1, "RatThing_EN");
             }
             if (AApocrypha.CrossMod.HellIslandFell)
             {
-                smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "MudLung_EN",
-                    "Keklung_EN",
-                ], null);
-                smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "Flakkid_EN",
-                    "DryBait_EN",
-                ], null);
-                smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "Flakkid_EN",
-                    "Spoggle_Ruminating_EN",
-                ], null);
-                smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "Enno_EN",
-                    "Enno_EN",
-                ], null);
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "MudLung_EN", 1, "Keklung_EN");
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 2, "Mung_EN", 1, "VanishingHands_EN");
+            }
+            if (AApocrypha.CrossMod.GlitchsFreaks)
+            {
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "Flakkid_EN", 1, "DryBait_EN");
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "Flakkid_EN", 1, Spoggle.Blue);
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 2, "Enno_EN");
             }
             if (AApocrypha.CrossMod.MarmoEnemies)
             {
-                smoldergeistHard.CreateNewEnemyEncounterData(
-                [
-                    "Smoldergeist_EN",
-                    "Snaurce_EN",
-                    "MudLung_EN",
-                ], null);
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "MudLung_EN", 1, "Snaurce_EN");
+            }
+            if (AApocrypha.CrossMod.SaltEnemies)
+            {
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, Enemies.Unmung);
             }
             smoldergeistHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Smoldergeist_Hard_EnemyBundle", 9, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Smoldergeist.Hard, 9, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
         }
     }
 }

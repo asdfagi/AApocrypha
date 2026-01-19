@@ -9,100 +9,28 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("Bloatfinger_Sign", ResourceLoader.LoadSprite("BloatfingerTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            EnemyEncounter_API bloatfingerMedium = new EnemyEncounter_API(0, "H_Zone02_Bloatfinger_Medium_EnemyBundle", "Bloatfinger_Sign")
+            EnemyEncounter_API bloatfingerMedium = new EnemyEncounter_API(EncounterType.Random, Orph.H.Bloatfinger.Med, "Bloatfinger_Sign")
             {
                 MusicEvent = "event:/AAMusic/FallenLondon/WhyWeWearFaces",
                 RoarEvent = LoadedAssetsHandler.GetEnemy("SilverSuckle_EN").deathSound,
             };
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "SculptorBirdSculpture_EN",
-                    "MusicMan_EN",
-                    "MusicMan_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "SculptorBirdSculpture_EN",
-                    "MusicMan_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "BloatfingerHiddenOrpheum_EN",
-                    "MusicMan_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "SculptorBirdSculpture_EN",
-                    "JumbleGuts_Clotted_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "SculptorBirdSculpture_EN",
-                    "JumbleGuts_Waning_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "SculptorBirdSculpture_EN",
-                    "JumbleGuts_Hollowing_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "SculptorBirdSculpture_EN",
-                    "JumbleGuts_Flummoxing_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "BloatfingerHiddenOrpheum_EN",
-                    "JumbleGuts_Clotted_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "BloatfingerHiddenOrpheum_EN",
-                    "JumbleGuts_Waning_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "BloatfingerHiddenOrpheum_EN",
-                    "JumbleGuts_Hollowing_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "BloatfingerHiddenOrpheum_EN",
-                    "JumbleGuts_Flummoxing_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "Bloatfinger_EN",
-                    "Scrungie_EN",
-                ], null);
-            bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "BloatfingerHiddenOrpheum_EN",
-                    "SilverSuckle_EN",
-                    "SilverSuckle_EN",
-                    "SilverSuckle_EN",
-                ], null);
+            bloatfingerMedium.SimpleAddEncounter(1, "Bloatfinger_EN", 1, HiddenBloatfinger.OrpheumRandom, 2, "MusicMan_EN");
+            bloatfingerMedium.SimpleAddEncounter(1, "Bloatfinger_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, "MusicMan_EN");
+            bloatfingerMedium.SimpleAddEncounter(1, "Bloatfinger_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, Jumble.Red);
+            bloatfingerMedium.SimpleAddEncounter(1, "Bloatfinger_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, Jumble.Yellow);
+            bloatfingerMedium.SimpleAddEncounter(1, "Bloatfinger_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, Jumble.Blue);
+            bloatfingerMedium.SimpleAddEncounter(1, "Bloatfinger_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, Jumble.Purple);
+            bloatfingerMedium.SimpleAddEncounter(2, "Bloatfinger_EN", 1, "Scrungie_EN");
+            bloatfingerMedium.SimpleAddEncounter(1, "Bloatfinger_EN", 1, HiddenBloatfinger.OrpheumRandom, 3, Enemies.Suckle);
             if (AApocrypha.CrossMod.pigmentRainbow)
             {
-                bloatfingerMedium.CreateNewEnemyEncounterData(
-                [
-                    "Bloatfinger_EN",
-                    "BloatfingerHiddenOrpheum_EN",
-                    "CoruscatingJumbleGuts_EN",
-                ], null);
+                bloatfingerMedium.SimpleAddEncounter(1, "Bloatfinger_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, Jumble.Rainbow);
+            }
+            if (AApocrypha.CrossMod.SaltEnemies)
+            {
+                bloatfingerMedium.SimpleAddEncounter(1, "Bloatfinger_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, HiddenBloatfinger.OrpheumRandom, 1, Bots.Red);
+                bloatfingerMedium.SimpleAddEncounter(1, "Bloatfinger_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, HiddenBloatfinger.OrpheumRandom, 1, Bots.Yellow);
+                bloatfingerMedium.SimpleAddEncounter(1, "Bloatfinger_EN", 2, "Foxtrot_EN");
             }
             bloatfingerMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_Bloatfinger_Medium_EnemyBundle", 12, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);

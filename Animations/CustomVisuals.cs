@@ -14,6 +14,7 @@ namespace A_Apocrypha.Animations
         public static AttackVisualsSO MicrowaveVisualsSO;
         public static AttackVisualsSO CranesHeavenVisualsSO;
         public static AttackVisualsSO Whispers;
+        public static AttackVisualsSO Nothing;
 
         public static void Add()
         {
@@ -56,6 +57,11 @@ namespace A_Apocrypha.Animations
             Whispers.audioReference = "event:/AASFX/Whispers_SFX";
             Whispers.isAnimationFullScreen = false;
             Whispers.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/Apocrypha_Animations/WhispersAnim.anim");
+
+            Nothing = ScriptableObject.CreateInstance<AttackVisualsSO>();
+            Nothing.audioReference = "event:/AASFX/Nothing_SFX";
+            Nothing.isAnimationFullScreen = false;
+            Nothing.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/Apocrypha_Animations/NothingAnim.anim");
         }
     }
 }

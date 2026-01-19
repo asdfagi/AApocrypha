@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using A_Apocrypha.CustomOther;
+using A_Apocrypha.Custom_Passives;
 using HarmonyLib;
 using UnityEngine;
 using static A_Apocrypha.Enemies.Bloatfinger;
@@ -55,6 +56,12 @@ namespace A_Apocrypha.Custom_Passives
             targeterValue.m_ShowIfDataIsOver = true;
             LoadedDBsHandler.MiscDB.AddNewUnitStoreData("TargeterStoredValue", targeterValue);
 
+            UnitStoreData_CombatAbilitySO repositoryValue = ScriptableObject.CreateInstance<UnitStoreData_CombatAbilitySO>();
+            repositoryValue.m_Text = "Repository: {0}";
+            repositoryValue._UnitStoreDataID = "RepositoryStoredValue";
+            repositoryValue.m_TextColor = Color.yellow;
+            LoadedDBsHandler.MiscDB.AddNewUnitStoreData("RepositoryStoredValue", repositoryValue);
+
             // Shy - Skittish, but only if there is an opposing unit.
             PerformEffectPassiveAbility shy = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             shy.name = "Shy_PA";
@@ -88,20 +95,6 @@ namespace A_Apocrypha.Custom_Passives
                 Effects.GenerateEffect(Right, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
                 Effects.GenerateEffect(Left, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, false], [2, 3])),
             ];
-
-            // Decay (Abandoned Altar) - Decay variant for the Anomaly Miniboss including center position and a unique description.
-            /*SpawnEnemyInSpecificSlotEffect SpawnAnomalyMiniboss = ScriptableObject.CreateInstance<SpawnEnemyInSpecificSlotEffect>();
-            SpawnAnomalyMiniboss.enemy = AnomalyMiniboss.aanomaly_miniboss.enemy;
-            SpawnAnomalyMiniboss._spawnTypeID = CombatType_GameIDs.Spawn_Basic.ToString();
-            SpawnAnomalyMiniboss.spawnSlot = 2;
-
-            PerformEffectPassiveAbility DecayAbandonedAltar = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
-            DecayAbandonedAltar.m_PassiveID = Passives.Example_Decay_MudLung.m_PassiveID;
-            DecayAbandonedAltar.passiveIcon = Passives.Example_Decay_MudLung.passiveIcon;
-            DecayAbandonedAltar._characterDescription = "Not meant for party members.";
-            DecayAbandonedAltar._enemyDescription = "Upon death the shell crumbles.";
-            DecayAbandonedAltar.effects = [Effects.GenerateEffect(SpawnAnomalyMiniboss, 1)];
-            DecayAbandonedAltar._triggerOn = [TriggerCalls.OnDeath];*/
 
             // Gnome - A passive with no proper effect, serves as both flavour and targetting assistant.
             PerformEffectPassiveAbility gnomePassive = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
@@ -265,8 +258,8 @@ namespace A_Apocrypha.Custom_Passives
                         TriggerCalls.OnCombatStart,
             ];
 
-            // Gouged - Missing an eye! Reduces damage dealt by 25%.
-            PercDmgModPassiveAbility gougedPassive = ScriptableObject.CreateInstance<PercDmgModPassiveAbility>();
+            // Gouged - Missing an eye! Reduces damage dealt by 25%. also fucks up your name
+            GougedPassiveAbility gougedPassive = ScriptableObject.CreateInstance<GougedPassiveAbility>();
             gougedPassive.name = "Gouged_PA";
             gougedPassive._passiveName = "Gouged";
             gougedPassive.m_PassiveID = "Gouged";
@@ -390,6 +383,9 @@ namespace A_Apocrypha.Custom_Passives
             GenerateColorManaFillPigmentBarEffect AllPurple = ScriptableObject.CreateInstance<GenerateColorManaFillPigmentBarEffect>();
             AllPurple.mana = Pigments.Purple;
 
+            GenerateColorsByListManaFillPigmentBarEffect AllBaseColorsLessPurple = ScriptableObject.CreateInstance<GenerateColorsByListManaFillPigmentBarEffect>();
+            AllBaseColorsLessPurple._manaColors = [Pigments.Red, Pigments.Red, Pigments.Blue, Pigments.Blue, Pigments.Yellow, Pigments.Yellow, Pigments.Purple];
+
             PerformEffectPassiveAbility condenseRed = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             condenseRed.name = "AA_CondenseRed_PA";
             condenseRed._passiveName = "Condense (Red)";
@@ -446,6 +442,42 @@ namespace A_Apocrypha.Custom_Passives
                 Effects.GenerateEffect(AllPurple, 1, Targeting.Slot_SelfSlot),
             ];
 
+            PerformEffectPassiveAbility condenseRandomPrimaryLessPurple = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            condenseRandomPrimaryLessPurple.name = "AA_CondensePrimaryLessPurple_PA";
+            condenseRandomPrimaryLessPurple._passiveName = "Condense (Random)";
+            condenseRandomPrimaryLessPurple.m_PassiveID = "Condense";
+            condenseRandomPrimaryLessPurple.passiveIcon = ResourceLoader.LoadSprite("Condense_passive_primary");
+            condenseRandomPrimaryLessPurple._characterDescription = "Upon death, fill the pigment bar with random pigment of the four basic colors.";
+            condenseRandomPrimaryLessPurple._enemyDescription = condenseRandomPrimaryLessPurple._characterDescription;
+            condenseRandomPrimaryLessPurple._triggerOn = [TriggerCalls.OnDeath];
+            condenseRandomPrimaryLessPurple.doesPassiveTriggerInformationPanel = true;
+            condenseRandomPrimaryLessPurple.effects =
+            [
+                Effects.GenerateEffect(AllBaseColorsLessPurple, 1, Targeting.Slot_SelfSlot),
+            ];
+
+            if (AApocrypha.CrossMod.UndivineComedy && LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
+            {
+                GenerateColorManaFillPigmentBarEffect AllBroken = ScriptableObject.CreateInstance<GenerateColorManaFillPigmentBarEffect>();
+                AllBroken.mana = LoadedDBsHandler.PigmentDB.GetPigment("Broken");
+
+                PerformEffectPassiveAbility condenseBroken = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                condenseBroken.name = "AA_CondenseBroken_PA";
+                condenseBroken._passiveName = "Condense (Broken)";
+                condenseBroken.m_PassiveID = "Condense";
+                condenseBroken.passiveIcon = ResourceLoader.LoadSprite("Condense_passive_broken");
+                condenseBroken._characterDescription = "Upon death, fill the pigment bar with Broken pigment, a mostly inert pigment that shatters on overflow.";
+                condenseBroken._enemyDescription = condenseBroken._characterDescription;
+                condenseBroken._triggerOn = [TriggerCalls.OnDeath];
+                condenseBroken.doesPassiveTriggerInformationPanel = true;
+                condenseBroken.effects =
+                [
+                    Effects.GenerateEffect(AllBroken, 1, Targeting.Slot_SelfSlot),
+                ];
+
+                Passives.AddCustomPassiveToPool("AA_CondenseBroken_PA", "Condense (Broken)", condenseBroken);
+            };
+
             StatusEffect_Apply_Effect OilApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             OilApply._Status = StatusField.OilSlicked;
 
@@ -464,29 +496,119 @@ namespace A_Apocrypha.Custom_Passives
                 Effects.GenerateEffect(OilApply, 2, Targeting.Slot_SelfSlot),
             ];
 
+            FieldEffect_Apply_Effect HoarfrostApply = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+            HoarfrostApply._Field = StatusField.GetCustomFieldEffect("Hoarfrost_ID");
+
+            // Snowstorm - Hoarfrost's inferno equivalent
+            PerformEffectPassiveAbility snowstorm1 = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            snowstorm1.name = "Snowstorm_1_PA";
+            snowstorm1._passiveName = "Snowstorm (1)";
+            snowstorm1.m_PassiveID = "Snowstorm";
+            snowstorm1.passiveIcon = ResourceLoader.LoadSprite("IconHoarfrostMirrored");
+            snowstorm1._characterDescription = "On turn start this party member applies 1 Hoarfrost to its current position.";
+            snowstorm1._enemyDescription = "On turn start this enemy applies 1 Hoarfrost to its current position.";
+            snowstorm1._triggerOn = [TriggerCalls.OnTurnStart];
+            snowstorm1.doesPassiveTriggerInformationPanel = true;
+            snowstorm1.effects =
+            [
+                Effects.GenerateEffect(HoarfrostApply, 1, Targeting.Slot_SelfSlot),
+            ];
+
+            // Antifreeze - Hoarfrost equivalent of Made Of Fire
+            DamageTypeImmunityPassiveAbility iceproofPassive = ScriptableObject.CreateInstance<DamageTypeImmunityPassiveAbility>();
+            iceproofPassive.name = "Antifreeze_PA";
+            iceproofPassive._passiveName = "Antifreeze";
+            iceproofPassive.m_PassiveID = "Antifreeze";
+            iceproofPassive.passiveIcon = ResourceLoader.LoadSprite("IconIceskull");
+            iceproofPassive._characterDescription = "This party member is unaffected by Hoarfrost and immune to frost damage.";
+            iceproofPassive._enemyDescription = "This enemy is unaffected by Hoarfrost and immune to frost damage.";
+            iceproofPassive.doesPassiveTriggerInformationPanel = false;
+            iceproofPassive._triggerOn = [TriggerCalls.OnBeingDamaged];
+            iceproofPassive._damageType = "AA_Frost_Damage";
+            // again, field effect immunity is handled by the field effect
+
+            if (AApocrypha.CrossMod.UndivineComedy && LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
+            {
+                EffectSO PigmentBreaker = LoadedAssetsHandler.GetCharacterAbility("Defrag_1_A").effects[3].effect;
+
+                // Fragile - broken pigment-related passive from Undivine Comedy (thanks WolfaCola)
+                PerformDoubleEffectPassiveAbility Fragile = ScriptableObject.CreateInstance<PerformDoubleEffectPassiveAbility>();
+                Fragile.name = "AA_Fragile_PA";
+                Fragile._passiveName = "Fragile";
+                Fragile.m_PassiveID = "Fragile";
+                Fragile.passiveIcon = ResourceLoader.LoadSprite("Fragile");
+                Fragile._characterDescription = "This party member's health will be Broken upon taking direct damage.\nThis party member also shatters all Broken pigment upon death.\nBroken Pigment naturally shatters upon overflow.";
+                Fragile._enemyDescription = "This enemy's health will be Broken upon taking direct damage.\nThis enemy also shatters all Broken pigment upon death.\nBroken Pigment naturally shatters upon overflow.";
+
+                ChangeToRandomHealthColorEffect setBroken = ScriptableObject.CreateInstance<ChangeToRandomHealthColorEffect>();
+                setBroken._healthColors = [LoadedDBsHandler.PigmentDB.GetPigment("Broken")];
+
+                Fragile._triggerOn = [TriggerCalls.OnDirectDamaged];
+                Fragile._secondTriggerOn = [TriggerCalls.OnDeath];
+                Fragile.effects =
+                [
+                    Effects.GenerateEffect(setBroken, 1, Targeting.Slot_SelfSlot),
+                ];
+                Fragile._secondEffects =
+                [
+                    Effects.GenerateEffect(PigmentBreaker),
+                ];
+                if (!LoadedDBsHandler.PassiveDB._PassivesPool.Contains("Fragile_PA")) { Passives.AddCustomPassiveToPool("Fragile_PA", "Fragile", Fragile); }
+            }
+
+            // Gadsby - joke passive
+            GadsbyPassiveAbility gadsbyPassiv = ScriptableObject.CreateInstance<GadsbyPassiveAbility>();
+            gadsbyPassiv.name = "Gadsby_PA";
+            gadsbyPassiv._passiveName = "Gadsby";
+            gadsbyPassiv.m_PassiveID = "Gadsby";
+            gadsbyPassiv.passiveIcon = ResourceLoader.LoadSprite("IconNoE");
+            gadsbyPassiv._characterDescription = "This party m_mb_r do_s not lik_ th_ l_tt_r _.";
+            gadsbyPassiv._enemyDescription = "This _n_my do_s not lik_ th_ l_tt_r _.";
+            gadsbyPassiv._triggerOn = [TriggerCalls.OnBeforeCombatStart];
+            gadsbyPassiv.doesPassiveTriggerInformationPanel = false;
+            gadsbyPassiv.effects =
+            [
+                //Effects.GenerateEffect(ScriptableObject.CreateInstance<CasterGadsbyEffect>(), 1, Targeting.Slot_SelfSlot),
+            ];
+
+            // Jolly - Joke(r) Passive
+            JollyPassiveAbility jollyPassive = ScriptableObject.CreateInstance<JollyPassiveAbility>();
+            jollyPassive.name = "JollyJoker_PA";
+            jollyPassive._passiveName = "Jolly";
+            jollyPassive.m_PassiveID = "Jolly";
+            jollyPassive.passiveIcon = ResourceLoader.LoadSprite("IconJolly");
+            jollyPassive._characterDescription = "This party member is feeling rather jolly.";
+            jollyPassive._enemyDescription = "This enemy is feeling rather jolly.";
+            jollyPassive.doesPassiveTriggerInformationPanel = false;
+
             // Adding to pool
-            Passives.AddCustomPassiveToPool("Shy_PA", "Shy", shy);
-            Passives.AddCustomPassiveToPool("Confrontational_PA", "Confrontational", confrontational);
-            //Passives.AddCustomPassiveToPool("DecayAbandonedAltar_PA", "Decay", DecayAbandonedAltar);
-            Passives.AddCustomPassiveToPool("Gnome_PA", "Gnome", gnomePassive);
-            Passives.AddCustomPassiveToPool("AA_FreeWilled_PA", "Free-Willed", freeWillPassive);
-            Passives.AddCustomPassiveToPool("AA_Heterochromia_PA", "Heterochromia", colors);
-            Passives.AddCustomPassiveToPool("Omnichromia_PA", "Omnichromia", hypercolors);
-            Passives.AddCustomPassiveToPool("AA_TornApart_PA", "Torn Apart", tornApart);
-            Passives.AddCustomPassiveToPool("AA_Jumpy_PA", "Jumpy", jumpy);
-            Passives.AddCustomPassiveToPool("Gouged_PA", "Gouged", gougedPassive);
-            Passives.AddCustomPassiveToPool("MadeOfFire_PA", "Made Of Fire", fireproofPassive);
-            Passives.AddCustomPassiveToPool("DriedOut_PA", "Dried Out", dryPassive);
-            Passives.AddCustomPassiveToPool("AA_Condense_PA", "Condense", condensePassive);
-            Passives.AddCustomPassiveToPool("AA_CondenseRed_PA", "Condense (Red)", condenseRed);
-            Passives.AddCustomPassiveToPool("AA_CondenseBlue_PA", "Condense (Blue)", condenseBlue);
-            Passives.AddCustomPassiveToPool("AA_CondenseYellow_PA", "Condense (Yellow)", condenseYellow);
-            Passives.AddCustomPassiveToPool("AA_CondensePurple_PA", "Condense (Purple)", condensePurple);
-            Passives.AddCustomPassiveToPool("RedBlooded_1_PA", "Red-Blooded (1)", redBlooded);
-            Passives.AddCustomPassiveToPool("BlueBlooded_1_PA", "Blue-Blooded (1)", blueBlooded);
-            Passives.AddCustomPassiveToPool("YellowBlooded_1_PA", "Yellow-Blooded (1)", yellowBlooded);
-            Passives.AddCustomPassiveToPool("PurpleBlooded_1_PA", "Purple-Blooded (1)", purpleBlooded);
-            Passives.AddCustomPassiveToPool("BlackTears_2_PA", "Black Tears (2)", blackTears);
+            CheckerPassivePoolAdd("Shy_PA", "Shy", shy);
+            CheckerPassivePoolAdd("Shy_PA", "Shy", shy);
+            CheckerPassivePoolAdd("Confrontational_PA", "Confrontational", confrontational);
+            CheckerPassivePoolAdd("Gnome_PA", "Gnome", gnomePassive);
+            CheckerPassivePoolAdd("AA_FreeWilled_PA", "Free-Willed", freeWillPassive);
+            CheckerPassivePoolAdd("AA_Heterochromia_PA", "Heterochromia", colors);
+            CheckerPassivePoolAdd("Omnichromia_PA", "Omnichromia", hypercolors);
+            CheckerPassivePoolAdd("AA_TornApart_PA", "Torn Apart", tornApart);
+            CheckerPassivePoolAdd("AA_Jumpy_PA", "Jumpy", jumpy);
+            CheckerPassivePoolAdd("Gouged_PA", "Gouged", gougedPassive);
+            CheckerPassivePoolAdd("MadeOfFire_PA", "Made Of Fire", fireproofPassive);
+            CheckerPassivePoolAdd("DriedOut_PA", "Dried Out", dryPassive);
+            CheckerPassivePoolAdd("AA_Condense_PA", "Condense", condensePassive);
+            CheckerPassivePoolAdd("AA_CondenseRed_PA", "Condense (Red)", condenseRed);
+            CheckerPassivePoolAdd("AA_CondenseBlue_PA", "Condense (Blue)", condenseBlue);
+            CheckerPassivePoolAdd("AA_CondenseYellow_PA", "Condense (Yellow)", condenseYellow);
+            CheckerPassivePoolAdd("AA_CondensePurple_PA", "Condense (Purple)", condensePurple);
+            CheckerPassivePoolAdd("AA_CondensePrimaryLessPurple_PA", "Condense (Random)", condenseRandomPrimaryLessPurple);
+            CheckerPassivePoolAdd("RedBlooded_1_PA", "Red-Blooded (1)", redBlooded);
+            CheckerPassivePoolAdd("BlueBlooded_1_PA", "Blue-Blooded (1)", blueBlooded);
+            CheckerPassivePoolAdd("YellowBlooded_1_PA", "Yellow-Blooded (1)", yellowBlooded);
+            CheckerPassivePoolAdd("PurpleBlooded_1_PA", "Purple-Blooded (1)", purpleBlooded);
+            CheckerPassivePoolAdd("BlackTears_2_PA", "Black Tears (2)", blackTears);
+            CheckerPassivePoolAdd("Snowstorm_1_PA", "Snowstorm (1)", snowstorm1);
+            CheckerPassivePoolAdd("Antifreeze_PA", "Antifreeze", iceproofPassive);
+            CheckerPassivePoolAdd("Gadsby_PA", "Gadsby", gadsbyPassiv);
+            CheckerPassivePoolAdd("JollyJoker_PA", "Jolly", jollyPassive);
 
             // Glossary entries
             GlossaryPassives AAShyInfo = new GlossaryPassives("Shy", "Upon performing an ability, this party member/enemy will move to the left or right, prioritizing unopposed spaces, if there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconShy"));
@@ -495,7 +617,7 @@ namespace A_Apocrypha.Custom_Passives
             GlossaryPassives AAGnomeInfo = new GlossaryPassives("Gnome", "This unit is one or more gnomes.", ResourceLoader.LoadSprite("IconGnome"));
             GlossaryPassives AAOmnichromiaInfo = new GlossaryPassives("Omnichromia", "Upon receiving any kind of damage or performing an ability, randomize this unit's health colour. This includes unusual and split pigment.", ResourceLoader.LoadSprite("IconOmnichromia"));
             GlossaryPassives AAGougedInfo = new GlossaryPassives("Gouged", "This unit is missing an eye, their reduced accuracy decreasing damage dealt by 25%.", ResourceLoader.LoadSprite("IconGouged"));
-            GlossaryPassives AAMadeOfFireInfo = new GlossaryPassives("Made Of Fire", "This unit is immune to fire damage.", ResourceLoader.LoadSprite("IconFireskull"));
+            GlossaryPassives AAMadeOfFireInfo = new GlossaryPassives("Made Of Fire", "This unit is unaffected by Fire and immune to fire damage.", ResourceLoader.LoadSprite("IconFireskull"));
             GlossaryPassives AADriedOutInfo = new GlossaryPassives("Dried Out", "This unit is immune to damage from Ruptured.", ResourceLoader.LoadSprite("IconDriedOut"));
             GlossaryPassives AAMercurialInfo = new GlossaryPassives("Mercurial", "At the end of the timeline, if a certain condition is met, this enemy transforms into a different enemy.", ResourceLoader.LoadSprite("IconTransformPassive"));
             GlossaryPassives AAPigmentBloodedInfo = new GlossaryPassives("Pigment-Blooded", "Upon receiving direct damage this party member/enemy produces additional pigment of a specific color.", ResourceLoader.LoadSprite("IconStonebloodPrimary"));
@@ -503,6 +625,8 @@ namespace A_Apocrypha.Custom_Passives
             GlossaryPassives AADeploymentInfo = new GlossaryPassives("Deployment", "Dealing damage to this enemy greater than a certain threshold will cause it to attempt to summon a specific enemy.", ResourceLoader.LoadSprite("IconDeployment")); // icon sprited by MillieAmp
             GlossaryPassives AACondenseInfo = new GlossaryPassives("Condense", "Upon death, fill the pigment bar with pigment of this party member/enemy's health color.", ResourceLoader.LoadSprite("Condense_passive"));
             GlossaryPassives AABlackTearsInfo = new GlossaryPassives("Black Tears", "On moving, this unit gains a certain amount of Oil Slicked.", ResourceLoader.LoadSprite("IconBlackTears"));
+            GlossaryPassives AASnowstormInfo = new GlossaryPassives("Snowstorm", "On turn start, this party member/enemy applies a certain amount of Hoarfrost to their current position.", ResourceLoader.LoadSprite("IconHoarfrostMirrored"));
+            GlossaryPassives AAAntifreezeInfo = new GlossaryPassives("Antifreeze", "This unit is unaffected by Hoarfrost and immune to frost damage.", ResourceLoader.LoadSprite("IconIceskull"));
 
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAShyInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAConfrontationalInfo);
@@ -518,6 +642,8 @@ namespace A_Apocrypha.Custom_Passives
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AADeploymentInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AACondenseInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AABlackTearsInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AASnowstormInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AAAntifreezeInfo);
 
             if (!AApocrypha.CrossMod.StewSpecimens)
             {
@@ -537,8 +663,21 @@ namespace A_Apocrypha.Custom_Passives
 
             if (!AApocrypha.CrossMod.HellIslandFell)
             {
-                GlossaryPassives AltAttacksInfo = new GlossaryPassives("Alt Attacks", "This enemy will perform an additional ability each turn, this ability is randomly selected from a given set", ResourceLoader.LoadSprite("PassiveAltAttacks"));
+                GlossaryPassives AltAttacksInfo = new GlossaryPassives("Alt Attacks", "This enemy will perform an additional ability each turn, this ability is randomly selected from a given set.", ResourceLoader.LoadSprite("PassiveAltAttacks"));
                 LoadedDBsHandler.GlossaryDB.AddNewPassive(AltAttacksInfo);
+            }
+        }
+
+        public static void CheckerPassivePoolAdd(string id, string name, BasePassiveAbilitySO passive)
+        {
+            if (!LoadedDBsHandler.PassiveDB._PassivesPool.Contains(id))
+            {
+                Debug.Log($"Passives | adding passive {name} ({id})");
+                Passives.AddCustomPassiveToPool(id, name, passive);
+            }
+            else
+            {
+                Debug.Log($"Passives | passive with id {id} already registered! skipping...");
             }
         }
 

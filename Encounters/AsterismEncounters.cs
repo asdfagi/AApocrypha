@@ -10,164 +10,63 @@ namespace A_Apocrypha.Encounters
         {
             Portals.AddPortalSign("Asterism_Sign", ResourceLoader.LoadSprite("AsterismTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
 
-            EnemyEncounter_API asterismMedium = new EnemyEncounter_API(0, "H_Zone01_Asterism_Medium_EnemyBundle", "Asterism_Sign")
+            EnemyEncounter_API asterismMedium = new EnemyEncounter_API(0, Shore.H.Asterism.Med, "Asterism_Sign")
             {
                 MusicEvent = "event:/AAMusic/LookOutside/BeautifulButWrong",
-                RoarEvent = "event:/Characters/Enemies/Spoggle_Purple/CHR_ENM_Spoggle_Purple_Roar",
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Orph.Spoggle.Purple.Med)._roarReference.roarEvent,
             };
-            asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "MudLung_EN",
-                    "Mung_EN",
-                ], null);
-            asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Keko_EN",
-                ], null);
-            asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "MudLung_EN",
-                    "Mung_EN",
-                    "Mung_EN",
-                ], null);
-            asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Asterism_EN",
-                ], null);
-            asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Acolyte_EN",
-                ], null);
-            asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "SandSifter_EN",
-                    "MudLung_EN",
-                    "Mung_EN",
-                ], null);
+            asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "MudLung_EN", 1, "Mung_EN");
+            asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "MudLung_EN", 2, "Mung_EN");
+            asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "MunglingMudLung_EN", 1, "Mung_EN");
+            asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Keko_EN");
+            asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 2, "Keko_EN");
+            asterismMedium.SimpleAddEncounter(2, "Asterism_EN");
+            asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Acolyte_EN");
+            asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "SandSifter_EN", 1, "MudLung_EN", 1, "Mung_EN");
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
-                asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Flakkid_EN",
-                ], null);
-                asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Enno_EN",
-                ], null);
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Flakkid_EN");
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Enno_EN");
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
-                asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Minana_EN",
-                    "Minana_EN",
-                ], null);
-                asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Pinano_EN",
-                ], null);
-                asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Wall_EN",
-                ], null);
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 2, "Minana_EN");
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Pinano_EN");
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Wall_EN");
             }
             if (AApocrypha.CrossMod.Colophons)
             {
-                asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Mung_EN",
-                    "ColophonDefeated_EN",
-                ], null);
-                asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Mung_EN",
-                    "ColophonComposed_EN",
-                ], null);
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Mung_EN", 1, Colophon.Red);
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Mung_EN", 1, Colophon.Blue);
             }
             if (AApocrypha.CrossMod.StewSpecimens)
             {
-                asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Scylla_EN",
-                    "Mung_EN",
-                ], null);
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Scylla_EN", 1, "Mung_EN");
             }
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
-                asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Goomba_EN",
-                ], null);
-                asterismMedium.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "MycotoxicSpoggle_EN",
-                    "Acolyte_EN",
-                ], null);
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Goomba_EN");
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Acolyte_EN", 1, Spoggle.Green);
             }
             asterismMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Asterism_Medium_EnemyBundle", 12, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Asterism.Med, 12, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);
 
-            EnemyEncounter_API asterismHard = new EnemyEncounter_API(0, "H_Zone01_Asterism_Hard_EnemyBundle", "Asterism_Sign")
+            EnemyEncounter_API asterismHard = new EnemyEncounter_API(0, Shore.H.Asterism.Hard, "Asterism_Sign")
             {
                 MusicEvent = "event:/AAMusic/LookOutside/BeautifulButWrong",
-                RoarEvent = "event:/Characters/Enemies/Spoggle_Purple/CHR_ENM_Spoggle_Purple_Roar",
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Orph.Spoggle.Purple.Med)._roarReference.roarEvent,
             };
-            asterismHard.CreateNewEnemyEncounterData(
-            [
-                "Asterism_EN",
-                "Asterism_EN",
-                "Asterism_EN",
-                "Asterism_EN",
-            ], null);
-            asterismHard.CreateNewEnemyEncounterData(
-            [
-                "Asterism_EN",
-                "Asterism_EN",
-                "Asterism_EN",
-                "Spoggle_Ruminating_EN",
-            ], null);
-            asterismHard.CreateNewEnemyEncounterData(
-            [
-                "Asterism_EN",
-                "Asterism_EN",
-                "Asterism_EN",
-                "Spoggle_Spitfire_EN",
-            ], null);
+            asterismHard.SimpleAddEncounter(2, "Asterism_EN", 1, "MunglingMudLung_EN", 1, "MudLung_EN");
+            asterismHard.SimpleAddEncounter(4, "Asterism_EN");
+            asterismHard.SimpleAddEncounter(3, "Asterism_EN", 1, Spoggle.Blue);
+            asterismHard.SimpleAddEncounter(3, "Asterism_EN", 1, Spoggle.Yellow);
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
-                asterismHard.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Follower_EN",
-                    "Asterism_EN",
-                ], null);
-                asterismHard.CreateNewEnemyEncounterData(
-                [
-                    "Asterism_EN",
-                    "Asterism_EN",
-                    "Asterism_EN",
-                    "MycotoxicSpoggle_EN",
-                ], null);
-            }
-            ;
+                asterismHard.SimpleAddEncounter(2, "Asterism_EN", 1, "Follower_EN");
+                asterismHard.SimpleAddEncounter(3, "Asterism_EN", 1, Spoggle.Green);
+            };
             asterismHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Asterism_Hard_EnemyBundle", 14, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Asterism.Hard, 14, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
         }
     }
 }

@@ -137,7 +137,7 @@ namespace A_Apocrypha.Enemies
             ]);
 
             smoldergeist.AddPassives([Passives.Skittish, CustomPassives.ThresholdMasochismGenerator(8), Passives.GetCustomPassive("AA_RectifySmoldergeist_PA"), Passives.GetCustomPassive("MadeOfFire_PA")]);
-            smoldergeist.AddEnemy(false, false, false);
+            smoldergeist.AddEnemy(true, true, false);
         }
         static PreviousEffectCondition PreviousGenerator(bool wasTrue, int number)
         {

@@ -9,44 +9,19 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("Simulacrum_Sign", ResourceLoader.LoadSprite("SimulacrumTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            EnemyEncounter_API simulacrumHard = new EnemyEncounter_API(0, "H_Zone03_Simulacrum_Hard_EnemyBundle", "Simulacrum_Sign")
+            EnemyEncounter_API simulacrumHard = new EnemyEncounter_API(0, Garden.H.Simulacrum.Hard, "Simulacrum_Sign")
             {
                 MusicEvent = "event:/AAMusic/Everhood/Homunculus",
                 RoarEvent = "event:/AAEnemy/SimulacrumRoar",
             };
-            simulacrumHard.CreateNewEnemyEncounterData(
-            [
-                "Simulacrum_EN",
-            ], null);
-            simulacrumHard.CreateNewEnemyEncounterData(
-            [
-                "Simulacrum_EN",
-                "NextOfKin_EN",
-                "NextOfKin_EN",
-            ], null);
-            simulacrumHard.CreateNewEnemyEncounterData(
-            [
-                "Simulacrum_EN",
-                "InHisImage_EN",
-            ], null);
-            simulacrumHard.CreateNewEnemyEncounterData(
-            [
-                "Simulacrum_EN",
-                "InHerImage_EN",
-            ], null);
-            simulacrumHard.CreateNewEnemyEncounterData(
-            [
-                "Simulacrum_EN",
-                "MachineGnomes_EN",
-                "MachineGnomes_EN",
-            ], null);
-            simulacrumHard.CreateNewEnemyEncounterData(
-            [
-                "Simulacrum_EN",
-                "ShiveringHomunculus_EN",
-            ], null);
+            simulacrumHard.SimpleAddEncounter(1, "Simulacrum_EN");
+            simulacrumHard.SimpleAddEncounter(1, "Simulacrum_EN", 2, "NextOfKin_EN");
+            simulacrumHard.SimpleAddEncounter(1, "Simulacrum_EN", 1, "InHisImage_EN");
+            simulacrumHard.SimpleAddEncounter(1, "Simulacrum_EN", 1, "InHerImage_EN");
+            simulacrumHard.SimpleAddEncounter(1, "Simulacrum_EN", 2, "MachineGnomes_EN");
+            simulacrumHard.SimpleAddEncounter(1, "Simulacrum_EN", 1, Enemies.Shivering);
             simulacrumHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_Simulacrum_Hard_EnemyBundle", 7, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.Simulacrum.Hard, 7, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
         }
     }
 }

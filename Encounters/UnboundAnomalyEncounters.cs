@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static A_Apocrypha.Encounters.Shore.H;
 
 namespace A_Apocrypha.Encounters
 {
@@ -9,98 +10,39 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("Anomaly_Sign", ResourceLoader.LoadSprite("AnomalyTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            EnemyEncounter_API anomalyEasy = new EnemyEncounter_API(0, "H_Zone02_UnboundAnomaly_Easy_EnemyBundle", "Anomaly_Sign")
+            EnemyEncounter_API anomalyEasy = new EnemyEncounter_API(0, Orph.H.Anomaly.Unbound.Easy, "Anomaly_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
-            anomalyEasy.CreateNewEnemyEncounterData(
-                [
-                    "UnboundAnomaly_EN",
-                ], null);
-            anomalyEasy.CreateNewEnemyEncounterData(
-                [
-                    "UnboundAnomaly_EN",
-                    "MusicMan_EN",
-                ], null);
-            anomalyEasy.CreateNewEnemyEncounterData(
-                [
-                    "UnboundAnomaly_EN",
-                    "MusicMan_EN",
-                    "MusicMan_EN",
-                ], null);
-            anomalyEasy.CreateNewEnemyEncounterData(
-                [
-                    "UnboundAnomaly_EN",
-                    "SingingStone_EN",
-                ], null);
-            anomalyEasy.CreateNewEnemyEncounterData(
-                [
-                    "UnboundAnomaly_EN",
-                    "JumbleGuts_Hollowing_EN",
-                    "MusicMan_EN",
-                ], null);
-            anomalyEasy.CreateNewEnemyEncounterData(
-                [
-                    "UnboundAnomaly_EN",
-                    "SilverSuckle_EN",
-                    "SilverSuckle_EN",
-                    "SilverSuckle_EN",
-                    "SilverSuckle_EN",
-                ], null);
+            anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound);
+            anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 1, "MusicMan_EN");
+            anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 2, "MusicMan_EN");
+            anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 1, "SingingStone_EN");
+            anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 1, "MusicMan_EN", 1, Jumble.Blue);
+            anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 4, Enemies.Suckle);
             anomalyEasy.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_UnboundAnomaly_Easy_EnemyBundle", 3, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Easy);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Orph.H.Anomaly.Unbound.Easy, 3, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Easy);
 
-            EnemyEncounter_API anomalyMedium = new EnemyEncounter_API(0, "H_Zone02_UnboundAnomaly_Medium_EnemyBundle", "Anomaly_Sign")
+            EnemyEncounter_API anomalyMedium = new EnemyEncounter_API(0, Orph.H.Anomaly.Unbound.Med, "Anomaly_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
-            anomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "UnboundAnomaly_EN",
-                    "UnboundAnomaly_EN",
-                    "JumbleGuts_Hollowing_EN",
-                    "SingingStone_EN",
-                ], null);
-            anomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "UnboundAnomaly_EN",
-                    "UnboundAnomaly_EN",
-                    "UnboundAnomaly_EN",
-                ], null);
-            anomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "UnboundAnomaly_EN",
-                    "UnboundAnomaly_EN",
-                    "Spoggle_Resonant_EN",
-                ], null);
+            anomalyMedium.SimpleAddEncounter(2, Anomalies.Unbound, 1, "SingingStone_EN", 1, Jumble.Blue);
+            anomalyMedium.SimpleAddEncounter(3, Anomalies.Unbound);
+            anomalyMedium.SimpleAddEncounter(2, Anomalies.Unbound, 1, Spoggle.Purple);
+            anomalyMedium.SimpleAddEncounter(2, Anomalies.Unbound, 1, Spoggle.BlueYellowSplit);
             if (AApocrypha.CrossMod.Colophons)
             {
-                anomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "UnboundAnomaly_EN",
-                    "UnboundAnomaly_EN",
-                    "ColophonDelighted_EN",
-                ], null);
-                anomalyMedium.CreateNewEnemyEncounterData(
-                [
-                    "UnboundAnomaly_EN",
-                    "UnboundAnomaly_EN",
-                    "ColophonMaladjusted_EN",
-                ], null);
+                anomalyMedium.SimpleAddEncounter(2, Anomalies.Unbound, 1, Colophon.Yellow);
                 if (AApocrypha.CrossMod.IntoTheAbyss)
                 {
-                    anomalyMedium.CreateNewEnemyEncounterData(
-                    [
-                        "UnboundAnomaly_EN",
-                        "UnboundAnomaly_EN",
-                        "ColophonDisaffected_EN",
-                    ], null);
+                    anomalyMedium.SimpleAddEncounter(2, Anomalies.Unbound, 1, Colophon.Green);
                 }
             }
             anomalyMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_UnboundAnomaly_Medium_EnemyBundle", 4, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Orph.H.Anomaly.Unbound.Med, 4, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }
     }
 }

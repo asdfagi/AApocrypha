@@ -9,114 +9,44 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("CellularSpoggle_Sign", ResourceLoader.LoadSprite("CellularSpoggleTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            EnemyEncounter_API cellularSpoggleMedium = new EnemyEncounter_API(0, "H_Zone02_CellularSpoggle_Medium_EnemyBundle", "CellularSpoggle_Sign")
+            EnemyEncounter_API cellularSpoggleMedium = new EnemyEncounter_API(0, Orph.H.Spoggle.YellowBlueSplit.Med, "CellularSpoggle_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp/WhimperAndWhine",
-                RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Spoggle_Writhing_Medium_EnemyBundle")._roarReference.roarEvent,
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Orph.H.Spoggle.Red.Med)._roarReference.roarEvent,
             };
-            cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "Spoggle_Spitfire_EN",
-                ], null);
-            cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "DevotedSpoggle_EN",
-                ], null);
-            cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "MusicMan_EN",
-                    "MusicMan_EN",
-                ], null);
-            cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "Scrungie_EN",
-                ], null);
-            cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "SilverSuckle_EN",
-                    "SilverSuckle_EN",
-                ], null);
-            cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "MusicMan_EN",
-                    "Blemmigan_EN",
-                    "Blemmigan_EN",
-                ], null);
+            cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, Spoggle.Yellow);
+            cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, Spoggle.PurpleRedSplit);
+            cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 2, "MusicMan_EN");
+            cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, "Scrungie_EN");
+            cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 2, Enemies.Suckle);
+            cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, "MusicMan_EN", 2, "Blemmigan_EN");
             if (AApocrypha.CrossMod.Colophons)
             {
-                cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "ColophonMaladjusted_EN",
-                ], null);
-                cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "ColophonDelighted_EN",
-                    "SingingStone_EN",
-                ], null);
+                cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, Colophon.Yellow);
+                cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, Colophon.Purple, 1, "SingingStone_EN");
                 if (AApocrypha.CrossMod.IntoTheAbyss)
                 {
-                    cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                    [
-                        "CellularSpoggle_EN",
-                        "ColophonDisaffected_EN",
-                        "Blemmigan_EN",
-                    ], null);
+                    cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, Colophon.Green, 1, "SingingStone_EN");
+                    cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, Colophon.Green, 1, "SingingStone_EN", 1, "Blemmigan_EN");
                 }
             }
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
-                cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "Frostbite_EN",
-                    "Frostbite_EN",
-                ], null);
-                cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "Jansuli_EN",
-                    "MusicMan_EN",
-                ], null);
+                cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 2, "Frostbite_EN");
+                cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, "MusicMan_EN", 1, "Jansuli_EN");
             }
             if (AApocrypha.CrossMod.EnemyPack)
             {
-                cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "NakedGizo_EN",
-                    "Blemmigan_EN",
-                ], null);
-                cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "Chapman_EN",
-                    "Chapman_EN",
-                ], null);
+                cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, "NakedGizo_EN", 1, "Blemmigan_EN");
+                cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 2, "Chapman_EN");
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
-                cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "Rabies_EN",
-                ], null);
-                cellularSpoggleMedium.CreateNewEnemyEncounterData(
-                [
-                    "CellularSpoggle_EN",
-                    "Spoggle_Spitfire_EN",
-                    "BlueBot_EN",
-                ], null);
+                cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, "Rabies_EN");
+                cellularSpoggleMedium.SimpleAddEncounter(1, Spoggle.YellowBlueSplit, 1, Spoggle.Yellow, 1, Bots.Blue);
             }
             cellularSpoggleMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_CellularSpoggle_Medium_EnemyBundle", 12, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Orph.H.Spoggle.YellowBlueSplit.Med, 12, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }
     }
 }

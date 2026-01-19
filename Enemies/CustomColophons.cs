@@ -54,8 +54,7 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Common,
                 Priority = Priority.Normal,
             };
-            migraine.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Sides)]);
-            migraine.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Pigment_Transform"]);
+            migraine.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Sides), "AA_Pigment_Transform"]);
             migraine.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_3_6)]);
 
             Ability objectivity = new Ability("Objectivity", "AApocrypha_ColoObjectivity_A")
@@ -87,8 +86,7 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Uncommon,
                 Priority = Priority.Normal,
             };
-            tensionheadache.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Sides)]);
-            tensionheadache.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Pigment_Transform"]);
+            tensionheadache.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Sides), "AA_Pigment_Transform"]);
             tensionheadache.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_7_10)]);
 
             Enemy redblueColo = new Enemy("Dualistic Colophon", "ColophonDualistic_EN")
@@ -148,8 +146,7 @@ namespace A_Apocrypha.Enemies
                 Priority = Priority.Normal,
             };
             tranquility.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
-            tranquility.AddIntentsToTarget(Targeting.Slot_OpponentAllLefts, [nameof(IntentType_GameIDs.Mana_Modify)]);
-            tranquility.AddIntentsToTarget(Targeting.Slot_OpponentAllLefts, [nameof(IntentType_GameIDs.Status_Ruptured)]);
+            tranquility.AddIntentsToTarget(Targeting.Slot_OpponentAllLefts, [nameof(IntentType_GameIDs.Mana_Modify), nameof(IntentType_GameIDs.Status_Ruptured)]);
 
             Ability suffering = new Ability("Suffering", "AApocrypha_Suffering_A")
             {
@@ -172,8 +169,7 @@ namespace A_Apocrypha.Enemies
                 Priority = Priority.Normal,
             };
             suffering.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
-            suffering.AddIntentsToTarget(Targeting.Slot_OpponentAllRights, [nameof(IntentType_GameIDs.Mana_Modify)]);
-            suffering.AddIntentsToTarget(Targeting.Slot_OpponentAllRights, [nameof(IntentType_GameIDs.Status_Frail)]);
+            suffering.AddIntentsToTarget(Targeting.Slot_OpponentAllRights, [nameof(IntentType_GameIDs.Mana_Modify), nameof(IntentType_GameIDs.Status_Frail)]);
 
             redblueColo.AddEnemyAbilities(
             [
@@ -182,7 +178,77 @@ namespace A_Apocrypha.Enemies
                 tranquility,
                 suffering,
             ]);
-            redblueColo.AddEnemy(true, false, false);
+            redblueColo.AddEnemy(true, true, false);
+
+            Enemy redpurpleColo = new Enemy("Heretical Colophon", "ColophonHeretical_EN")
+            {
+                Health = 24,
+                HealthColor = Pigments.RedPurple,
+                Size = 1,
+                CombatSprite = ResourceLoader.LoadSprite("ColophonHereticalTimeline", new Vector2(0.5f, 0f), 32),
+                OverworldDeadSprite = ResourceLoader.LoadSprite("ColophonHereticalDead", new Vector2(0.5f, 0f), 32),
+                OverworldAliveSprite = ResourceLoader.LoadSprite("ColophonHereticalTimeline", new Vector2(0.5f, 0f), 32),
+                DamageSound = LoadedAssetsHandler.GetEnemy("ColophonDefeated_EN").damageSound,
+                DeathSound = LoadedAssetsHandler.GetEnemy("ColophonDefeated_EN").deathSound,
+                //DamageSound = "event:/AAEnemy/ColophonSaccharineHurt",
+                //DeathSound = "event:/AAEnemy/ColophonSaccharineDeath",
+            };
+            redpurpleColo.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/ColophonHeretical_Enemy/ColophonHeretical_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/ColophonHeretical_Enemy/ColophonHeretical_Giblets.prefab").GetComponent<ParticleSystem>());
+            redpurpleColo.AddPassives([Passives.Pure, Passives.GetCustomPassive("Pollute_PA")]);
+
+            FieldEffect_Apply_Effect ConstrictedApply = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+            ConstrictedApply._Field = StatusField.Constricted;
+
+            DamageEffect DamageByPrevious = ScriptableObject.CreateInstance<DamageEffect>();
+            DamageByPrevious._usePreviousExitValue = true;
+
+            AddPassiveEffect Fleeting2Apply = ScriptableObject.CreateInstance<AddPassiveEffect>();
+            Fleeting2Apply._passiveToAdd = Passives.FleetingGenerator(2, false);
+
+            Ability abaddon = new Ability("Wrath of Abaddon", "AApocrypha_WrathOfAbaddon_A")
+            {
+                Description = "Deal an Agonizing amount of damage to the Opposing party member.\nApply 2 Frail to the Far Left, Left, Right and Far Right party members.",
+                Cost = [Pigments.RedPurple, Pigments.Purple],
+                Visuals = Visuals.Conductor,
+                AnimationTarget = Targeting.Slot_Front,
+                Effects =
+                [
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 8, Targeting.Slot_Front),
+                    Effects.GenerateEffect(FrailApply, 2, Targeting.Slot_OpponentSidesAndFarSides),
+                ],
+                Rarity = Rarity.Uncommon,
+                Priority = Priority.Normal,
+            };
+            abaddon.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_7_10)]);
+            abaddon.AddIntentsToTarget(Targeting.Slot_OpponentSidesAndFarSides, [nameof(IntentType_GameIDs.Status_Frail)]);
+
+            Ability gehenna = new Ability("Fear of Gehenna", "AApocrypha_FearOfGehenna_A")
+            {
+                Description = "Deal a Little damage to the Left and Right party members.\nIf damage was dealt, deal damage to the Opposing party member equal to the damage dealt, then apply 2 Constricted and Fleeting(2) to them.",
+                Cost = [Pigments.PurpleRed, Pigments.Red],
+                Visuals = Visuals.Mitosis,
+                AnimationTarget = Targeting.Slot_Front,
+                Effects =
+                [
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 2, Targeting.Slot_OpponentSides),
+                    Effects.GenerateEffect(DamageByPrevious, 1, Targeting.Slot_Front, PreviousGenerator(true, 1)),
+                    Effects.GenerateEffect(ConstrictedApply, 2, Targeting.Slot_Front, PreviousGenerator(true, 2)),
+                    Effects.GenerateEffect(Fleeting2Apply, 1, Targeting.Slot_Front, PreviousGenerator(true, 3)),
+                ],
+                Rarity = Rarity.Uncommon,
+                Priority = Priority.Normal,
+            };
+            gehenna.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Damage_1_2)]);
+            gehenna.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_3_6), nameof(IntentType_GameIDs.Field_Constricted), nameof(IntentType_GameIDs.PA_Fleeting)]);
+
+            redpurpleColo.AddEnemyAbilities(
+            [
+                bias,
+                migraine,
+                abaddon,
+                gehenna,
+            ]);
+            redpurpleColo.AddEnemy(true, true, false);
 
             if (AApocrypha.CrossMod.pigmentPeppermint)
             {
@@ -242,7 +308,7 @@ namespace A_Apocrypha.Enemies
                     tensionheadache,
                     sugarrush,
                 ]);
-                peppermintColo.AddEnemy(true, true, true);
+                peppermintColo.AddEnemy(true, true, false);
 
                 Enemy peppermintColoAlt = new Enemy("Saccharine Colophon", "ColophonSaccharineAlt_EN")
                 {

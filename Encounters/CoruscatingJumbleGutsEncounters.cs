@@ -9,87 +9,35 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("RainbowGuts_Sign", ResourceLoader.LoadSprite("RainbowGutsTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            EnemyEncounter_API rainbowGutsMedium = new EnemyEncounter_API(0, "H_Zone02_CoruscatingJumbleGuts_Medium_EnemyBundle", "RainbowGuts_Sign")
+            EnemyEncounter_API rainbowGutsMedium = new EnemyEncounter_API(0, Orph.H.Jumble.Rainbow.Med, "RainbowGuts_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
-                RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone02_JumbleGuts_Flummoxing_Medium_EnemyBundle")._roarReference.roarEvent,
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Orph.H.Jumble.Purple.Med)._roarReference.roarEvent,
             };
-            rainbowGutsMedium.CreateNewEnemyEncounterData(
-            [
-                "CoruscatingJumbleGuts_EN",
-                "JumbleGuts_Hollowing_EN",
-                "MusicMan_EN",
-            ], null);
-            rainbowGutsMedium.CreateNewEnemyEncounterData(
-            [
-                "CoruscatingJumbleGuts_EN",
-                "JumbleGuts_Flummoxing_EN",
-                "MusicMan_EN",
-            ], null);
-            rainbowGutsMedium.CreateNewEnemyEncounterData(
-            [
-                "CoruscatingJumbleGuts_EN",
-                "JumbleGuts_Flummoxing_EN",
-                "JumbleGuts_Clotted_EN",
-            ], null);
-            rainbowGutsMedium.CreateNewEnemyEncounterData(
-            [
-                "CoruscatingJumbleGuts_EN",
-                "JumbleGuts_Hollowing_EN",
-                "Spoggle_Writhing_EN",
-            ], null);
-            rainbowGutsMedium.CreateNewEnemyEncounterData(
-            [
-                "CoruscatingJumbleGuts_EN",
-                "MusicMan_EN",
-                "MusicMan_EN",
-                "SingingStone_EN",
-            ], null);
-            rainbowGutsMedium.CreateNewEnemyEncounterData(
-            [
-                "CoruscatingJumbleGuts_EN",
-                "MusicMan_EN",
-                "Scrungie_EN",
-            ], null);
+            rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Blue, 1, "MusicMan_EN");
+            rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Purple, 1, "MusicMan_EN");
+            rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Purple, 1, Jumble.Red);
+            rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Purple, 1, Spoggle.Red);
+            rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 2, "MusicMan_EN", 1, "SingingStone_EN");
+            rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, "MusicMan_EN", 1, "Scrungie_EN");
             if (AApocrypha.CrossMod.Colophons)
             {
-                rainbowGutsMedium.CreateNewEnemyEncounterData(
-                [
-                    "CoruscatingJumbleGuts_EN",
-                    "ColophonDelighted_EN",
-                    "MusicMan_EN",
-                ], null);
-                rainbowGutsMedium.CreateNewEnemyEncounterData(
-                [
-                    "CoruscatingJumbleGuts_EN",
-                    "ColophonDelighted_EN",
-                    "MusicMan_EN",
-                    "SingingStone_EN",
-                ], null);
+                rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Colophon.Yellow, 1, "MusicMan_EN");
+                rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Colophon.Purple, 1, "MusicMan_EN", 1, "SingingStone_EN");
             }
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
                 if (AApocrypha.CrossMod.Colophons)
                 {
-                    rainbowGutsMedium.CreateNewEnemyEncounterData(
-                    [
-                        "CoruscatingJumbleGuts_EN",
-                        "SingingStone_EN",
-                        "ColophonDisaffected_EN",
-                    ], null);
+                    rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Colophon.Green, 1, "MusicMan_EN", 1, "SingingStone_EN");
                 }
                 if (AApocrypha.CrossMod.pigmentGilded)
                 {
-                    rainbowGutsMedium.CreateNewEnemyEncounterData(
-                    [
-                        "CoruscatingJumbleGuts_EN",
-                        "AffluentJumbleguts_EN",
-                        "MusicMan_EN",
-                    ], null);
+                    rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Gilded, 1, "MusicMan_EN");
                 }
             }
             rainbowGutsMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone02_CoruscatingJumbleGuts_Medium_EnemyBundle", 10, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Orph.H.Jumble.Rainbow.Med, 10, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }
     }
 }

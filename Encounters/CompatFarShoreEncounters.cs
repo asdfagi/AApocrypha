@@ -8,104 +8,40 @@ namespace A_Apocrypha.Encounters
     {
         public static void Add()
         {
-            List<RandomEnemyGroup> mudLungEasy = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_MudLung_Easy_EnemyBundle"))._enemyBundles)
-            {
-                new([
-                   "MudLung_EN",
-                   "SandSifter_EN",
-                ]),
-            };
-            ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_MudLung_Easy_EnemyBundle"))._enemyBundles = mudLungEasy;
-            List<RandomEnemyGroup> flarbHard = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_Flarb_Hard_EnemyBundle"))._enemyBundles)
-            {
-                new([
-                   "Flarb_EN",
-                   "SandSifter_EN",
-                ]),
-                new([
-                   "Flarb_EN",
-                   "TearDrinker_EN",
-                   "Flarblet_EN",
-                ]),
-                new([
-                    "Flarb_EN",
-                    "Gammamite_EN",
-                ]),
-            };
-            ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_Flarb_Hard_EnemyBundle"))._enemyBundles = flarbHard;
-            List<RandomEnemyGroup> flamingoMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_FlaMingGoa_Medium_EnemyBundle"))._enemyBundles)
-            {
-                new([
-                   "FlaMinGoa_EN",
-                   "MudLung_EN",
-                   "FungusColumn_EN",
-                ]),
-                new([
-                   "FlaMinGoa_EN",
-                   "MunglingMudLung_EN",
-                   "FungusColumn_EN",
-                ]),
-                new([
-                   "FlaMinGoa_EN",
-                   "MudLung_EN",
-                   "SandSifter_EN",
-                ]),
-                new([
-                   "FlaMinGoa_EN",
-                   "Wringle_EN",
-                   "SandSifter_EN",
-                ]),
-            };
-            ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_FlaMingGoa_Medium_EnemyBundle"))._enemyBundles = flamingoMedium;
+            Debug.Log("AA Compat Encounters | Far Shore Compat Loaded");
+            /*}
+            public static void Post()
+            {*/
+            AddTo shoreAdd = new AddTo(Shore.H.MudLung.Easy);
+            shoreAdd.SimpleAddGroup(1, "MudLung_EN", 1, "SandSifter_EN");
+
+            shoreAdd = new AddTo(Shore.H.Flarb.Hard);
+            shoreAdd.SimpleAddGroup(1, "Flarb_EN", 1, "SandSifter_EN");
+            shoreAdd.SimpleAddGroup(1, "Flarb_EN", 1, "TearDrinker_EN", 1, "Flarblet_EN");
+            shoreAdd.SimpleAddGroup(1, "Flarb_EN", 1, "Gammamite_EN");
+
+            shoreAdd = new AddTo(Shore.H.FlaMinGoa.Med);
+            shoreAdd.SimpleAddGroup(1, "FlaMinGoa_EN", 1, "MudLung_EN", 1, "FungusColumn_EN");
+            shoreAdd.SimpleAddGroup(1, "FlaMinGoa_EN", 1, Enemies.Mungling, 1, "FungusColumn_EN");
+            shoreAdd.SimpleAddGroup(1, "FlaMinGoa_EN", 1, "MudLung_EN", 1, "SandSifter_EN");
+            shoreAdd.SimpleAddGroup(1, "FlaMinGoa_EN", 1, "Wringle_EN", 1, "SandSifter_EN");
+
             if (AApocrypha.CrossMod.HellIslandFell)
             {
-                List<RandomEnemyGroup> draugrEasy = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_Draugr_Easy_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                       "Draugr_EN",
-                       "FungusColumn_EN",
-                    ]),
-                    new([
-                       "Draugr_EN",
-                       "SandSifter_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_Draugr_Easy_EnemyBundle"))._enemyBundles = draugrEasy;
+                shoreAdd = new AddTo("H_Zone01_Draugr_Easy_EnemyBundle");
+                shoreAdd.SimpleAddGroup(1, "Draugr_EN", 1, "FungusColumn_EN");
+                shoreAdd.SimpleAddGroup(1, "Draugr_EN", 1, "SandSifter_EN");
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
-                List<RandomEnemyGroup> ufoMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_ToyUfo_Medium_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                       "ToyUfo_EN",
-                       "JumbleGuts_Waning_EN",
-                       "SandSifter_EN",
-                    ]),
-                    new([
-                       "ToyUfo_EN",
-                       "MudLung_EN",
-                       "FungusColumn_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_ToyUfo_Medium_EnemyBundle"))._enemyBundles = ufoMedium;
-                List<RandomEnemyGroup> graveEasy = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_NobodyGrave_Easy_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                       "NobodyGrave_EN",
-                       "SandSifter_EN",
-                    ]),
-                    new([
-                       "NobodyGrave_EN",
-                       "ToyUfo_EN",
-                       "SandSifter_EN",
-                    ]),
-                    new([
-                       "NobodyGrave_EN",
-                       "Acolyte_EN",
-                       "Acolyte_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_NobodyGrave_Easy_EnemyBundle"))._enemyBundles = ufoMedium;
+                shoreAdd = new AddTo(Shore.H.Ufo.Med);
+                shoreAdd.SimpleAddGroup(1, "ToyUfo_EN", 1, Jumble.Yellow, 1, "SandSifter_EN");
+                shoreAdd.SimpleAddGroup(1, "ToyUfo_EN", 1, "MudLung_EN", 1, "FungusColumn_EN");
+
+                shoreAdd = new AddTo(Shore.H.Grave.Easy);
+                shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, "SandSifter_EN");
+                shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, "ToyUfo_EN", 1, "SandSifter_EN");
+                shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 2, "Acolyte_EN");
             }
             /*if (AApocrypha.CrossMod.StewSpecimens)
             {

@@ -9,130 +9,45 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("SirenBird_Sign", ResourceLoader.LoadSprite("SirenBirdTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            EnemyEncounter_API sirenBirdMedium = new EnemyEncounter_API(0, "H_ZoneSiren_SculptorBird_Medium_EnemyBundle", "SirenBird_Sign")
+            EnemyEncounter_API sirenBirdMedium = new EnemyEncounter_API(0, Siren.H.SculptorBird.Med, "SirenBird_Sign")
             {
                 MusicEvent = "event:/AAMusic/mudeth/DepressionShop",
-                RoarEvent = "event:/Characters/Enemies/DLC_01/Scrungie/CHR_ENM_Scrungie_Roar",
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Orph.Scrungie.Hard)._roarReference.roarEvent,
             };
-            sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "Boiler_EN",
-                ], null);
-            sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "Boiler_EN",
-                    "Boiler_EN",
-                ], null);
-            sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "BirdBath_EN",
-                    "Tumult_EN",
-                ], null);
-            sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "Tumult_EN",
-                ], null);
-            sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "Tumult_EN",
-                    "TumultShell_EN",
-                ], null);
-            sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "JumbleGuts_Hollowing_EN",
-                ], null);
-            sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "PetrifiedPuker_EN",
-                ], null);
-            sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "BirdBath_EN",
-                    "Tassnn_EN",
-                ], null);
-            sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "BirdBath_EN",
-                    "WinterLantern_EN",
-                ], null);
+            sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, "Boiler_EN");
+            sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 2, "Boiler_EN");
+            sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, "Tumult_EN");
+            sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 2, "BirdBath_EN", 1, "Tumult_EN");
+            sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, "Tumult_EN", 1, "TumultShell_EN");
+            sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, Jumble.Blue);
+            sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, "PetrifiedPuker_EN");
+            sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 2, "BirdBath_EN", 1, "Tassnn_EN");
+            sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 2, "BirdBath_EN", 1, "Tassnn_EN", 1, "WinterLantern_EN");
+            if (AApocrypha.CrossMod.IntoTheAbyss)
+            {
+                sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, Jumble.BlueGrey);
+            }
             if (AApocrypha.CrossMod.HellIslandFell)
             {
-                sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "Boiler_EN",
-                    "OneShooter_EN",
-                ], null);
-                sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "Tassnn_EN",
-                    "OneShooter_EN",
-                ], null);
+                sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, "Boiler_EN", 1, "OneShooter_EN");
+                sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, "Tassnn_EN", 1, "OneShooter_EN");
             }
             if (AApocrypha.CrossMod.StewSpecimens)
             {
-                sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "Euryale_EN",
-                ], null);
+                sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, "Euryale_EN");
             }
             if (AApocrypha.CrossMod.Mythos)
             {
-                sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "StarVampire_EN",
-                ], null);
-                sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "Boiler_EN",
-                    "StarVampire_EN",
-                    "BirdBath_EN",
-                ], null);
-                sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "BirdBath_EN",
-                    "Lloigor_EN",
-                ], null);
+                sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, "StarVampire_EN");
+                sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "Boiler_EN", 1, "BirdBath_EN", 1, "StarVampire_EN");
+                sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, "Lloigor_EN");
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
-                sirenBirdMedium.CreateNewEnemyEncounterData(
-                [
-                    "SculptorBirdSiren_EN",
-                    "Boiler_EN",
-                    "BirdBath_EN",
-                    "Ecstasy_Yellow_EN",
-                ], null);
+                sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "Boiler_EN", 1, "BirdBath_EN", 1, Ecstasy.Random);
             }
             sirenBirdMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToCustomZoneSelector("H_ZoneSiren_SculptorBird_Medium_EnemyBundle", 8, "TheSiren_Zone1", BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToCustomZoneSelector(Siren.H.SculptorBird.Med, 8, "TheSiren_Zone1", BundleDifficulty.Medium);
         }
     }
 }

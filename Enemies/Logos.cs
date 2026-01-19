@@ -362,9 +362,9 @@ namespace A_Apocrypha.Enemies
                 Priority = Priority.Fast,
             };
             becomefire.AddIntentsToTarget(Targeting.Slot_FrontAndSides, [nameof(IntentType_GameIDs.Rem_Field_Fire)]);
-            becomefire.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Swap_Left)]);
+            becomefire.AddIntentsToTarget(Targeting.Slot_OpponentAllLefts, [nameof(IntentType_GameIDs.Swap_Left)]);
             becomefire.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_7_10)]);
-            becomefire.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Swap_Right)]);
+            becomefire.AddIntentsToTarget(Targeting.Slot_OpponentAllRights, [nameof(IntentType_GameIDs.Swap_Right)]);
 
             Ability lifepreserved = new Ability("Life Preserved", "AApocrypha_LifePreserved_A")
             {
@@ -613,9 +613,173 @@ namespace A_Apocrypha.Enemies
             ]);
 
             redlogos.AddEnemy(true, true, false);
-            bluelogos.AddEnemy(false, false, false);
-            yellowlogos.AddEnemy(false, false, false);
-            purplelogos.AddEnemy(false, false, false);
+            bluelogos.AddEnemy(true, true, false);
+            yellowlogos.AddEnemy(true, true, false);
+            purplelogos.AddEnemy(true, true, false);
+
+            if (AApocrypha.CrossMod.UndivineComedy && LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
+            {
+                Enemy blacklogos = new Enemy("Discordant Logos", "DiscordantLogos_EN")
+                {
+                    Health = 40,
+                    HealthColor = LoadedDBsHandler.PigmentDB.GetPigment("Broken"),
+                    Size = 1,
+                    CombatSprite = ResourceLoader.LoadSprite("LogosTimelineBlack", new Vector2(0.5f, 0f), 32),
+                    OverworldDeadSprite = ResourceLoader.LoadSprite("AnomalyDead", new Vector2(0.5f, 0f), 32),
+                    OverworldAliveSprite = ResourceLoader.LoadSprite("LogosTimelineBlack", new Vector2(0.5f, 0f), 32),
+                    DamageSound = "event:/AAEnemy/LogosDisco/LogosDiscoHurt",
+                    DeathSound = "event:/AAEnemy/LogosDisco/LogosDiscoDeath",
+                    UnitTypes = ["Neathy", "Logos"],
+                    CombatEnterEffects = [Effects.GenerateEffect(ScriptableObject.CreateInstance<CasterCapitalizeNameEffect>())],
+                };
+                blacklogos.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/LogosBlack_Enemy.prefab", AApocrypha.assetBundle, null);
+
+                FieldEffect_Apply_Effect HoarfrostApply = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+                HoarfrostApply._Field = StatusField.GetCustomFieldEffect("Hoarfrost_ID");
+
+                RemoveFieldEffectEffect HoarfrostRemove = ScriptableObject.CreateInstance<RemoveFieldEffectEffect>();
+                HoarfrostRemove._field = StatusField.GetCustomFieldEffect("Hoarfrost_ID");
+
+                AnimationVisualsEffect NothingAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                NothingAnim._visuals = CustomVisuals.Nothing;
+                NothingAnim._animationTarget = Targeting.Slot_Front;
+
+                DamageOfTypeAdditivePreviousEffect FrostDamageAdditiveBonus = ScriptableObject.CreateInstance<DamageOfTypeAdditivePreviousEffect>();
+                FrostDamageAdditiveBonus._DamageTypeID = "AA_Frost_Damage";
+                FrostDamageAdditiveBonus._usePreviousExitValue = true;
+                FrostDamageAdditiveBonus._bonusAmount = 2;
+
+                CasterInOneEdgeCheckEffect CheckLeft = ScriptableObject.CreateInstance<CasterInOneEdgeCheckEffect>();
+                CheckLeft._right = false;
+
+                CasterInOneEdgeCheckEffect CheckRight = ScriptableObject.CreateInstance<CasterInOneEdgeCheckEffect>();
+                CheckRight._right = true;
+
+                EffectSO PigmentBreaker = LoadedAssetsHandler.GetCharacterAbility("Defrag_1_A").effects[3].effect;
+
+                FieldEffect_ApplyWithRandomDistribution_Effect HoarfrostDistributeByPrevious = ScriptableObject.CreateInstance<FieldEffect_ApplyWithRandomDistribution_Effect>();
+                HoarfrostDistributeByPrevious.field = StatusField.GetCustomFieldEffect("Hoarfrost_ID");
+                HoarfrostDistributeByPrevious.usePrevious = true;
+
+                Ability turnback = new Ability("NOT CLOCKWISE", "AApocrypha_LogosLeftDisco_A")
+                {
+                    Description = "Do not move Right, then do not apply 1 Hoarfrost to the newly Opposing position. This ability does not assume that the grip loops around.\n\"THE MONARCH DOES NOT SPEAK THE TRUTH\"",
+                    Cost = [Pigments.Grey, LoadedDBsHandler.PigmentDB.GetPigment("Broken")],
+                    Effects =
+                    [
+                        Effects.GenerateEffect(SwapLeft, 1, Targeting.Slot_SelfSlot),
+                        Effects.GenerateEffect(CheckLeft, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                        Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                        Effects.GenerateEffect(NothingAnim, 1, Targeting.Slot_Front),
+                        Effects.GenerateEffect(HoarfrostApply, 1, Targeting.Slot_Front),
+                    ],
+                    Rarity = Rarity.Common,
+                    Priority = Priority.VeryFast,
+                };
+                turnback.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
+                turnback.AddIntentsToTarget(Targeting.Slot_Front, ["Rem_Field_Hoarfrost"]);
+
+                Ability turnforth = new Ability("NOT COUNTERCLOCKWISE", "AApocrypha_LogosRightDisco_A")
+                {
+                    Description = "Do not move Left, then do not apply 1 Hoarfrost to the newly Opposing position. This ability does not assume that the grip loops around.\n\"LEFT IS NOT LEFT, RIGHT IS NOT RIGHT\"",
+                    Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Broken"), Pigments.Grey],
+                    Effects =
+                    [
+                        Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot),
+                        Effects.GenerateEffect(CheckRight, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                        Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                        Effects.GenerateEffect(NothingAnim, 1, Targeting.Slot_Front),
+                        Effects.GenerateEffect(HoarfrostApply, 1, Targeting.Slot_Front),
+                    ],
+                    Rarity = Rarity.Common,
+                    Priority = Priority.VeryFast,
+                };
+                turnforth.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
+                turnforth.AddIntentsToTarget(Targeting.Slot_Front, ["Rem_Field_Hoarfrost"]);
+
+                Ability nowordsspoken = new Ability("NO WORDS SHALL BE SPOKEN", "AApocrypha_NoWordsSpoken_A")
+                {
+                    Description = "Do not remove all Hoarfrost from the Opposing position, then do not deal a Painful amount of frost damage to the Left and Right party members. This damage is not increased by two for each stack of Hoarfrost removed. This ability does not assume that the grid loops around.",
+                    Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken")],
+                    Visuals = CustomVisuals.Whispers,
+                    AnimationTarget = Targeting.GenerateSlotTarget([-1, 1, -4, 4], false),
+                    Effects =
+                    [
+                        Effects.GenerateEffect(HoarfrostRemove, 1, Targeting.Slot_Front),
+                        Effects.GenerateEffect(FrostDamageAdditiveBonus, 5, Targeting.GenerateSlotTarget([-1, 1, -4, 4], false)),
+                    ],
+                    Rarity = Rarity.Impossible,
+                    Priority = Priority.Fast,
+                };
+                nowordsspoken.AddIntentsToTarget(Targeting.Slot_Front, ["Field_Hoarfrost"]);
+                nowordsspoken.AddIntentsToTarget(Targeting.GenerateSlotTarget([-1, 1, -4, 4], false), [nameof(IntentType_GameIDs.Misc_Hidden), nameof(IntentType_GameIDs.Damage_7_10)]);
+
+                Ability nocolorseen = new Ability("NO COLORS SHALL BE SEEN", "AApocrypha_NoColorsSeen_A")
+                {
+                    Description = "Do not attempt to break 4 random pigment. Do not randomly distribute an amount of Hoarfrost equal to twice the amount of pigment broken to all occupied party member positions.",
+                    Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken")],
+                    Visuals = ITAVisuals.Wind,
+                    AnimationTarget = Targeting.Unit_AllOpponentSlots,
+                    Effects =
+                    [
+                        Effects.GenerateEffect(ScriptableObject.CreateInstance<RandomizeNumberPigmentCasterHealthColorEffect>(), 4, Targeting.Slot_SelfSlot),
+                        Effects.GenerateEffect(HoarfrostDistributeByPrevious, 2, Targeting.Slot_OpponentAllSlots),
+                    ],
+                    Rarity = Rarity.Impossible,
+                    Priority = Priority.Fast,
+                };
+                nocolorseen.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Pigment_Transform"]);
+                nocolorseen.AddIntentsToTarget(Targeting.Slot_OpponentAllSlots, ["Rem_Field_Hoarfrost"]);
+
+                Ability nothingbe = new Ability("NO THING SHALL BE", "AApocrypha_NoThingShallBe_A")
+                {
+                    Description = "Do not shatter all broken pigment in the pigment bar. Do not deal damage to the Opposing party member equal to twice the amount of pigment shattered. Damage does not cascade indirectly to the Left and Right with a 25% falloff.\nIf no pigment is shattered, do not attempt to break 4 random pigment.",
+                    Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken")],
+                    Visuals = CustomVisuals.GazeVisualsSO,
+                    AnimationTarget = Targeting.Slot_SelfSlot,
+                    Effects =
+                    [
+                        Effects.GenerateEffect(PigmentBreaker),
+                        Effects.GenerateEffect(DamageCascadeByPrevious, 2, Targeting.GenerateSlotTarget([0, -1, 1, -2, 2, -3, 3, -4, 4], false)),
+                        Effects.GenerateEffect(ScriptableObject.CreateInstance<RandomizeNumberPigmentCasterHealthColorEffect>(), 4, Targeting.Slot_SelfSlot, PreviousGenerator(false, 2)),
+                    ],
+                    Rarity = Rarity.Impossible,
+                    Priority = Priority.Fast,
+                };
+                nothingbe.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Misc)]);
+                nothingbe.AddIntentsToTarget(Targeting.Slot_OpponentAllLefts, [nameof(IntentType_GameIDs.Swap_Left)]);
+                nothingbe.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_7_10)]);
+                nothingbe.AddIntentsToTarget(Targeting.Slot_OpponentAllRights, [nameof(IntentType_GameIDs.Swap_Right)]);
+                nothingbe.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Pigment_Transform"]);
+
+                ExtraAbilityInfo wordsextra = new()
+                {
+                    ability = nowordsspoken.GenerateEnemyAbility().ability,
+                    rarity = Rarity.Uncommon,
+                };
+
+                ExtraAbilityInfo colorsextra = new()
+                {
+                    ability = nocolorseen.GenerateEnemyAbility().ability,
+                    rarity = Rarity.Uncommon,
+                };
+
+                ExtraAbilityInfo nothingextra = new()
+                {
+                    ability = nothingbe.GenerateEnemyAbility().ability,
+                    rarity = Rarity.Uncommon,
+                };
+
+                blacklogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("Snowstorm_1_PA"), Passives.GetCustomPassive("Antifreeze_PA"), Passives.GetCustomPassive("Fragile_PA"), CustomPassives.AltAttacksGenerator([wordsextra, colorsextra, nothingextra])]);
+
+                blacklogos.AddEnemyAbilities(
+                [
+                    turnback,
+                    turnforth,
+                ]);
+
+                blacklogos.AddEnemy(false, false, false);
+            }
         }
         static PreviousEffectCondition PreviousGenerator(bool wasTrue, int number)
         {

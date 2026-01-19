@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static A_Apocrypha.Encounters.Orph.H;
 
 namespace A_Apocrypha.Encounters
 {
@@ -8,124 +9,44 @@ namespace A_Apocrypha.Encounters
     {
         public static void Add()
         {
-            List<RandomEnemyGroup> musicmanEasy = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_MusicMan_Easy_EnemyBundle"))._enemyBundles)
-            {
-                new([
-                   "MusicMan_EN",
-                   "Acolyte_EN",
-                ]),
-            };
-            ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_MusicMan_Easy_EnemyBundle"))._enemyBundles = musicmanEasy;
-            List<RandomEnemyGroup> scrungieMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Scrungie_Medium_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                       "Scrungie_EN",
-                       "Scrungie_EN",
-                       "SculptorBirdSculpture_EN",
-                    ]),
-                    new([
-                       "Scrungie_EN",
-                       "Scrungie_EN",
-                       "BloatfingerHiddenOrpheum_EN",
-                    ]),
-                };
-            ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Scrungie_Medium_EnemyBundle"))._enemyBundles = scrungieMedium;
+            Debug.Log("AA Compat Encounters | Orpheum Compat Loaded");
+            /*}
+            public static void Post()
+            {*/
+            AddTo orphAdd = new AddTo(Orph.H.MusicMan.Easy);
+            orphAdd.SimpleAddGroup(1, "MusicMan_EN", 1, "Acolyte_EN");
+
+            orphAdd = new AddTo(Orph.H.Scrungie.Med);
+            orphAdd.SimpleAddGroup(2, "Scrungie_EN", 1, HiddenBloatfinger.OrpheumRandom);
+            orphAdd.SimpleAddGroup(2, "Scrungie_EN", 1, HiddenBloatfinger.OrpheumRandom);
+            orphAdd.SimpleAddGroup(2, "Scrungie_EN", 1, "MusicMan_EN", 1, HiddenBloatfinger.OrpheumRandom);
+
             if (AApocrypha.CrossMod.pigmentRainbow)
-            { 
-                List<RandomEnemyGroup> scrungieMediumRainbow = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Scrungie_Medium_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                       "Scrungie_EN",
-                       "Scrungie_EN",
-                       "CoruscatingJumbleGuts_EN",
-                       "JumbleGuts_Clotted_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Scrungie_Medium_EnemyBundle"))._enemyBundles = scrungieMediumRainbow;
+            {
+                orphAdd = new AddTo(Orph.H.Scrungie.Med);
+                orphAdd.SimpleAddGroup(2, "Scrungie_EN", 1, Jumble.Rainbow, 1, Jumble.Red);
             }
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
-                List<RandomEnemyGroup> frostbiteMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("FrostbiteMed"))._enemyBundles)
-                {
-                    new([
-                       "Frostbite_EN",
-                       "Frostbite_EN",
-                       "Frostbite_EN",
-                       "SculptorBirdSculpture_EN",
-                    ]),
-                    new([
-                       "Frostbite_EN",
-                       "Frostbite_EN",
-                       "Frostbite_EN",
-                       "BloatfingerHiddenOrpheum_EN",
-                    ]),
-                    new([
-                       "Frostbite_EN",
-                       "Frostbite_EN",
-                       "Blemmigan_EN",
-                       "Blemmigan_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("FrostbiteMed"))._enemyBundles = frostbiteMedium;
+                orphAdd = new AddTo(Orph.H.Frostbite.Med);
+                orphAdd.SimpleAddGroup(3, Frostbites.Normal, 1, HiddenBloatfinger.OrpheumRandom);
+                orphAdd.SimpleAddGroup(3, Frostbites.Normal, 1, HiddenBloatfinger.OrpheumRandom);
+                orphAdd.SimpleAddGroup(2, Frostbites.Normal, 2, "Blemmigan_EN");
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
-                List<RandomEnemyGroup> mawMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Maw_Medium_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                       "Maw_EN",
-                       "Acolyte_EN",
-                       "Acolyte_EN",
-                    ]),
-                    new([
-                       "Maw_EN",
-                       "DevotedSpoggle_EN",
-                       "MusicMan_EN",
-                    ]),
-                    new([
-                       "Maw_EN",
-                       "CellularSpoggle_EN",
-                       "MusicMan_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone02_Maw_Medium_EnemyBundle"))._enemyBundles = mawMedium;
+                orphAdd = new AddTo(Orph.H.Maw.Med);
+                orphAdd.SimpleAddGroup(1, "Maw_EN", 2, "Acolyte_EN");
+                orphAdd.SimpleAddGroup(1, "Maw_EN", 1, "MusicMan_EN", 1, Spoggle.PurpleRedSplit);
+                orphAdd.SimpleAddGroup(1, "Maw_EN", 1, "MusicMan_EN", 1, Spoggle.YellowBlueSplit);
             }
             if (AApocrypha.CrossMod.Mythos)
             {
-                List<RandomEnemyGroup> vampireMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("StarVampireMedium"))._enemyBundles)
-                {
-                    new([
-                       "StarVampire_EN",
-                       "MusicMan_EN",
-                       "SingingStone_EN",
-                       "BloatfingerHiddenOrpheum_EN",
-                    ]),
-                    new([
-                       "StarVampire_EN",
-                       "MusicMan_EN",
-                       "SingingStone_EN",
-                       "SculptorBirdSculpture_EN",
-                    ]),
-                    new([
-                       "StarVampire_EN",
-                       "MusicMan_EN",
-                       "MusicMan_EN",
-                       "BloatfingerHiddenOrpheum_EN",
-                    ]),
-                    new([
-                       "StarVampire_EN",
-                       "MusicMan_EN",
-                       "MusicMan_EN",
-                       "SculptorBirdSculpture_EN",
-                    ]),
-                    new([
-                        "StarVampire_EN",
-                        "Blemmigan_EN",
-                        "Blemmigan_EN",
-                        "MusicMan_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("StarVampireMedium"))._enemyBundles = vampireMedium;
+                orphAdd = new AddTo("StarVampireMedium");
+                orphAdd.SimpleAddGroup(1, "StarVampire_EN", 1, "MusicMan_EN", 1, "SingingStone_EN", 1, HiddenBloatfinger.OrpheumRandom);
+                orphAdd.SimpleAddGroup(1, "StarVampire_EN", 1, "MusicMan_EN", 1, "SingingStone_EN", 1, HiddenBloatfinger.OrpheumRandom);
+                orphAdd.SimpleAddGroup(1, "StarVampire_EN", 2, "MusicMan_EN", 1, HiddenBloatfinger.OrpheumRandom);
+                orphAdd.SimpleAddGroup(1, "StarVampire_EN", 1, "MusicMan_EN", 2, "Blemmigan_EN");
             }
         }
     }

@@ -63,78 +63,31 @@ namespace A_Apocrypha.Encounters
             }
             blueLogosMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_CrimsonLogos_Medium_EnemyBundle", 10, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Medium);*/
-            EnemyEncounter_API blueLogosHard = new EnemyEncounter_API(0, "H_Zone03_CeruleanLogos_Hard_EnemyBundle", "BlueLogos_Sign")
+            EnemyEncounter_API blueLogosHard = new EnemyEncounter_API(0, Garden.H.Logos.Blue.Hard, "BlueLogos_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp/TerrorTrack",
-                RoarEvent = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Roar",
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Garden.H.ChoirBoy.Easy)._roarReference.roarEvent,
             };
-            blueLogosHard.CreateNewEnemyEncounterData(
-            [
-                "CeruleanLogos_EN",
-                "GigglingMinister_EN",
-                "GigglingMinister_EN",
-            ], null);
-            blueLogosHard.CreateNewEnemyEncounterData(
-            [
-                "CeruleanLogos_EN",
-                "GigglingMinister_EN",
-                "SomeoneSister_EN",
-            ], null);
-            blueLogosHard.CreateNewEnemyEncounterData(
-            [
-                "CeruleanLogos_EN",
-                "SkinningHomunculus_EN",
-                "ShiveringHomunculus_EN",
-            ], null);
-            blueLogosHard.CreateNewEnemyEncounterData(
-            [
-                "CeruleanLogos_EN",
-                "SkinningHomunculus_EN",
-                "ShiveringHomunculus_EN",
-                "ShiveringHomunculus_EN",
-            ], null);
-            blueLogosHard.CreateNewEnemyEncounterData(
-            [
-                "CeruleanLogos_EN",
-                "GigglingMinister_EN",
-                "MachineGnomes_EN",
-                "MachineGnomes_EN",
-            ], null);
+            blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 2, Enemies.Minister);
+            blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, Enemies.Minister, 1, "SomeoneSister_EN");
+            blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, Enemies.Skinning, 1, Enemies.Shivering);
+            blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, Enemies.Skinning, 2, Enemies.Shivering);
+            blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, Enemies.Minister, 2, "MachineGnomes_EN");
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
-                blueLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "CeruleanLogos_EN",
-                    "MachineGnomes_EN",
-                    "SullenPrioress_EN"
-                ], null);
+                blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, "MachineGnomes_EN", 1, "SullenPrioress_EN");
             }
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
-                blueLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "CeruleanLogos_EN",
-                    "FrowningChancellor_EN",
-                    "GigglingMinister_EN",
-                ], null);
+                blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, "GigglingMinister_EN", 1, "FrowningChancellor_EN");
             }
             if (AApocrypha.CrossMod.StewSpecimens)
             {
-                blueLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "CeruleanLogos_EN",
-                    "Key_EN",
-                    "AloofEnvoy_EN",
-                ], null);
-                blueLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "CeruleanLogos_EN",
-                    "GigglingMinister_EN",
-                    "Euryale_EN",
-                ], null);
+                blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, "AloofEnvoy_EN", 1, "Key_EN");
+                blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, "GigglingMinister_EN", 1, "Euryale_EN");
             }
             blueLogosHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_CeruleanLogos_Hard_EnemyBundle", 5, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.Logos.Blue.Hard, 5, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
         }
     }
 }

@@ -216,7 +216,7 @@ namespace A_Apocrypha.Enemies
                 exciseflaws.GenerateEnemyAbility(true),
             ]);
 
-            sculptorbird.AddEnemy(true, true, true);
+            sculptorbird.AddEnemy(true, true, false);
 
             Enemy sculpture = new Enemy("Sculpture", "SculptorBirdSculpture_EN")
             {
@@ -354,7 +354,7 @@ namespace A_Apocrypha.Enemies
                     exciseflaws.GenerateEnemyAbility(true),
                 ]);
 
-                sirenbird.AddEnemy(true, true, true);
+                sirenbird.AddEnemy(true, true, false);
             }
         }
     }

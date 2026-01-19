@@ -41,8 +41,7 @@ namespace A_Apocrypha.CustomEffects
             }
 
             EnemyCombat enemyCombat = caster as EnemyCombat;
-            bool flag = enemyCombat != null;
-            if (flag)
+            if (enemyCombat != null)
             {
                 int newNameIndex = UnityEngine.Random.Range(0, namePool.Length);
                 enemyCombat._currentName = namePool[newNameIndex];

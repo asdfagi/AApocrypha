@@ -10,17 +10,17 @@ namespace A_Apocrypha.Encounters
         {
             Debug.LogWarning("Encounters | Warning! TestEncounters.cs is enabled!");
             Portals.AddPortalSign("Test_Sign", ResourceLoader.LoadSprite("testencountericon", new Vector2(0.5f, 0f), 32), Portals.BossIDColor);
-            EnemyEncounter_API testMedium = new EnemyEncounter_API((EncounterType)1, "H_Zone01_Test_Medium_EnemyBundle", "Test_Sign")
+            EnemyEncounter_API testMedium = new EnemyEncounter_API(EncounterType.Specific, "H_Zone01_Test_Medium_EnemyBundle", "Test_Sign")
             {
-                MusicEvent = "event:/AAMusic/MillieAmp/TerrorTrack",
-                RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone03_ChoirBoy_Easy_EnemyBundle")._roarReference.roarEvent,
+                MusicEvent = "event:/AAMusic/MaddieDoktor/HurtPeopleFullCircle",
+                //RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone03_ChoirBoy_Easy_EnemyBundle")._roarReference.roarEvent,
                 //RoarEvent = LoadedAssetsHandler.GetEnemy("Sepulchre_EN").deathSound,
-                //RoarEvent = "event:/AAEnemy/SandSifterRoar",
+                RoarEvent = "event:/AASFX/Nothing_SFX",
             };
-            testMedium.CreateNewEnemyEncounterData(
-            [
-                "RegentLogos_EN",
+            testMedium.CreateNewEnemyEncounterData([
+                "ColophonHeretical_EN",
             ], [2]);
+            //testMedium.SimpleAddEncounter(1, "Threshold_EN");
             testMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Test_Medium_EnemyBundle", 9999, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);
         }

@@ -8,6 +8,7 @@ namespace A_Apocrypha.Fools //replace this with your mod's name. EX. "BRUTAL_ORC
     {
         public static void Add()
         {
+            Debug.LogWarning("Fools | Warning! TestCharacter.cs is enabled!");
             Character testCharacter = new Character("TestCharacterName", "TestCharacterName_CH") // replace "CHaracterName" with your character's name
             {
                 HealthColor = Pigments.Purple,
@@ -25,7 +26,7 @@ namespace A_Apocrypha.Fools //replace this with your mod's name. EX. "BRUTAL_ORC
                 IgnoredAbilitiesForDPSBuilds = [1], //For excluding abilities when game chooses fool loadout, not necessary for all fools
             };
             testCharacter.GenerateMenuCharacter(ResourceLoader.LoadSprite("TestCharacterMenu"), ResourceLoader.LoadSprite("TestCharacterLocked")); //Menu Locked and Unlocked sprites are 32x48.
-            testCharacter.AddPassives([Passives.CatalystGenerator(103), Passives.Transfusion, Passives.Absorb, Passives.EssenceYellow]); // If you want a different existing passive at a different degree, most of them have a built-in generator.
+            testCharacter.AddPassives([Passives.CatalystGenerator(103), Passives.Transfusion, Passives.Absorb, Passives.EssenceYellow, Passives.GetCustomPassive("JollyJoker_PA")]); // If you want a different existing passive at a different degree, most of them have a built-in generator.
             testCharacter.SetMenuCharacterAsFullDPS(); // Sets a Support/DPS bias for your fool. Used when your Fool is picked randomly by the game.
             // Support - .SetMenuCharacterAsFullSupport()
 
@@ -36,6 +37,10 @@ namespace A_Apocrypha.Fools //replace this with your mod's name. EX. "BRUTAL_ORC
 
             DamageEffect IndirectDamage = ScriptableObject.CreateInstance<DamageEffect>(); //DamageEffect has multiple further definitions, including specifying Indirect Damage
             IndirectDamage._indirect = IndirectDamage;
+
+            DamageEffect IndirectDamageByPrevious = ScriptableObject.CreateInstance<DamageEffect>(); //DamageEffect has multiple further definitions, including specifying Indirect Damage
+            IndirectDamageByPrevious._indirect = IndirectDamage;
+            IndirectDamageByPrevious._usePreviousExitValue = true;
 
             AddPassiveEffect addPassiveEffect = ScriptableObject.CreateInstance<AddPassiveEffect>(); 
             addPassiveEffect._passiveToAdd = Passives.FleetingGenerator(1);
@@ -57,45 +62,61 @@ namespace A_Apocrypha.Fools //replace this with your mod's name. EX. "BRUTAL_ORC
             DamageOfTypeEffect LinkedDamage = ScriptableObject.CreateInstance<DamageOfTypeEffect>();
             LinkedDamage._DamageTypeID = CombatType_GameIDs.Dmg_Linked.ToString();
 
+            AddPassiveEffect Gouge = ScriptableObject.CreateInstance<AddPassiveEffect>();
+            Gouge._passiveToAdd = Passives.GetCustomPassive("Gouged_PA");
+
+            AnimationVisualsEffect GougeAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            GougeAnim._animationTarget = Targeting.Slot_Front;
+            GougeAnim._visuals = Visuals.InvadeTheVeins;
+
+            RemovePassiveEffect Ungouge = ScriptableObject.CreateInstance<RemovePassiveEffect>();
+            Ungouge.m_PassiveID = "Gouged";
+
             //NOTES: Right Clicking an Effect (like DamageEffect) will tell you what additional definitions can be chosen for certain things, like Indirect Damage or Status Effects.
             //Typing things out manually is helpful, VS will bring up a menu of available items to enter. Use it to your advantage.
 
             //Ability 1. 4 different scales needed, 1 for each level.
-            Ability ability0 = new Ability("Unleveled Ability", "Ability_1_A")
+            Ability ability0 = new Ability("Unleveled Ability", "AApocrypha_TestAbility_1_A")
             {
-                Description = "Deal 7 indirect damage to the Opposing enemy.\nDeal 4 Linked damage to the Opposing enemy.",
+                Description = "Deal indirect damage to the Opposing enemy equal to the Scrabble score of their name.\nDeal 4 Linked damage to the Opposing enemy.\nRemove the Opposing enemy's eyes.",
                 AbilitySprite = ResourceLoader.LoadSprite("AbilityIcon"),
                 Cost = [Pigments.YellowRed, Pigments.Red],
                 Visuals = CustomVisuals.Whispers, //Visuals are now under 'Visuals. '. List here: https://github.com/kondorriano/BrutalAPI/wiki/Visuals Visual Aid here: https://www.youtube.com/watch?v=YJsGBPA-OP0
                 AnimationTarget = Targeting.Slot_Front,
                 Effects =
                 [
-                    Effects.GenerateEffect(IndirectDamage, 7, Targeting.Slot_Front), // In order, calls for (EffectToDo, #ToApply, Targeting)
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ReturnTargetsScrabbleScoreEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(IndirectDamageByPrevious, 1, Targeting.Slot_Front), // In order, calls for (EffectToDo, #ToApply, Targeting)
                     Effects.GenerateEffect(LinkedDamage, 4, Targeting.Slot_Front),
+                    Effects.GenerateEffect(GougeAnim),
+                    Effects.GenerateEffect(Gouge, 1, Targeting.Slot_Front),
                 ]
             };
-            ability0.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_7_10)]); //Damage_#_# is parameters for damage calculations. Heal_#_# for heals. Ranges for all numbers between given #s. EX: 7,8,9,10.
+            ability0.AddIntentsToTarget(Targeting.Slot_Front, ["AA_Damage_Scrabble", nameof(IntentType_GameIDs.Damage_3_6), nameof(IntentType_GameIDs.Misc)]); //Damage_#_# is parameters for damage calculations. Heal_#_# for heals. Ranges for all numbers between given #s. EX: 7,8,9,10.
 
-            Ability ability1 = new Ability("Crazy Ability", "Ability_2_A") //be sure to rename the ID of the ability too. the game will be unhappy if you don't
+            Ability ability1 = new Ability("Crazy Ability", "AApocrypha_TestAbility_2_A") //be sure to rename the ID of the ability too. the game will be unhappy if you don't
             {
-                Description = "Deal 10-11 indirect damage to the Opposing enemy.\nDeal 6 Linked damage to the Opposing enemy.",
+                Description = "Deal indirect damage to the Opposing enemy equal to the Scrabble score of their name.\nDeal 6 Linked damage to the Opposing enemy.\nRemove the Opposing enemy's eyes.",
                 AbilitySprite = ResourceLoader.LoadSprite("AbilityIcon"),
                 Cost = [Pigments.YellowRed, Pigments.Red], //Split pigments are under one name now
                 Visuals = CustomVisuals.Whispers,
                 AnimationTarget = Targeting.Slot_Front,
                 Effects =
                 [
-                    Effects.GenerateEffect(IndirectDamage, 11, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ReturnTargetsScrabbleScoreEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(IndirectDamage, 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(LinkedDamage, 6, Targeting.Slot_Front),
+                    Effects.GenerateEffect(GougeAnim),
+                    Effects.GenerateEffect(Gouge, 1, Targeting.Slot_Front),
                 ]
             };
-            ability1.AddIntentsToTarget(Targeting.Slot_Front, new string[] { IntentType_GameIDs.Damage_7_10.ToString(), IntentType_GameIDs.Damage_11_15.ToString() }); //Good format to call multiple calculations.
+            ability1.AddIntentsToTarget(Targeting.Slot_Front, ["AA_Damage_Scrabble", nameof(IntentType_GameIDs.Damage_3_6), nameof(IntentType_GameIDs.Misc)]); //Good format to call multiple calculations.
 
 
             //Ability 2.
-            Ability otherAbility0 = new Ability("The Other Ability", "otherAbility_1_A")
+            Ability otherAbility0 = new Ability("The Other Ability", "AApocrypha_TestotherAbility_1_A")
             {
-                Description = "Apply 5 Shield to this position.\nApply 1 Scar to the Left and Right enemies.",
+                Description = "Apply 5 Shield to this position.\nApply 1 Scar to the Left and Right enemies.\nRemove Gouged from the Opposing enemy.",
                 AbilitySprite = ResourceLoader.LoadSprite("OtherAbilityIcon"),
                 Cost = [Pigments.YellowPurple, Pigments.Blue],
                 Visuals = CustomVisuals.GazeVisualsSO,
@@ -104,14 +125,16 @@ namespace A_Apocrypha.Fools //replace this with your mod's name. EX. "BRUTAL_ORC
                 [
                     Effects.GenerateEffect(ShieldApply, 5, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(ScarsApply, 1, Targeting.Slot_OpponentSides),
+                    Effects.GenerateEffect(Ungouge, 1, Targeting.Slot_Front),
                 ]
             };
             otherAbility0.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Field_Shield)]);
             otherAbility0.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Status_Scars)]); //Intents are added sequentially
+            otherAbility0.AddIntentsToTarget(Targeting.Slot_Front, ["AA_RemPassive"]);
 
-            Ability otherAbility1 = new Ability("The Other Ability", "otherAbility_2_A")
+            Ability otherAbility1 = new Ability("The Other Ability", "AApocrypha_TestotherAbility_2_A")
             {
-                Description = "Apply 10 Shield to this position.\nApply 1 Scar to the Left, Right, and Opposing enemies.",
+                Description = "Apply 10 Shield to this position.\nApply 1 Scar to the Left, Right, and Opposing enemies.\nRemove Gouged from the Opposing enemy.",
                 AbilitySprite = ResourceLoader.LoadSprite("OtherAbilityIcon"),
                 Cost = [Pigments.YellowPurple, Pigments.RedBlue],
                 Visuals = CustomVisuals.GazeVisualsSO,
@@ -120,10 +143,12 @@ namespace A_Apocrypha.Fools //replace this with your mod's name. EX. "BRUTAL_ORC
                 [
                     Effects.GenerateEffect(ShieldApply, 10, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(ScarsApply, 1, Targeting.Slot_FrontAndSides),
+                    Effects.GenerateEffect(Ungouge, 1, Targeting.Slot_Front),
                 ]
             };
             otherAbility1.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Field_Shield)]);
             otherAbility1.AddIntentsToTarget(Targeting.Slot_FrontAndSides, [nameof(IntentType_GameIDs.Status_Scars)]);
+            otherAbility1.AddIntentsToTarget(Targeting.Slot_Front, ["AA_RemPassive"]);
 
             //Ability 3.
             Ability thirdAbility0 = new Ability("Third Ability", "thirdAbility_1_A")

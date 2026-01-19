@@ -63,119 +63,47 @@ namespace A_Apocrypha.Encounters
             }
             purpleLogosMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_CrimsonLogos_Medium_EnemyBundle", 10, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Medium);*/
-            EnemyEncounter_API purpleLogosHard = new EnemyEncounter_API(0, "H_Zone03_RegentLogos_Hard_EnemyBundle", "PurpleLogos_Sign")
+            EnemyEncounter_API purpleLogosHard = new EnemyEncounter_API(0, Garden.H.Logos.Purple.Hard, "PurpleLogos_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp/TerrorTrack",
-                RoarEvent = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Roar",
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Garden.H.ChoirBoy.Easy)._roarReference.roarEvent,
             };
-            purpleLogosHard.CreateNewEnemyEncounterData(
-            [
-                "RegentLogos_EN",
-                "GigglingMinister_EN",
-                "GigglingMinister_EN",
-            ], null);
-            purpleLogosHard.CreateNewEnemyEncounterData(
-            [
-                "RegentLogos_EN",
-                "GigglingMinister_EN",
-                "SomeoneSister_EN",
-            ], null);
-            purpleLogosHard.CreateNewEnemyEncounterData(
-            [
-                "RegentLogos_EN",
-                "GigglingMinister_EN",
-                "ChoirBoy_EN",
-            ], null);
-            purpleLogosHard.CreateNewEnemyEncounterData(
-            [
-                "RegentLogos_EN",
-                "SkinningHomunculus_EN",
-                "ShiveringHomunculus_EN",
-            ], null);
-            purpleLogosHard.CreateNewEnemyEncounterData(
-            [
-                "RegentLogos_EN",
-                "SkinningHomunculus_EN",
-                "ShiveringHomunculus_EN",
-                "ShiveringHomunculus_EN",
-            ], null);
-            purpleLogosHard.CreateNewEnemyEncounterData(
-            [
-                "RegentLogos_EN",
-                "GigglingMinister_EN",
-                "MachineGnomes_EN",
-                "MachineGnomes_EN",
-            ], null);
-            purpleLogosHard.CreateNewEnemyEncounterData(
-            [
-                "RegentLogos_EN",
-                "CrimsonLogos_EN",
-            ], null);
-            purpleLogosHard.CreateNewEnemyEncounterData(
-            [
-                "RegentLogos_EN",
-                "CeruleanLogos_EN",
-            ], null);
-            purpleLogosHard.CreateNewEnemyEncounterData(
-            [
-                "RegentLogos_EN",
-                "AureateLogos_EN",
-            ], null);
+            purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 2, Enemies.Minister);
+            purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Enemies.Minister, 1, "SomeoneSister_EN");
+            purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Enemies.Minister, 1, "ChoirBoy_EN");
+            purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Enemies.Skinning, 1, Enemies.Shivering);
+            purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Enemies.Skinning, 2, Enemies.Shivering);
+            purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Enemies.Minister, 2, "MachineGnomes_EN");
+            purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Logos.Red);
+            purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Logos.Blue);
+            purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Logos.Yellow);
+            if (AApocrypha.CrossMod.UndivineComedy)
+            {
+                purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, "BellRinger_EN", 1, Enemies.Minister);
+            }
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
-                purpleLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "RegentLogos_EN",
-                    "MachineGnomes_EN",
-                    "MachineGnomes_EN",
-                    "Eater_Invis_EN",
-                ], null);
-                purpleLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "RegentLogos_EN",
-                    "WRK_EN",
-                    "SomeoneSister_EN",
-                    "StopSign_EN",
-                ], null);
+                purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 2, "MachineGnomes_EN", 1, "Eater_Invis_EN");
+                purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, "WRK_EN", 1, "SomeoneSister_EN", 1, Signs.Red);
             }
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
-                purpleLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "RegentLogos_EN",
-                    "GodsChalice_EN",
-                    "Vagabond_EN",
-                ], null);
+                purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, "GodsChalice_EN", 1, "Vagabond_EN");
             }
             if (AApocrypha.CrossMod.StewSpecimens)
             {
-                purpleLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "RegentLogos_EN",
-                    "GigglingMinister_EN",
-                    "SacredScraps_EN",
-                ], null);
+                purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, "SacredScraps_EN", 1, Enemies.Minister);
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
-                purpleLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "RegentLogos_EN",
-                    "Firebird_EN",
-                    "Damocles_EN",
-                ], null);
+                purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, "Firebird_EN", 1, "Damocles_EN");
             }
             if (AApocrypha.CrossMod.GlitchsFreaks && AApocrypha.CrossMod.HellIslandFell)
             {
-                purpleLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "RegentLogos_EN",
-                    "FrowningChancellor_EN",
-                    "SweatingNosestone_EN",
-                ], null);
+                purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, "FrowningChancellor_EN", 1, Noses.Yellow);
             }
             purpleLogosHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_RegentLogos_Hard_EnemyBundle", 3, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.Logos.Purple.Hard, 3, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
         }
     }
 }

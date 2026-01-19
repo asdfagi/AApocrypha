@@ -63,84 +63,33 @@ namespace A_Apocrypha.Encounters
             }
             yellowLogosMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_CrimsonLogos_Medium_EnemyBundle", 10, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Medium);*/
-            EnemyEncounter_API yellowLogosHard = new EnemyEncounter_API(0, "H_Zone03_AureateLogos_Hard_EnemyBundle", "YellowLogos_Sign")
+            EnemyEncounter_API yellowLogosHard = new EnemyEncounter_API(0, Garden.H.Logos.Yellow.Hard, "YellowLogos_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp/TerrorTrack",
-                RoarEvent = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Roar",
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Garden.H.ChoirBoy.Easy)._roarReference.roarEvent,
             };
-            yellowLogosHard.CreateNewEnemyEncounterData(
-            [
-                "AureateLogos_EN",
-                "GigglingMinister_EN",
-                "GigglingMinister_EN",
-            ], null);
-            yellowLogosHard.CreateNewEnemyEncounterData(
-            [
-                "AureateLogos_EN",
-                "GigglingMinister_EN",
-                "SomeoneSister_EN",
-            ], null);
-            yellowLogosHard.CreateNewEnemyEncounterData(
-            [
-                "AureateLogos_EN",
-                "SkinningHomunculus_EN",
-                "ShiveringHomunculus_EN",
-            ], null);
-            yellowLogosHard.CreateNewEnemyEncounterData(
-            [
-                "AureateLogos_EN",
-                "SkinningHomunculus_EN",
-                "ShiveringHomunculus_EN",
-                "ShiveringHomunculus_EN",
-            ], null);
-            yellowLogosHard.CreateNewEnemyEncounterData(
-            [
-                "AureateLogos_EN",
-                "GigglingMinister_EN",
-                "MachineGnomes_EN",
-                "MachineGnomes_EN",
-            ], null);
+            yellowLogosHard.SimpleAddEncounter(1, Logos.Yellow, 2, Enemies.Minister);
+            yellowLogosHard.SimpleAddEncounter(1, Logos.Yellow, 1, Enemies.Minister, 1, "SomeoneSister_EN");
+            yellowLogosHard.SimpleAddEncounter(1, Logos.Yellow, 1, Enemies.Skinning, 1, Enemies.Shivering);
+            yellowLogosHard.SimpleAddEncounter(1, Logos.Yellow, 1, Enemies.Skinning, 2, Enemies.Shivering);
+            yellowLogosHard.SimpleAddEncounter(1, Logos.Yellow, 1, Enemies.Minister, 2, "MachineGnomes_EN");
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
-                yellowLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "AureateLogos_EN",
-                    "MachineGnomes_EN",
-                    "SullenPrioress_EN"
-                ], null);
+                yellowLogosHard.SimpleAddEncounter(1, Logos.Yellow, 1, "MachineGnomes_EN", 1, "SullenPrioress_EN");
+                yellowLogosHard.SimpleAddEncounter(1, Logos.Yellow, 1, "MachineGnomes_EN", 1, Signs.Purple);
             }
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
-                yellowLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "AureateLogos_EN",
-                    "FrowningChancellor_EN",
-                    "GigglingMinister_EN",
-                ], null);
-                yellowLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "AureateLogos_EN",
-                    "GodsChalice_EN",
-                    "Vagabond_EN",
-                ], null);
+                yellowLogosHard.SimpleAddEncounter(1, Logos.Yellow, 1, "GigglingMinister_EN", 1, "FrowningChancellor_EN");
+                yellowLogosHard.SimpleAddEncounter(1, Logos.Yellow, 1, "GodsChalice_EN", 1, "Vagabond_EN");
             }
             if (AApocrypha.CrossMod.StewSpecimens)
             {
-                yellowLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "AureateLogos_EN",
-                    "Key_EN",
-                    "AloofEnvoy_EN",
-                ], null);
-                yellowLogosHard.CreateNewEnemyEncounterData(
-                [
-                    "AureateLogos_EN",
-                    "GigglingMinister_EN",
-                    "Euryale_EN",
-                ], null);
+                yellowLogosHard.SimpleAddEncounter(1, Logos.Yellow, 1, "AloofEnvoy_EN", 1, "Key_EN");
+                yellowLogosHard.SimpleAddEncounter(1, Logos.Yellow, 1, Enemies.Minister, 1, "Euryale_EN");
             }
             yellowLogosHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_AureateLogos_Hard_EnemyBundle", 5, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.Logos.Yellow.Hard, 5, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
         }
     }
 }

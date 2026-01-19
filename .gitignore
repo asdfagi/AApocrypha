@@ -1,0 +1,5 @@
+bin/
+obj/
+Events/FreeFoolEventTester.cs
+Patches/FieldEffectTriggerCall.cs
+CustomPassives/MadeOfFirePassiveAbility.cs

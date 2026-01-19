@@ -126,11 +126,36 @@ namespace A_Apocrypha.Enemies
             testJumble2.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/TestJumbleGuts_Enemy/TestJumbleGuts2_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/TestJumbleGuts_Enemy/TestJumbleGuts2_Giblets.prefab").GetComponent<ParticleSystem>());
             testJumble2.AddPassives([Passives.Pure, Passives.Transfusion, Passives.Slippery]);
 
-            testJumble2.AddEnemyAbilities(
+            Ability passiveremovetester = new Ability("RemoveRandomPassiveEffect", "AApocrypha_JumbleRemovePassiveTester_A")
+            {
+                Description = "Remove 10 passives from the Opposing party member.",
+                Cost = [],
+                Visuals = CustomVisuals.StaticVisualsSO,
+                AnimationTarget = Targeting.Slot_Front,
+                Effects =
                 [
-                    boil,
-                    flood,
-                ]);
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RemoveRandomPassiveEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RemoveRandomPassiveEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RemoveRandomPassiveEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RemoveRandomPassiveEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RemoveRandomPassiveEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RemoveRandomPassiveEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RemoveRandomPassiveEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RemoveRandomPassiveEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RemoveRandomPassiveEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RemoveRandomPassiveEffect>(), 1, Targeting.Slot_Front),
+                ],
+                Rarity = Rarity.ExtremelyCommon,
+                Priority = Priority.Normal,
+            };
+            deluge.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Generate)]);
+
+            testJumble2.AddEnemyAbilities(
+            [
+                boil,
+                flood,
+                passiveremovetester,
+            ]);
             testJumble2.AddEnemy(false, false, false);
 
             if (AApocrypha.CrossMod.pigmentRainbow)
@@ -186,7 +211,7 @@ namespace A_Apocrypha.Enemies
                         flood,
                         refraction,
                     ]);
-                rainbowGuts.AddEnemy(true, true, true);
+                rainbowGuts.AddEnemy(true, true, false);
             }
         }
     }

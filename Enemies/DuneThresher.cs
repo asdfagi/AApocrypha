@@ -56,7 +56,7 @@ namespace A_Apocrypha.Enemies
             TargetAnim._animationTarget = TargeterTargeting;
 
             PerformEffectPassiveAbility emplacementTargeterPassive = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
-            emplacementTargeterPassive.name = "Targeter_PA";
+            emplacementTargeterPassive.name = "AA_TargeterDuneThresher_PA";
             emplacementTargeterPassive._passiveName = "Targeter";
             emplacementTargeterPassive.m_PassiveID = "Targeter";
             emplacementTargeterPassive.passiveIcon = ResourceLoader.LoadSprite("IconTargeter");

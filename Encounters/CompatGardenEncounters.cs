@@ -8,6 +8,10 @@ namespace A_Apocrypha.Encounters
     {
         public static void Add()
         {
+            Debug.Log("AA Compat Encounters | Garden Compat Loaded");
+            /*}
+            public static void Post()
+            {*/
             List<RandomEnemyGroup> ministerMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_GigglingMinister_Medium_EnemyBundle"))._enemyBundles)
             {
                 new([

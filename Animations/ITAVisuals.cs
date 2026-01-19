@@ -8,6 +8,7 @@ namespace A_Apocrypha.Animations
     {
         public static AttackVisualsSO Explode;
         public static AttackVisualsSO Stank;
+        public static AttackVisualsSO Wind;
         public static void Add()
         {
             Explode = ScriptableObject.CreateInstance<AttackVisualsSO>();
@@ -19,6 +20,11 @@ namespace A_Apocrypha.Animations
             Stank.audioReference = "event:/AASFX/ITA/Stank";
             Stank.isAnimationFullScreen = false;
             Stank.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/Apocrypha_Animations/Stank.anim");
+
+            Wind = ScriptableObject.CreateInstance<AttackVisualsSO>();
+            Wind.audioReference = "event:/AASFX/ITA/Wind";
+            Wind.isAnimationFullScreen = false;
+            Wind.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/Apocrypha_Animations/Wind.anim");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TMPro;
 
 namespace A_Apocrypha.CustomOther
 {
@@ -111,6 +112,15 @@ namespace A_Apocrypha.CustomOther
                 _sprite = ResourceLoader.LoadSprite("IconFireskull"),
             };
             LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Passive_MadeOfFire", RemMadeOfFireIntent);
+
+            IntentInfoDamage ScrabbleIntent = new()
+            {
+                _color = LoadedDBsHandler.IntentDB.TryGetIntentInfo("Damage_1_2")._color,
+                _enemyColor = Color.red,
+                _sprite = ResourceLoader.LoadSprite("intentScrabbleDamage"),
+                _enemySprite = ResourceLoader.LoadSprite("intentScrabbleDamage"),
+            };
+            LoadedDBsHandler.IntentDB.AddNewDamageIntent("AA_Damage_Scrabble", ScrabbleIntent);
         }
     }
 }

@@ -217,6 +217,9 @@ namespace A_Apocrypha.Enemies
                 Passives.GetCustomPassive("Gouged_PA"),
                 Passives.GetCustomPassive("Omnichromia_PA"),
                 Passives.GetCustomPassive("AA_Condense_PA"),
+                Passives.GetCustomPassive("Snowstorm_1_PA"),
+                Passives.GetCustomPassive("BlackTears_2_PA"),
+                Passives.GetCustomPassive("JollyJoker_PA"),
             ];
             var resultList = resultBase.ToList();
             if (AApocrypha.CrossMod.IntoTheAbyss)
@@ -240,6 +243,10 @@ namespace A_Apocrypha.Enemies
                 resultList.Add(Passives.GetCustomPassive("StSpCauterizing_PA"));
                 resultList.Add(Passives.GetCustomPassive("Skates_PA"));
                 resultList.Add(Passives.GetCustomPassive("StSpOmniscient2_PA"));
+            }
+            if (AApocrypha.CrossMod.Colophons)
+            {
+                resultList.Add(Passives.GetCustomPassive("Pollute_PA"));
             }
             foreach (BasePassiveAbilitySO passive in resultList) {Debug.Log($"Rift Passive Getter | loaded passive {passive._passiveName} ({passive.name})"); }
             return resultList.ToArray();

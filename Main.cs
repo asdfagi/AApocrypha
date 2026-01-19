@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using A_Apocrypha.CustomOther;
 using A_Apocrypha.CustomStatusField;
 using A_Apocrypha.DamageTypes;
+using A_Apocrypha.Encounters.Bosses;
+using A_Apocrypha.Enemies.Bosses;
 using A_Apocrypha.Events;
 using A_Apocrypha.Items;
 using BepInEx.Bootstrap;
@@ -19,7 +21,7 @@ using HarmonyLib;
 
 namespace A_Apocrypha
 {
-    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.6")]
+    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.7")]
     [BepInDependency("BrutalOrchestra.BrutalAPI", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("Tairbaz.ColophonConundrum", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("TairbazPeep.EnemyPack", BepInDependency.DependencyFlags.SoftDependency)]
@@ -33,6 +35,8 @@ namespace A_Apocrypha
     [BepInDependency("embercoral.embercoralsMonsterMixtape", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("AnimatedGlitch.Siren", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("Tairbaz.MythosFriends", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("Marmo.MarmoEnemies", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("WolfaCola.UndivineComedy", BepInDependency.DependencyFlags.SoftDependency)]
     //[BepInDependency("Marmo.Sasha", BepInDependency.DependencyFlags.SoftDependency)]
 
     public class AApocrypha : BaseUnityPlugin
@@ -55,6 +59,8 @@ namespace A_Apocrypha
             public static bool Siren = false;
             public static bool Mythos = false;
             public static bool MarmoEnemies = false;
+            public static bool UndivineComedy = false;
+            public static bool Revelry = false;
             public static bool pigmentGilded = false;
             public static bool pigmentRainbow = false;
             public static bool pigmentPeppermint = false;
@@ -75,6 +81,8 @@ namespace A_Apocrypha
                     if (metadata.GUID == "AnimatedGlitch.Siren") { Siren = true; }
                     if (metadata.GUID == "Tairbaz.MythosFriends") { Mythos = true; }
                     if (metadata.GUID == "Marmo.MarmoEnemies") { MarmoEnemies = true; }
+                    if (metadata.GUID == "roundqueen.roundsrevelry") { Revelry = true; }
+                    if (metadata.GUID == "WolfaCola.UndivineComedy") { UndivineComedy = true; }
                     if (metadata.GUID == "AnimatedGlitch.NumerousLads") { pigmentGilded = true; }
                     if (metadata.GUID == "Devron.UnluckyGuys") { pigmentRainbow = true; }
                     if (metadata.GUID == "embercoral.embercoralsMonsterMixtape") { pigmentPeppermint = true; }
@@ -90,6 +98,8 @@ namespace A_Apocrypha
                 if (Siren) { Debug.Log("hello the siren"); }
                 if (Mythos) { Debug.Log("hello mythos friends"); }
                 if (MarmoEnemies) { Debug.Log("hello beasts of box"); }
+                if (UndivineComedy) { Debug.Log("hello divine uncomedy"); }
+                if (Revelry) { Debug.Log("hello revelful ruinry"); }
                 if (pigmentGilded && LoadedDBsHandler.PigmentDB.GetPigment("Gilded") != null)
                 {
                     Debug.Log("hello gilded pigment from numerous lads");
@@ -106,6 +116,10 @@ namespace A_Apocrypha
                 {
                     Debug.Log("hello pink pigment from sasha");
                 }*/
+                if (UndivineComedy && LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
+                {
+                    Debug.Log("hello broken pigment from undivine comedy");
+                }
             }
         }
         public void Awake()
@@ -139,9 +153,11 @@ namespace A_Apocrypha
 
             //Damage Types
             PoisonDamage.Add();
+            FrostDamage.Add();
 
             //Status & Field Effects
             CustomStatus.Add();
+            CustomField.Add();
             //Modded Status & Field Effects (ignored if already exists)
             if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Haste_ID"))
             {
@@ -153,12 +169,74 @@ namespace A_Apocrypha
                 Debug.Log("Status | Haste found");
             }
 
+            //Tags & Types
+            if (CrossMod.IntoTheAbyss)
+            {
+                LoadedAssetsHandler.GetCharacter("Sam_CH").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("Tider_EN").unitTypes.Add("Robot");
+            }
+            if (CrossMod.HellIslandFell)
+            {
+                LoadedAssetsHandler.GetCharacter("Hoftstoldt_CH").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetCharacter("Salad_CH").unitTypes.Add("Robot");
+            }
+            if (CrossMod.SaltEnemies)
+            {
+                LoadedAssetsHandler.GetCharacter("Windle_CH").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("MechanicalLens_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("YNL_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("Windle_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("2009_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("RedBot_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("BlueBot_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("YellowBot_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("PurpleBot_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("Solitaire_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("Spades_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("GreyBot_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("Stalker2_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("Invention_BOSS").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("Megalania_BOSS").unitTypes.Add("Robot");
+            }
+            if (CrossMod.StewSpecimens)
+            {
+                //LoadedAssetsHandler.GetCharacter("Stolas_CH").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("KapteynAbductor_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("ArtilleryWitch_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("SacredScraps_EN").unitTypes.Add("Robot");
+                //LoadedAssetsHandler.GetEnemy("MechanicalDance_EN").unitTypes.Add("Robot");
+            }
+            if (CrossMod.MarmoEnemies)
+            {
+                LoadedAssetsHandler.GetEnemy("Surimi_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("JumbleGuts_Digital_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("Spoggle_Mechanical_EN").unitTypes.Add("Robot");
+            }
+            if (CrossMod.Revelry)
+            {
+                LoadedAssetsHandler.GetEnemy("Teletower_EN").unitTypes.Add("Robot");
+                LoadedAssetsHandler.GetEnemy("Handyman_BOSS").unitTypes.Add("Robot");
+            }
+            Debug.Log("Tags & Types | UnitTypes applied");
+
             //Passives
             CustomPassives.Add();
+            Debug.Log("Passives | Custom Passives added");
 
             // ITEMS & ACHIEVEMENTS
+            // Boss Unlocks
+            // Amalgamated Assessor
+            if (CrossMod.Siren)
+            {
+                ThresherEye.Add();
+                BrokenFuse.Add();
+            }
             // Miniboss Unlocks
             HyperdimensionalPearl.Add();
+            if (CrossMod.Siren)
+            {
+                AnomalousSymbol.Add();
+            }
             // Comedies
             HumanHeart.Add();
             // Osman Unlocks
@@ -192,16 +270,20 @@ namespace A_Apocrypha
             }
             // Miscellaneous Items
             CranesSavesTheRun.Add();
+            Gadsby.Add();
+            Debug.Log("Items & Achievements | Initialized");
 
             //Characters
             //TestCharacter.Add();
             GnomeCharacter.Add();
             WhitlockCharacter.Add();
             KneynsbergCharacter.Add();
+            Debug.Log("Characters | Initialized");
 
             //Free Fool Events
             WhitlockFreeEvent.Add();
             KneynsbergFreeEvent.Add();
+            Debug.Log("Free Fool Events | Initialized");
 
             //Free Fool Event Tester
             //FreeFoolEventTester.Add();
@@ -209,6 +291,7 @@ namespace A_Apocrypha
             //Other Events
 
             //Enemies
+            Debug.Log("Enemies | Loading Enemies...");
             //Far Shore
             Macerator.Add();
             Acolyte.Add();
@@ -219,6 +302,7 @@ namespace A_Apocrypha
             Gammamite.Add();
             Smoldergeist.Add();
             DuneThresher.Add();
+            Debug.Log("Enemies | Far Shore Enemies Initialized");
             //Orpheum
             UnboundAnomaly.Add();
             EncasedAnomaly.Add();
@@ -228,15 +312,19 @@ namespace A_Apocrypha
             Rift.Add();
             Bloatfinger.Add();
             Blemmigan.Add();
+            Debug.Log("Enemies | Orpheum Enemies Initialized");
             //Siren
             if (CrossMod.Siren)
             {
                 WinterLantern.Add();
+                Threshold.Add();
+                Debug.Log("Enemies | Siren Enemies Initialized");
             }
             //Garden
             Simulacrum.Add();
             MachineGnomes.Add();
             Sisters.Add();
+            Debug.Log("Enemies | Garden Enemies Initialized");
             //Unclassified, Multiple
             CustomSpoggles.Add();
             CustomJumbleGuts.Add();
@@ -244,11 +332,25 @@ namespace A_Apocrypha
             {
                 CustomColophons.Add();
             }
-            Logos.Add();
+            Enemies.Logos.Add();
             HazardHauler.Add();
+            Debug.Log("Enemies | Initialized");
+
+            //Bosses
+            //Far Shore
+            //Orpheum
+            //Siren
+            if (CrossMod.Siren)
+            {
+                AmalgamatedAssessor.Add();
+                AmalgamatedAssessorEncounter.Add();
+                Debug.Log("The Contraption");
+            }
+            //Garden
 
             //Encounters
             //TestEncounters.Add();
+            //GauntletEncounterSetup.Add();
             //Far Shore
             MaceratorEncounters.Add();
             AcolyteFarShoreEncounters.Add();
@@ -277,6 +379,10 @@ namespace A_Apocrypha
             {
                 CoruscatingJumbleGutsEncounters.Add();
             }
+            if (CrossMod.Colophons)
+            {
+                ColophonHereticalEncounters.Add();
+            }
             CompatOrpheumEncounters.Add();
             //Siren
             if (CrossMod.Siren)
@@ -284,6 +390,7 @@ namespace A_Apocrypha
                 SculptorBirdSirenEncounters.Add();
                 WinterLanternEncounters.Add();
                 HazardHaulerSirenEncounters.Add();
+                ThresholdEncounters.Add();
                 CompatSirenEncounters.Add();
             }
             //Garden
@@ -294,6 +401,10 @@ namespace A_Apocrypha
             BlueLogosEncounters.Add();
             YellowLogosEncounters.Add();
             PurpleLogosEncounters.Add();
+            if (CrossMod.UndivineComedy && LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
+            {
+                DiscordantLogosEncounters.Add();
+            }
             CompatGardenEncounters.Add();
             //Minibosses
             RiftEncounters.Add();
@@ -303,6 +414,7 @@ namespace A_Apocrypha
             {
                 ColophonSaccharineEncounters.Add();
             }
+            Debug.Log("Encounters | Initialized");
 
             //Gauntlet
             //GauntletEvents.Add();

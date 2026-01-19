@@ -13,7 +13,7 @@ namespace A_Apocrypha.Custom_Passives
             DamageReceivedValueChangeException damage = args as DamageReceivedValueChangeException;
             if (damage.damageTypeID == _damageType)
             {
-                CombatManager.Instance.AddUIAction(new ShowPassiveInformationUIAction(passiveEffector.ID, passiveEffector.IsUnitCharacter, base.GetPassiveLocData().text, this.passiveIcon));
+                if (doesPassiveTriggerInformationPanel) { CombatManager.Instance.AddUIAction(new ShowPassiveInformationUIAction(passiveEffector.ID, passiveEffector.IsUnitCharacter, base.GetPassiveLocData().text, this.passiveIcon)); }
                 damage.AddModifier(new MultiplyIntValueModifier(false, 0));
             }
         }

@@ -276,8 +276,8 @@ namespace A_Apocrypha.Enemies
                 memoryoffire,
             ]);
 
-            fullsister.AddEnemy(false, false, false);
-            emptysister.AddEnemy(false, false, false);
+            fullsister.AddEnemy(true, true, false);
+            emptysister.AddEnemy(true, true, false);
         }
         static PreviousEffectCondition PreviousGenerator(bool wasTrue, int number)
         {

@@ -8,6 +8,7 @@ namespace A_Apocrypha.Encounters
     {
         public static void Add()
         {
+            Debug.Log("AA Compat Encounters | Siren Compat Loaded");
             List<RandomEnemyGroup> piscinaHard = ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("PiscinaHard"))._enemyBundles;
             EnemyEncounter_API piscinaEvil = new EnemyEncounter_API(0, "H_ZoneSiren_PiscinaEvil_Hard_EnemyBundle", LoadedAssetsHandler.GetEnemyBundle("PiscinaHard").m_BundleSignID)
             {
@@ -22,6 +23,9 @@ namespace A_Apocrypha.Encounters
                 ], null);
             piscinaEvil.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToCustomZoneSelector("H_ZoneSiren_PiscinaEvil_Hard_EnemyBundle", 1, "TheSiren_Zone1", BundleDifficulty.Hard);
+        /*}
+        public static void Post()
+        {*/
             List<RandomEnemyGroup> boilerEasy = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("BoilerEasy"))._enemyBundles)
             {
                 new([

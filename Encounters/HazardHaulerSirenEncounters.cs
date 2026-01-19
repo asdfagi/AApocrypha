@@ -9,71 +9,33 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("HazardHauler_Sign", ResourceLoader.LoadSprite("HazardHaulerTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            EnemyEncounter_API hazardHaulerSirenMedium = new EnemyEncounter_API(0, "H_ZoneSiren_HazardHauler_Medium_EnemyBundle", "HazardHauler_Sign")
+            EnemyEncounter_API hazardHaulerSirenMedium = new EnemyEncounter_API(0, Siren.H.HazardHauler.Med, "HazardHauler_Sign")
             {
                 MusicEvent = "event:/AAMusic/AnAxe/HarmfulIfInhaled",
                 RoarEvent = "event:/AAEnemy/SandSifterRoar",
             };
-            hazardHaulerSirenMedium.CreateNewEnemyEncounterData(
-                [
-                    "HazardHauler_Siren_EN",
-                    "SandSifter_EN",
-                    "BirdBath_EN",
-                    "BirdBath_EN",
-                ], null);
-            hazardHaulerSirenMedium.CreateNewEnemyEncounterData(
-                [
-                    "HazardHauler_Siren_EN",
-                    "BirdBath_EN",
-                    "Boiler_EN",
-                ], null);
-            hazardHaulerSirenMedium.CreateNewEnemyEncounterData(
-                [
-                    "HazardHauler_Siren_EN",
-                    "BirdBath_EN",
-                    "Boiler_EN",
-                    "Tassnn_EN",
-                ], null);
-            hazardHaulerSirenMedium.CreateNewEnemyEncounterData(
-                [
-                    "HazardHauler_Siren_EN",
-                    "HazardHauler_Siren_EN",
-                    "BirdBath_EN",
-                    "BirdBath_EN",
-                ], null);
+            hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "SandSifter_EN", 2, "BirdBath_EN");
+            hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "Boiler_EN", 1, "BirdBath_EN");
+            hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "Boiler_EN", 1, "BirdBath_EN", 1, "Tassnn_EN");
+            hazardHaulerSirenMedium.SimpleAddEncounter(2, "HazardHauler_Siren_EN", 2, "BirdBath_EN");
             if (AApocrypha.CrossMod.SaltEnemies)
             {
-                hazardHaulerSirenMedium.CreateNewEnemyEncounterData(
-                [
-                    "HazardHauler_Siren_EN",
-                    "BirdBath_EN",
-                    "Boiler_EN",
-                    "Ecstasy_Red_EN",
-                ], null);
+                hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "Boiler_EN", 1, "BirdBath_EN", 1, Ecstasy.Random);
             }
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
+                hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "Tassnn_EN", 1, "Orphan_EN");
                 if (AApocrypha.CrossMod.EnemyPack)
                 {
-                    hazardHaulerSirenMedium.CreateNewEnemyEncounterData(
-                    [
-                        "HazardHauler_Siren_EN",
-                        "BirdBath_EN",
-                        "Erelim_EN",
-                    ], null);
+                    hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "Erelim_EN", 1, "BirdBath_EN");
                 }
             }
             if (AApocrypha.CrossMod.Mythos)
             {
-                hazardHaulerSirenMedium.CreateNewEnemyEncounterData(
-                [
-                    "HazardHauler_Siren_EN",
-                    "Boiler_EN",
-                    "StarVampire_EN",
-                ]);
+                hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "Boiler_EN", 1, "StarVampire_EN");
             }
             hazardHaulerSirenMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToCustomZoneSelector("H_ZoneSiren_HazardHauler_Medium_EnemyBundle", 6, "TheSiren_Zone1", BundleDifficulty.Medium); //6
+            EnemyEncounterUtils.AddEncounterToCustomZoneSelector(Siren.H.HazardHauler.Med, 6, "TheSiren_Zone1", BundleDifficulty.Medium); //6
         }
     }
 }
