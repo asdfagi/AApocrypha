@@ -40,7 +40,7 @@ namespace A_Apocrypha.Encounters
             }
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
-                devotedSpoggleMedium.SimpleAddEncounter(1, Spoggle.PurpleRedSplit, 2, "Frostbite_EN");
+                devotedSpoggleMedium.SimpleAddEncounter(1, Spoggle.PurpleRedSplit, 2, Frostbites.Normal);
                 devotedSpoggleMedium.SimpleAddEncounter(1, Spoggle.PurpleRedSplit, 1, "MusicMan_EN", 1, "BackupDancer_EN");
             }
             if (AApocrypha.CrossMod.StewSpecimens)

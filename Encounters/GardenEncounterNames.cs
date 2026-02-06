@@ -261,6 +261,48 @@ namespace A_Apocrypha.Encounters
             {
                 public static string Hard => "H_Zone03_TortureMeNot_Hard_EnemyBundle";
             }
+            public static class Hauntling
+            {
+                public static string Easy => "H_Zone03_Hauntling_Easy_EnemyBundle";
+            }
+            public static class Insider
+            {
+                public static string Med => "H_Zone03_Insider_Medium_EnemyBundle";
+            }
+            public static class CorpseChan
+            {
+                public static string Med => "H_Zone03_CorpseChan_Medium_EnemyBundle";
+            }
+            public static class Damocles
+            {
+                public static string Easy => "H_Zone03_Damocles_Easy_EnemyBundle";
+            }
+            public static class Dark
+            {
+                public static string Med => "H_Zone03_InTheDark_Medium_EnemyBundle";
+                public static string Hard => "H_Zone03_InTheDark_Hard_EnemyBundle";
+            }
+            public static class Sundowner
+            {
+                public static string Med => "H_Zone03_Sundowner_Medium_EnemyBundle";
+            }
+            public static class Children
+            {
+                public static string Easy => "H_Zone03_ChildrenOfGod_Easy_EnemyBundle";
+            }
+            public static class Lunoscope
+            {
+                public static string Med => "H_Zone03_Lunoscope_Medium_EnemyBundle";
+                public static string Hard => "H_Zone03_Lunoscope_Hard_EnemyBundle";
+            }
+            public static class Panopticon
+            {
+                public static string Med => "H_Zone03_Panopticon_Medium_EnemyBundle";
+            }
+            public static class Ecstasy99
+            {
+                public static string Med => "H_Zone03_ECSTASY99_Medium_EnemyBundle";
+            }
 
             //ita
             public static class Eater
@@ -445,17 +487,17 @@ namespace A_Apocrypha.Encounters
                 }
                 public static class Blue
                 {
-                    //public static string Med => "H_Zone03_CeruleanLogos_Medium_EnemyBundle";
+                    public static string Med => "H_Zone03_CeruleanLogos_Medium_EnemyBundle";
                     public static string Hard => "H_Zone03_CeruleanLogos_Hard_EnemyBundle";
                 }
                 public static class Yellow
                 {
-                    //public static string Med => "H_Zone03_AureateLogos_Medium_EnemyBundle";
+                    public static string Med => "H_Zone03_AureateLogos_Medium_EnemyBundle";
                     public static string Hard => "H_Zone03_AureateLogos_Hard_EnemyBundle";
                 }
                 public static class Purple
                 {
-                    //public static string Med => "H_Zone03_RegentLogos_Medium_EnemyBundle";
+                    public static string Med => "H_Zone03_RegentLogos_Medium_EnemyBundle";
                     public static string Hard => "H_Zone03_RegentLogos_Hard_EnemyBundle";
                 }
                 public static class Broken
@@ -468,6 +510,17 @@ namespace A_Apocrypha.Encounters
             {
                 public static string Med => "H_Zone03_OnesSisters_Medium_EnemyBundle";
                 public static string Hard => "H_Zone03_OnesSisters_Hard_EnemyBundle";
+            }
+            public static class EnlightenedVessel
+            {
+                public static string Med => "H_Zone03_EnlightenedVessel_Medium_EnemyBundle";
+                public static string Hard => "H_Zone03_EnlightenedVessel_Hard_EnemyBundle";
+            }
+
+            public static class Phobia
+            {
+                public static string Med => "H_Zone03_Phobias_Medium_EnemyBundle";
+                public static string Hard => "H_Zone03_Phobias_Hard_EnemyBundle";
             }
         }
     }

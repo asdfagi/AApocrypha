@@ -62,7 +62,7 @@ namespace A_Apocrypha.Enemies
             emplacementTargeterPassive.passiveIcon = ResourceLoader.LoadSprite("IconTargeter");
             emplacementTargeterPassive._characterDescription = "might not work, also what'd you even DO with this?";
             emplacementTargeterPassive._enemyDescription = "At the start of combat and at the end of the timeline, this enemy will remember the position of the party member with the highest current health.";
-            emplacementTargeterPassive._triggerOn = [TriggerCalls.TimelineEndReached, TriggerCalls.OnCombatStart];
+            emplacementTargeterPassive._triggerOn = [TriggerCalls.OnRoundFinished, TriggerCalls.OnCombatStart];
             emplacementTargeterPassive.doesPassiveTriggerInformationPanel = true;
             emplacementTargeterPassive.effects =
             [

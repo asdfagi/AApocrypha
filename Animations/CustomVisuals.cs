@@ -15,6 +15,7 @@ namespace A_Apocrypha.Animations
         public static AttackVisualsSO CranesHeavenVisualsSO;
         public static AttackVisualsSO Whispers;
         public static AttackVisualsSO Nothing;
+        public static AttackVisualsSO NothingScream;
 
         public static void Add()
         {
@@ -62,6 +63,11 @@ namespace A_Apocrypha.Animations
             Nothing.audioReference = "event:/AASFX/Nothing_SFX";
             Nothing.isAnimationFullScreen = false;
             Nothing.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/Apocrypha_Animations/NothingAnim.anim");
+
+            NothingScream = ScriptableObject.CreateInstance<AttackVisualsSO>();
+            NothingScream.audioReference = Visuals.Mitosis.audioReference;
+            NothingScream.isAnimationFullScreen = false;
+            NothingScream.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/Apocrypha_Animations/NothingAnim.anim");
         }
     }
 }

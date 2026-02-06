@@ -35,7 +35,7 @@ namespace A_Apocrypha.Encounters
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
                 sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 2, Frostbites.Normal);
-                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Anomalies.Encased, 1, Frostbites.Normal, 1, Frostbites.Tall);
+                //sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Anomalies.Encased, 1, Frostbites.Normal, 1, Frostbites.Tall);
                 sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, "MusicMan_EN", 1, "BackupDancer_EN");
             }
             if (AApocrypha.CrossMod.SaltEnemies)
@@ -61,6 +61,11 @@ namespace A_Apocrypha.Encounters
             {
                 sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.Yellow, 1, Jumble.Rainbow);
                 sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.YellowBlueSplit, 1, Jumble.Rainbow);
+            }
+            if (AApocrypha.CrossMod.Revelry)
+            {
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, "MusicMan_EN", 1, "Shawled_Shuffler_EN");
+                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, "Scrungie_EN", 1, "Shawled_Shuffler_EN");
             }
             sharpenedAnomalyMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Orph.H.Anomaly.Sharpened.Med, 15, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);

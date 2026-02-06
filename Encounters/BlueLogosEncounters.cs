@@ -9,66 +9,32 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Portals.AddPortalSign("BlueLogos_Sign", ResourceLoader.LoadSprite("LogosTimelineBlue", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
-            /*EnemyEncounter_API blueLogosMedium = new EnemyEncounter_API(0, "H_Zone03_CeruleanLogos_Medium_EnemyBundle", "BlueLogos_Sign")
+            EnemyEncounter_API blueLogosMedium = new EnemyEncounter_API(0, Garden.H.Logos.Blue.Med, "BlueLogos_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp/TerrorTrack",
-                RoarEvent = "event:/Characters/Enemies/DLC_01/ChoirBoy/CHR_ENM_ChoirBoy_Roar",
+                RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Garden.H.ChoirBoy.Easy)._roarReference.roarEvent,
             };
-            blueLogosMedium.CreateNewEnemyEncounterData(
-            [
-                "CeruleanLogos_EN",
-                "InHisImage_EN",
-                "InHerImage_EN",
-            ], null);
-            blueLogosMedium.CreateNewEnemyEncounterData(
-            [
-                "CeruleanLogos_EN",
-                "InHisImage_EN",
-                "InHerImage_EN",
-                "NextOfKin_EN",
-            ], null);
-            blueLogosMedium.CreateNewEnemyEncounterData(
-            [
-                "CeruleanLogos_EN",
-                "MachineGnomes_EN",
-                "NextOfKin_EN",
-                "NextOfKin_EN",
-            ], null);
-            blueLogosMedium.CreateNewEnemyEncounterData(
-            [
-                "CeruleanLogos_EN",
-                "ShiveringHomunculus_EN",
-                "ShiveringHomunculus_EN",
-            ], null);
-            blueLogosMedium.CreateNewEnemyEncounterData(
-            [
-                "CeruleanLogos_EN",
-                "GigglingMinister_EN",
-            ], null);
+            blueLogosMedium.SimpleAddEncounter(1, Logos.Blue, 1, "InHisImage_EN", 1, "InHisImage_EN");
+            blueLogosMedium.SimpleAddEncounter(1, Logos.Blue, 1, "InHisImage_EN", 1, "InHisImage_EN", 1, "NextOfKin_EN");
+            blueLogosMedium.SimpleAddEncounter(1, Logos.Blue, 1, "MachineGnomes_EN", 2, "NextOfKin_EN");
+            blueLogosMedium.SimpleAddEncounter(1, Logos.Blue, 2, Enemies.Shivering);
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
-                blueLogosMedium.CreateNewEnemyEncounterData(
-                [
-                    "CeruleanLogos_EN",
-                    "GigglingMinister_EN",
-                ], null);
+                blueLogosMedium.SimpleAddEncounter(1, Logos.Blue, 1, Enemies.Minister, 1, Signs.Purple);
+                blueLogosMedium.SimpleAddEncounter(1, Logos.Blue, 1, "WRK_EN");
             }
             if (AApocrypha.CrossMod.StewSpecimens)
             {
-                blueLogosMedium.CreateNewEnemyEncounterData(
-                [
-                    "CeruleanLogos_EN",
-                    "AloofEnvoy_EN",
-                ], null);
+                blueLogosMedium.SimpleAddEncounter(1, Logos.Blue, 1, "AloofEnvoy_EN");
             }
             blueLogosMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone03_CrimsonLogos_Medium_EnemyBundle", 10, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Medium);*/
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.Logos.Blue.Med, 8, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Medium);
             EnemyEncounter_API blueLogosHard = new EnemyEncounter_API(0, Garden.H.Logos.Blue.Hard, "BlueLogos_Sign")
             {
                 MusicEvent = "event:/AAMusic/MillieAmp/TerrorTrack",
                 RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Garden.H.ChoirBoy.Easy)._roarReference.roarEvent,
             };
-            blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 2, Enemies.Minister);
+            blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, Enemies.Minister);
             blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, Enemies.Minister, 1, "SomeoneSister_EN");
             blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, Enemies.Skinning, 1, Enemies.Shivering);
             blueLogosHard.SimpleAddEncounter(1, Logos.Blue, 1, Enemies.Skinning, 2, Enemies.Shivering);

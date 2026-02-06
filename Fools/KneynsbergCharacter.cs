@@ -333,6 +333,12 @@ namespace A_Apocrypha.Fools
             speakerBundleKneynsbergFingerking.dialogueSound = LoadedAssetsHandler.GetCharacter("Kneynsberg_CH").dxSound;
             speakerBundleKneynsbergFingerking.portrait = ResourceLoader.LoadSprite("KneynsbergFrontFingerking", new Vector2(0.5f, 0f), 32);
             Dialogues.CreateAndAddCustom_SpeakerData("KneynsbergFingerking", speakerBundleKneynsbergFingerking, true, false, new SpeakerEmote[0]);
+
+            SpeakerBundle speakerBundleKneynsbergMirror = new SpeakerBundle();
+            speakerBundleKneynsbergMirror.bundleTextColor = new Color(187, 198, 212, 255);
+            speakerBundleKneynsbergMirror.dialogueSound = "event:/AASFX/DX/kneynsberg-mirrored-dx";
+            speakerBundleKneynsbergMirror.portrait = ResourceLoader.LoadSprite("KneynsbergFrontMirror", new Vector2(0.5f, 0f), 32);
+            Dialogues.CreateAndAddCustom_SpeakerData("KneynsbergMirror", speakerBundleKneynsbergMirror, true, false, new SpeakerEmote[0]);
         }
         static PreviousEffectCondition PreviousGenerator(bool wasTrue, int number)
         {

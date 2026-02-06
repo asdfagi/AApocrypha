@@ -12,157 +12,55 @@ namespace A_Apocrypha.Encounters
             /*}
             public static void Post()
             {*/
-            List<RandomEnemyGroup> ministerMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_GigglingMinister_Medium_EnemyBundle"))._enemyBundles)
-            {
-                new([
-                   "GigglingMinister_EN",
-                   "MachineGnomes_EN",
-                   "MachineGnomes_EN",
-                ]),
-            };
-            ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_GigglingMinister_Medium_EnemyBundle"))._enemyBundles = ministerMedium;
+            AddTo gardenAdd = new AddTo(Garden.H.Minister.Med);
+            gardenAdd.SimpleAddGroup(1, Enemies.Minister, 2, "MachineGnomes_EN");
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
-                List<RandomEnemyGroup> chaliceMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("ChaliceMed"))._enemyBundles)
-                {
-                    new([
-                       "GodsChalice_EN",
-                       "MachineGnomes_EN",
-                       "MachineGnomes_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("ChaliceMed"))._enemyBundles = chaliceMedium;
+                gardenAdd = new AddTo("ChaliceMed");
+                gardenAdd.SimpleAddGroup(1, "GodsChalice_EN", 2, "MachineGnomes_EN");
             }
             if (AApocrypha.CrossMod.EnemyPack)
             {
-                List<RandomEnemyGroup> metatronHard = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("MetatronHard"))._enemyBundles)
-                {
-                    new([
-                       "Metatron_EN",
-                       "MachineGnomes_EN",
-                       "MachineGnomes_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("MetatronHard"))._enemyBundles = metatronHard;
-                List<RandomEnemyGroup> psychopompHard = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("PsychopompHard"))._enemyBundles)
-                {
-                    new([
-                       "Psychopomp_EN",
-                       "MachineGnomes_EN",
-                       "MachineGnomes_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("MetatronHard"))._enemyBundles = psychopompHard;
+                gardenAdd = new AddTo("MetatronHard");
+                gardenAdd.SimpleAddGroup(1, "Metatron_EN", 2, "MachineGnomes_EN");
+                
+                gardenAdd = new AddTo("PsychopompHard");
+                gardenAdd.SimpleAddGroup(1, "Psychopomp_EN", 2, "MachineGnomes_EN");
             }
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
-                List<RandomEnemyGroup> tanehineriEasy = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Tanehineri_Easy_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                        "Tanehineri_EN",
-                        "Tanehineri_EN",
-                        "MachineGnomes_EN",
-                        "MachineGnomes_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Tanehineri_Easy_EnemyBundle"))._enemyBundles = tanehineriEasy;
-                List<RandomEnemyGroup> wrkMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_WRK_Medium_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                       "WRK_EN",
-                       "MachineGnomes_EN",
-                       "MachineGnomes_EN",
-                    ]),
-                    new([
-                       "WRK_EN",
-                       "WRK_EN",
-                       "MachineGnomes_EN",
-                       "MachineGnomes_EN",
-                    ]),
-                    new([
-                       "WRK_EN",
-                       "MachineGnomes_EN",
-                       "SomeoneSister_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_WRK_Medium_EnemyBundle"))._enemyBundles = wrkMedium;
-                List<RandomEnemyGroup> kcolclockHard = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Kcolclock_Hard_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                        "Kcolclock_EN",
-                        "CrimsonLogos_EN",
-                    ]),
-                    new([
-                        "Kcolclock_EN",
-                        "SomeoneSister_EN",
-                        "NooneSister_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Kcolclock_Hard_EnemyBundle"))._enemyBundles = kcolclockHard;
-                List<RandomEnemyGroup> butterflyMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Butterfly_Medium_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                        "ButterflyEffect_EN",
-                        "ButterflyEffect_EN",
-                        "SomeoneSister_EN",
-                    ]),
-                    new([
-                        "ButterflyEffect_EN",
-                        "ButterflyEffect_EN",
-                        "MachineGnomes_EN",
-                        "MachineGnomes_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Butterfly_Medium_EnemyBundle"))._enemyBundles = butterflyMedium;
-                List<RandomEnemyGroup> platoHard = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Plato_Hard_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                        "Plato_EN",
-                        "RegentLogos_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Plato_Hard_EnemyBundle"))._enemyBundles = platoHard;
+                gardenAdd = new AddTo("H_Zone03_Tanehineri_Easy_EnemyBundle");
+                gardenAdd.SimpleAddGroup(2, "Tanehineri_EN", 2, "MachineGnomes_EN");
+
+                gardenAdd = new AddTo(Garden.H.WRK.Med);
+                gardenAdd.SimpleAddGroup(1, "WRK_EN", 2, "MachineGnomes_EN");
+                gardenAdd.SimpleAddGroup(2, "WRK_EN", 2, "MachineGnomes_EN");
+                gardenAdd.SimpleAddGroup(1, "Tanehineri_EN", 1, "MachineGnomes_EN", 1, "SomeoneSister_EN");
+                
+                gardenAdd = new AddTo(Garden.H.Kcolclock.Hard);
+                gardenAdd.SimpleAddGroup(1, "Kcolclock_EN", 1, Logos.Red);
+                gardenAdd.SimpleAddGroup(1, "Kcolclock_EN", 1, Logos.Blue);
+                gardenAdd.SimpleAddGroup(1, "Kcolclock_EN", 1, "SomeoneSister_EN", 1, "NooneSister_EN");
+                
+                gardenAdd = new AddTo("H_Zone03_Butterfly_Medium_EnemyBundle");
+                gardenAdd.SimpleAddGroup(2, "ButterflyEffect_EN", 1, "SomeoneSister_EN");
+                gardenAdd.SimpleAddGroup(2, "ButterflyEffect_EN", 2, "MachineGnomes_EN");
+                
+                gardenAdd = new AddTo("H_Zone03_Plato_Hard_EnemyBundle");
+                gardenAdd.SimpleAddGroup(1, "Plato_EN", 1, Logos.Purple);
             }
-            if (AApocrypha.CrossMod.SaltEnemies) 
+            if (AApocrypha.CrossMod.SaltEnemies)
             {
-                List<RandomEnemyGroup> chienMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_ChienTindalou_Medium_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                        "EvilDog_EN",
-                        "EvilDog_EN",
-                        "SomeoneSister_EN",
-                    ]),
-                    new([
-                        "EvilDog_EN",
-                        "EvilDog_EN",
-                        "EvilDog_EN",
-                        "SomeoneSister_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_ChienTindalou_Medium_EnemyBundle"))._enemyBundles = chienMedium;
-                List<RandomEnemyGroup> trainMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_MidnightTrafficLight_Medium_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                        "Stoplight_EN",
-                        "SomeoneSister_EN",
-                        "SomeoneSister_EN",
-                    ]),
-                    new([
-                        "Stoplight_EN",
-                        "MachineGnomes_EN",
-                        "MachineGnomes_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_MidnightTrafficLight_Medium_EnemyBundle"))._enemyBundles = trainMedium;
-                List<RandomEnemyGroup> satyrMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Satyr_Medium_EnemyBundle"))._enemyBundles)
-                {
-                    new([
-                        "Satyr_EN",
-                        "MachineGnomes_EN",
-                        "MachineGnomes_EN",
-                    ]),
-                };
-                ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone03_Satyr_Medium_EnemyBundle"))._enemyBundles = satyrMedium;
+                gardenAdd = new AddTo(Garden.H.EvilDog.Med);
+                gardenAdd.SimpleAddGroup(2, "EvilDog_EN", 1, "SomeoneSister_EN");
+                gardenAdd.SimpleAddGroup(3, "EvilDog_EN", 1, "SomeoneSister_EN");
+
+                gardenAdd = new AddTo(Garden.H.Stoplight.Med);
+                gardenAdd.SimpleAddGroup(1, "Stoplight_EN", 2, "SomeoneSister_EN");
+                gardenAdd.SimpleAddGroup(1, "Stoplight_EN", 2, "MachineGnomes_EN");
+
+                gardenAdd = new AddTo(Garden.H.Satyr.Med);
+                gardenAdd.SimpleAddGroup(1, "Satyr_EN", 2, "MachineGnomes_EN");
             }
             if (AApocrypha.CrossMod.StewSpecimens) 
             {

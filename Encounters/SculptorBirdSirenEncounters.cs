@@ -23,6 +23,7 @@ namespace A_Apocrypha.Encounters
             sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, "PetrifiedPuker_EN");
             sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 2, "BirdBath_EN", 1, "Tassnn_EN");
             sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 2, "BirdBath_EN", 1, "Tassnn_EN", 1, "WinterLantern_EN");
+            sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, "Scuttlebunk_EN");
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
                 sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "BirdBath_EN", 1, Jumble.BlueGrey);
@@ -44,6 +45,7 @@ namespace A_Apocrypha.Encounters
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
+                sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "Boiler_EN", 1, "BirdBath_EN", 1, Ecstasy.Random);
                 sirenBirdMedium.SimpleAddEncounter(1, "SculptorBirdSiren_EN", 1, "Boiler_EN", 1, "BirdBath_EN", 1, Ecstasy.Random);
             }
             sirenBirdMedium.AddEncounterToDataBases();

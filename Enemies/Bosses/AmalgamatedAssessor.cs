@@ -115,8 +115,8 @@ namespace A_Apocrypha.Enemies.Bosses
             assessorTargeterPassive.m_PassiveID = "Targeter";
             assessorTargeterPassive.passiveIcon = ResourceLoader.LoadSprite("IconTargeter");
             assessorTargeterPassive._characterDescription = "might not work, also what'd you even DO with this?";
-            assessorTargeterPassive._enemyDescription = "At the start of combat and at the end of the timeline, this enemy will remember the position of the party member with the highest current health.";
-            assessorTargeterPassive._triggerOn = [TriggerCalls.TimelineEndReached, TriggerCalls.OnCombatStart];
+            assessorTargeterPassive._enemyDescription = "At the start of combat and at the end of the round, this enemy will remember the position of the party member with the highest current health.";
+            assessorTargeterPassive._triggerOn = [TriggerCalls.OnRoundFinished, TriggerCalls.OnCombatStart];
             assessorTargeterPassive.doesPassiveTriggerInformationPanel = true;
             assessorTargeterPassive.effects =
             [

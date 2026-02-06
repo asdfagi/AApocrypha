@@ -38,6 +38,7 @@ namespace A_Apocrypha.Encounters
             {
                 asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Mung_EN", 1, Colophon.Red);
                 asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Mung_EN", 1, Colophon.Blue);
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Mung_EN", 1, Colophon.BlueRedSplit);
             }
             if (AApocrypha.CrossMod.StewSpecimens)
             {
@@ -47,6 +48,11 @@ namespace A_Apocrypha.Encounters
             {
                 asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Goomba_EN");
                 asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Acolyte_EN", 1, Spoggle.Green);
+            }
+            if (AApocrypha.CrossMod.MarmoEnemies)
+            {
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Surimi_EN");
+                asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Snaurce_EN", 1, "MudLung_EN");
             }
             asterismMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Asterism.Med, 12, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);
@@ -60,13 +66,14 @@ namespace A_Apocrypha.Encounters
             asterismHard.SimpleAddEncounter(4, "Asterism_EN");
             asterismHard.SimpleAddEncounter(3, "Asterism_EN", 1, Spoggle.Blue);
             asterismHard.SimpleAddEncounter(3, "Asterism_EN", 1, Spoggle.Yellow);
+            asterismHard.SimpleAddEncounter(2, "Asterism_EN", 1, "FungusColumn_EN", 1, Enemies.Mungling);
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
                 asterismHard.SimpleAddEncounter(2, "Asterism_EN", 1, "Follower_EN");
                 asterismHard.SimpleAddEncounter(3, "Asterism_EN", 1, Spoggle.Green);
             };
             asterismHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Asterism.Hard, 14, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Asterism.Hard, 12, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
         }
     }
 }

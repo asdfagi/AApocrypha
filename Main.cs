@@ -21,7 +21,7 @@ using HarmonyLib;
 
 namespace A_Apocrypha
 {
-    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.7")]
+    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.8")]
     [BepInDependency("BrutalOrchestra.BrutalAPI", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("Tairbaz.ColophonConundrum", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("TairbazPeep.EnemyPack", BepInDependency.DependencyFlags.SoftDependency)]
@@ -37,6 +37,8 @@ namespace A_Apocrypha
     [BepInDependency("Tairbaz.MythosFriends", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("Marmo.MarmoEnemies", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("WolfaCola.UndivineComedy", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("roundqueen.roundsrevelry", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("Devron.BismuthBoiler", BepInDependency.DependencyFlags.SoftDependency)]
     //[BepInDependency("Marmo.Sasha", BepInDependency.DependencyFlags.SoftDependency)]
 
     public class AApocrypha : BaseUnityPlugin
@@ -61,6 +63,7 @@ namespace A_Apocrypha
             public static bool MarmoEnemies = false;
             public static bool UndivineComedy = false;
             public static bool Revelry = false;
+            public static bool BismuthBoiler = false;
             public static bool pigmentGilded = false;
             public static bool pigmentRainbow = false;
             public static bool pigmentPeppermint = false;
@@ -83,6 +86,7 @@ namespace A_Apocrypha
                     if (metadata.GUID == "Marmo.MarmoEnemies") { MarmoEnemies = true; }
                     if (metadata.GUID == "roundqueen.roundsrevelry") { Revelry = true; }
                     if (metadata.GUID == "WolfaCola.UndivineComedy") { UndivineComedy = true; }
+                    if (metadata.GUID == "Devron.BismuthBoiler") { BismuthBoiler = true; }
                     if (metadata.GUID == "AnimatedGlitch.NumerousLads") { pigmentGilded = true; }
                     if (metadata.GUID == "Devron.UnluckyGuys") { pigmentRainbow = true; }
                     if (metadata.GUID == "embercoral.embercoralsMonsterMixtape") { pigmentPeppermint = true; }
@@ -100,6 +104,7 @@ namespace A_Apocrypha
                 if (MarmoEnemies) { Debug.Log("hello beasts of box"); }
                 if (UndivineComedy) { Debug.Log("hello divine uncomedy"); }
                 if (Revelry) { Debug.Log("hello revelful ruinry"); }
+                if (BismuthBoiler) { Debug.Log("hello Bismor, it feels so good to say it! boiler"); }
                 if (pigmentGilded && LoadedDBsHandler.PigmentDB.GetPigment("Gilded") != null)
                 {
                     Debug.Log("hello gilded pigment from numerous lads");
@@ -125,6 +130,7 @@ namespace A_Apocrypha
         public void Awake()
         {
             Logger.LogInfo("Asdfagi's Abominable Apocrypha activating...");
+            //Logger.LogInfo("This is a testing build - Enjoy!");
 
             var harmony = new Harmony("asdfagi.A_Apocrypha");
             harmony.PatchAll();
@@ -172,50 +178,50 @@ namespace A_Apocrypha
             //Tags & Types
             if (CrossMod.IntoTheAbyss)
             {
-                LoadedAssetsHandler.GetCharacter("Sam_CH").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("Tider_EN").unitTypes.Add("Robot");
+                TagCharIfExists("Sam_CH", "Robot");
+                TagCharIfExists("Sam1_CH", "Robot");
+                TagCharIfExists("Rococo_CH", "Robot");
+                TagEnemyIfExists("Tider_EN", "Robot");
             }
-            if (CrossMod.HellIslandFell)
+            /*if (CrossMod.HellIslandFell) // hoftstoldt and salad are now tagged as robots innately
             {
-                LoadedAssetsHandler.GetCharacter("Hoftstoldt_CH").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetCharacter("Salad_CH").unitTypes.Add("Robot");
-            }
+            }*/
             if (CrossMod.SaltEnemies)
             {
-                LoadedAssetsHandler.GetCharacter("Windle_CH").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("MechanicalLens_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("YNL_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("Windle_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("2009_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("RedBot_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("BlueBot_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("YellowBot_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("PurpleBot_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("Solitaire_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("Spades_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("GreyBot_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("Stalker2_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("Invention_BOSS").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("Megalania_BOSS").unitTypes.Add("Robot");
+                TagCharIfExists("Windle_CH", "Robot");
+                TagEnemyIfExists("MechanicalLens_EN", "Robot");
+                TagEnemyIfExists("YNL_EN", "Robot");
+                TagEnemyIfExists("Windle_EN", "Robot");
+                TagEnemyIfExists("2009_EN", "Robot");
+                TagEnemyIfExists("RedBot_EN", "Robot");
+                TagEnemyIfExists("BlueBot_EN", "Robot");
+                TagEnemyIfExists("YellowBot_EN", "Robot");
+                TagEnemyIfExists("PurpleBot_EN", "Robot");
+                TagEnemyIfExists("Solitaire_EN", "Robot");
+                TagEnemyIfExists("Spades_EN", "Robot");
+                TagEnemyIfExists("GreyBot_EN", "Robot");
+                TagEnemyIfExists("Stalker2_EN", "Robot");
+                TagEnemyIfExists("Invention_BOSS", "Robot");
+                TagEnemyIfExists("Megalania_BOSS", "Robot");
             }
             if (CrossMod.StewSpecimens)
             {
-                //LoadedAssetsHandler.GetCharacter("Stolas_CH").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("KapteynAbductor_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("ArtilleryWitch_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("SacredScraps_EN").unitTypes.Add("Robot");
-                //LoadedAssetsHandler.GetEnemy("MechanicalDance_EN").unitTypes.Add("Robot");
+                TagCharIfExists("Stolas_CH", "Robot");
+                TagEnemyIfExists("KapteynAbductor_EN", "Robot");
+                TagEnemyIfExists("ArtilleryWitch_EN", "Robot");
+                TagEnemyIfExists("SacredScraps_EN", "Robot");
+                TagEnemyIfExists("MechanicalDance_EN", "Robot");
             }
             if (CrossMod.MarmoEnemies)
             {
-                LoadedAssetsHandler.GetEnemy("Surimi_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("JumbleGuts_Digital_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("Spoggle_Mechanical_EN").unitTypes.Add("Robot");
+                TagEnemyIfExists("Surimi_EN", "Robot");
+                TagEnemyIfExists("JumbleGuts_Digital_EN", "Robot");
+                TagEnemyIfExists("Spoggle_Mechanical_EN", "Robot");
             }
             if (CrossMod.Revelry)
             {
-                LoadedAssetsHandler.GetEnemy("Teletower_EN").unitTypes.Add("Robot");
-                LoadedAssetsHandler.GetEnemy("Handyman_BOSS").unitTypes.Add("Robot");
+                TagEnemyIfExists("Teletower_EN", "Robot");
+                TagEnemyIfExists("Handyman_BOSS", "Robot");
             }
             Debug.Log("Tags & Types | UnitTypes applied");
 
@@ -223,61 +229,16 @@ namespace A_Apocrypha
             CustomPassives.Add();
             Debug.Log("Passives | Custom Passives added");
 
-            // ITEMS & ACHIEVEMENTS
-            // Boss Unlocks
-            // Amalgamated Assessor
-            if (CrossMod.Siren)
-            {
-                ThresherEye.Add();
-                BrokenFuse.Add();
-            }
-            // Miniboss Unlocks
-            HyperdimensionalPearl.Add();
-            if (CrossMod.Siren)
-            {
-                AnomalousSymbol.Add();
-            }
-            // Comedies
-            HumanHeart.Add();
-            // Osman Unlocks
-            TinctureOfVigour.Add();
-            CosmogoneSpectacles.Add();
-            // Heaven Unlocks
-            HesperideanCider.Add();
-            SerpentEffigy.Add();
-            // Doula Unlocks
-            if (CrossMod.EnemyPack)
-            {
-                DarkdropCoffee.Add();
-                Dustwine.Add();
-            }
-            // March Unlocks
-            if (CrossMod.GlitchsFreaks)
-            {
-                EyelessSkull.Add();
-                Emergence.Add();
-            }
-            // Nobody Unlocks
-            if (CrossMod.IntoTheAbyss)
-            {
-                CardinalHoney.Add();
-                Moondial.Add();
-            }
-            // Bluw Sky Unlocks
-            if (CrossMod.SaltEnemies)
-            {
-                FourthCityAirag.Add();
-            }
-            // Miscellaneous Items
-            CranesSavesTheRun.Add();
-            Gadsby.Add();
-            Debug.Log("Items & Achievements | Initialized");
-
             //Characters
             //TestCharacter.Add();
+            Debug.Log("Characters | The Gnome");
             GnomeCharacter.Add();
+            Debug.Log("Characters | The Face-Thief");
             WhitlockCharacter.Add();
+            Debug.Log("Characters | The Oneiropomp");
             KneynsbergCharacter.Add();
+            Debug.Log("Characters | The Incomprehensible");
+            AnomalyCharacter.Add();
             Debug.Log("Characters | Initialized");
 
             //Free Fool Events
@@ -324,6 +285,8 @@ namespace A_Apocrypha
             Simulacrum.Add();
             MachineGnomes.Add();
             Sisters.Add();
+            Enemies.Enlightened.Add();
+            PhobiaEnemies.Add();
             Debug.Log("Enemies | Garden Enemies Initialized");
             //Unclassified, Multiple
             CustomSpoggles.Add();
@@ -334,6 +297,7 @@ namespace A_Apocrypha
             }
             Enemies.Logos.Add();
             HazardHauler.Add();
+            TruthEncounterEnemies.Add();
             Debug.Log("Enemies | Initialized");
 
             //Bosses
@@ -405,7 +369,14 @@ namespace A_Apocrypha
             {
                 DiscordantLogosEncounters.Add();
             }
+            EnlightenedEncounters.Add();
+            PhobiaEncounters.Add();
             CompatGardenEncounters.Add();
+            //Abyss
+            if (CrossMod.IntoTheAbyss)
+            {
+                CompatAbyssEncounters.Add();
+            }
             //Minibosses
             RiftEncounters.Add();
             //AnomalyMinibossEncounters.Add();
@@ -416,11 +387,94 @@ namespace A_Apocrypha
             }
             Debug.Log("Encounters | Initialized");
 
+            //Parabola
+
+            //Enemies
+            //Smoking Shore
+            //Drowned Forest
+            //Other
+            UnravellingTime.Add();
+
+            //Encounters
+
+            // ITEMS & ACHIEVEMENTS
+            // Boss Unlocks
+            // Amalgamated Assessor
+            if (CrossMod.Siren)
+            {
+                ThresherEye.Add();
+                BrokenFuse.Add();
+            }
+            // Miniboss Unlocks
+            HyperdimensionalPearl.Add();
+            if (CrossMod.Siren)
+            {
+                AnomalousSymbol.Add();
+            }
+            // Comedies
+            HumanHeart.Add();
+            // Osman Unlocks
+            TinctureOfVigour.Add();
+            CosmogoneSpectacles.Add();
+            FiiF.Add();
+            // Heaven Unlocks
+            HesperideanCider.Add();
+            SerpentEffigy.Add();
+            ToadFungusRorschach.Add();
+            // Doula Unlocks
+            if (CrossMod.EnemyPack)
+            {
+                DarkdropCoffee.Add();
+                Dustwine.Add();
+                RipEnemyPack.Add();
+            }
+            // March Unlocks
+            if (CrossMod.GlitchsFreaks)
+            {
+                EyelessSkull.Add();
+                Emergence.Add();
+                DownloadFailure.Add();
+            }
+            // Nobody Unlocks
+            if (CrossMod.IntoTheAbyss)
+            {
+                CardinalHoney.Add();
+                Moondial.Add();
+                SpicyPillowSequel.Add();
+            }
+            // Bluw Sky Unlocks
+            if (CrossMod.SaltEnemies)
+            {
+                FourthCityAirag.Add();
+                TruthItem.Add();
+            }
+            // Miscellaneous Items
+            CranesSavesTheRun.Add();
+            Gadsby.Add();
+            Debug.Log("Items & Achievements | Initialized");
+
+            //Events
+            //KneynsbergParabolaShoreEvent.Add();
+
             //Gauntlet
             //GauntletEvents.Add();
             //GauntletEncounters.Add();
 
             Logger.LogInfo("Asdfagi's Abominable Apocrypha activated.");
+        }
+        static void TagCharIfExists(string ID, string unitType)
+        {
+            if (LoadedAssetsHandler.GetCharacter(ID) != false && LoadedAssetsHandler.GetCharacter(ID) != null) { 
+                LoadedAssetsHandler.GetCharacter(ID).unitTypes.Add(unitType);
+                Debug.Log($"Tags & Types | successfully tagged character {LoadedAssetsHandler.GetCharacter(ID)._characterName} ({ID}) as {unitType}");
+            }
+        }
+        static void TagEnemyIfExists(string ID, string unitType)
+        {
+            if (LoadedAssetsHandler.GetEnemy(ID) != false && LoadedAssetsHandler.GetEnemy(ID) != null) { 
+                LoadedAssetsHandler.GetEnemy(ID).unitTypes.Add(unitType);
+                Debug.Log($"Tags & Types | successfully tagged enemy {LoadedAssetsHandler.GetEnemy(ID)._enemyName} ({ID}) as {unitType}");
+            }
         }
     }
 }

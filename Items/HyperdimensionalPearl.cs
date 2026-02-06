@@ -33,6 +33,7 @@ namespace A_Apocrypha.Items
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<GenerateCasterHealthManaEffect>(), 1, Targeting.Slot_SelfSlot),
                 ],
                 EquippedModifiers = [wearablePassiveOmnichromia, wearablePassiveLeaky],
+                OnUnlockUsesTHE = true,
             };
 
             hyperdimensionalPearl.item._ItemTypeIDs =

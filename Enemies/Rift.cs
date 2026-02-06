@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using A_Apocrypha.CustomOther;
 
 namespace A_Apocrypha.Enemies
@@ -194,6 +195,12 @@ namespace A_Apocrypha.Enemies
             rift.AddEnemy(true, false, false);
         }
 
+        static void PassiveIfExists(List<BasePassiveAbilitySO> list, string passiveID)
+        {
+            if (Passives.GetCustomPassive(passiveID) != null) { list.Add(Passives.GetCustomPassive(passiveID)); }
+            else { Debug.LogWarning("Rift Passive Getter | Whoops! No passive " + passiveID + " found! Skipping..."); }
+        }
+
         static BasePassiveAbilitySO[] RiftPassiveGetter()
         {
             BasePassiveAbilitySO[] resultBase = [
@@ -224,19 +231,19 @@ namespace A_Apocrypha.Enemies
             var resultList = resultBase.ToList();
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
-                resultList.Add(Passives.GetCustomPassive("Mammal_PA"));
-                resultList.Add(Passives.GetCustomPassive("Refinement_PA"));
-                resultList.Add(Passives.GetCustomPassive("ItemDupe_PA"));
-                resultList.Add(Passives.GetCustomPassive("Tempo2_PA"));
-                resultList.Add(Passives.GetCustomPassive("Bloat_PA"));
-                resultList.Add(Passives.GetCustomPassive("ATwoFacedXY_PA"));
-                resultList.Add(Passives.GetCustomPassive("ThreeFacedRBX_PA"));
-                resultList.Add(Passives.GetCustomPassive("ATwoFacedXB_PA"));
-                resultList.Add(Passives.GetCustomPassive("IsBasil_PA"));
-                resultList.Add(Passives.GetCustomPassive("Euphony2_PA"));
-                resultList.Add(Passives.GetCustomPassive("Foolhardy_PA"));
-                resultList.Add(Passives.GetCustomPassive("Contagious_PA"));
-                resultList.Add(Passives.GetCustomPassive("Lethargic_PA"));
+                PassiveIfExists(resultList, "Mammal_PA");
+                PassiveIfExists(resultList, "Refinement_PA");
+                PassiveIfExists(resultList, "ItemDupe_PA");
+                PassiveIfExists(resultList, "Tempo2_PA");
+                PassiveIfExists(resultList, "Bloat_PA");
+                PassiveIfExists(resultList, "ATwoFacedXY_PA");
+                PassiveIfExists(resultList, "ThreeFacedRBX_PA");
+                PassiveIfExists(resultList, "ATwoFacedXB_PA");
+                PassiveIfExists(resultList, "IsBasil_PA");
+                PassiveIfExists(resultList, "Euphony2_PA");
+                PassiveIfExists(resultList, "Foolhardy_PA");
+                PassiveIfExists(resultList, "Contagious_PA");
+                PassiveIfExists(resultList, "Lethargic_PA");
             }
             if (AApocrypha.CrossMod.StewSpecimens)
             {

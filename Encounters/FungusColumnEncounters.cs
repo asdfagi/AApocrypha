@@ -39,6 +39,10 @@ namespace A_Apocrypha.Encounters
             {
                 fungusMedium.SimpleAddEncounter(1, "FungusColumn_EN", 1, "RatThing_EN", 1, "MudLung_EN");
             }
+            if (AApocrypha.CrossMod.MarmoEnemies)
+            {
+                fungusMedium.SimpleAddEncounter(1, "FungusColumn_EN", 2, "Surimi_EN");
+            }
             fungusMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.FungusColumn.Med, 16, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium); //default: 16
         }

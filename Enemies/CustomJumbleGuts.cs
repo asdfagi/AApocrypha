@@ -192,7 +192,7 @@ namespace A_Apocrypha.Enemies
                     AnimationTarget = Targeting.AllUnits,
                     Effects =
                     [
-                        Effects.GenerateEffect(RefractionEffect, 4, Targeting.Slot_OpponentAllSlots),
+                        Effects.GenerateEffect(RefractionEffect, 4, Targeting.Unit_OtherAllies),
                         Effects.GenerateEffect(RefractionEffect, 4, Targeting.Unit_AllOpponents),
                         Effects.GenerateEffect(PigmentSpam, 1, Targeting.Unit_OtherAllies),
                         Effects.GenerateEffect(PigmentSpam, 1, Targeting.Unit_AllOpponents),

@@ -8,6 +8,7 @@ namespace A_Apocrypha.CustomEffects
     {
         public ManaColorSO _color;
         public List<ManaColorSO> _colorBlacklist;
+        public bool _transformBlacklist = true;
         public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
         {
             exitAmount = 0;
@@ -17,14 +18,18 @@ namespace A_Apocrypha.CustomEffects
                 if (target.HasUnit)
                 {
                     IUnit targetUnit = target.Unit;
-                    if (targetUnit.HealthColor.ContainsPigment([_color.pigmentID]))
+                    if (targetUnit.HealthColor.SharesPigmentColor(_color))
                     {
                         continue;
                     }
                     if (_colorBlacklist.Contains(targetUnit.HealthColor))
                     {
-                        targetUnit.ChangeHealthColor(_color);
-                        exitAmount++;
+                        if (_transformBlacklist)
+                        {
+                            targetUnit.ChangeHealthColor(_color);
+                            exitAmount++;
+                        }
+                        else { continue; }
                     }
                     else
                     {
@@ -46,7 +51,7 @@ namespace A_Apocrypha.CustomEffects
                             continue;
                         }
                         newColors.Add(_color);
-                        targetUnit.ChangeHealthColor(Pigments.SplitPigment(newColors.ToArray()));
+                        if (targetUnit.ChangeHealthColor(Pigments.SplitPigment(newColors.ToArray()))) { exitAmount++; }
                     }
                 }
             }

@@ -68,7 +68,7 @@ namespace A_Apocrypha.Encounters
                 MusicEvent = "event:/AAMusic/MillieAmp/TerrorTrack",
                 RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Garden.H.ChoirBoy.Easy)._roarReference.roarEvent,
             };
-            purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 2, Enemies.Minister);
+            purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Enemies.Minister);
             purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Enemies.Minister, 1, "SomeoneSister_EN");
             purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Enemies.Minister, 1, "ChoirBoy_EN");
             purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, Enemies.Skinning, 1, Enemies.Shivering);
@@ -103,7 +103,7 @@ namespace A_Apocrypha.Encounters
                 purpleLogosHard.SimpleAddEncounter(1, Logos.Purple, 1, "FrowningChancellor_EN", 1, Noses.Yellow);
             }
             purpleLogosHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.Logos.Purple.Hard, 3, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.Logos.Purple.Hard, 7, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
         }
     }
 }

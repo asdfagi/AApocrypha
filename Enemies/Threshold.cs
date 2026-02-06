@@ -315,7 +315,7 @@ namespace A_Apocrypha.Enemies
                 opentheway.GenerateEnemyAbility(true),
             ]);
 
-            threshold.AddPassives([Passives.Pure, Passives.BonusAttackGenerator(partskinextra)]);
+            threshold.AddPassives([Passives.Pure, Passives.BonusAttackGenerator(partskinextra), Passives.GetCustomPassive("ThresholdFoolUnlockHandler_PA")]);
             thresholdgate.AddPassives([Passives.Inanimate, Passives.Anchored]);
             partedveil.AddPassives([Passives.Pure, Passives.GetCustomPassive("AA_CondensePrimaryLessPurple_PA"), Passives.Withering]);
 

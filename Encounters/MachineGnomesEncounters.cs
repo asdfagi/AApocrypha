@@ -28,6 +28,7 @@ namespace A_Apocrypha.Encounters
             if (AApocrypha.CrossMod.SaltEnemies)
             {
                 gnomesMedium.SimpleAddEncounter(1, "MachineGnomes_EN", 2, "TortureMeNot_EN");
+                gnomesMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "YNL_EN");
             }
             gnomesMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.MachineGnomes.Med, 10, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Medium);
@@ -42,6 +43,8 @@ namespace A_Apocrypha.Encounters
             gnomesHard.SimpleAddEncounter(1, "MachineGnomes_EN", 2, "InHisImage_EN", 1, "InHerImage_EN");
             gnomesHard.SimpleAddEncounter(2, "MachineGnomes_EN", 1, Enemies.Minister);
             gnomesHard.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "SomeoneSister_EN");
+            gnomesHard.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "ProdigalFoundling_EN");
+            gnomesHard.SimpleAddEncounter(2, "MachineGnomes_EN", 2, "ProdigalFoundling_EN");
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
                 gnomesHard.SimpleAddEncounter(1, "MachineGnomes_EN", 1, "Vagabond_EN", 1, "NextOfKin_EN");
@@ -50,7 +53,7 @@ namespace A_Apocrypha.Encounters
             {
                 gnomesHard.SimpleAddEncounter(1, "MachineGnomes_EN", 1, "MonumentOfEnmity_EN");
                 gnomesHard.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "AloofEnvoy_EN");
-                gnomesHard.SimpleAddEncounter(3, "MachineGnomes_EN", 1, "Marut_EN");
+                gnomesHard.SimpleAddEncounter(3, "MachineGnomes_EN", 1, "Marut_EN"); // might become a Marut encounter someday - maybe
             }
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
@@ -59,8 +62,33 @@ namespace A_Apocrypha.Encounters
                 gnomesHard.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "Eater_Invis_EN");
                 gnomesHard.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "Monad_EN");
             }
+            if (AApocrypha.CrossMod.MarmoEnemies)
+            {
+                gnomesHard.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "Bonsai_EN");
+            }
             gnomesHard.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.MachineGnomes.Hard, 4, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
+
+            if (AApocrypha.CrossMod.IntoTheAbyss && Abyss.Exists) { AbyssAdd(); }
+        }
+        public static void AbyssAdd()
+        {
+            EnemyEncounter_API gnomesAbyssMedium = new EnemyEncounter_API(0, Abyss.H.MachineGnomes.Med, "MachineGnomes_Sign")
+            {
+                MusicEvent = "event:/AAMusic/Everhood/DoYouHearGnomes",
+                RoarEvent = "event:/AAEnemy/GnomesRoar",
+            };
+            gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "Streetlight_EN");
+            gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "Bear_EN");
+            gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "Mistaken_EN", 1, "YesMan_EN");
+            gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN");
+            gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "WRK_EN");
+            if (AApocrypha.CrossMod.SaltEnemies)
+            {
+                gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 2, "EyePalm_EN");
+            }
+            gnomesAbyssMedium.AddEncounterToDataBases();
+            EnemyEncounterUtils.AddEncounterToCustomZoneSelector(Garden.H.MachineGnomes.Med, 10, "TheAbyss_Zone3", BundleDifficulty.Medium);
         }
     }
 }

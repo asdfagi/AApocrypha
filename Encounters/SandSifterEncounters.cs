@@ -14,7 +14,6 @@ namespace A_Apocrypha.Encounters
                 MusicEvent = "event:/AAMusic/Aprils/SieveOurSouls",
                 RoarEvent = "event:/AAEnemy/SandSifterRoar",
             };
-            sandSifterEasy.SimpleAddEncounter(1, "SandSifter_EN");
             sandSifterEasy.SimpleAddEncounter(1, "SandSifter_EN", 1, "Mung_EN");
             sandSifterEasy.SimpleAddEncounter(1, "SandSifter_EN", 1, "MudLung_EN", 1, "Mung_EN");
             sandSifterEasy.SimpleAddEncounter(1, "SandSifter_EN", 1, "Keko_EN");

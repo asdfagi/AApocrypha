@@ -14,7 +14,7 @@ namespace A_Apocrypha.Encounters
                 MusicEvent = "event:/AAMusic/MillieAmp/kcarTrorreT",
                 RoarEvent = "event:/AAEnemy/LogosDisco/LogosDiscoRoar",
             };
-            blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 2, Enemies.Minister);
+            blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 1, Enemies.Minister);
             blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 1, Enemies.Skinning, 1, Enemies.Shivering);
             blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 1, Enemies.Skinning, 2, Enemies.Shivering);
             blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 1, "BellRinger_EN", 1, Enemies.Minister);
@@ -27,7 +27,7 @@ namespace A_Apocrypha.Encounters
                 blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 1, "ChoirBoy_EN", 1, Enemies.Minister);
             }
             blackLogosHard.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.Logos.Broken.Hard, 5, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard); // 5
+            EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.Logos.Broken.Hard, 6, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard); // 5
         }
     }
 }

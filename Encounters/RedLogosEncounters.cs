@@ -19,6 +19,7 @@ namespace A_Apocrypha.Encounters
             redLogosMedium.SimpleAddEncounter(1, Logos.Red, 1, "MachineGnomes_EN", 2, "NextOfKin_EN");
             redLogosMedium.SimpleAddEncounter(1, Logos.Red, 2, Enemies.Shivering);
             redLogosMedium.SimpleAddEncounter(1, Logos.Red, 1, Enemies.Minister);
+            redLogosMedium.SimpleAddEncounter(1, Logos.Red, 1, Enlightened.Vessel, 1, Enlightened.Spirit);
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
                 redLogosMedium.SimpleAddEncounter(1, Logos.Red, 1, Enemies.Minister, 1, Signs.Purple);
@@ -34,7 +35,7 @@ namespace A_Apocrypha.Encounters
                 MusicEvent = "event:/AAMusic/MillieAmp/TerrorTrack",
                 RoarEvent = LoadedAssetsHandler.GetEnemyBundle(Garden.H.ChoirBoy.Easy)._roarReference.roarEvent,
             };
-            redLogosHard.SimpleAddEncounter(1, Logos.Red, 2, Enemies.Minister);
+            redLogosHard.SimpleAddEncounter(1, Logos.Red, 1, Enemies.Minister);
             redLogosHard.SimpleAddEncounter(1, Logos.Red, 1, Enemies.Minister, 1, "SomeoneSister_EN");
             redLogosHard.SimpleAddEncounter(1, Logos.Red, 1, Enemies.Skinning, 1, Enemies.Shivering);
             redLogosHard.SimpleAddEncounter(1, Logos.Red, 1, Enemies.Skinning, 2, Enemies.Shivering);

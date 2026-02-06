@@ -15,12 +15,15 @@ namespace A_Apocrypha.Encounters
                 MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
-            anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound);
             anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 1, "MusicMan_EN");
             anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 2, "MusicMan_EN");
             anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 1, "SingingStone_EN");
             anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 1, "MusicMan_EN", 1, Jumble.Blue);
             anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 4, Enemies.Suckle);
+            if (AApocrypha.CrossMod.BismuthBoiler)
+            {
+                anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 3, Enemies.Suckle, 1, "FerrousFeaster_EN");
+            }
             anomalyEasy.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Orph.H.Anomaly.Unbound.Easy, 3, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Easy);
 

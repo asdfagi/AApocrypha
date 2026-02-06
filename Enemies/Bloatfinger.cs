@@ -190,7 +190,6 @@ namespace A_Apocrypha.Enemies
                 DamageSound = LoadedAssetsHandler.GetCharacter("Gospel_CH").damageSound,
                 DeathSound = LoadedAssetsHandler.GetCharacter("Gospel_CH").deathSound,
             };
-            bloatfingerhiddenorpheum.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/SculptorBird_Enemy/Sculpture_Enemy.prefab", AApocrypha.assetBundle, null);
             bloatfingerhiddenorpheum.AddPassives([Passives.Inanimate, Passives.Anchored, Passives.Infantile, Passives.Withering, DecayHiddenBloatfinger]);
             /*
             bloatfingerhiddenorpheum.AddEnemyAbilities(
@@ -200,6 +199,8 @@ namespace A_Apocrypha.Enemies
                 ]);
             */
             bloatfingerhiddenorpheum.AddEnemy(true, false, false);
+
+            LoadedAssetsHandler.GetEnemy("BloatfingerHiddenOrpheum_EN").enemyTemplate = LoadedAssetsHandler.GetEnemy("SculptorBirdSculpture_EN").enemyTemplate;
         }
 
         static PreviousEffectCondition PreviousGenerator(bool wasTrue, int number)

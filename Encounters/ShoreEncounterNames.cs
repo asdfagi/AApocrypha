@@ -268,6 +268,19 @@ namespace A_Apocrypha.Encounters
                 public static string Easy => "H_Zone01_VoiceTrumpet_Easy_EnemyBundle";
                 public static string Med => "H_Zone01_VoiceTrumpet_Medium_EnemyBundle";
             }
+            public static class Hauntling
+            {
+                public static string Med => "H_Zone01_Hauntling_Medium_EnemyBundle";
+            }
+            public static class Jabber
+            {
+                public static string Med => "H_Zone01_Jabberwocky_Medium_EnemyBundle";
+            }
+            public static class Papereater
+            {
+                public static string Easy => "H_Zone01_Papereater_Easy_EnemyBundle";
+                public static string Med => "H_Zone01_Papereater_Medium_EnemyBundle";
+            }
 
             //ita
             public static class Lamia

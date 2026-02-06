@@ -24,6 +24,8 @@ namespace A_Apocrypha.Items
                 Description = "Heal this party member 10 health.\nRemove this ability from this party member.",
                 AbilitySprite = ResourceLoader.LoadSprite("ItemCiderAbility"),
                 Cost = [],
+                Visuals = Visuals.Relapse,
+                AnimationTarget = Targeting.Slot_SelfSlot,
                 Effects =
                     [
                         Effects.GenerateEffect(ScriptableObject.CreateInstance<HealEffect>(), 10, Targeting.Slot_SelfSlot),

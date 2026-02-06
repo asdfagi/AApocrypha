@@ -12,6 +12,8 @@ namespace A_Apocrypha.CustomOther
         public bool targetUnitAllySlots;
         public bool getAllUnitSelfSlots;
         public bool blacklist = false;
+        public List<string> _passiveBlacklist = new List<string>();
+        public bool _excludeCaster = false;
 
         public override bool AreTargetAllies => targetUnitAllySlots;
         public override bool AreTargetSlots => true;
@@ -26,8 +28,9 @@ namespace A_Apocrypha.CustomOther
 
             foreach (var ch in chars.Values)
             {
-                if (ch == null || ch.Enemy == null)
-                    continue;
+                if (ch == null || ch.Enemy == null) { continue; }
+
+                if (ch.SlotID == casterSlotID && _excludeCaster == true) { continue; }
 
                 var id = ch.Enemy.name;
                 if (string.IsNullOrEmpty(id))
@@ -36,6 +39,22 @@ namespace A_Apocrypha.CustomOther
                     continue;
                 if (blacklist == true && Array.IndexOf(_enemies, id) >= 0)
                     continue;
+                bool passivePass = true;
+                if (_passiveBlacklist.Count > 0)
+                {
+                    foreach (BasePassiveAbilitySO passive in ch.PassiveAbilities)
+                    {
+                        if (_passiveBlacklist.Contains(passive.m_PassiveID))
+                        {
+                            passivePass = false;
+                            break;
+                        }
+                    }
+                }
+                if (passivePass == false)
+                {
+                    continue;
+                }
 
                 var chSID = ch.SlotID;
                 var chIsCharacter = ch.IsUnitCharacter;

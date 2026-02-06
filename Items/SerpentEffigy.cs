@@ -60,6 +60,7 @@ namespace A_Apocrypha.Items
                     Effects.GenerateEffect(AddLeaky, 1, Targeting.Unit_AllOpponents, OneInTen),
                     Effects.GenerateEffect(AddSlippery, 1, Targeting.Unit_AllOpponents, OneInTen),
                 ],
+                OnUnlockUsesTHE = true,
             };
 
             ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(serpenteffigy.item, new ItemModdedUnlockInfo("EffigyOfASerpent_TW", ResourceLoader.LoadSprite("UnlockHeavenKneynsbergLocked", null, 32, null), "AApocrypha_Kneynsberg_Divine_ACH"));

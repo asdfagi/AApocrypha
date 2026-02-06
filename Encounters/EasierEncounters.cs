@@ -184,6 +184,7 @@ namespace A_Apocrypha.Encounters
         public static string Unstable => "Spoggle_Mechanical_EN";
         public static string Green => "MycotoxicSpoggle_EN";
         public static string Irid => "AkashicSpoggle_EN";
+        public static string Entropic => "OccultatedSpoggle_EN";
 
         public static string BlueYellow => "IchthyosatedSpoggle_EN";
         public static string YellowBlue => BlueYellow;
@@ -289,6 +290,14 @@ namespace A_Apocrypha.Encounters
         public static string Purple => "RegentLogos_EN";
         public static string Broken => "DiscordantLogos_EN";
     }
+
+    public static class Symbols
+    {
+        public static string Red => "RedSymbol_EN";
+        public static string Blue => "BlueSymbol_EN";
+        public static string Yellow => "YellowSymbol_EN";
+        public static string Purple => "PurpleSymbol_EN";
+    }
     public static class HiddenBloatfinger
     {
         public static string OrpheumFake => "SculptorBirdSculpture_EN";
@@ -306,6 +315,11 @@ namespace A_Apocrypha.Encounters
         public static string[] VariantList = [Encased, Sharpened];
         public static string Random => VariantList.GetRandom();
 
+    }
+    public static class Enlightened
+    {
+        public static string Vessel => "EnlightenedVessel_EN";
+        public static string Spirit => "EnlightenedSpirit_EN";
     }
     public static class Frostbites
     {

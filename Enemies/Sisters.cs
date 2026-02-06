@@ -68,6 +68,7 @@ namespace A_Apocrypha.Enemies
 
             CasterTransformationEffect BecomeEmpty = ScriptableObject.CreateInstance<CasterTransformationEffect>();
             BecomeEmpty._maintainMaxHealth = true;
+            BecomeEmpty._maintainTimelineAbilities = true;
             BecomeEmpty._currentToMaxHealth = false;
             BecomeEmpty._fullyHeal = false;
             BecomeEmpty._enemyTransformation = emptysister.enemy;
@@ -75,6 +76,7 @@ namespace A_Apocrypha.Enemies
 
             CasterTransformationEffect BecomeFull = ScriptableObject.CreateInstance<CasterTransformationEffect>();
             BecomeFull._maintainMaxHealth = true;
+            BecomeFull._maintainTimelineAbilities = true;
             BecomeFull._currentToMaxHealth = false;
             BecomeFull._fullyHeal = false;
             BecomeFull._enemyTransformation = fullsister.enemy;
@@ -109,14 +111,16 @@ namespace A_Apocrypha.Enemies
             MercurialSisterFull._passiveName = "Mercurial";
             MercurialSisterFull.m_PassiveID = "Mercurial";
             MercurialSisterFull.passiveIcon = ResourceLoader.LoadSprite("IconTransformPassive");
-            MercurialSisterFull._characterDescription = "if your health is red on tineline end this shit turns you into Nowak lmao";
-            MercurialSisterFull._enemyDescription = "At the end of the timeline, if this enemy's health colour is red, this enemy transforms into No One's Sister.";
-            MercurialSisterFull._triggerOn = [TriggerCalls.TimelineEndReached];
+            MercurialSisterFull._characterDescription = "if your health is red on round end this shit turns you into Nowak lmao";
+            MercurialSisterFull._enemyDescription = "At the end of the round, if this enemy's health colour is red, this enemy transforms into No One's Sister.";
+            MercurialSisterFull._triggerOn = [TriggerCalls.OnRoundFinished];
             MercurialSisterFull.doesPassiveTriggerInformationPanel = false;
             MercurialSisterFull.effects = [
                 Effects.GenerateEffect(CheckRed, 1, Targeting.Slot_SelfSlot),
-                Effects.GenerateEffect(MercurialPopup, 1, Targeting.Slot_SelfSlot, PreviousTrue),
-                Effects.GenerateEffect(BecomeEmpty, 1, Targeting.Slot_SelfSlot, Previous2True),
+                Effects.GenerateEffect(MercurialPopup, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 1)),
+                Effects.GenerateEffect(BecomeEmpty, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 2)),
+                //Effects.GenerateEffect(ScriptableObject.CreateInstance<AddTurnCasterToTimelineEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 3)),
+                Effects.GenerateEffect(ScriptableObject.CreateInstance<ReloadTimelineEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 3)),
             ];
             Passives.AddCustomPassiveToPool("AA_Mercurial_SistersSomeone_PA", "Mercurial", MercurialSisterFull);
 
@@ -125,14 +129,16 @@ namespace A_Apocrypha.Enemies
             MercurialSisterEmpty._passiveName = "Mercurial";
             MercurialSisterEmpty.m_PassiveID = "Mercurial";
             MercurialSisterEmpty.passiveIcon = ResourceLoader.LoadSprite("IconTransformPassive");
-            MercurialSisterEmpty._characterDescription = "if your health is grey on tineline end this shit turns you into Nowak lmao";
-            MercurialSisterEmpty._enemyDescription = "At the end of the timeline, if this enemy's health colour is grey, this enemy transforms into Someone's Sister.";
-            MercurialSisterEmpty._triggerOn = [TriggerCalls.TimelineEndReached];
+            MercurialSisterEmpty._characterDescription = "if your health is grey on round end this shit turns you into Nowak lmao";
+            MercurialSisterEmpty._enemyDescription = "At the end of the round, if this enemy's health colour is grey, this enemy transforms into Someone's Sister.";
+            MercurialSisterEmpty._triggerOn = [TriggerCalls.OnRoundFinished];
             MercurialSisterEmpty.doesPassiveTriggerInformationPanel = false;
             MercurialSisterEmpty.effects = [
                 Effects.GenerateEffect(CheckGrey, 1, Targeting.Slot_SelfSlot),
-                Effects.GenerateEffect(MercurialPopup, 1, Targeting.Slot_SelfSlot, PreviousTrue),
-                Effects.GenerateEffect(BecomeFull, 1, Targeting.Slot_SelfSlot, Previous2True),
+                Effects.GenerateEffect(MercurialPopup, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 1)),
+                Effects.GenerateEffect(BecomeFull, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 2)),
+                //Effects.GenerateEffect(ScriptableObject.CreateInstance<AddTurnCasterToTimelineEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 3)),
+                Effects.GenerateEffect(ScriptableObject.CreateInstance<ReloadTimelineEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 3)),
             ];
             Passives.AddCustomPassiveToPool("AA_Mercurial_SistersNoone_PA", "Mercurial", MercurialSisterEmpty);
 

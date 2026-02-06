@@ -34,12 +34,10 @@ namespace A_Apocrypha.Enemies
                 DeathSound = "event:/AAEnemy/SandSifterDeath",
                 UnitTypes = ["Robot"],
             };
-            sandsiftersummon.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/SandSifter_Enemy/SandSifter_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/SandSifter_Enemy/SandSifter_Giblets.prefab").GetComponent<ParticleSystem>());
-
 
             SwapToOneRandomSideXTimesEffect SwapRandomFar = ScriptableObject.CreateInstance<SwapToOneRandomSideXTimesEffect>();
 
-            GenerateRandomManaBetweenEffect WeirdRandomPigmentSimple = ScriptableObject.CreateInstance<GenerateRandomManaBetweenEffect>();
+            ForceGenerateRandomManaBetweenEffect WeirdRandomPigmentSimple = ScriptableObject.CreateInstance<ForceGenerateRandomManaBetweenEffect>();
             WeirdRandomPigmentSimple.possibleMana = new ManaColorSO[]
             {
                 Pigments.Red,
@@ -58,7 +56,7 @@ namespace A_Apocrypha.Enemies
                 Pigments.Grey
             };
 
-            GenerateRandomManaBetweenEffect WeirdRandomPigmentSplit = ScriptableObject.CreateInstance<GenerateRandomManaBetweenEffect>();
+            ForceGenerateRandomManaBetweenEffect WeirdRandomPigmentSplit = ScriptableObject.CreateInstance<ForceGenerateRandomManaBetweenEffect>();
             WeirdRandomPigmentSplit.possibleMana = new ManaColorSO[]
             {
                 Pigments.RedBlue,
@@ -192,6 +190,8 @@ namespace A_Apocrypha.Enemies
 
             sandsiftersummon.AddPassives([Passives.Withering]);
             sandsiftersummon.AddEnemy(false, false, false);
+
+            LoadedAssetsHandler.GetEnemy("SandSifterSummon_EN").enemyTemplate = LoadedAssetsHandler.GetEnemy("SandSifter_EN").enemyTemplate;
         }
     }
 }

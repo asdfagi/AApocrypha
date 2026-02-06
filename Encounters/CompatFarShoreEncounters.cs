@@ -42,6 +42,13 @@ namespace A_Apocrypha.Encounters
                 shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, "SandSifter_EN");
                 shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, "ToyUfo_EN", 1, "SandSifter_EN");
                 shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 2, "Acolyte_EN");
+
+                /*if (LoadedAssetsHandler.LoadEnemyBundle(Shore.H.Jabber.Med) != null)
+                {
+                    Debug.Log("yeay jaberwok");
+                    shoreAdd = new AddTo(Shore.H.Jabber.Med);
+                    shoreAdd.SimpleAddGroup(2, "Jabberwocky_EN", 1, "SandSifter_EN");
+                }*/ //doesn't work
             }
             /*if (AApocrypha.CrossMod.StewSpecimens)
             {

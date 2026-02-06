@@ -64,7 +64,7 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(CopyThatPopup, 1, Targeting.Slot_SelfSlot, PreviousTrue),
                 ],
                 Rarity = Rarity.Impossible,
-                Priority = Priority.ExtremelySlow,
+                Priority = Priority.CreateAndAddCustomPriorityToPool("AA_SimulacrumStupendouslySlow", -10),
             };
             comeagain.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Misc)]);
             comeagain.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["Passive_CopyThat"]);

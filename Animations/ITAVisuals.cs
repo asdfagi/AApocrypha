@@ -9,6 +9,9 @@ namespace A_Apocrypha.Animations
         public static AttackVisualsSO Explode;
         public static AttackVisualsSO Stank;
         public static AttackVisualsSO Wind;
+        public static AttackVisualsSO PendulumL;
+        public static AttackVisualsSO PendulumR;
+        public static AttackVisualsSO PendulumFinisher;
         public static void Add()
         {
             Explode = ScriptableObject.CreateInstance<AttackVisualsSO>();
@@ -25,6 +28,21 @@ namespace A_Apocrypha.Animations
             Wind.audioReference = "event:/AASFX/ITA/Wind";
             Wind.isAnimationFullScreen = false;
             Wind.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/Apocrypha_Animations/Wind.anim");
+
+            PendulumL = ScriptableObject.CreateInstance<AttackVisualsSO>();
+            PendulumL.audioReference = "event:/AASFX/ITA/PendulumLeft";
+            PendulumL.isAnimationFullScreen = false;
+            PendulumL.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/IntoTheAbyssEnemies/PendulumLeft.anim");
+
+            PendulumR = ScriptableObject.CreateInstance<AttackVisualsSO>();
+            PendulumR.audioReference = "event:/AASFX/ITA/PendulumRight";
+            PendulumR.isAnimationFullScreen = false;
+            PendulumR.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/IntoTheAbyssEnemies/PendulumRight.anim");
+
+            PendulumFinisher = ScriptableObject.CreateInstance<AttackVisualsSO>();
+            PendulumFinisher.audioReference = "event:/AASFX/ITA/PendulumFinisher";
+            PendulumFinisher.isAnimationFullScreen = false;
+            PendulumFinisher.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/IntoTheAbyssEnemies/PendulumFinisher.anim");
         }
     }
 }

@@ -47,6 +47,10 @@ namespace A_Apocrypha.Encounters
                 sculptorBirdMedium.SimpleAddEncounter(1, "SculptorBird_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, "Lloigor_EN");
                 sculptorBirdMedium.SimpleAddEncounter(1, "SculptorBird_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, "StarVampire_EN", 1, "MusicMan_EN");
             }
+            if (AApocrypha.CrossMod.BismuthBoiler)
+            {
+                sculptorBirdMedium.SimpleAddEncounter(1, "SculptorBird_EN", 1, HiddenBloatfinger.OrpheumRandom, 2, "FerrousFeaster_EN", 1, Enemies.Suckle);
+            }
             sculptorBirdMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Orph.H.SculptorBird.Med, 18, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }

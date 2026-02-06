@@ -15,7 +15,7 @@ namespace A_Apocrypha.Encounters
                 MusicEvent = "event:/AAMusic/FinalFantasy/DarkTower",
                 RoarEvent = "event:/Characters/Enemies/InHisImage/CHR_ENM_InHisImage_Roar",
             };
-            acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN");
+            acolyteEasy.SimpleAddEncounter(2, "Acolyte_EN");
             acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "Mung_EN");
             acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 2, "Mung_EN");
             acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "MudLung_EN", 1, "Mung_EN");
@@ -25,11 +25,12 @@ namespace A_Apocrypha.Encounters
                 acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "Flakkid_EN");
                 acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "Enno_EN");
             };
-            if (AApocrypha.CrossMod.GlitchsFreaks)
+            if (AApocrypha.CrossMod.SaltEnemies)
             {
                 acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "Minana_EN");
                 acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "Pinano_EN");
                 acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "Wall_EN");
+                acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "Jabberwocky_EN");
             };
             acolyteEasy.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Acolyte.Easy, 6, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Easy);
@@ -61,6 +62,10 @@ namespace A_Apocrypha.Encounters
                 acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "MudLung_EN", 1, "Madman_EN");
                 acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "MudLung_EN", 1, "RatThing_EN");
                 acolyteMedium.SimpleAddEncounter(2, "Acolyte_EN", 1, "Madman_EN");
+            }
+            if (AApocrypha.CrossMod.Revelry)
+            {
+                acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "Teletower_EN");
             }
             acolyteMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Acolyte.Med, 20, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium); //default: 20

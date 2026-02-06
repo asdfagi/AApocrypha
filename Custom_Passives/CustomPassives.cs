@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using A_Apocrypha.CustomOther;
+using A_Apocrypha.Assets;
 using A_Apocrypha.Custom_Passives;
+using A_Apocrypha.CustomOther;
 using HarmonyLib;
 using UnityEngine;
 using static A_Apocrypha.Enemies.Bloatfinger;
@@ -46,6 +47,9 @@ namespace A_Apocrypha.Custom_Passives
 
             GenerateColorManaEffect GivePurplePigment = ScriptableObject.CreateInstance<GenerateColorManaEffect>();
             GivePurplePigment.mana = Pigments.Purple;
+
+            ForceGenerateColorManaEffect GiveGreyPigment = ScriptableObject.CreateInstance<ForceGenerateColorManaEffect>();
+            GiveGreyPigment.mana = Pigments.Grey;
 
             // Stored Values
             UnitStoreData_LocTooltip_ModIntSO targeterValue = ScriptableObject.CreateInstance<UnitStoreData_LocTooltip_ModIntSO>();
@@ -104,7 +108,7 @@ namespace A_Apocrypha.Custom_Passives
             gnomePassive.passiveIcon = ResourceLoader.LoadSprite("IconGnome");
             gnomePassive._characterDescription = "This party member is a gnome.";
             gnomePassive._enemyDescription = "This enemy is one or more gnomes.";
-            gnomePassive._triggerOn = [TriggerCalls.TimelineEndReached];
+            gnomePassive._triggerOn = [TriggerCalls.OnRoundFinished];
             gnomePassive.doesPassiveTriggerInformationPanel = false;
             gnomePassive.effects =
             [
@@ -145,7 +149,7 @@ namespace A_Apocrypha.Custom_Passives
             colors._enemyDescription = "Upon receiving any kind of damage, randomize this enemy's health colour.";
             colors._characterDescription = "Upon receiving any kind of damage, randomize this party member's health colour.";
             ChangeToRandomHealthColorEffect randomize = ScriptableObject.CreateInstance<ChangeToRandomHealthColorEffect>();
-            randomize._healthColors = 
+            randomize._healthColors =
             [
                         Pigments.Blue,
                         Pigments.Red,
@@ -154,9 +158,9 @@ namespace A_Apocrypha.Custom_Passives
             ];
             colors.effects =
             [
-                        Effects.GenerateEffect(randomize, 1, Targeting.Slot_SelfSlot)
+                        Effects.GenerateEffect(randomize, 1, Targeting.Slot_SelfSlot, ScriptableObject.CreateInstance<FuckingAliveEffectCondition>())
             ];
-            colors._triggerOn = 
+            colors._triggerOn =
             [
                         TriggerCalls.OnDamaged
             ];
@@ -184,7 +188,7 @@ namespace A_Apocrypha.Custom_Passives
             [
                 Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapToRandomZoneEffect>(), 1, Targeting.GenerateSlotTarget(new int[9] { -4, -3, -2, -1, 0, 1, 2, 3, 4 }, true)),
             ];
-            jumpy._triggerOn = [ TriggerCalls.OnDirectDamaged, TriggerCalls.OnAbilityUsed ];
+            jumpy._triggerOn = [TriggerCalls.OnDirectDamaged, TriggerCalls.OnAbilityUsed];
 
             // Omnichromia - Heterochromia with additional crazy.
             PerformEffectPassiveAbility hypercolors = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
@@ -249,7 +253,7 @@ namespace A_Apocrypha.Custom_Passives
             hyperrandomize._healthColors = omniColorsList.ToArray();
             hypercolors.effects =
             [
-                        Effects.GenerateEffect(hyperrandomize, 1, Targeting.Slot_SelfSlot)
+                        Effects.GenerateEffect(hyperrandomize, 1, Targeting.Slot_SelfSlot, ScriptableObject.CreateInstance<FuckingAliveEffectCondition>())
             ];
             hypercolors._triggerOn =
             [
@@ -355,6 +359,42 @@ namespace A_Apocrypha.Custom_Passives
             [
                 Effects.GenerateEffect(GivePurplePigment, 1, Targeting.Slot_SelfSlot),
             ];
+
+            PerformEffectPassiveAbility greyBlooded = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            greyBlooded.name = "GreyBlooded_1_PA";
+            greyBlooded._passiveName = "Grey-Blooded (1)";
+            greyBlooded.m_PassiveID = "PigmentBlooded";
+            greyBlooded.passiveIcon = ResourceLoader.LoadSprite("IconStonebloodGrey");
+            greyBlooded._characterDescription = "Upon receiving direct damage this party member produces 1 additional Grey pigment.";
+            greyBlooded._enemyDescription = "Upon receiving direct damage this enemy produces 1 additional Grey pigment.";
+            greyBlooded._triggerOn = [TriggerCalls.OnDirectDamaged];
+            greyBlooded.doesPassiveTriggerInformationPanel = true;
+            greyBlooded.effects =
+            [
+                Effects.GenerateEffect(GiveGreyPigment, 1, Targeting.Slot_SelfSlot),
+            ];
+
+            if (AApocrypha.CrossMod.UndivineComedy && LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
+            {
+                GenerateColorManaEffect GiveBrokenPigment = ScriptableObject.CreateInstance<GenerateColorManaEffect>();
+                GiveBrokenPigment.mana = LoadedDBsHandler.PigmentDB.GetPigment("Broken");
+
+                PerformEffectPassiveAbility brokenBlooded = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                brokenBlooded.name = "BrokenBlooded_1_PA";
+                brokenBlooded._passiveName = "Broken-Blooded (1)";
+                brokenBlooded.m_PassiveID = "PigmentBlooded";
+                brokenBlooded.passiveIcon = ResourceLoader.LoadSprite("IconStonebloodBroken");
+                brokenBlooded._characterDescription = "Upon receiving direct damage this party member produces 1 additional Broken pigment, a mostly inert pigment that shatters on overflow.";
+                brokenBlooded._enemyDescription = "Upon receiving direct damage this enemy produces 1 additional Broken pigment, a mostly inert pigment that shatters on overflow.";
+                brokenBlooded._triggerOn = [TriggerCalls.OnDirectDamaged];
+                brokenBlooded.doesPassiveTriggerInformationPanel = true;
+                brokenBlooded.effects =
+                [
+                    Effects.GenerateEffect(GiveBrokenPigment, 1, Targeting.Slot_SelfSlot),
+                ];
+
+                CheckerPassivePoolAdd("BrokenBlooded_1_PA", "Broken-Blooded (1)", brokenBlooded);
+            }
 
             // Condense - humor passive that fills pigment bare (thanks wavetamer)
             PerformEffectPassiveAbility condensePassive = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
@@ -581,6 +621,17 @@ namespace A_Apocrypha.Custom_Passives
             jollyPassive._enemyDescription = "This enemy is feeling rather jolly.";
             jollyPassive.doesPassiveTriggerInformationPanel = false;
 
+            // Tortured - convert indirect damage taken to direct damage (stew's specimens)
+            ConvertIndirectToDirectPassiveAbility torturedPassive = ScriptableObject.CreateInstance<ConvertIndirectToDirectPassiveAbility>();
+            torturedPassive.name = "Tortured_PA";
+            torturedPassive._passiveName = "Tortured";
+            torturedPassive.m_PassiveID = "Tortured";
+            torturedPassive.passiveIcon = ResourceLoader.LoadSprite("IconTortured");
+            torturedPassive._characterDescription = "Indirect damage taken is instead direct.";
+            torturedPassive._enemyDescription = torturedPassive._characterDescription;
+            torturedPassive.doesPassiveTriggerInformationPanel = false;
+            torturedPassive._triggerOn = [TriggerCalls.OnBeingDamaged];
+
             // Adding to pool
             CheckerPassivePoolAdd("Shy_PA", "Shy", shy);
             CheckerPassivePoolAdd("Shy_PA", "Shy", shy);
@@ -604,11 +655,13 @@ namespace A_Apocrypha.Custom_Passives
             CheckerPassivePoolAdd("BlueBlooded_1_PA", "Blue-Blooded (1)", blueBlooded);
             CheckerPassivePoolAdd("YellowBlooded_1_PA", "Yellow-Blooded (1)", yellowBlooded);
             CheckerPassivePoolAdd("PurpleBlooded_1_PA", "Purple-Blooded (1)", purpleBlooded);
+            CheckerPassivePoolAdd("GreyBlooded_1_PA", "Grey-Blooded (1)", greyBlooded);
             CheckerPassivePoolAdd("BlackTears_2_PA", "Black Tears (2)", blackTears);
             CheckerPassivePoolAdd("Snowstorm_1_PA", "Snowstorm (1)", snowstorm1);
             CheckerPassivePoolAdd("Antifreeze_PA", "Antifreeze", iceproofPassive);
             CheckerPassivePoolAdd("Gadsby_PA", "Gadsby", gadsbyPassiv);
             CheckerPassivePoolAdd("JollyJoker_PA", "Jolly", jollyPassive);
+            CheckerPassivePoolAdd("Tortured_PA", "Tortured", torturedPassive);
 
             // Glossary entries
             GlossaryPassives AAShyInfo = new GlossaryPassives("Shy", "Upon performing an ability, this party member/enemy will move to the left or right, prioritizing unopposed spaces, if there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconShy"));
@@ -619,9 +672,9 @@ namespace A_Apocrypha.Custom_Passives
             GlossaryPassives AAGougedInfo = new GlossaryPassives("Gouged", "This unit is missing an eye, their reduced accuracy decreasing damage dealt by 25%.", ResourceLoader.LoadSprite("IconGouged"));
             GlossaryPassives AAMadeOfFireInfo = new GlossaryPassives("Made Of Fire", "This unit is unaffected by Fire and immune to fire damage.", ResourceLoader.LoadSprite("IconFireskull"));
             GlossaryPassives AADriedOutInfo = new GlossaryPassives("Dried Out", "This unit is immune to damage from Ruptured.", ResourceLoader.LoadSprite("IconDriedOut"));
-            GlossaryPassives AAMercurialInfo = new GlossaryPassives("Mercurial", "At the end of the timeline, if a certain condition is met, this enemy transforms into a different enemy.", ResourceLoader.LoadSprite("IconTransformPassive"));
+            GlossaryPassives AAMercurialInfo = new GlossaryPassives("Mercurial", "At the end of the round, if a certain condition is met, this enemy transforms into a different enemy.", ResourceLoader.LoadSprite("IconTransformPassive"));
             GlossaryPassives AAPigmentBloodedInfo = new GlossaryPassives("Pigment-Blooded", "Upon receiving direct damage this party member/enemy produces additional pigment of a specific color.", ResourceLoader.LoadSprite("IconStonebloodPrimary"));
-            GlossaryPassives AATargeterInfo = new GlossaryPassives("Targeter", "At the start of combat and at the end of the timeline, this enemy will remember the position of the party member with the highest current health.", ResourceLoader.LoadSprite("IconTargeter"));
+            GlossaryPassives AATargeterInfo = new GlossaryPassives("Targeter", "At the start of combat and at the end of the round, this enemy will remember the position of the party member with the highest current health.", ResourceLoader.LoadSprite("IconTargeter"));
             GlossaryPassives AADeploymentInfo = new GlossaryPassives("Deployment", "Dealing damage to this enemy greater than a certain threshold will cause it to attempt to summon a specific enemy.", ResourceLoader.LoadSprite("IconDeployment")); // icon sprited by MillieAmp
             GlossaryPassives AACondenseInfo = new GlossaryPassives("Condense", "Upon death, fill the pigment bar with pigment of this party member/enemy's health color.", ResourceLoader.LoadSprite("Condense_passive"));
             GlossaryPassives AABlackTearsInfo = new GlossaryPassives("Black Tears", "On moving, this unit gains a certain amount of Oil Slicked.", ResourceLoader.LoadSprite("IconBlackTears"));
@@ -649,6 +702,8 @@ namespace A_Apocrypha.Custom_Passives
             {
                 GlossaryPassives AAFreeWillInfo = new GlossaryPassives("Free-Willed", "This party member acts of their own free will, but can still be manually moved.", ResourceLoader.LoadSprite("IconStewSpecimensFreeWill"));
                 LoadedDBsHandler.GlossaryDB.AddNewPassive(AAFreeWillInfo);
+                //GlossaryPassives AATorturedInfo = new GlossaryPassives("Tortured", "All Indirect Damage this unit takes becomes Direct.", ResourceLoader.LoadSprite("IconTortured"));
+                //LoadedDBsHandler.GlossaryDB.AddNewPassive(AATorturedInfo);
             }
 
             if (!AApocrypha.CrossMod.SaltEnemies)

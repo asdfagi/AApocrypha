@@ -17,10 +17,7 @@ namespace A_Apocrypha.CustomEffects
                 newAbilities.Add(comeagain);
                 casterEN.Abilities = newAbilities;
                 List<BasePassiveAbilitySO> newPassives = new List<BasePassiveAbilitySO>();
-                for (int i = 0; i < 4; i++)
-                {
-                    newPassives.Add(casterEN.PassiveAbilities[i]);
-                }
+                newPassives.AddRange(casterEN.Enemy.passiveAbilities);
                 casterEN.TryRemoveAllPassiveAbilities();
                 foreach (BasePassiveAbilitySO newPassive in newPassives)
                 {

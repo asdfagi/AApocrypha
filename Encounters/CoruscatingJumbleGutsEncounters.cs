@@ -36,6 +36,10 @@ namespace A_Apocrypha.Encounters
                     rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Gilded, 1, "MusicMan_EN");
                 }
             }
+            if (AApocrypha.CrossMod.GlitchsFreaks)
+            {
+                rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, "Jansuli_EN", 1, "MusicMan_EN");
+            }
             rainbowGutsMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Orph.H.Jumble.Rainbow.Med, 10, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }

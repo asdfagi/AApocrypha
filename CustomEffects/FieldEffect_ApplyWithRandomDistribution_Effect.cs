@@ -10,12 +10,14 @@ namespace A_Apocrypha.CustomEffects
         // thanks MillieAmp
         public FieldEffect_SO field;
         public bool usePrevious;
+        public bool previousIsRange = false;
 
         public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
         {
             if (usePrevious)
             {
-                entryVariable *= base.PreviousExitValue;
+                if (previousIsRange) { entryVariable = UnityEngine.Random.Range(base.PreviousExitValue, entryVariable + 1); }
+                else { entryVariable *= base.PreviousExitValue; }
             }
             Dictionary<IUnit, int> applyTo = [];
             foreach (KeyValuePair<IUnit, int> pairshit in applyTo)

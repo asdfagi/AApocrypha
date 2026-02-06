@@ -22,7 +22,7 @@ namespace A_Apocrypha.Items
                 IsShopItem = true,
                 ShopPrice = 6,
                 DoesPopUpInfo = true,
-                StartsLocked = true,
+                StartsLocked = false,
                 Icon = ResourceLoader.LoadSprite("GadsbyItem"),
                 TriggerOn = TriggerCalls.OnWillApplyDamage,
                 Conditions = [ScriptableObject.CreateInstance<TargetContainsECondition>()],

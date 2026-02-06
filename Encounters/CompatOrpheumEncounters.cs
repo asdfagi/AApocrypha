@@ -48,6 +48,14 @@ namespace A_Apocrypha.Encounters
                 orphAdd.SimpleAddGroup(1, "StarVampire_EN", 2, "MusicMan_EN", 1, HiddenBloatfinger.OrpheumRandom);
                 orphAdd.SimpleAddGroup(1, "StarVampire_EN", 1, "MusicMan_EN", 2, "Blemmigan_EN");
             }
+            if (AApocrypha.CrossMod.BismuthBoiler)
+            {
+                orphAdd = new AddTo(Orph.H.Feaster.Med);
+                orphAdd.SimpleAddGroup(3, "FerrousFeaster_EN", 1, HiddenBloatfinger.OrpheumRandom);
+                orphAdd.SimpleAddGroup(3, "FerrousFeaster_EN", 1, HiddenBloatfinger.OrpheumRandom);
+                orphAdd.SimpleAddGroup(2, "FerrousFeaster_EN", 1, "AluminumAlchemist_EN", 1, Spoggle.BlueYellowSplit);
+                orphAdd.SimpleAddGroup(2, "FerrousFeaster_EN", 1, "ArgonAccelerator_EN", 1, Spoggle.PurpleRedSplit);
+            }
         }
     }
 }
