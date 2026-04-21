@@ -56,8 +56,11 @@ namespace A_Apocrypha.Enemies
                 Effects.GenerateEffect(BlackoutOffDelay, 0),
             ];
 
+            QueueTimelineAbilityByNameEffect QueueSwitch = ScriptableObject.CreateInstance<QueueTimelineAbilityByNameEffect>();
+            QueueSwitch._abilityName = "Recontextualize";
+
             string redID = ColorUtility.ToHtmlStringRGB(Color.red);
-            int phobiaHealth = 60;
+            int phobiaHealth = 50;
             ManaColorSO phobiaHealthColor = Pigments.Red;
             string hurtSound = "event:/AAEnemy/Phobias/PhobiasRoar";
             string deathSound = "event:/AASFX/Nothing_SFX";
@@ -80,6 +83,18 @@ namespace A_Apocrypha.Enemies
             blackoutPassive._secondDoesPerformPopUp = false;
             blackoutPassive._secondEffects = [Effects.GenerateEffect(BlackoutOffDelay2)];
 
+            PerformEffectPassiveAbility patientPassive = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            patientPassive.name = "AA_PatientPhobias_PA";
+            patientPassive._passiveName = "Recontextualize";
+            patientPassive.m_PassiveID = "Patient";
+            patientPassive.passiveIcon = ResourceLoader.LoadSprite("IconPatient");
+            patientPassive._characterDescription = "party members can't queue into the timeline, ya know - maybe it could work like windup, though...";
+            patientPassive._enemyDescription = "When the player turn ends, this enemy queues the ability \"Recontextualize\".";
+            patientPassive._triggerOn = [TriggerCalls.OnPlayerTurnEnd_ForEnemy];
+            patientPassive.effects = [
+                Effects.GenerateEffect(QueueSwitch, 1, Targeting.Slot_SelfSlot),
+            ];
+
             Enemy fearoffear = new Enemy("<color=#" + redID + ">Phobophobia</color>", "Phobia_Phobias_EN")
             {
                 Health = phobiaHealth,
@@ -93,8 +108,7 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Phobia"],
             };
             fearoffear.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Phobias_Enemy/Phobophobia_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Phobias_Enemy/Phobia_Giblets.prefab").GetComponent<ParticleSystem>());
-            fearoffear.AddPassives([Passives.Forgetful, blackoutPassive]);
-
+            
             Enemy fearofbeingwatched = new Enemy("<color=#" + redID + ">Scopophobia</color>", "Phobia_Eyes_EN")
             {
                 Health = phobiaHealth,
@@ -108,7 +122,6 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Phobia"],
             };
             fearofbeingwatched.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Phobias_Enemy/Scopophobia_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Phobias_Enemy/Phobia_Giblets.prefab").GetComponent<ParticleSystem>());
-            fearofbeingwatched.AddPassives([Passives.Forgetful, blackoutPassive]);
 
             Enemy fearofwords = new Enemy("<color=#" + redID + ">Logophobia</color>", "Phobia_Words_EN")
             {
@@ -123,7 +136,6 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Phobia"],
             };
             fearofwords.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Phobias_Enemy/Logophobia_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Phobias_Enemy/Phobia_Giblets.prefab").GetComponent<ParticleSystem>());
-            fearofwords.AddPassives([Passives.Forgetful, blackoutPassive]);
 
             Enemy fearofthedark = new Enemy("<color=#" + redID + ">Nyctophobia</color>", "Phobia_Darkness_EN")
             {
@@ -138,8 +150,7 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Phobia"],
             };
             fearofthedark.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Phobias_Enemy/Nyctophobia_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Phobias_Enemy/Phobia_Giblets.prefab").GetComponent<ParticleSystem>());
-            fearofthedark.AddPassives([Passives.Forgetful, blackoutPassive]);
-
+            
             Enemy fearofdeath = new Enemy("<color=#" + redID + ">Thanatophobia</color>", "Phobia_Death_EN")
             {
                 Health = phobiaHealth,
@@ -153,8 +164,7 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Phobia"],
             };
             fearofdeath.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Phobias_Enemy/Necrophobia_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Phobias_Enemy/Phobia_Giblets.prefab").GetComponent<ParticleSystem>());
-            fearofdeath.AddPassives([Passives.Forgetful, blackoutPassive]);
-
+            
             Enemy rarefearofdeathfake = new Enemy("<color=#" + redID + ">Thanatophobia</color>", "Phobia_Rare_DeathFake_EN")
             {
                 Health = phobiaHealth,
@@ -168,8 +178,7 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Phobia"],
             };
             rarefearofdeathfake.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Phobias_Enemy/FakeoutPhobia_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Phobias_Enemy/Phobia_Giblets.prefab").GetComponent<ParticleSystem>());
-            rarefearofdeathfake.AddPassives([Passives.Forgetful, blackoutPassive]);
-
+            
             Enemy rarefearoflongwords = new Enemy("<color=#" + redID + ">Hippopotomonstrosesquipedaliophobia</color>", "Phobia_Rare_LongWords_EN")
             {
                 Health = phobiaHealth,
@@ -183,13 +192,12 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Phobia"],
             };
             rarefearoflongwords.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Phobias_Enemy/LongWordPhobia_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Phobias_Enemy/Phobia_Giblets.prefab").GetComponent<ParticleSystem>());
-            rarefearoflongwords.AddPassives([Passives.Forgetful, blackoutPassive]);
-
+            
             CasterRandomTransformationNotCasterWithRarePoolEffect PhobiaReroll = ScriptableObject.CreateInstance<CasterRandomTransformationNotCasterWithRarePoolEffect>();
             PhobiaReroll._maintainMaxHealth = false;
             PhobiaReroll._fullyHeal = false;
             PhobiaReroll._currentToMaxHealth = false;
-            PhobiaReroll._maintainTimelineAbilities = false;
+            PhobiaReroll._maintainTimelineAbilities = true;
             PhobiaReroll._rarityPercentage = 99;
             PhobiaReroll._possibleTransformations =
             [
@@ -251,12 +259,49 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(CutOutSFX, 0),
                     Effects.GenerateEffect(PhobiaReroll),
                     Effects.GenerateEffect(DelayAnim),
-                    Effects.GenerateEffect(BlackOutOffDelayReroll, 0)
+                    Effects.GenerateEffect(BlackOutOffDelayReroll, 0),
                 ],
-                Rarity = Rarity.AbsurdlyRare,
+                Rarity = Rarity.ImpossibleNoReroll,
                 Priority = Priority.CreateAndAddCustomPriorityToPool("AA_PhobiasStupendouslySlow", -10),
             };
             rerollAbility.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.PA_Confusion)]);
+
+            PerformEffectPassiveAbility transformPassive = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            transformPassive.name = "AA_HitTransformPhobias_PA";
+            transformPassive._passiveName = "Overdose";
+            transformPassive.m_PassiveID = "HitTransformPhobias";
+            transformPassive.passiveIcon = ResourceLoader.LoadSprite("OverdosePassive");
+            transformPassive._characterDescription = "On being directly damaged, no";
+            transformPassive._enemyDescription = "On being directly damaged, transform into a random other Phobia.";
+            transformPassive._triggerOn = [TriggerCalls.OnDirectDamaged];
+            transformPassive.conditions = [ScriptableObject.CreateInstance<UnitAliveEffectorCondition>()];
+            transformPassive.effects = [
+                    Effects.GenerateEffect(BlackoutOn, 0),
+                    Effects.GenerateEffect(MuteToggleOn, 0),
+                    Effects.GenerateEffect(CutOutSFX, 0),
+                    Effects.GenerateEffect(PhobiaReroll),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ReloadTimelineEffect>()),
+                    Effects.GenerateEffect(BlackOutOffDelayReroll, 0),
+            ];
+
+            Ability phobiasFiller = new Ability("Anticipation", "AApocrypha_PhobiaPhobiasSorryNothing_A")
+            {
+                Description = "<color=#" + redID + ">\"You have nothing to fear but fear itself.\"</color>",
+                Cost = [Pigments.Red, Pigments.Red, Pigments.Red],
+                //Visuals = CustomVisuals.Nothing,
+                //AnimationTarget = Targeting.Slot_Front,
+                Effects =
+                [
+                    Effects.GenerateEffect(BlackoutOn, 0),
+                    Effects.GenerateEffect(MuteToggleOn, 0),
+                    Effects.GenerateEffect(CutOutSFX, 0),
+                    Effects.GenerateEffect(DelayAnim),
+                    Effects.GenerateEffect(BlackoutOffDelay, 0),
+                ],
+                Rarity = Rarity.ExtremelyCommon,
+                Priority = Priority.Normal,
+            };
+            phobiasFiller.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Nothing"]);
 
             AddPassiveEffect Gouge = ScriptableObject.CreateInstance<AddPassiveEffect>();
             Gouge._passiveToAdd = Passives.GetCustomPassive("Gouged_PA");
@@ -356,7 +401,7 @@ namespace A_Apocrypha.Enemies
             Ability darkHiding = new Ability("Lurker in Darkness", "AApocrypha_PhobiaDarknessHide_A")
             {
                 Description = "Attempt to consume 5 pigment of this enemy's health color." +
-                "\nIf this succeeds, shuffle the positions of all Phobias and apply Confusion to this enemy." +
+                "\nIf this succeeds, apply Confusion to the Opposing party member and shuffle the positions of all Phobias." +
                 "\n<color=#" + redID + ">\"Imagine the horrors that could lurk within your very home...\"</color>",
                 Cost = [Pigments.Red, Pigments.Red, Pigments.Red],
                 //Visuals = CustomVisuals.Nothing,
@@ -368,14 +413,15 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(CutOutSFX, 0),
                     Effects.GenerateEffect(DelayAnim),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<ConsumeCasterColorReturnIfAllEffect>(), 5, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ShufflePositionsAmongTargetsEffect>(), 1, AllPhobias, Effects.CheckPreviousEffectCondition(true, 1)),
-                    Effects.GenerateEffect(Confuse, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 2)),
+                    Effects.GenerateEffect(Confuse, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ShufflePositionsAmongTargetsEffect>(), 1, AllPhobias, Effects.CheckPreviousEffectCondition(true, 2)),
                     Effects.GenerateEffect(BlackoutOffDelay, 0),
                 ],
                 Rarity = Rarity.ExtremelyCommon,
                 Priority = Priority.VeryFast,
             };
-            darkHiding.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Consume), nameof(IntentType_GameIDs.Misc_Hidden), "AA_AddPassive"]);
+            darkHiding.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Consume), nameof(IntentType_GameIDs.Misc_Hidden)]);
+            darkHiding.AddIntentsToTarget(Targeting.Slot_Front, ["AA_AddPassive"]);
             darkHiding.AddIntentsToTarget(Targeting.Unit_AllAllySlots, [nameof(IntentType_GameIDs.Swap_Mass)]);
 
             Ability rareDeathFakeout = new Ability("Unfounded Paranoia", "AApocrypha_PhobiaFakeDeathHahaGottem_A")
@@ -422,43 +468,87 @@ namespace A_Apocrypha.Enemies
             };
             rareWordsMany.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Misc_Hidden), nameof(IntentType_GameIDs.Misc_Hidden), nameof(IntentType_GameIDs.Misc_Hidden)]);
 
+            DamageEffect DamageByPreviousKill = ScriptableObject.CreateInstance<DamageEffect>();
+            DamageByPreviousKill._usePreviousExitValue = true;
+            DamageByPreviousKill._returnKillAsSuccess = true;
+
+            TryUnlockAchievementEffect ScrabbledAchievement = ScriptableObject.CreateInstance<TryUnlockAchievementEffect>();
+            ScrabbledAchievement._unlockID = "TragedyPhobophobiaLongWords";
+
+            Ability rareScrabbled = new Ability("Oxyphenbutazone", "AApocrypha_PhobiaLongWordsScrabbled_A")
+            {
+                Description = "Deal an amount of damage equal to the Scrabble score of the Opposing party member's name to the Opposing party member." +
+                "If this damage kills, deal an amount of damage equal to the Scrabble score of this enemy's name to this enemy." +
+                "\n<color=#" + redID + ">\"Lost? Check the Glossary.\"</color>",
+                Cost = [Pigments.Red, Pigments.Red, Pigments.Red],
+                //Visuals = CustomVisuals.Nothing,
+                //AnimationTarget = Targeting.Slot_Front,
+                Effects =
+                [
+                    Effects.GenerateEffect(BlackoutOn, 0),
+                    Effects.GenerateEffect(MuteToggleOn, 0),
+                    Effects.GenerateEffect(CutOutSFX, 0),
+                    Effects.GenerateEffect(DelayAnim),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ReturnTargetsScrabbleScoreEffect>(), 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(DamageByPreviousKill, 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ReturnTargetsScrabbleScoreEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(DamageByPreviousKill, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 2)),
+                    Effects.GenerateEffect(ScrabbledAchievement, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 3)),
+                    Effects.GenerateEffect(BlackoutOffDelay, 0),
+                ],
+                Rarity = Rarity.ExtremelyCommon,
+                Priority = Priority.Fast,
+            };
+            rareScrabbled.AddIntentsToTarget(Targeting.Slot_Front, ["AA_Damage_Scrabble"]);
+            rareScrabbled.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Damage_Scrabble"]);
+
+            BasePassiveAbilitySO[] phobiaPassives = [transformPassive, patientPassive, blackoutPassive];
+
+            fearoffear.AddPassives(phobiaPassives);
             fearoffear.AddEnemyAbilities([
+                phobiasFiller,
                 rerollAbility,
             ]);
             fearoffear.AddEnemy(true, false, true);
 
+            fearofbeingwatched.AddPassives(phobiaPassives);
             fearofbeingwatched.AddEnemyAbilities([
                 lookerEyeSteal,
                 rerollAbility,
             ]);
             fearofbeingwatched.AddEnemy(false, false, false);
 
+            fearofwords.AddPassives(phobiaPassives);
             fearofwords.AddEnemyAbilities([
                 wordsCutting,
                 rerollAbility,
             ]);
             fearofwords.AddEnemy(false, false, false);
 
+            fearofthedark.AddPassives(phobiaPassives);
             fearofthedark.AddEnemyAbilities([
                 darkHiding,
                 rerollAbility,
             ]);
             fearofthedark.AddEnemy(false, false, false);
 
+            fearofdeath.AddPassives(phobiaPassives);
             fearofdeath.AddEnemyAbilities([
                 deathMemento,
                 rerollAbility,
             ]);
             fearofdeath.AddEnemy(false, false, false);
 
+            rarefearofdeathfake.AddPassives(phobiaPassives);
             rarefearofdeathfake.AddEnemyAbilities([
                 rareDeathFakeout,
                 rerollAbility,
             ]);
             rarefearofdeathfake.AddEnemy(false, false, false);
 
+            rarefearoflongwords.AddPassives(phobiaPassives);
             rarefearoflongwords.AddEnemyAbilities([
-                rareWordsMany,
+                rareScrabbled,
                 rerollAbility,    
             ]);
             rarefearoflongwords.AddEnemy(false, false, false);

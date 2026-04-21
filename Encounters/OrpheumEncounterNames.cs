@@ -486,6 +486,14 @@ namespace A_Apocrypha.Encounters
             {
                 public static string Med => "H_Zone02_Uttershroom_Medium_EnemyBundle";
             }
+            public static class Aggregates
+            {
+                public static class Yellow
+                {
+                    public static string Easy => "H_Zone02_YellowAggregate_Easy_EnemyBundle";
+                    public static string Med => "H_Zone02_YellowAggregate_Medium_EnemyBundle";
+                }
+            }
 
 
             //ita

@@ -30,7 +30,7 @@ namespace A_Apocrypha.CustomOther
                 if (en == null || en.Enemy == null)
                     continue;
 
-                var passives = en.Enemy.passiveAbilities;
+                var passives = en.PassiveAbilities;
                 if (passives.Count == 0 || Array.IndexOf(passives.ToArray(), _passive) < 0)
                     continue;
 
@@ -67,7 +67,7 @@ namespace A_Apocrypha.CustomOther
                 if (ch == null || ch.Character == null)
                     continue;
 
-                var passives = ch.Character.passiveAbilities;
+                var passives = ch.PassiveAbilities;
                 if (passives.Count == 0 || Array.IndexOf(passives.ToArray(), _passive) < 0)
                     continue;
 

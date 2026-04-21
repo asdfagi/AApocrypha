@@ -27,23 +27,31 @@ namespace A_Apocrypha.Items
                 EquippedModifiers = [wearablePassiveDying],
             };
 
-            ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(evilhoney.item, new ItemModdedUnlockInfo("CardinalHoney_TW", ResourceLoader.LoadSprite("UnlockNobodyWhitlockLocked", null, 32, null), "AApocrypha_Whitlock_Forgotten_ACH"));
+            evilhoney.item._ItemTypeIDs =
+            [
+                "FoodID",
+            ];
 
-            BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement("AApocrypha_Whitlock_Forgotten_ACH", "CardinalHoney_TW");
+            string achievementID = "AApocrypha_Whitlock_Forgotten_ACH";
+            string unlockID = "AApocrypha_Whitlock_Forgotten_Unlock";
 
-            UnlockableModData whitlockNobodyUnlockData = new UnlockableModData("AApocrypha_Whitlock_Forgotten_Unlock")
+            ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(evilhoney.item, new ItemModdedUnlockInfo(evilhoney.Item_ID, ResourceLoader.LoadSprite("UnlockNobodyWhitlockLocked", null, 32, null), achievementID));
+
+            BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement(achievementID, evilhoney.Item_ID);
+
+            UnlockableModData unlockData = new UnlockableModData(unlockID)
             {
                 hasModdedAchievementUnlock = true,
-                moddedAchievementID = "AApocrypha_Whitlock_Forgotten_ACH",
+                moddedAchievementID = achievementID,
                 hasItemUnlock = true,
-                items = ["CardinalHoney_TW"],
+                items = [evilhoney.Item_ID],
             };
 
-            FinalBossCharUnlockCheck UnlockForgottenWhitlock = Unlocks.GetOrCreateUnlock_CustomFinalBoss("Nobody_BOSS", ResourceLoader.LoadSprite("NobodyPearl", null, 32, null));
-            UnlockForgottenWhitlock.AddUnlockData("Whitlock_CH", whitlockNobodyUnlockData);
+            FinalBossCharUnlockCheck unlockCheck = Unlocks.GetOrCreateUnlock_CustomFinalBoss("Nobody_BOSS", ResourceLoader.LoadSprite("NobodyPearl", null, 32, null));
+            unlockCheck.AddUnlockData("Whitlock_CH", unlockData);
 
-            ModdedAchievements whitlocknobodyachievement = new ModdedAchievements("Cardinal's Honey", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementNobodyWhitlock", null, 32, null), "AApocrypha_Whitlock_Forgotten_ACH");
-            whitlocknobodyachievement.AddNewAchievementToCUSTOMCategory("ForgottenTitleLabel", "The Forgotten");
+            ModdedAchievements unlockAchievement = new ModdedAchievements("Cardinal's Honey", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementNobodyWhitlock", null, 32, null), achievementID);
+            unlockAchievement.AddNewAchievementToCUSTOMCategory("ForgottenTitleLabel", "The Forgotten");
         }
     }
 }

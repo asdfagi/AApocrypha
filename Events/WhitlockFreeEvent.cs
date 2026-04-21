@@ -28,6 +28,7 @@ namespace A_Apocrypha.Events
             ModdedNPCs.AddCustom_FreeFoolEncounter(text2, freeFoolEncounterSO);
             ZoneBGDataBaseSO zoneBGDataBaseSO2 = LoadedAssetsHandler.GetZoneDB("ZoneDB_Hard_01") as ZoneBGDataBaseSO;
             zoneBGDataBaseSO2._FreeFoolsPool.Add(text2);
+            Debug.Log("Free Fool Events | Far Shore | Whitlock");
         }
     }
 }

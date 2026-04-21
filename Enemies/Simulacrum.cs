@@ -35,6 +35,14 @@ namespace A_Apocrypha.Enemies
             CopyThatPopup._sprite = "IconCopyThat";
             CopyThatPopup._isUnitCharacter = false;
 
+            PassiveLockingEffect PureLock = ScriptableObject.CreateInstance<PassiveLockingEffect>();
+            PureLock._lock = true;
+            PureLock.m_PassiveIDs = [Passives.Pure.m_PassiveID];
+
+            PassiveLockingEffect PureUnlock = ScriptableObject.CreateInstance<PassiveLockingEffect>();
+            PureUnlock._lock = false;
+            PureUnlock.m_PassiveIDs = [Passives.Pure.m_PassiveID];
+
             Enemy simulacrum = new Enemy("Simulacrum", "Simulacrum_EN")
             {
                 Health = 50,
@@ -59,9 +67,11 @@ namespace A_Apocrypha.Enemies
                 AnimationTarget = Targeting.Slot_SelfSlot,
                 Effects =
                 [
+                    Effects.GenerateEffect(PureLock),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SimulacrumWipeCopyEffect>(), 1, Targeting.Slot_SelfSlot, FiftyPercent),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CopyThatEffect>(), 2, Targeting.Unit_AllOpponents, PreviousTrue),
                     Effects.GenerateEffect(CopyThatPopup, 1, Targeting.Slot_SelfSlot, PreviousTrue),
+                    Effects.GenerateEffect(PureUnlock),
                 ],
                 Rarity = Rarity.Impossible,
                 Priority = Priority.CreateAndAddCustomPriorityToPool("AA_SimulacrumStupendouslySlow", -10),

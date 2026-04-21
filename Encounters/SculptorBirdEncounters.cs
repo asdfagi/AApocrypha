@@ -16,8 +16,9 @@ namespace A_Apocrypha.Encounters
             };
             sculptorBirdMedium.SimpleAddEncounter(1, "SculptorBird_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, "MusicMan_EN");
             sculptorBirdMedium.SimpleAddEncounter(1, "SculptorBird_EN", 1, HiddenBloatfinger.OrpheumRandom, 2, "MusicMan_EN");
-            sculptorBirdMedium.SimpleAddEncounter(1, "SculptorBird_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, Spoggle.Blue, 1, Jumble.Red);
-            sculptorBirdMedium.SimpleAddEncounter(1, "SculptorBird_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, Spoggle.PurpleRedSplit, 1, Jumble.Yellow);
+            sculptorBirdMedium.SimpleAddEncounter(1, "SculptorBird_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, Jumble.Red);
+            sculptorBirdMedium.SimpleAddEncounter(1, "SculptorBird_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, Jumble.Yellow);
+            sculptorBirdMedium.SimpleAddEncounter(1, "SculptorBird_EN", 1, HiddenBloatfinger.OrpheumRandom, 1, Spoggle.PurpleRedSplit);
             sculptorBirdMedium.SimpleAddEncounter(1, "SculptorBird_EN", 1, HiddenBloatfinger.OrpheumRandom, 2, "Blemmigan_EN");
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {

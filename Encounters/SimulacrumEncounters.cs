@@ -34,8 +34,8 @@ namespace A_Apocrypha.Encounters
                 RoarEvent = "event:/AAEnemy/SimulacrumRoar",
             };
             simulacrumAbyssHard.SimpleAddEncounter(1, "Simulacrum_EN");
-            simulacrumAbyssHard.SimpleAddEncounter(1, "Simulacrum_EN", 1, "Mistaken_EN", 1, "Mistake_EN");
-            simulacrumAbyssHard.SimpleAddEncounter(1, "Simulacrum_EN", 1, "Mistaken_EN", 1, "YesMan_EN");
+            simulacrumAbyssHard.SimpleAddEncounter(1, "Simulacrum_EN", 1, "WanderFellow_EN");
+            simulacrumAbyssHard.SimpleAddEncounter(1, "Simulacrum_EN", 1, "WanderFellow_EN", 1, "YesMan_EN");
             simulacrumAbyssHard.SimpleAddEncounter(1, "Simulacrum_EN", 1, Symbols.Purple, 1, "YesMan_EN");
             simulacrumAbyssHard.SimpleAddEncounter(1, "Simulacrum_EN", 2, "MachineGnomes_EN");
             simulacrumAbyssHard.SimpleAddEncounter(1, "Simulacrum_EN", 1, "Faceless_EN");

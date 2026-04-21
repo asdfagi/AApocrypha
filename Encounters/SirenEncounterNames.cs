@@ -57,6 +57,11 @@ namespace A_Apocrypha.Encounters
             {
                 public static string Hard => "PhalarisHard";
             }
+            public static class Scuttlebunk
+            {
+                public static string Med => "ScuttlebunkMed";
+                public static string Hard => "ScuttlebunkHard";
+            }
 
             //ita
             public static class Soothsayer
@@ -108,6 +113,14 @@ namespace A_Apocrypha.Encounters
             public static class HazardHauler
             {
                 public static string Med => "H_ZoneSiren_HazardHauler_Medium_EnemyBundle";
+            }
+            public static class Aggregates
+            {
+                public static class Blue
+                {
+                    public static string Easy => "H_ZoneSiren_BlueAggregate_Easy_EnemyBundle";
+                    public static string Med => "H_ZoneSiren_BlueAggregate_Medium_EnemyBundle";
+                }
             }
         }
     }

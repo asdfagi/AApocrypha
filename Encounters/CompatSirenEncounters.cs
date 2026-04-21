@@ -33,6 +33,10 @@ namespace A_Apocrypha.Encounters
                 sirenAdd = new AddTo(Siren.H.Olmic.Med);
                 sirenAdd.SimpleAddGroup(1, "Olmic_EN", 1, "Boiler_EN", 1, "WinterLantern_EN");
                 sirenAdd.SimpleAddGroup(1, "Boiler_EN", 1, "Boiler_EN", 1, "BirdBath_EN", 1, "HazardHauler_Siren_EN");
+
+                sirenAdd = new AddTo(Siren.H.Scuttlebunk.Hard);
+                sirenAdd.SimpleAddGroup(1, "Scuttlebunk_EN", 1, "Boiler_EN", 1, "WinterLantern_EN");
+                sirenAdd.SimpleAddGroup(1, "Scuttlebunk_EN", 1, "Tassnn_EN", 1, "WinterLantern_EN");
                 /*if (AApocrypha.CrossMod.SaltEnemies)
                 {
                     List<RandomEnemyGroup> wolvesMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_ZoneSiren_WolfColony_Medium_EnemyBundle"))._enemyBundles)

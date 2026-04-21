@@ -39,6 +39,7 @@ namespace A_Apocrypha
     [BepInDependency("WolfaCola.UndivineComedy", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("roundqueen.roundsrevelry", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("Devron.BismuthBoiler", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("millieamp.leonEnemies", BepInDependency.DependencyFlags.SoftDependency)]
     //[BepInDependency("Marmo.Sasha", BepInDependency.DependencyFlags.SoftDependency)]
 
     public class AApocrypha : BaseUnityPlugin
@@ -64,6 +65,7 @@ namespace A_Apocrypha
             public static bool UndivineComedy = false;
             public static bool Revelry = false;
             public static bool BismuthBoiler = false;
+            public static bool LeonLegion = false;
             public static bool pigmentGilded = false;
             public static bool pigmentRainbow = false;
             public static bool pigmentPeppermint = false;
@@ -87,6 +89,7 @@ namespace A_Apocrypha
                     if (metadata.GUID == "roundqueen.roundsrevelry") { Revelry = true; }
                     if (metadata.GUID == "WolfaCola.UndivineComedy") { UndivineComedy = true; }
                     if (metadata.GUID == "Devron.BismuthBoiler") { BismuthBoiler = true; }
+                    if (metadata.GUID == "millieamp.leonEnemies") { LeonLegion = true; }
                     if (metadata.GUID == "AnimatedGlitch.NumerousLads") { pigmentGilded = true; }
                     if (metadata.GUID == "Devron.UnluckyGuys") { pigmentRainbow = true; }
                     if (metadata.GUID == "embercoral.embercoralsMonsterMixtape") { pigmentPeppermint = true; }
@@ -105,6 +108,7 @@ namespace A_Apocrypha
                 if (UndivineComedy) { Debug.Log("hello divine uncomedy"); }
                 if (Revelry) { Debug.Log("hello revelful ruinry"); }
                 if (BismuthBoiler) { Debug.Log("hello Bismor, it feels so good to say it! boiler"); }
+                if (LeonLegion) { Debug.Log("hello Legion's Leon"); }
                 if (pigmentGilded && LoadedDBsHandler.PigmentDB.GetPigment("Gilded") != null)
                 {
                     Debug.Log("hello gilded pigment from numerous lads");
@@ -149,7 +153,10 @@ namespace A_Apocrypha
 
             //Intents
             CustomIntents.Add();
-            
+
+            //Pigments
+            CustomPigments.Add();
+
             //Crossmod Check
             CrossMod.Check();
 
@@ -186,7 +193,7 @@ namespace A_Apocrypha
             /*if (CrossMod.HellIslandFell) // hoftstoldt and salad are now tagged as robots innately
             {
             }*/
-            if (CrossMod.SaltEnemies)
+            /*if (CrossMod.SaltEnemies) the robot tag is directly applied in Salt Enemies! leaving the list for posterity or something
             {
                 TagCharIfExists("Windle_CH", "Robot");
                 TagEnemyIfExists("MechanicalLens_EN", "Robot");
@@ -203,14 +210,14 @@ namespace A_Apocrypha
                 TagEnemyIfExists("Stalker2_EN", "Robot");
                 TagEnemyIfExists("Invention_BOSS", "Robot");
                 TagEnemyIfExists("Megalania_BOSS", "Robot");
-            }
+            }*/
             if (CrossMod.StewSpecimens)
             {
                 TagCharIfExists("Stolas_CH", "Robot");
                 TagEnemyIfExists("KapteynAbductor_EN", "Robot");
                 TagEnemyIfExists("ArtilleryWitch_EN", "Robot");
                 TagEnemyIfExists("SacredScraps_EN", "Robot");
-                TagEnemyIfExists("MechanicalDance_EN", "Robot");
+                TagEnemyIfExists("AmberBiome_EN", "Robot");
             }
             if (CrossMod.MarmoEnemies)
             {
@@ -239,15 +246,29 @@ namespace A_Apocrypha
             KneynsbergCharacter.Add();
             Debug.Log("Characters | The Incomprehensible");
             AnomalyCharacter.Add();
+            Debug.Log("Characters | The Analytic");
+            NaudizCharacter.Add();
+            Debug.Log("Characters | Robot Minions");
+            RobotMinionCharacter.Add();
             Debug.Log("Characters | Initialized");
 
             //Free Fool Events
+            //Far Shore
             WhitlockFreeEvent.Add();
             KneynsbergFreeEvent.Add();
+            Naudiz4FreeEvent.Add();
+            //Abyss
+            if (CrossMod.IntoTheAbyss && Abyss.Exists)
+            {
+                GnomesFreeEvent.Add();
+            }
             Debug.Log("Free Fool Events | Initialized");
 
             //Free Fool Event Tester
             //FreeFoolEventTester.Add();
+
+            //Bar Handler
+            BarHandler.Add();
 
             //Other Events
 
@@ -287,6 +308,7 @@ namespace A_Apocrypha
             Sisters.Add();
             Enemies.Enlightened.Add();
             PhobiaEnemies.Add();
+            Dogma.Add();
             Debug.Log("Enemies | Garden Enemies Initialized");
             //Unclassified, Multiple
             CustomSpoggles.Add();
@@ -298,10 +320,18 @@ namespace A_Apocrypha
             Enemies.Logos.Add();
             HazardHauler.Add();
             TruthEncounterEnemies.Add();
-            Debug.Log("Enemies | Initialized");
+            Aggregate.Add();
+            BasicElemental.Add();
+            Debug.Log("Enemies | Misc Enemies Initialized");
+            //Friendly
+            MachineGnomesFriendly.Add();
+            Debug.Log("Enemies | Friendly Enemies Initialized");
 
             //Bosses
             //Far Shore
+            Amdusias.Add();
+            AmdusiasEncounter.Add();
+            Debug.Log("The Zelator");
             //Orpheum
             //Siren
             if (CrossMod.Siren)
@@ -329,9 +359,11 @@ namespace A_Apocrypha
             {
                 ColophonDualisticEncounters.Add();
             }
+            RedAggregateEncounters.Add();
+            PurpleAggregateEncounters.Add();
             CompatFarShoreEncounters.Add();
             //Orpheum
-            UnboundAnomalyEncounters.Add();
+            //UnboundAnomalyEncounters.Add();
             EncasedAnomalyEncounters.Add();
             SharpenedAnomalyEncounters.Add();
             SculptorBirdEncounters.Add();
@@ -347,6 +379,7 @@ namespace A_Apocrypha
             {
                 ColophonHereticalEncounters.Add();
             }
+            YellowAggregateEncounters.Add();
             CompatOrpheumEncounters.Add();
             //Siren
             if (CrossMod.Siren)
@@ -354,6 +387,7 @@ namespace A_Apocrypha
                 SculptorBirdSirenEncounters.Add();
                 WinterLanternEncounters.Add();
                 HazardHaulerSirenEncounters.Add();
+                BlueAggregateEncounters.Add();
                 ThresholdEncounters.Add();
                 CompatSirenEncounters.Add();
             }
@@ -365,7 +399,7 @@ namespace A_Apocrypha
             BlueLogosEncounters.Add();
             YellowLogosEncounters.Add();
             PurpleLogosEncounters.Add();
-            if (CrossMod.UndivineComedy && LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
+            if (LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
             {
                 DiscordantLogosEncounters.Add();
             }
@@ -375,16 +409,23 @@ namespace A_Apocrypha
             //Abyss
             if (CrossMod.IntoTheAbyss)
             {
+                IridescentOrguisEncounters.Add();
+                ClusterfuckOrguisEncounters.Add();
+                WhiteOrguisEncounters.Add();
+                BasicElementalEncounters.Add();
                 CompatAbyssEncounters.Add();
             }
             //Minibosses
             RiftEncounters.Add();
+            TarnishedDivinityEncounter.Add();
             //AnomalyMinibossEncounters.Add();
             //Unclassified, Multiple
             if (CrossMod.pigmentPeppermint && CrossMod.Colophons)
             {
                 ColophonSaccharineEncounters.Add();
             }
+            //Zero Weight Joke Encounters
+            JokeEncountersGarden.Add();
             Debug.Log("Encounters | Initialized");
 
             //Parabola
@@ -399,6 +440,9 @@ namespace A_Apocrypha
 
             // ITEMS & ACHIEVEMENTS
             // Boss Unlocks
+            // Amdusias
+            AnomalousScepter.Add();
+            SilverBell.Add();
             // Amalgamated Assessor
             if (CrossMod.Siren)
             {
@@ -407,26 +451,33 @@ namespace A_Apocrypha
             }
             // Miniboss Unlocks
             HyperdimensionalPearl.Add();
+            TarnishedScripture.Add();
             if (CrossMod.Siren)
             {
                 AnomalousSymbol.Add();
             }
             // Comedies
             HumanHeart.Add();
+            GnomeHat.Add();
+            // Tragedies
+            LetterTile.Add();
             // Osman Unlocks
             TinctureOfVigour.Add();
             CosmogoneSpectacles.Add();
             FiiF.Add();
+            ScanningModule.Add();
             // Heaven Unlocks
             HesperideanCider.Add();
             SerpentEffigy.Add();
             ToadFungusRorschach.Add();
+            Posibrain.Add();
             // Doula Unlocks
             if (CrossMod.EnemyPack)
             {
                 DarkdropCoffee.Add();
                 Dustwine.Add();
                 RipEnemyPack.Add();
+                MMI.Add();
             }
             // March Unlocks
             if (CrossMod.GlitchsFreaks)
@@ -434,19 +485,24 @@ namespace A_Apocrypha
                 EyelessSkull.Add();
                 Emergence.Add();
                 DownloadFailure.Add();
+                BridgeCircuit.Add();
             }
-            // Nobody Unlocks
             if (CrossMod.IntoTheAbyss)
             {
+                // Nobody Unlocks
                 CardinalHoney.Add();
                 Moondial.Add();
                 SpicyPillowSequel.Add();
+                RadarDish.Add();
+                // Katalixi Unlocks
+                //RandomDistortion.Add(); //very unstable
             }
             // Bluw Sky Unlocks
             if (CrossMod.SaltEnemies)
             {
                 FourthCityAirag.Add();
                 TruthItem.Add();
+                FrontalLobeImplant.Add();
             }
             // Miscellaneous Items
             CranesSavesTheRun.Add();
@@ -459,6 +515,25 @@ namespace A_Apocrypha
             //Gauntlet
             //GauntletEvents.Add();
             //GauntletEncounters.Add();
+
+            //Keywords
+            LoadedDBsHandler.GlossaryDB.AddNewKeyword(new GlossaryKeywords("Scrabble Scoring", "In Scrabble, a word's score is determined by the sum of the point values of every letter used." +
+                "\nListed here are the point values for each letter." +
+                "\n1 Point: A, E, I, L, N, O, R, S, T, U" +
+                "\n2 Points: D, G" +
+                "\n3 Points: B, C, M, P" +
+                "\n4 Points: F, H, V, W, Y" +
+                "\n5 Points: K" +
+                "\n8 Points: J, X" +
+                "\n10 Points: Q, Z" +
+                "\nIn a deviation from standard rules, a digit will score with a point value equal to itself. Everything else will score 0 points." +
+                "\n\nExamples:" +
+                "\nMung: 7 (3 + 1 + 1 + 2)" +
+                "\nInner Child: 16 (1 + 1 + 1 + 1 + 1 + 0 + 3 + 4 + 1 + 1 + 2)" +
+                "\nNowak: 12 (1 + 1 + 4 + 1 + 5)"));
+
+            // Testers
+            //ElVibrato.TranslationTester();
 
             Logger.LogInfo("Asdfagi's Abominable Apocrypha activated.");
         }

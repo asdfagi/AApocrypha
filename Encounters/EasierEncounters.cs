@@ -328,6 +328,34 @@ namespace A_Apocrypha.Encounters
         public static string Heart => "ExternalIncubator_EN";
         public static string Gilded => "Frostbite_Gilded_EN";
     }
+    public static class Orguis
+    {
+        public static string Iridescent => "EphialtesOrguis_EN";
+        public static string Irid => Iridescent;
+        public static string Clusterfuck => "ApatelosOrguis_EN";
+        public static string Entropic => "PanopticOrguis_EN";
+        public static string White => "HamalatOrguis_EN";
+    }
+    public static class Martians
+    {
+        public static string Red => "RedMartian_EN";
+        public static string Blue => "BlueMartian_EN";
+        public static string Yellow => "YellowMartian_EN";
+        public static string Purple => "PurpleMartian_EN";
+        public static string Green => "GreenMartian_EN";
+        public static string Grey => "GreyMartian_EN";
+        public static string Gray => Grey;
+    }
+    public static class Aggregates
+    {
+        public static string Red => "RedAggregate_EN";
+        public static string Blue => "BlueAggregate_EN";
+        public static string Yellow => "YellowAggregate_EN";
+        public static string Purple => "PurpleAggregate_EN";
+        public static string Green => "GreenAggregate_EN";
+        public static string Grey => "GreyAggregate_EN";
+        public static string Gray => Grey;
+    }
     public static class Enemies
     {
         public static string Skinning => "SkinningHomunculus_EN";

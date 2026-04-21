@@ -22,12 +22,15 @@ namespace A_Apocrypha.CustomEffects
                     IUnit targetUnit = target.Unit;
                     if (targetUnit.HealthColor == _color)
                     {
-                        if (_fallbackColors.Length == 1) { targetUnit.ChangeHealthColor(_fallbackColors[0]); }
+                        bool fallbackReturn = false;
+                        if (_fallbackColors.Length == 1) { fallbackReturn = targetUnit.ChangeHealthColor(_fallbackColors[0]); }
                         else
                         {
                             int randomIndex = UnityEngine.Random.Range(0, _fallbackColors.Length);
-                            targetUnit.ChangeHealthColor(_fallbackColors[randomIndex]);
+                            fallbackReturn = targetUnit.ChangeHealthColor(_fallbackColors[randomIndex]);
                         }
+                        exitAmount += (fallbackReturn ? 1 : 0);
+                        continue;
                     }
                     if (targetUnit.HealthColor.SharesPigmentColor(_color))
                     {

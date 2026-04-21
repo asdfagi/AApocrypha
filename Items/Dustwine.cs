@@ -41,6 +41,12 @@ namespace A_Apocrypha.Items
                 ],
             };
 
+            dustwine.item._ItemTypeIDs =
+            [
+                "FoodID",
+                "Drink",
+            ];
+
             ItemUtils.AddItemToShopStatsCategoryAndGamePool(dustwine.item, new ItemModdedUnlockInfo("CupOfDustwine_SW", ResourceLoader.LoadSprite("UnlockDoulaKneynsbergLocked", null, 32, null), "AApocrypha_Kneynsberg_Abstraction_ACH"));
 
             BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement("AApocrypha_Kneynsberg_Abstraction_ACH", "CupOfDustwine_SW");

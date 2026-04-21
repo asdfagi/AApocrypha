@@ -152,18 +152,22 @@ namespace A_Apocrypha.Fools //replace this with your mod's name. EX. "BRUTAL_ORC
             otherAbility1.AddIntentsToTarget(Targeting.Slot_FrontAndSides, [nameof(IntentType_GameIDs.Status_Scars)]);
             otherAbility1.AddIntentsToTarget(Targeting.Slot_Front, ["AA_RemPassive"]);
 
+            CasterHealEveryXStatusEffect testHeal = ScriptableObject.CreateInstance<CasterHealEveryXStatusEffect>();
+            testHeal._status = StatusField.Ruptured;
+            testHeal._threshold = 3;
+            testHeal._directHeal = true;
+
             //Ability 3.
             Ability thirdAbility0 = new Ability("Third Ability", "thirdAbility_1_A")
             {
-                Description = "Deal 2 damage to the Opposing enemy.\nApply 1 Fleeting to this party member.",
+                Description = "Heal this party member 3 health for every 3 stacks of Ruptured they have.",
                 AbilitySprite = ResourceLoader.LoadSprite("ThirdAbilityIcon"),
                 Cost = [Pigments.Blue],
                 Visuals = Visuals.Wriggle,
                 AnimationTarget = Targeting.Slot_Front,
                 Effects =
                 [
-                    Effects.GenerateEffect(DirectDamage, 2, Targeting.Slot_Front),
-                    Effects.GenerateEffect(addPassiveEffect, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(testHeal, 3),
                 ]
             };
             thirdAbility0.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Status_Spotlight)]);

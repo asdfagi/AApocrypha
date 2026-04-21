@@ -11,13 +11,14 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("EncasedAnomaly_Sign", ResourceLoader.LoadSprite("EncasedAnomalyTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API encasedAnomalyMedium = new EnemyEncounter_API(0, Orph.H.Anomaly.Encased.Med, "EncasedAnomaly_Sign")
             {
-                MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
+                MusicEvent = "event:/AAMusic/Ridiculon/WallsOfDenial",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
             encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 2, "MusicMan_EN");
             encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, "MusicMan_EN", 1, "Scrungie_EN");
             encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, Anomalies.Unbound, 1, "MusicMan_EN", 1, "Scrungie_EN");
-            encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, Spoggle.Blue, 1, Jumble.Red);
+            encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, "MusicMan_EN", 1, Jumble.Red);
+            encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, Spoggle.Blue, 1, "MusicMan_EN");
             encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 3, Enemies.Suckle);
             if (AApocrypha.CrossMod.BismuthBoiler)
             {
@@ -27,11 +28,11 @@ namespace A_Apocrypha.Encounters
             if (AApocrypha.CrossMod.Colophons)
             {
                 encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, Spoggle.Red, 1, Colophon.Yellow);
-                encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, Spoggle.Blue, 1, Colophon.Yellow);
-                encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, Spoggle.BlueYellowSplit, 1, Colophon.Yellow);
+                //encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, Spoggle.Blue, 1, Colophon.Yellow);
+                //encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, Spoggle.BlueYellowSplit, 1, Colophon.Yellow);
                 if (AApocrypha.CrossMod.IntoTheAbyss)
                 {
-                    encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, Spoggle.Red, 1, Colophon.Green);
+                    //encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, Spoggle.Red, 1, Colophon.Green);
                     encasedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Encased, 1, "Fanatic_EN", 1, Colophon.PurpleRedSplit);
                 }
             };

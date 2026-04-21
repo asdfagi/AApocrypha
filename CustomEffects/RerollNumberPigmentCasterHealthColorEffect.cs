@@ -30,6 +30,7 @@ namespace A_Apocrypha.CustomEffects
             {
                 int index = UnityEngine.Random.Range(0, list.Count);
                 list2.Add(list[index]);
+                Debug.Log("transforming into " + this._mana.name);
                 stats.MainManaBar.ManaBarSlots[list[index]].SetMana(this._mana);
                 list.RemoveAt(index);
                 list3.Add(this._mana);

@@ -354,6 +354,45 @@ namespace A_Apocrypha.Encounters
                 }
             }
 
+            //leon's legion
+            public static class Bogeo
+            {
+                public static string Med => "H_Zone01_Bogeo_Medium_EnemyBundle";
+                public static string Hard => "H_Zone01_Bogeo_Hard_EnemyBundle";
+            }
+            public static class Keklets
+            {
+                public static string Med => "H_Zone01_Keklets_Medium_EnemyBundle";
+            }
+            public static class Topkek
+            {
+                public static string Med => "H_Zone01_Topkek_Medium_EnemyBundle";
+                public static string Hard => "H_Zone01_Topkek_Hard_EnemyBundle";
+            }
+            public static class Martian
+            {
+                public static class Red
+                {
+                    public static string Med => "H_Zone01_RedMartian_Medium_EnemyBundle";
+                    public static string Hard => "H_Zone01_RedMartian_Hard_EnemyBundle";
+                }
+                public static class Blue
+                {
+                    public static string Med => "H_Zone01_BlueMartian_Medium_EnemyBundle";
+                    public static string Hard => "H_Zone01_BlueMartian_Hard_EnemyBundle";
+                }
+                public static class Yellow
+                {
+                    public static string Med => "H_Zone01_YellowMartian_Medium_EnemyBundle";
+                    public static string Hard => "H_Zone01_YellowMartian_Hard_EnemyBundle";
+                }
+                public static class Purple
+                {
+                    public static string Med => "H_Zone01_PurpleMartian_Medium_EnemyBundle";
+                    public static string Hard => "H_Zone01_PurpleMartian_Hard_EnemyBundle";
+                }
+            }
+
             //aapocrypha
             public static class Acolyte
             {
@@ -389,6 +428,20 @@ namespace A_Apocrypha.Encounters
             public static class DuneThresher
             {
                 public static string Hard => "H_Zone01_DuneThresher_Hard_EnemyBundle";
+            }
+
+            public static class Aggregates
+            {
+                public static class Red
+                {
+                    public static string Easy => "H_Zone01_RedAggregate_Easy_EnemyBundle";
+                    public static string Med => "H_Zone01_RedAggregate_Medium_EnemyBundle";
+                }
+                public static class Purple
+                {
+                    public static string Easy => "H_Zone01_PurpleAggregate_Easy_EnemyBundle";
+                    public static string Med => "H_Zone01_PurpleAggregate_Medium_EnemyBundle";
+                }
             }
         }
     }

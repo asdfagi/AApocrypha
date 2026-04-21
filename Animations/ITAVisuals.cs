@@ -12,6 +12,7 @@ namespace A_Apocrypha.Animations
         public static AttackVisualsSO PendulumL;
         public static AttackVisualsSO PendulumR;
         public static AttackVisualsSO PendulumFinisher;
+        public static AttackVisualsSO Divide;
         public static void Add()
         {
             Explode = ScriptableObject.CreateInstance<AttackVisualsSO>();
@@ -43,6 +44,11 @@ namespace A_Apocrypha.Animations
             PendulumFinisher.audioReference = "event:/AASFX/ITA/PendulumFinisher";
             PendulumFinisher.isAnimationFullScreen = false;
             PendulumFinisher.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/IntoTheAbyssEnemies/PendulumFinisher.anim");
+
+            Divide = ScriptableObject.CreateInstance<AttackVisualsSO>();
+            Divide.audioReference = "event:/AASFX/ITA/Divide";
+            Divide.isAnimationFullScreen = false;
+            Divide.animation = AApocrypha.assetBundle.LoadAsset<AnimationClip>("Assets/IntoTheAbyssEnemies/Divide.anim");
         }
     }
 }

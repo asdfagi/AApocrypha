@@ -12,7 +12,7 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("Anomaly_Sign", ResourceLoader.LoadSprite("AnomalyTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API anomalyEasy = new EnemyEncounter_API(0, Orph.H.Anomaly.Unbound.Easy, "Anomaly_Sign")
             {
-                MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
+                MusicEvent = "event:/AAMusic/Ridiculon/WallsOfDenial",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
             anomalyEasy.SimpleAddEncounter(1, Anomalies.Unbound, 1, "MusicMan_EN");
@@ -29,7 +29,7 @@ namespace A_Apocrypha.Encounters
 
             EnemyEncounter_API anomalyMedium = new EnemyEncounter_API(0, Orph.H.Anomaly.Unbound.Med, "Anomaly_Sign")
             {
-                MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
+                MusicEvent = "event:/AAMusic/Ridiculon/WallsOfDenial",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
             anomalyMedium.SimpleAddEncounter(2, Anomalies.Unbound, 1, "SingingStone_EN", 1, Jumble.Blue);

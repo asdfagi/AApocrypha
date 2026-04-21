@@ -73,22 +73,24 @@ namespace A_Apocrypha.Encounters
         }
         public static void AbyssAdd()
         {
-            EnemyEncounter_API gnomesAbyssMedium = new EnemyEncounter_API(0, Abyss.H.MachineGnomes.Med, "MachineGnomes_Sign")
+            Portals.AddPortalSign("MachineGnomes2_Sign", ResourceLoader.LoadSprite("GnomesTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
+            EnemyEncounter_API gnomesAbyssMedium = new EnemyEncounter_API(0, Abyss.H.MachineGnomes.Med, "MachineGnomes2_Sign")
             {
-                MusicEvent = "event:/AAMusic/Everhood/DoYouHearGnomes",
+                MusicEvent = "event:/AAMusic/Everhood/YouWantGnomes",
                 RoarEvent = "event:/AAEnemy/GnomesRoar",
             };
             gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "Streetlight_EN");
             gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "Bear_EN");
-            gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "Mistaken_EN", 1, "YesMan_EN");
+            gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "WanderFellow_EN", 1, "YesMan_EN");
             gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN");
             gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "WRK_EN");
+            gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "BasicElemental_EN");
             if (AApocrypha.CrossMod.SaltEnemies)
             {
                 gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 2, "EyePalm_EN");
             }
             gnomesAbyssMedium.AddEncounterToDataBases();
-            EnemyEncounterUtils.AddEncounterToCustomZoneSelector(Garden.H.MachineGnomes.Med, 10, "TheAbyss_Zone3", BundleDifficulty.Medium);
+            EnemyEncounterUtils.AddEncounterToCustomZoneSelector(Abyss.H.MachineGnomes.Med, 6, "TheAbyss_Zone3", BundleDifficulty.Medium);
         }
     }
 }

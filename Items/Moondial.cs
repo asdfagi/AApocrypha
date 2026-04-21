@@ -73,7 +73,8 @@ namespace A_Apocrypha.Items
                 [
                     Effects.GenerateEffect(ShieldApply, emptyness, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<HealEffect>(), fullness, Targeting.Slot_SelfSlot),
-                ]
+                ],
+                OnUnlockUsesTHE = true,
             };
 
             ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(evilhoney.item, new ItemModdedUnlockInfo("Moondial_TW", ResourceLoader.LoadSprite("UnlockNobodyKneynsbergLocked", null, 32, null), "AApocrypha_Kneynsberg_Forgotten_ACH"));

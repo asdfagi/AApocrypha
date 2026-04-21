@@ -475,7 +475,7 @@ namespace A_Apocrypha.Enemies
                 spiritAttackR.GenerateEnemyAbility(true),
             ]);
 
-            enlightenedvessel.AddEnemy(false, false, false);
+            enlightenedvessel.AddEnemy(true, false, false);
             enlightenedspirit.AddEnemy(false, false, false);
         }
     }

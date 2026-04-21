@@ -38,23 +38,33 @@ namespace A_Apocrypha.Items
                 EquippedModifiers = [wearablePassiveConfrontational],
             };
 
-            ItemUtils.AddItemToShopStatsCategoryAndGamePool(airag.item, new ItemModdedUnlockInfo("FourthCityAirag_SW", ResourceLoader.LoadSprite("UnlockBlueSkyWhitlockLocked", null, 32, null), "AApocrypha_Whitlock_Dreamer_ACH"));
+            airag.item._ItemTypeIDs =
+            [
+                "FoodID",
+                "Drink",
+            ];
 
-            BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement("AApocrypha_Whitlock_Dreamer_ACH", "FourthCityAirag_SW");
+            string achievementID = "AApocrypha_Whitlock_Dreamer_ACH";
+            string unlockID = "AApocrypha_Whitlock_Dreamer_Unlock";
 
-            UnlockableModData whitlockDoulaUnlockData = new UnlockableModData("AApocrypha_Whitlock_Dreamer_Unlock")
+            ItemUtils.AddItemToShopStatsCategoryAndGamePool(airag.item, new ItemModdedUnlockInfo(airag.Item_ID, ResourceLoader.LoadSprite("UnlockBlueSkyWhitlockLocked", null, 32, null), achievementID));
+
+            BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement(achievementID, airag.Item_ID);
+
+            UnlockableModData unlockData = new UnlockableModData(unlockID)
             {
                 hasModdedAchievementUnlock = true,
-                moddedAchievementID = "AApocrypha_Whitlock_Dreamer_ACH",
+                moddedAchievementID = achievementID,
                 hasItemUnlock = true,
-                items = ["FourthCityAirag_SW"],
+                items = [airag.Item_ID],
             };
 
-            FinalBossCharUnlockCheck UnlockAbstractionWhitlock = Unlocks.GetOrCreateUnlock_CustomFinalBoss("BlueSky_BOSS", ResourceLoader.LoadSprite("BlueSkyPearl", null, 32, null));
-            UnlockAbstractionWhitlock.AddUnlockData("Whitlock_CH", whitlockDoulaUnlockData);
+            FinalBossCharUnlockCheck unlockCheck = Unlocks.GetOrCreateUnlock_CustomFinalBoss("BlueSky_BOSS", ResourceLoader.LoadSprite("BlueSkyPearl", null, 32, null));
+            unlockCheck.AddUnlockData("Whitlock_CH", unlockData);
 
-            ModdedAchievements whitlockdoulaachievement = new ModdedAchievements("Fourth City Airag", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementBlueSkyWhitlock", null, 32, null), "AApocrypha_Whitlock_Dreamer_ACH");
-            whitlockdoulaachievement.AddNewAchievementToCUSTOMCategory("BlueSky_BOSS", "The Dreamer");
+            ModdedAchievements unlockAchievement = new ModdedAchievements("Fourth City Airag", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementBlueSkyWhitlock", null, 32, null), achievementID);
+            unlockAchievement.IsSecret = true;
+            unlockAchievement.AddNewAchievementToCUSTOMCategory("BlueSky_BOSS", "The Dreamer");
         }
     }
 }

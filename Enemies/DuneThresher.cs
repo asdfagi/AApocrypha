@@ -123,7 +123,7 @@ namespace A_Apocrypha.Enemies
             TenOrMore._comparator = 10;
 
             PerformEffectPassiveAbility deploymentEmplacement = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
-            deploymentEmplacement.name = "DeploymentEmplacement_PA";
+            deploymentEmplacement.name = "AA_DeploymentDuneThresher_PA";
             deploymentEmplacement._passiveName = "Deployment (10)";
             deploymentEmplacement.m_PassiveID = "DeploymentEmplacement";
             deploymentEmplacement.passiveIcon = ResourceLoader.LoadSprite("IconDeployment");
@@ -331,14 +331,14 @@ namespace A_Apocrypha.Enemies
                 rarity = Rarity.Common,
             };
 
-            emplacement.AddPassives([Passives.GetCustomPassive("AA_TargeterDuneThresher_PA"), Passives.GetCustomPassive("AA_DeploymentDuneThresher_PA"), CustomPassives.AltAttacksGenerator([leftextra, rightextra, reinforceextra])]);
+            emplacement.AddPassives([Passives.GetCustomPassive("AA_TargeterDuneThresher_PA"), Passives.GetCustomPassive("AA_DeploymentDuneThresher_PA"), CustomPassives.BonusSuiteGenerator([leftextra, rightextra, reinforceextra])]);
 
             emplacement.AddEnemyAbilities([
                 heshell.GenerateEnemyAbility(true),
                 carpetshell.GenerateEnemyAbility(true),
                 shrapnelshell.GenerateEnemyAbility(true),
             ]);
-            emplacement.AddEnemy(false, false, false);
+            emplacement.AddEnemy(true, false, false);
         }
     }
 }

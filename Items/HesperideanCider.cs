@@ -56,6 +56,12 @@ namespace A_Apocrypha.Items
                 ],
             };
 
+            cider.item._ItemTypeIDs =
+            [
+                "FoodID",
+                "Drink",
+            ];
+
             ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(cider.item, new ItemModdedUnlockInfo("HesperideanCider_TW", ResourceLoader.LoadSprite("UnlockHeavenWhitlockLocked", null, 32, null), "AApocrypha_Whitlock_Divine_ACH"));
 
             BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement("AApocrypha_Whitlock_Divine_ACH", "HesperideanCider_TW");

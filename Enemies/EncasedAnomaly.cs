@@ -10,7 +10,7 @@ namespace A_Apocrypha.Enemies
         {
             Enemy encasedanomaly = new Enemy("Encased Anomaly", "EncasedAnomaly_EN")
             {
-                Health = 20,
+                Health = 16,
                 HealthColor = Pigments.Purple,
                 Size = 1,
                 CombatSprite = ResourceLoader.LoadSprite("EncasedAnomalyTimeline", new Vector2(0.5f, 0f), 32),
@@ -21,7 +21,7 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Anomaly"],
             };
             encasedanomaly.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/EncasedAnomaly_Enemy/EncasedAnomaly_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Anomaly_Enemy/AnomalyShell_Giblets.prefab").GetComponent<ParticleSystem>());
-            encasedanomaly.AddPassives([Passives.Pure, Passives.GetCustomPassive("Shy_PA"), Passives.DecayGenerator(LoadedAssetsHandler.GetEnemy("UnboundAnomaly_EN"))]);
+            encasedanomaly.AddPassives([Passives.Pure, Passives.GetCustomPassive("Shy_PA"), Passives.GetCustomPassive("AA_Dilution_Purple1_PA"), Passives.DecayGenerator(LoadedAssetsHandler.GetEnemy("UnboundAnomaly_EN"))]);
 
             GenerateColorManaEffect GivePurplePigment = ScriptableObject.CreateInstance<GenerateColorManaEffect>();
             GivePurplePigment.mana = Pigments.Purple;
@@ -52,16 +52,25 @@ namespace A_Apocrypha.Enemies
 
             encasedanomaly.CombatEnterEffects = [Effects.GenerateEffect(MusicToggleReset)];
 
+            ConsumePigmentSharingCasterHealthColorEffect EatNumberHealthLike = ScriptableObject.CreateInstance<ConsumePigmentSharingCasterHealthColorEffect>();
+            EatNumberHealthLike.eatme = Pigments.Purple;
+            EatNumberHealthLike.consumeAll = false;
+
+            TargetSplitOrReplaceHealthEffect purplify = ScriptableObject.CreateInstance<TargetSplitOrReplaceHealthEffect>();
+            purplify._color = Pigments.Purple;
+            purplify._colorBlacklist = [Pigments.Grey];
+            purplify._transformBlacklist = false;
+
             Ability expelmatter = new Ability("Expel Matter", "AApocrypha_ExpelMatter_A")
             {
-                Description = "Deals a Painful amount of damage to the Opposing party member and produces 2 Purple Pigment.\nAfterwards, if there is a party member opposing this enemy, applies 3 Shield to the Left and Right enemy positions.",
+                Description = "Split Purple into the Opposing party member's health color if it isn't grey, then deal a Painful amount of damage to the Opposing party member.\nAfterwards, if there is a party member opposing this enemy, apply 3 Shield to the Left and Right enemy positions.",
                 Cost = [Pigments.Purple, Pigments.Purple],
-                Visuals = Visuals.Bosch,
-                AnimationTarget = Targeting.Slot_SelfSlot,
+                Visuals = Visuals.BodySnatcher,
+                AnimationTarget = Targeting.Slot_Front,
                 Effects =
                 [
+                    Effects.GenerateEffect(purplify, 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_Front),
-                    Effects.GenerateEffect(GivePurplePigment, 2, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(ApplyShield, 3, Targeting.Slot_AllySides, PreviousTrue),
                 ],
@@ -75,13 +84,13 @@ namespace A_Apocrypha.Enemies
 
             Ability absorbmatter = new Ability("Absorb Matter", "AAPocrypha_AbsorbMatter_A")
             {
-                Description = "Consumes up to 5 Purple Pigment. Applies Shield to this enemy's position equal to the amount of Pigment consumed.\nAfterwards, if there is a party member opposing this enemy, removes all Shield from this enemy's position and applies an equivalent amount of Shield to the Left and Right enemy positions.",
+                Description = "Consume up to 5 Purple-containing Pigment. Apply Shield to this enemy's position equal to the amount of Pigment consumed.\nAfterwards, if there is a party member opposing this enemy, remove all Shield from this enemy's position and apply an equivalent amount of Shield to the Left and Right enemy positions.",
                 Cost = [],
                 Visuals = Visuals.Shield,
                 AnimationTarget = Targeting.Slot_SelfSlot,
                 Effects =
                 [
-                    Effects.GenerateEffect(ConsumePurplePigment, 5, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(EatNumberHealthLike, 5, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(ShieldByPrevious, 1, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(RemoveShield, 1, Targeting.Slot_SelfSlot, PreviousTrue),
@@ -98,7 +107,7 @@ namespace A_Apocrypha.Enemies
 
             Ability discordantgaze = new Ability("Discordant Gaze", "AApocrypha_DiscordantGaze_A")
             {
-                Description = "Randomly moves all party members and enemies.",
+                Description = "Randomly move all party members and enemies.",
                 Cost = [Pigments.Purple, Pigments.Purple],
                 Visuals = CustomVisuals.GazeVisualsSO,
                 AnimationTarget = Targeting.Slot_SelfSlot,

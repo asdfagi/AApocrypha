@@ -23,39 +23,47 @@ namespace A_Apocrypha.CustomEffects
                     {
                         bool flag = true;
                         bool flagAlt = false;
-                        bool flagA = this._blacklist.Count > 0 && _blacklist.Contains(statusEffect_SO._StatusID);
-                        if (flagA)
+                        bool superBlacklistFlag = this._superBlacklist.Count > 0 && _superBlacklist.Contains(statusEffect_SO._StatusID);
+                        if (superBlacklistFlag)
                         {
                             flag = false;
-                            if (_substituteBlacklistNormal) { flagAlt = true; }
                         }
                         else
                         {
-                            bool flag2 = this.ForceNew && targetSlotInfo.Unit.ContainsStatusEffect(statusEffect_SO.StatusID, 0);
-                            if (flag2)
+                            bool flagA = this._blacklist.Count > 0 && _blacklist.Contains(statusEffect_SO._StatusID);
+                            if (flagA)
                             {
                                 flag = false;
+                                if (_substituteBlacklistNormal) { flagAlt = true; }
                             }
                             else
                             {
-                                bool flag3 = this.ForceHasCount && !statusEffect_SO.TryUseNumberOnPopUp;
-                                if (flag3)
+                                bool flag2 = this.ForceNew && targetSlotInfo.Unit.ContainsStatusEffect(statusEffect_SO.StatusID, 0);
+                                if (flag2)
                                 {
                                     flag = false;
                                 }
                                 else
                                 {
-                                    bool flag4 = !this.AllowPositive && statusEffect_SO.IsPositive;
-                                    if (flag4)
+                                    bool flag3 = this.ForceHasCount && !statusEffect_SO.TryUseNumberOnPopUp;
+                                    if (flag3)
                                     {
                                         flag = false;
                                     }
                                     else
                                     {
-                                        bool flag5 = !this.AllowNegative && !statusEffect_SO.IsPositive;
-                                        if (flag5)
+                                        bool flag4 = !this.AllowPositive && statusEffect_SO.IsPositive;
+                                        if (flag4)
                                         {
                                             flag = false;
+                                        }
+                                        else
+                                        {
+                                            bool flag5 = !this.AllowNegative && !statusEffect_SO.IsPositive;
+                                            if (flag5)
+                                            {
+                                                flag = false;
+                                            }
                                         }
                                     }
                                 }
@@ -123,5 +131,7 @@ namespace A_Apocrypha.CustomEffects
         public List<string> _blacklist = [];
 
         public bool _substituteBlacklistNormal = false;
+
+        public List<string> _superBlacklist = [];
     }
 }

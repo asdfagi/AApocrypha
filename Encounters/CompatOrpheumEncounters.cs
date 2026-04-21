@@ -16,10 +16,15 @@ namespace A_Apocrypha.Encounters
             AddTo orphAdd = new AddTo(Orph.H.MusicMan.Easy);
             orphAdd.SimpleAddGroup(1, "MusicMan_EN", 1, "Acolyte_EN");
 
+            orphAdd = new AddTo(Orph.H.MusicMan.Med);
+            orphAdd.SimpleAddGroup(2, "MusicMan_EN", 1, Aggregates.Yellow);
+            orphAdd.SimpleAddGroup(3, "MusicMan_EN", 1, HiddenBloatfinger.OrpheumRandom);
+
             orphAdd = new AddTo(Orph.H.Scrungie.Med);
             orphAdd.SimpleAddGroup(2, "Scrungie_EN", 1, HiddenBloatfinger.OrpheumRandom);
             orphAdd.SimpleAddGroup(2, "Scrungie_EN", 1, HiddenBloatfinger.OrpheumRandom);
             orphAdd.SimpleAddGroup(2, "Scrungie_EN", 1, "MusicMan_EN", 1, HiddenBloatfinger.OrpheumRandom);
+            orphAdd.SimpleAddGroup(2, "Scrungie_EN", 1, Aggregates.Red);
 
             if (AApocrypha.CrossMod.pigmentRainbow)
             {
@@ -47,6 +52,7 @@ namespace A_Apocrypha.Encounters
                 orphAdd.SimpleAddGroup(1, "StarVampire_EN", 1, "MusicMan_EN", 1, "SingingStone_EN", 1, HiddenBloatfinger.OrpheumRandom);
                 orphAdd.SimpleAddGroup(1, "StarVampire_EN", 2, "MusicMan_EN", 1, HiddenBloatfinger.OrpheumRandom);
                 orphAdd.SimpleAddGroup(1, "StarVampire_EN", 1, "MusicMan_EN", 2, "Blemmigan_EN");
+                orphAdd.SimpleAddGroup(1, "StarVampire_EN", 1, "MusicMan_EN", 1, Aggregates.Yellow);
             }
             if (AApocrypha.CrossMod.BismuthBoiler)
             {
@@ -55,6 +61,12 @@ namespace A_Apocrypha.Encounters
                 orphAdd.SimpleAddGroup(3, "FerrousFeaster_EN", 1, HiddenBloatfinger.OrpheumRandom);
                 orphAdd.SimpleAddGroup(2, "FerrousFeaster_EN", 1, "AluminumAlchemist_EN", 1, Spoggle.BlueYellowSplit);
                 orphAdd.SimpleAddGroup(2, "FerrousFeaster_EN", 1, "ArgonAccelerator_EN", 1, Spoggle.PurpleRedSplit);
+                orphAdd.SimpleAddGroup(3, "FerrousFeaster_EN", 1, Aggregates.Red);
+                orphAdd.SimpleAddGroup(3, "FerrousFeaster_EN", 1, Aggregates.Yellow);
+                if (AApocrypha.CrossMod.EnemyPack)
+                {
+                    orphAdd.SimpleAddGroup(2, "FerrousFeaster_EN", 1, "Neoplasm_EN", 1, Aggregates.Red);
+                }
             }
         }
     }

@@ -12,6 +12,27 @@ namespace A_Apocrypha.CustomEffects
         public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
         {
             Debug.Log("Ability Adder | ability adder called");
+            //int selectedIndex = 100;
+
+            List<string> localBlacklist = new List<string>();
+            localBlacklist.AddRange(_abilityBlacklist);
+
+            /*if (!caster.IsUnitCharacter && stats.IsPlayerTurn && _removeFromCaster)
+            {
+                Debug.Log("Ability Adder | enemy and it is the player's turn - blacklisting selected ability...");
+                EnemyCombat casterEnInit = caster as EnemyCombat;
+                foreach (var thingy in stats.timeline.RoundTurnUIInfo)
+                {
+                    if (thingy.enemyID == casterEnInit.ID)
+                    {
+                        Debug.Log($"Ability Adder | timeline entry with abilitySlotID {thingy.abilitySlotID} and enemyID {thingy.enemyID} belongs to this enemy");
+                        localBlacklist.Add(casterEnInit.Abilities[thingy.abilitySlotID].ability.name);
+                        localBlacklist.Add(casterEnInit.Abilities[thingy.abilitySlotID].ability._abilityName);
+                        Debug.Log($"Ability Adder | ability {casterEnInit.Abilities[thingy.abilitySlotID].ability._abilityName} ({casterEnInit.Abilities[thingy.abilitySlotID].ability.name}) blacklisted");
+                        if (thingy.abilitySlotID < selectedIndex) { selectedIndex = thingy.abilitySlotID; }
+                    }
+                }
+            }*/ //this code is all sorts of weird - the main issue is the selected ability not changing when the others get moved around so it switches around or even goes out of range (which waitlocks, naturally)
             exitAmount = 0;
             List<CombatAbility> abilityRawList = new List<CombatAbility>();
             List<CombatAbility> abilityList = new List<CombatAbility>();
@@ -32,7 +53,7 @@ namespace A_Apocrypha.CustomEffects
             foreach (CombatAbility abilityRaw in abilityRawList)
             {
                 Debug.Log($"Ability Adder | checking ability {abilityRaw.ability.name}...");
-                if (!_abilityBlacklist.Contains(abilityRaw.ability.name) && !_abilityBlacklist.Contains(abilityRaw.ability._abilityName))
+                if (!localBlacklist.Contains(abilityRaw.ability.name) && !localBlacklist.Contains(abilityRaw.ability._abilityName))
                 {
                     Debug.Log("Ability Adder | not blacklisted! adding...");
                     abilityList.Add(abilityRaw);
@@ -86,6 +107,15 @@ namespace A_Apocrypha.CustomEffects
                                         }
                                     }
                                     ch.CombatAbilities = newAbilities;
+                                    /*foreach (TurnUIInfo thingy in stats.timeline.RoundTurnUIInfo)
+                                    {
+                                        Debug.Log($"enemyID: {thingy.enemyID} (caster.ID: {caster.ID}) - abilitySlotID: {thingy.abilitySlotID} (selectedIndex: {selectedIndex})");
+                                        if (thingy.enemyID == caster.ID && thingy.abilitySlotID == selectedIndex && thingy.abilitySlotID > caster.AbilityCount - 1)
+                                        {
+                                            stats.timeline.RoundTurnUIInfo[thingy.timeSlotID].abilitySlotID -= 1;
+                                            Debug.Log(stats.timeline.RoundTurnUIInfo[thingy.timeSlotID].abilitySlotID);
+                                        }
+                                    }*/
                                     CombatManager.Instance.AddUIAction(new RefreshEnemyInfoUIAction(ch.ID));
                                 }
                                 else if (!caster.IsUnitCharacter)
@@ -99,6 +129,15 @@ namespace A_Apocrypha.CustomEffects
                                         }
                                     }
                                     en.Abilities = newAbilities;
+                                    /*foreach (TurnUIInfo thingy in stats.timeline.RoundTurnUIInfo)
+                                    {
+                                        Debug.Log($"enemyID: {thingy.enemyID} (caster.ID: {caster.ID}) - abilitySlotID: {thingy.abilitySlotID} (selectedIndex: {selectedIndex})");
+                                        if (thingy.enemyID == caster.ID && thingy.abilitySlotID == selectedIndex && thingy.abilitySlotID > caster.AbilityCount - 1)
+                                        {
+                                            stats.timeline.RoundTurnUIInfo[thingy.timeSlotID].abilitySlotID -= 1;
+                                            Debug.Log("changed! new value: " + stats.timeline.RoundTurnUIInfo[thingy.timeSlotID].abilitySlotID);
+                                        }
+                                    }*/
                                     CombatManager.Instance.AddUIAction(new RefreshEnemyInfoUIAction(en.ID));
                                 }
                             }

@@ -12,6 +12,34 @@ namespace A_Apocrypha.Fools
     {
         public static void Add()
         {
+            CasterStoredValueChangeWithMaxEffect AlterValueUp = ScriptableObject.CreateInstance<CasterStoredValueChangeWithMaxEffect>();
+            AlterValueUp.m_unitStoredDataID = "AlterStoredValue";
+            AlterValueUp._minimumValue = 0;
+            AlterValueUp._maximumValue = 2;
+            AlterValueUp._exitValueIsChange = false;
+            AlterValueUp._increase = true;
+            AlterValueUp._randomBetweenPrevious = false;
+            AlterValueUp._usePreviousExitValue = false;
+
+            CasterStoredValueChangeWithMaxEffect AlterValueDownOne = ScriptableObject.CreateInstance<CasterStoredValueChangeWithMaxEffect>();
+            AlterValueDownOne.m_unitStoredDataID = "AlterStoredValue";
+            AlterValueDownOne._minimumValue = 0;
+            AlterValueDownOne._maximumValue = 2;
+            AlterValueDownOne._exitValueIsChange = false;
+            AlterValueDownOne._increase = false;
+            AlterValueDownOne._randomBetweenPrevious = false;
+            AlterValueDownOne._usePreviousExitValue = false;
+            AlterValueDownOne._useFixedValue = true;
+            AlterValueDownOne._fixedValue = 1;
+
+            ExtraVariableForNext_SVEffect AlterGet = ScriptableObject.CreateInstance<ExtraVariableForNext_SVEffect>();
+            AlterGet.m_unitStoredDataID = "AlterStoredValue";
+
+            PreviousComparatorCheckEffect OnePlus = ScriptableObject.CreateInstance<PreviousComparatorCheckEffect>();
+            OnePlus._atOrAbove = true;
+            OnePlus._entryIsComparator = false;
+            OnePlus._fixedComparator = 1;
+
             ExtraGetRandomCCSprites_ArraySO anomalySpriteArray = ScriptableObject.CreateInstance<ExtraGetRandomCCSprites_ArraySO>();
             anomalySpriteArray._doesLoop = true;
             anomalySpriteArray._DefaultID = "ThresholdFoolSpritesDefault";
@@ -30,7 +58,7 @@ namespace A_Apocrypha.Fools
             SetCasterExtraSpritesEffect Waver = ScriptableObject.CreateInstance<SetCasterExtraSpritesEffect>();
             Waver._ExtraSpriteID = "ThresholdFoolSpritesSpecial";
 
-            PerformEffectPassiveAbility anomalyCosmeticPassive = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            PerformDoubleEffectPassiveAbility anomalyCosmeticPassive = ScriptableObject.CreateInstance<PerformDoubleEffectPassiveAbility>();
             anomalyCosmeticPassive.name = "ThresholdFoolSpriteHandler_PA";
             anomalyCosmeticPassive._passiveName = "Anomalous";
             anomalyCosmeticPassive.m_PassiveID = "Anomalous";
@@ -46,10 +74,10 @@ namespace A_Apocrypha.Fools
                 TriggerCalls.OnDidApplyDamage,
             ];
             anomalyCosmeticPassive.doesPassiveTriggerInformationPanel = false;
-            anomalyCosmeticPassive.effects =
-            [
-                Effects.GenerateEffect(Waver),
-            ];
+            anomalyCosmeticPassive.effects = [Effects.GenerateEffect(Waver)];
+            anomalyCosmeticPassive._secondDoesPerformPopUp = false;
+            anomalyCosmeticPassive._secondTriggerOn = [TriggerCalls.OnTurnStart, TriggerCalls.OnBeforeCombatStart];
+            anomalyCosmeticPassive._secondEffects = [Effects.GenerateEffect(AlterValueUp, 10)];
 
             TargetSplitOrReplaceHealthEffect purplify = ScriptableObject.CreateInstance<TargetSplitOrReplaceHealthEffect>();
             purplify._color = Pigments.Purple;
@@ -58,7 +86,7 @@ namespace A_Apocrypha.Fools
 
             Ability alter = new Ability("Alter", "AnomalyAlter_A")
             {
-                Description = "Split purple into the Opposing enemy's health color if it is not grey. If successful, refresh this party member's ability usage.\nDeal 1 damage to the Opposing enemy.",
+                Description = "Split purple into the Opposing enemy's health color if it is not grey. If successful, refresh this party member's ability usage, up to two times each turn.\nDeal 1 damage to the Opposing enemy.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconThresholdFoolAlter"),
                 Cost = [Pigments.YellowPurple],
                 Visuals = CustomVisuals.GazeVisualsSO,
@@ -66,9 +94,13 @@ namespace A_Apocrypha.Fools
                 Effects =
                 [
                     Effects.GenerateEffect(purplify, 1, Targeting.Slot_Front),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RefreshAbilityUseEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(AlterGet),
+                    Effects.GenerateEffect(OnePlus),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<RefreshAbilityUseEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, true], [1, 3])),
+                    Effects.GenerateEffect(AlterValueDownOne, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 1)),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 1, Targeting.Slot_Front),
-                ]
+                ],
+                UnitStoreData = UnitStoreData.GetCustom_UnitStoreData("AlterStoredValue"),
             };
             alter.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Mana_Modify), nameof(IntentType_GameIDs.Damage_1_2)]);
             alter.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Misc_Additional)]);
@@ -93,7 +125,7 @@ namespace A_Apocrypha.Fools
             UnityEngine.Object AnomalyCharacterAnimator = AApocrypha.assetBundle.LoadAsset("Assets/Apocrypha_Fools/AnomalyFoolOverrideController.overrideController");
             anomaly.Animator = (RuntimeAnimatorController)(AnomalyCharacterAnimator is RuntimeAnimatorController ? AnomalyCharacterAnimator : null);
             anomaly.GenerateMenuCharacter(ResourceLoader.LoadSprite("ThresholdFoolMenu"), ResourceLoader.LoadSprite("ThresholdFoolLocked2"));
-            anomaly.AddPassives([Passives.Pure, Passives.EssencePurple, anomalyCosmeticPassive]);
+            anomaly.AddPassives([Passives.Pure, Passives.EssencePurple, Passives.GetCustomPassive("AA_Dilution_Purple1_PA"), anomalyCosmeticPassive]);
             anomaly.SetMenuCharacterAsFullDPS();
 
             DamageWithPigmentBonusEffect damagePurpleBonus4 = ScriptableObject.CreateInstance<DamageWithPigmentBonusEffect>();
@@ -176,6 +208,10 @@ namespace A_Apocrypha.Fools
                 "Dazed_ID",
                 "Muted_ID",
                 "Inspiration_ID",
+                "Inverted_ID",
+            ];
+            RandomNegativeRestrictor._superBlacklist = [
+                "Nemesis_ID",
             ];
 
             PassivePopUpOnTargetEffect PurpleBlooderPopup = ScriptableObject.CreateInstance<PassivePopUpOnTargetEffect>();
@@ -478,7 +514,7 @@ namespace A_Apocrypha.Fools
             unlockableModData.moddedAchievementID = "AApocrypha_Fool_AnnaMolly_ACH";
             LoadedDBsHandler.UnlockablesDB.TryAddIDUnlock(unlockableModData);
 
-            UnlockContentByIDEffect RevealMolly = ScriptableObject.CreateInstance<UnlockContentByIDEffect>();
+            TryUnlockAchievementEffect RevealMolly = ScriptableObject.CreateInstance<TryUnlockAchievementEffect>();
             RevealMolly._unlockID = unlockableModData.id;
 
             GainLootCustomCharacterEffect GrantMolly = ScriptableObject.CreateInstance<GainLootCustomCharacterEffect>();
@@ -497,8 +533,8 @@ namespace A_Apocrypha.Fools
             anomalyUnlockPassive.doesPassiveTriggerInformationPanel = false;
             anomalyUnlockPassive.effects =
             [
-                Effects.GenerateEffect(RevealMolly),
-                Effects.GenerateEffect(GrantMolly, 1),
+                Effects.GenerateEffect(RevealMolly, 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(GrantMolly, 1, Targeting.Slot_SelfSlot),
             ];
             Passives.AddCustomPassiveToPool("ThresholdFoolUnlockHandler_PA", "Anomalous", anomalyUnlockPassive);
 

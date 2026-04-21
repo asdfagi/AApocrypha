@@ -56,6 +56,18 @@ namespace A_Apocrypha.Items
                 ],
             };
 
+            tincture.item._ItemTypeIDs =
+            [
+                "FoodID",
+                "Drink",
+            ];
+
+            tincturehalf.item._ItemTypeIDs =
+            [
+                "FoodID",
+                "Drink",
+            ];
+
             ItemUtils.AddItemToShopStatsCategoryAndGamePool(tincture.item, new ItemModdedUnlockInfo("TinctureOfVigour_SW", ResourceLoader.LoadSprite("UnlockOsmanWhitlockLocked", null, 32, null), "AApocrypha_Whitlock_Witness_ACH"));
 
             BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement("AApocrypha_Whitlock_Witness_ACH", "TinctureOfVigour_SW");

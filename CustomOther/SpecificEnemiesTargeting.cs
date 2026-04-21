@@ -4,7 +4,6 @@ using System.Text;
 
 namespace A_Apocrypha.CustomOther
 {
-    // Directly taken from the Hell Island Fell github repository
     public class SpecificEnemiesTargeting : BaseCombatTargettingSO
     {
         public string[] _enemies;

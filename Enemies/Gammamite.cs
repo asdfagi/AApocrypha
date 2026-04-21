@@ -10,7 +10,7 @@ namespace A_Apocrypha.Enemies
         {
             Enemy tickmutant = new Enemy("Gammamite", "Gammamite_EN")
             {
-                Health = 28,
+                Health = 20,
                 HealthColor = Pigments.Red,
                 Size = 1,
                 CombatSprite = ResourceLoader.LoadSprite("RadtickTimeline", new Vector2(0.5f, 0f), 32),
@@ -29,9 +29,6 @@ namespace A_Apocrypha.Enemies
 
             StatusEffect_Apply_Effect ApplyIrradiated = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             ApplyIrradiated._Status = StatusField.GetCustomStatusEffect("Irradiated_ID");
-
-            AttackVisualsSO PoisonVisuals = Visuals.Exsanguinate;
-            if (AApocrypha.CrossMod.IntoTheAbyss) { PoisonVisuals = LoadedAssetsHandler.GetCharacterAbility("FlorenzBasic_A").visuals; }
 
             IncreaseStatusEffectsEffect IncreaseStatusBad = ScriptableObject.CreateInstance<IncreaseStatusEffectsEffect>();
             IncreaseStatusBad.m_AffectStatusEffects = true;

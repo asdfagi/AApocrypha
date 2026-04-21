@@ -34,6 +34,7 @@ namespace A_Apocrypha.CustomEffects
 
             exitAmount = 0;
             bool flag = false;
+            if (_color == null) { _color = caster.HealthColor; }
             foreach (TargetSlotInfo targetSlotInfo in targets)
             {
                 if (targetSlotInfo.HasUnit)

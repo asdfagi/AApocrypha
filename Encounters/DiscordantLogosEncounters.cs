@@ -17,7 +17,10 @@ namespace A_Apocrypha.Encounters
             blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 1, Enemies.Minister);
             blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 1, Enemies.Skinning, 1, Enemies.Shivering);
             blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 1, Enemies.Skinning, 2, Enemies.Shivering);
-            blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 1, "BellRinger_EN", 1, Enemies.Minister);
+            if (AApocrypha.CrossMod.UndivineComedy)
+            {
+                blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 1, "BellRinger_EN", 1, Enemies.Minister);
+            }
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
                 blackLogosHard.SimpleAddEncounter(1, Logos.Broken, 1, "BellRinger_EN", 1, "FrowningChancellor_EN");

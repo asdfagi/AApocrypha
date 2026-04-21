@@ -19,12 +19,15 @@ namespace A_Apocrypha.Encounters
             shoreAdd.SimpleAddGroup(1, "Flarb_EN", 1, "SandSifter_EN");
             shoreAdd.SimpleAddGroup(1, "Flarb_EN", 1, "TearDrinker_EN", 1, "Flarblet_EN");
             shoreAdd.SimpleAddGroup(1, "Flarb_EN", 1, "Gammamite_EN");
+            shoreAdd.SimpleAddGroup(1, "Flarb_EN", 1, Aggregates.Red);
 
             shoreAdd = new AddTo(Shore.H.FlaMinGoa.Med);
             shoreAdd.SimpleAddGroup(1, "FlaMinGoa_EN", 1, "MudLung_EN", 1, "FungusColumn_EN");
             shoreAdd.SimpleAddGroup(1, "FlaMinGoa_EN", 1, Enemies.Mungling, 1, "FungusColumn_EN");
             shoreAdd.SimpleAddGroup(1, "FlaMinGoa_EN", 1, "MudLung_EN", 1, "SandSifter_EN");
             shoreAdd.SimpleAddGroup(1, "FlaMinGoa_EN", 1, "Wringle_EN", 1, "SandSifter_EN");
+            shoreAdd.SimpleAddGroup(1, "FlaMinGoa_EN", 1, Enemies.Mungling, 1, Aggregates.Red);
+            shoreAdd.SimpleAddGroup(1, "FlaMinGoa_EN", 1, "MudLung_EN", 1, Aggregates.Purple);
 
             if (AApocrypha.CrossMod.HellIslandFell)
             {
@@ -42,6 +45,8 @@ namespace A_Apocrypha.Encounters
                 shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, "SandSifter_EN");
                 shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, "ToyUfo_EN", 1, "SandSifter_EN");
                 shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 2, "Acolyte_EN");
+                shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, Aggregates.Red);
+                shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, Aggregates.Purple);
 
                 /*if (LoadedAssetsHandler.LoadEnemyBundle(Shore.H.Jabber.Med) != null)
                 {
@@ -62,6 +67,21 @@ namespace A_Apocrypha.Encounters
                 };
                 ((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_Zone01_Bard_Med_EnemyBundle"))._enemyBundles = bardMedium;
             }*/
+
+            if (AApocrypha.CrossMod.LeonLegion)
+            {
+                shoreAdd = new AddTo(Shore.H.Martian.Purple.Med);
+                shoreAdd.SimpleAddGroup(1, Martians.Purple, 1, "SandSifter_EN");
+                shoreAdd.SimpleAddGroup(1, Martians.Purple, 1, "FungusColumn_EN", 1, "Mung_EN");
+                shoreAdd.SimpleAddGroup(1, Martians.Purple, 1, "Acolyte_EN");
+
+                shoreAdd = new AddTo(Shore.H.Martian.Blue.Med);
+                shoreAdd.SimpleAddGroup(1, Martians.Blue, 1, "SandSifter_EN");
+                shoreAdd.SimpleAddGroup(1, Martians.Blue, 1, "MudLung_EN", 1, Aggregates.Purple);
+
+                shoreAdd = new AddTo(Shore.H.Keklets.Med);
+                shoreAdd.SimpleAddGroup(1, "Keklets_EN", 1, "Keko_EN", 1, "FungusColumn_EN");
+            }
         }
     }
 }

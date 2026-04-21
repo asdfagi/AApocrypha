@@ -20,6 +20,7 @@ namespace A_Apocrypha.Encounters
             uttershroomMedium.SimpleAddEncounter(1, "UttershroomSpore_EN", 1, "Blemmigan_EN", 1, "Scrungie_EN");
             uttershroomMedium.SimpleAddEncounter(1, "UttershroomSpore_EN", 1, "Blemmigan_EN", 1, "MusicMan_EN", 1, HiddenBloatfinger.OrpheumRandom);
             uttershroomMedium.SimpleAddEncounter(1, "UttershroomSpore_EN", 1, "Blemmigan_EN", 1, "Scrungie_EN", 1, HiddenBloatfinger.OrpheumRandom);
+            uttershroomMedium.SimpleAddEncounter(1, "UttershroomSpore_EN", 1, "Blemmigan_EN", 1, Aggregates.Yellow);
             if (AApocrypha.CrossMod.EnemyPack)
             {
                 uttershroomMedium.SimpleAddEncounter(1, "UttershroomSpore_EN", 1, "Blemmigan_EN", 1, "Neoplasm_EN");

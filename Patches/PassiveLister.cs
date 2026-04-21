@@ -10,14 +10,11 @@ namespace A_Apocrypha.Patches
     {
         //[HarmonyPatch(typeof(RunDataSO), "InitializeRun")]
         //[HarmonyPostfix]
-        public static void PrintLoadedPassives()
+        public static void PrintLoadedRooms()
         {
-            Debug.Log("Listing Passives...");
+            Debug.Log("Listing Room IDs in shore H");
 
-            foreach (BasePassiveAbilitySO item in LoadedAssetsHandler.LoadedPassives.Values)
-            {
-                Debug.Log("Passive [" + item._passiveName + "] with m_PassiveID [" + item.m_PassiveID + "]");
-            }
+            ZoneBGDataBaseSO shorehard = LoadedAssetsHandler.GetZoneDB("ZoneDB_Hard_01") as ZoneBGDataBaseSO;
         }
     }
 }

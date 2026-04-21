@@ -71,25 +71,10 @@ namespace A_Apocrypha.Items
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 7, TargeterTargeting),
                 ],
                 EquippedModifiers = [wearablePassiveTargeter],
+                OnUnlockUsesTHE = true,
             };
 
             ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(mortar.item, new ItemModdedUnlockInfo("ThresherEye_TW", ResourceLoader.LoadSprite("LootDuneThresherLocked", null, 32, null), "AApocrypha_Loot_DuneThresher_ACH"));
-
-            /*BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement("AApocrypha_Whitlock_Dreamer_ACH", "FourthCityAirag_SW");
-
-            UnlockableModData whitlockDoulaUnlockData = new UnlockableModData("AApocrypha_Whitlock_Dreamer_Unlock")
-            {
-                hasModdedAchievementUnlock = true,
-                moddedAchievementID = "AApocrypha_Whitlock_Dreamer_ACH",
-                hasItemUnlock = true,
-                items = ["FourthCityAirag_SW"],
-            };
-
-            FinalBossCharUnlockCheck UnlockAbstractionWhitlock = Unlocks.GetOrCreateUnlock_CustomFinalBoss("BlueSky_BOSS", ResourceLoader.LoadSprite("BlueSkyPearl", null, 32, null));
-            UnlockAbstractionWhitlock.AddUnlockData("Whitlock_CH", whitlockDoulaUnlockData);
-
-            ModdedAchievements whitlockdoulaachievement = new ModdedAchievements("Fourth City Airag", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementBlueSkyWhitlock", null, 32, null), "AApocrypha_Whitlock_Dreamer_ACH");
-            whitlockdoulaachievement.AddNewAchievementToCUSTOMCategory("BlueSky_BOSS", "The Dreamer");*/
         }
     }
 }

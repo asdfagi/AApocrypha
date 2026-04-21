@@ -145,21 +145,53 @@ namespace A_Apocrypha.Enemies
             fullsister.AddPassives([Passives.GetCustomPassive("AA_TwoFacedXR_PA"), Passives.GetCustomPassive("AA_Mercurial_SistersSomeone_PA")]);
             emptysister.AddPassives([Passives.GetCustomPassive("AA_TwoFacedRX_PA"), Passives.GetCustomPassive("AA_Mercurial_SistersNoone_PA")]);
 
+            StatusEffect_Apply_Effect CurseApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            CurseApply._Status = StatusField.Cursed;
+
+            StatusEffect_Apply_Effect FrailApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            FrailApply._Status = StatusField.Frail;
+
+            AnimationVisualsEffect ChangerAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            ChangerAnim._animationTarget = Targeting.Slot_Front;
+            ChangerAnim._visuals = Visuals.UglyOnTheInside;
+
+            AnimationVisualsEffect MoverAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            MoverAnim._animationTarget = Targeting.Slot_Front;
+            MoverAnim._visuals = Visuals.Melt;
+
+            AnimationVisualsEffect OathAnim1 = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            OathAnim1._animationTarget = TbazTargeting.MirrorAndSelf(false);
+            OathAnim1._visuals = Visuals.Crush;
+
+            AnimationVisualsEffect OathAnim2 = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            OathAnim2._animationTarget = Targeting.Slot_Front;
+            OathAnim2._visuals = Visuals.Crush;
+
+            AnimationVisualsEffect OathAnim3 = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            OathAnim3._animationTarget = Targeting.GenerateSlotTarget([-1, 4], false);
+            OathAnim3._visuals = Visuals.Crush;
+
+            AnimationVisualsEffect OathAnim4 = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            OathAnim4._animationTarget = Targeting.GenerateSlotTarget([1, -4], false);
+            OathAnim4._visuals = Visuals.Crush;
+
             Ability hillchanger = new Ability("Hillchanger", "AApocrypha_Hillchanger_A")
             {
-                Description = "Mirror this enemy's position.\nThen, if this enemy is Opposing a party member, swap this enemy's health colour between grey and red.",
+                Description = "Mirror this enemy's position.\nThen, if this enemy is Opposing a party member, Curse that party member and swap this enemy's health colour between grey and red.",
                 Cost = [Pigments.Grey, Pigments.Red],
                 Effects =
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
-                    Effects.GenerateEffect(GreyRed, 1, Targeting.Slot_SelfSlot, PreviousTrue),
+                    Effects.GenerateEffect(ChangerAnim, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(CurseApply, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 2)),
+                    Effects.GenerateEffect(GreyRed, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 3)),
                 ],
                 Rarity = Rarity.Common,
                 Priority = Priority.Normal,
             };
             hillchanger.AddIntentsToTarget(TbazTargeting.MirrorAndSelf(true), [nameof(IntentType_GameIDs.Swap_Mass)]);
-            hillchanger.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Misc_Hidden)]);
+            hillchanger.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Misc_Hidden), nameof(IntentType_GameIDs.Status_Cursed)]);
             hillchanger.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Modify)]);
 
             PercentageEffectCondition FiftyFifty = ScriptableObject.CreateInstance<PercentageEffectCondition>();
@@ -169,7 +201,7 @@ namespace A_Apocrypha.Enemies
 
             Ability hillmover = new Ability("Hillmover", "AApocrypha_Hillmover_A")
             {
-                Description = "Move this enemy to the Left or Right. This ability assumes the grid loops around.\nThen, if this enemy is Opposing a party member, swap this enemy's health colour between grey and red.",
+                Description = "Move this enemy to the Left or Right. This assumes the grid wraps around.\nThen, if this enemy is Opposing a party member, apply 2 Frail to that party member and swap this enemy's health colour between grey and red.",
                 Cost = [Pigments.Grey, Pigments.Red],
                 Effects =
                 [
@@ -177,26 +209,30 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, PreviousGenerator(true, 1)),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapToSidesEffect>(), 1, Targeting.Slot_SelfSlot, PreviousGenerator(false, 2)),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
-                    Effects.GenerateEffect(GreyRed, 1, Targeting.Slot_SelfSlot, PreviousTrue),
+                    Effects.GenerateEffect(MoverAnim, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(FrailApply, 2, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 2)),
+                    Effects.GenerateEffect(GreyRed, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 3)),
                 ],
                 Rarity = Rarity.Common,
                 Priority = Priority.Normal,
             };
             hillmover.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Sides)]);
             //hillmover.AddIntentsToTarget(Targeting.GenerateSlotTarget([1, -1, 4, -4], false), [nameof(IntentType_GameIDs.Misc_Hidden)]);
-            hillmover.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Misc_Hidden)]);
+            hillmover.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Misc_Hidden), nameof(IntentType_GameIDs.Status_Frail)]);
             hillmover.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Modify)]);
 
             Ability oathbreaker = new Ability("Oathbreaker", "AApocrypha_Oathbreaker_A")
             {
-                Description = "Mirror this enemy's position, then deal a Painful amount of damage to the previously AND newly Opposing party members and swap their positions.\nThen, if this enemy is Opposing a party member, swap this enemy's health colour between red and grey.",
+                Description = "Mirror this enemy's position, then deal a Barely Painful amount of damage to the newly Opposing party member and swap the positions of the previously and newly Opposing party members.\nThen, if this enemy is Opposing a party member, swap this enemy's health colour between red and grey.",
                 Cost = [Pigments.Grey, Pigments.Red],
                 Effects =
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, TbazTargeting.MirrorAndSelf(false), PreviousGenerator(true, 1)),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapTwoTargetsEffect>(), 1, TbazTargeting.MirrorAndSelf(false), PreviousGenerator(true, 2)),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_Front, PreviousGenerator(false, 3)),
+                    Effects.GenerateEffect(OathAnim2, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_Front, PreviousGenerator(true, 2)),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapTwoTargetsEffect>(), 1, TbazTargeting.MirrorAndSelf(false), PreviousGenerator(true, 3)),
+                    Effects.GenerateEffect(OathAnim2, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(false, 4)),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_Front, PreviousGenerator(false, 5)),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(RedGrey, 1, Targeting.Slot_SelfSlot, PreviousTrue),
                 ],
@@ -204,21 +240,25 @@ namespace A_Apocrypha.Enemies
                 Priority = Priority.Normal,
             };
             oathbreaker.AddIntentsToTarget(TbazTargeting.MirrorAndSelf(true), [nameof(IntentType_GameIDs.Swap_Mass)]);
-            oathbreaker.AddIntentsToTarget(TbazTargeting.MirrorAndSelf(false), [nameof(IntentType_GameIDs.Damage_3_6)]);
+            oathbreaker.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Damage_3_6)]);
             oathbreaker.AddIntentsToTarget(TbazTargeting.MirrorAndSelf(false), [nameof(IntentType_GameIDs.Swap_Mass)]);
             oathbreaker.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Misc_Hidden)]);
             oathbreaker.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Modify)]);
 
             Ability oathtwister = new Ability("Oathtwister", "AApocrypha_Oathtwister_A")
             {
-                Description = "Move this enemy to the Left or Right. This assumes the grid loops around.\nThen, deal a Painful amount of damage to the Left and Right party members and swap their positions. This assumes the grid loops around.\nThen, if this enemy is Opposing a party member, swap this enemy's health colour between red and grey.",
+                Description = "Move this enemy to the Left or Right. This assumes the grid wraps around.\nThen, deal a Painful amount of damage to the Opposing party member and swap the positions of the Left and Right party members. This assumes the grid loops around.\nThen, if this enemy is Opposing a party member, swap this enemy's health colour between red and grey.",
                 Cost = [Pigments.Grey, Pigments.Red],
                 Effects =
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CasterInEdgesCheckEffect>(), 1, Targeting.Slot_SelfSlot, FiftyFifty),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, PreviousGenerator(true, 1)),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapToSidesEffect>(), 1, Targeting.Slot_SelfSlot, PreviousGenerator(false, 2)),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.GenerateSlotTarget([1, -1, 4, -4], false)),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ExtraVariableForNextEffect>(), 1, Targeting.Slot_SelfSlot, FiftyFifty),
+                    Effects.GenerateEffect(OathAnim2, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 2)),
+                    Effects.GenerateEffect(OathAnim2, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(false, 3)),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(false, 4)),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapTwoTargetsEffect>(), 1, Targeting.GenerateSlotTarget([1, -1, 4, -4], false)),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(RedGrey, 1, Targeting.Slot_SelfSlot, PreviousTrue),
@@ -230,7 +270,7 @@ namespace A_Apocrypha.Enemies
             //oathtwister.AddIntentsToTarget(Targeting.GenerateSlotTarget([0, 2, -2, 3, -3], false), [nameof(IntentType_GameIDs.Damage_3_6)]);
             //oathtwister.AddIntentsToTarget(Targeting.GenerateSlotTarget([0, 2, -2, 3, -3], false), [nameof(IntentType_GameIDs.Swap_Mass)]);
             //oathtwister.AddIntentsToTarget(Targeting.GenerateSlotTarget([1, -1, 4, -4], false), [nameof(IntentType_GameIDs.Misc_Hidden)]);
-            oathtwister.AddIntentsToTarget(Targeting.GenerateSlotTarget([1, -1, 4, -4], false), [nameof(IntentType_GameIDs.Damage_3_6)]);
+            oathtwister.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_3_6)]);
             oathtwister.AddIntentsToTarget(Targeting.GenerateSlotTarget([1, -1, 4, -4], false), [nameof(IntentType_GameIDs.Swap_Mass)]);
             oathtwister.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Misc_Hidden)]);
             oathtwister.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Modify)]);

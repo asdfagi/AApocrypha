@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using A_Apocrypha.Assets;
+using A_Apocrypha.CustomOther;
 using BrutalAPI.Items;
 
 namespace A_Apocrypha.Items
@@ -42,7 +44,7 @@ namespace A_Apocrypha.Items
                 StartsLocked = true,
                 Icon = ResourceLoader.LoadSprite("UnlockMarchKneynsberg"),
                 TriggerOn = TriggerCalls.OnDamaged,
-                Conditions = [CheckWillDie, NotDying, NotStatue],
+                Conditions = [ScriptableObject.CreateInstance<UnitDeadEffectorCondition>(), NotDying, NotStatue],
                 Effects =
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<ConsumeItemEffect>(), 1, Targeting.Slot_SelfSlot),

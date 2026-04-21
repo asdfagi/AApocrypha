@@ -23,6 +23,8 @@ namespace A_Apocrypha.Encounters
             asterismMedium.SimpleAddEncounter(2, "Asterism_EN");
             asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Acolyte_EN");
             asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "SandSifter_EN", 1, "MudLung_EN", 1, "Mung_EN");
+            asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "MudLung_EN", 1, Aggregates.Red);
+            asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "MudLung_EN", 1, Aggregates.Purple);
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
                 asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Flakkid_EN");
@@ -72,6 +74,10 @@ namespace A_Apocrypha.Encounters
                 asterismHard.SimpleAddEncounter(2, "Asterism_EN", 1, "Follower_EN");
                 asterismHard.SimpleAddEncounter(3, "Asterism_EN", 1, Spoggle.Green);
             };
+            if (AApocrypha.CrossMod.GlitchsFreaks)
+            {
+                asterismHard.SimpleAddEncounter(2, "Asterism_EN", 1, Aggregates.Purple, 1, "DryBait_EN");
+            }
             asterismHard.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Asterism.Hard, 12, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
         }

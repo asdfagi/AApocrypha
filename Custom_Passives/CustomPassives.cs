@@ -66,6 +66,36 @@ namespace A_Apocrypha.Custom_Passives
             repositoryValue.m_TextColor = Color.yellow;
             LoadedDBsHandler.MiscDB.AddNewUnitStoreData("RepositoryStoredValue", repositoryValue);
 
+            UnitStoreData_AnalysisTooltip_ModIntSO naudizAnalysisTracker = ScriptableObject.CreateInstance<UnitStoreData_AnalysisTooltip_ModIntSO>();
+            naudizAnalysisTracker.m_Text = "Target: {0}";
+            naudizAnalysisTracker._UnitStoreDataID = "NaudizCurrentStoredValue";
+            naudizAnalysisTracker.m_TextColor = Color.cyan;
+            LoadedDBsHandler.MiscDB.AddNewUnitStoreData("NaudizCurrentStoredValue", naudizAnalysisTracker);
+
+            UnitStoreData_ModIntSO naudizKillTracker = ScriptableObject.CreateInstance<UnitStoreData_ModIntSO>();
+            naudizKillTracker.m_Text = "Kills: {0}";
+            naudizKillTracker._UnitStoreDataID = "NaudizKillStoredValue";
+            naudizKillTracker.m_TextColor = Color.red;
+            naudizKillTracker.m_CompareDataToThis = -1;
+            naudizKillTracker.m_ShowIfDataIsOver = true;
+            LoadedDBsHandler.MiscDB.AddNewUnitStoreData("NaudizKillStoredValue", naudizKillTracker);
+
+            UnitStoreData_ModIntSO dogmaTracker = ScriptableObject.CreateInstance<UnitStoreData_ModIntSO>();
+            dogmaTracker.m_Text = "Dogma: {0}";
+            dogmaTracker._UnitStoreDataID = "DogmaStoredValue";
+            dogmaTracker.m_TextColor = new Color32(200, 200, 200, 255);
+            dogmaTracker.m_CompareDataToThis = -1;
+            dogmaTracker.m_ShowIfDataIsOver = true;
+            LoadedDBsHandler.MiscDB.AddNewUnitStoreData("DogmaStoredValue", dogmaTracker);
+
+            UnitStoreData_ModIntSO alterTracker = ScriptableObject.CreateInstance<UnitStoreData_ModIntSO>();
+            alterTracker.m_Text = "Alter: {0}";
+            alterTracker._UnitStoreDataID = "AlterStoredValue";
+            alterTracker.m_TextColor = new Color32(200, 0, 200, 255);
+            alterTracker.m_CompareDataToThis = -1;
+            alterTracker.m_ShowIfDataIsOver = true;
+            LoadedDBsHandler.MiscDB.AddNewUnitStoreData("AlterStoredValue", alterTracker);
+
             // Shy - Skittish, but only if there is an opposing unit.
             PerformEffectPassiveAbility shy = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             shy.name = "Shy_PA";
@@ -100,7 +130,21 @@ namespace A_Apocrypha.Custom_Passives
                 Effects.GenerateEffect(Left, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, false], [2, 3])),
             ];
 
-            // Gnome - A passive with no proper effect, serves as both flavour and targetting assistant.
+            ModifyRunIntDataEffect GnomeCounter = ScriptableObject.CreateInstance<ModifyRunIntDataEffect>();
+            GnomeCounter._additive = true;
+            GnomeCounter._data = "GnomeDeathCounter";
+
+            IsCharacterEffectorCondition IsCharacter = ScriptableObject.CreateInstance<IsCharacterEffectorCondition>();
+            IsCharacter._passIfTrue = true;
+
+            TryUnlockAchievementEffect GnomeHatAchievement = ScriptableObject.CreateInstance<TryUnlockAchievementEffect>();
+            GnomeHatAchievement._unlockID = "ComedyGnomeDeath";
+
+            RunIntDataComparatorEffect GnomeCheck = ScriptableObject.CreateInstance<RunIntDataComparatorEffect>();
+            GnomeCheck._data = "GnomeDeathCounter";
+            GnomeCheck._lessThan = false;
+
+            // Gnome - A passive with no proper effect, serves as flavour and targetting assistant and handles an achievement.
             PerformEffectPassiveAbility gnomePassive = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             gnomePassive.name = "Gnome_PA";
             gnomePassive._passiveName = "Gnome";
@@ -108,11 +152,14 @@ namespace A_Apocrypha.Custom_Passives
             gnomePassive.passiveIcon = ResourceLoader.LoadSprite("IconGnome");
             gnomePassive._characterDescription = "This party member is a gnome.";
             gnomePassive._enemyDescription = "This enemy is one or more gnomes.";
-            gnomePassive._triggerOn = [TriggerCalls.OnRoundFinished];
+            gnomePassive._triggerOn = [TriggerCalls.OnDeath];
+            gnomePassive.conditions = [IsCharacter];
             gnomePassive.doesPassiveTriggerInformationPanel = false;
             gnomePassive.effects =
             [
-                Effects.GenerateEffect(ScriptableObject.CreateInstance<ExtraVariableForNextEffect>(), 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(GnomeCounter, 1),
+                Effects.GenerateEffect(GnomeCheck, 5),
+                Effects.GenerateEffect(GnomeHatAchievement, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 1)),
             ];
 
             // Free-Willed - A passive that works similarly to the Wheel of Fortune item - copied from Stew's Specimens
@@ -296,7 +343,7 @@ namespace A_Apocrypha.Custom_Passives
             dryPassive._passiveName = "Dried Out";
             dryPassive.m_PassiveID = "DriedOut";
             dryPassive.passiveIcon = ResourceLoader.LoadSprite("IconDriedOut");
-            dryPassive._characterDescription = "This party member is immune to damage from Ruptured.";
+            dryPassive._characterDescription = "This party member is immune to damage from Ruptured. Ruptured does not decrease when this party member moves.";
             dryPassive._enemyDescription = "This enemy is immune to damage from Ruptured.";
             dryPassive.doesPassiveTriggerInformationPanel = false;
             dryPassive._triggerOn = [TriggerCalls.OnBeingDamaged];
@@ -372,9 +419,26 @@ namespace A_Apocrypha.Custom_Passives
             greyBlooded.effects =
             [
                 Effects.GenerateEffect(GiveGreyPigment, 1, Targeting.Slot_SelfSlot),
+            ]; 
+            
+            GenerateColorsByListManaEffect GiveRandomPigment = ScriptableObject.CreateInstance<GenerateColorsByListManaEffect>();
+            GiveRandomPigment._manaColors = [Pigments.Red, Pigments.Red, Pigments.Blue, Pigments.Blue, Pigments.Yellow, Pigments.Yellow, Pigments.Purple];
+
+            PerformEffectPassiveAbility randomBlooded2 = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            randomBlooded2.name = "Random4Blooded_2_PA";
+            randomBlooded2._passiveName = "Random-Blooded (2)";
+            randomBlooded2.m_PassiveID = "PigmentBlooded";
+            randomBlooded2.passiveIcon = ResourceLoader.LoadSprite("IconStonebloodPrimary");
+            randomBlooded2._characterDescription = "Upon receiving direct damage this party member produces 2 additional pigment of the four basic colors.";
+            randomBlooded2._enemyDescription = "Upon receiving direct damage this enemy produces 2 additional pigment of the four basic colors.";
+            randomBlooded2._triggerOn = [TriggerCalls.OnDirectDamaged];
+            randomBlooded2.doesPassiveTriggerInformationPanel = true;
+            randomBlooded2.effects =
+            [
+                Effects.GenerateEffect(GiveRandomPigment, 2, Targeting.Slot_SelfSlot),
             ];
 
-            if (AApocrypha.CrossMod.UndivineComedy && LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
+            if (LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
             {
                 GenerateColorManaEffect GiveBrokenPigment = ScriptableObject.CreateInstance<GenerateColorManaEffect>();
                 GiveBrokenPigment.mana = LoadedDBsHandler.PigmentDB.GetPigment("Broken");
@@ -496,7 +560,7 @@ namespace A_Apocrypha.Custom_Passives
                 Effects.GenerateEffect(AllBaseColorsLessPurple, 1, Targeting.Slot_SelfSlot),
             ];
 
-            if (AApocrypha.CrossMod.UndivineComedy && LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
+            if (LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
             {
                 GenerateColorManaFillPigmentBarEffect AllBroken = ScriptableObject.CreateInstance<GenerateColorManaFillPigmentBarEffect>();
                 AllBroken.mana = LoadedDBsHandler.PigmentDB.GetPigment("Broken");
@@ -517,6 +581,94 @@ namespace A_Apocrypha.Custom_Passives
 
                 Passives.AddCustomPassiveToPool("AA_CondenseBroken_PA", "Condense (Broken)", condenseBroken);
             };
+
+            if (LoadedDBsHandler.PigmentDB.GetPigment("Iridescent") != null)
+            {
+                GenerateColorManaFillPigmentBarEffect AllIridescent = ScriptableObject.CreateInstance<GenerateColorManaFillPigmentBarEffect>();
+                AllIridescent.mana = LoadedDBsHandler.PigmentDB.GetPigment("Iridescent");
+
+                PerformEffectPassiveAbility condenseIridescent = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                condenseIridescent.name = "AA_CondenseIridescent_PA";
+                condenseIridescent._passiveName = "Condense (Iridescent)";
+                condenseIridescent.m_PassiveID = "Condense";
+                condenseIridescent.passiveIcon = ResourceLoader.LoadSprite("Condense_passive_iridescent");
+                condenseIridescent._characterDescription = "Upon death, fill the pigment bar with Iridescent pigment, which transforms into random pigment at the start of your next turn.";
+                condenseIridescent._enemyDescription = condenseIridescent._characterDescription;
+                condenseIridescent._triggerOn = [TriggerCalls.OnDeath];
+                condenseIridescent.doesPassiveTriggerInformationPanel = true;
+                condenseIridescent.effects =
+                [
+                    Effects.GenerateEffect(AllIridescent, 1, Targeting.Slot_SelfSlot),
+                ];
+
+                Passives.AddCustomPassiveToPool("AA_CondenseIridescent_PA", "Condense (Iridescent)", condenseIridescent);
+            }
+
+            if (LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck") != null)
+            {
+                GenerateColorsByListManaFillPigmentBarEffect AllClusterfuck = ScriptableObject.CreateInstance<GenerateColorsByListManaFillPigmentBarEffect>();
+                AllClusterfuck._manaColors = [LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck")];
+
+                PerformEffectPassiveAbility condenseClusterfuck = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                condenseClusterfuck.name = "AA_CondenseClusterfuck_PA";
+                condenseClusterfuck._passiveName = "Condense (Clusterfuck)";
+                condenseClusterfuck.m_PassiveID = "Condense";
+                condenseClusterfuck.passiveIcon = ResourceLoader.LoadSprite("Condense_passive_clusterfuck");
+                condenseClusterfuck._characterDescription = "Upon death, fill the pigment bar with entirely random pigment, including split and esoteric pigment colors.";
+                condenseClusterfuck._enemyDescription = condenseClusterfuck._characterDescription;
+                condenseClusterfuck._triggerOn = [TriggerCalls.OnDeath];
+                condenseClusterfuck.doesPassiveTriggerInformationPanel = true;
+                condenseClusterfuck.effects =
+                [
+                    Effects.GenerateEffect(AllClusterfuck, 1, Targeting.Slot_SelfSlot),
+                ];
+
+                Passives.AddCustomPassiveToPool("AA_CondenseClusterfuck_PA", "Condense (Clusterfuck)", condenseClusterfuck);
+            }
+
+            if (LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase") != null)
+            {
+                GenerateColorManaFillPigmentBarEffect AllEntropic = ScriptableObject.CreateInstance<GenerateColorManaFillPigmentBarEffect>();
+                AllEntropic.mana = LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase");
+
+                PerformEffectPassiveAbility condenseEntropic = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                condenseEntropic.name = "AA_CondenseEntropic_PA";
+                condenseEntropic._passiveName = "Condense (Entropic)";
+                condenseEntropic.m_PassiveID = "Condense";
+                condenseEntropic.passiveIcon = ResourceLoader.LoadSprite("Condense_passive_entropic");
+                condenseEntropic._characterDescription = "Upon death, fill the pigment bar with Entropic pigment, which transforms into random pigment upon anything performing an ability.";
+                condenseEntropic._enemyDescription = condenseEntropic._characterDescription;
+                condenseEntropic._triggerOn = [TriggerCalls.OnDeath];
+                condenseEntropic.doesPassiveTriggerInformationPanel = true;
+                condenseEntropic.effects =
+                [
+                    Effects.GenerateEffect(AllEntropic, 1, Targeting.Slot_SelfSlot),
+                ];
+
+                Passives.AddCustomPassiveToPool("AA_CondenseEntropic_PA", "Condense (Entropic)", condenseEntropic);
+            }
+
+            if (LoadedDBsHandler.PigmentDB.GetPigment("White") != null)
+            {
+                GenerateColorManaFillPigmentBarEffect AllWhite = ScriptableObject.CreateInstance<GenerateColorManaFillPigmentBarEffect>();
+                AllWhite.mana = LoadedDBsHandler.PigmentDB.GetPigment("White");
+
+                PerformEffectPassiveAbility condenseWhite = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                condenseWhite.name = "AA_CondenseEntropic_PA";
+                condenseWhite._passiveName = "Condense (Entropic)";
+                condenseWhite.m_PassiveID = "Condense";
+                condenseWhite.passiveIcon = ResourceLoader.LoadSprite("Condense_passive_white");
+                condenseWhite._characterDescription = "Upon death, fill the pigment bar with universal White pigment.";
+                condenseWhite._enemyDescription = condenseWhite._characterDescription;
+                condenseWhite._triggerOn = [TriggerCalls.OnDeath];
+                condenseWhite.doesPassiveTriggerInformationPanel = true;
+                condenseWhite.effects =
+                [
+                    Effects.GenerateEffect(AllWhite, 1, Targeting.Slot_SelfSlot),
+                ];
+
+                Passives.AddCustomPassiveToPool("AA_CondenseWhite_PA", "Condense (White)", condenseWhite);
+            }
 
             StatusEffect_Apply_Effect OilApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             OilApply._Status = StatusField.OilSlicked;
@@ -567,10 +719,8 @@ namespace A_Apocrypha.Custom_Passives
             iceproofPassive._damageType = "AA_Frost_Damage";
             // again, field effect immunity is handled by the field effect
 
-            if (AApocrypha.CrossMod.UndivineComedy && LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
+            if (LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
             {
-                EffectSO PigmentBreaker = LoadedAssetsHandler.GetCharacterAbility("Defrag_1_A").effects[3].effect;
-
                 // Fragile - broken pigment-related passive from Undivine Comedy (thanks WolfaCola)
                 PerformDoubleEffectPassiveAbility Fragile = ScriptableObject.CreateInstance<PerformDoubleEffectPassiveAbility>();
                 Fragile.name = "AA_Fragile_PA";
@@ -591,7 +741,7 @@ namespace A_Apocrypha.Custom_Passives
                 ];
                 Fragile._secondEffects =
                 [
-                    Effects.GenerateEffect(PigmentBreaker),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ShatterBrokenPigmentEffect>()),
                 ];
                 if (!LoadedDBsHandler.PassiveDB._PassivesPool.Contains("Fragile_PA")) { Passives.AddCustomPassiveToPool("Fragile_PA", "Fragile", Fragile); }
             }
@@ -632,8 +782,97 @@ namespace A_Apocrypha.Custom_Passives
             torturedPassive.doesPassiveTriggerInformationPanel = false;
             torturedPassive._triggerOn = [TriggerCalls.OnBeingDamaged];
 
+            if (LoadedDBsHandler.StatusFieldDB._FieldEffects.ContainsKey("Gravity_ID"))
+            {
+                // Fixed Point - Gravity Immunity passive (once I figure out how to do that lmao)
+                PerformEffectPassiveAbility nograv = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                nograv.name = "AA_FixedPoint_PA";
+                nograv._passiveName = "Fixed Point";
+                nograv.m_PassiveID = "FixedPoint";
+                nograv.passiveIcon = ResourceLoader.LoadSprite("IconFixedPoint");
+                nograv._characterDescription = "This party member is unaffected by Gravity.";
+                nograv._enemyDescription = "This enemy is unaffected by Gravity.";
+                nograv._triggerOn = [];
+                nograv.doesPassiveTriggerInformationPanel = false;
+                nograv.effects =
+                [
+
+                ];
+                Passives.AddCustomPassiveToPool("AA_FixedPoint_PA", "Fixed Point", nograv);
+            }
+
+            if (!LoadedDBsHandler.PassiveDB._PassivesPool.Contains("Thrombophilia_PA"))
+            {
+                RemoveAmountStatusEffectEffect RupturedDown = ScriptableObject.CreateInstance<RemoveAmountStatusEffectEffect>();
+                RupturedDown.statusId = StatusField.Ruptured.StatusID;
+                RupturedDown.entryAsPercentage = false;
+
+                PerformEffectPassiveAbility thrombo = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                thrombo.name = "AA_FixedPoint_PA";
+                thrombo._passiveName = "Fixed Point";
+                thrombo.m_PassiveID = "FixedPoint";
+                thrombo.passiveIcon = ResourceLoader.LoadSprite("IconThrombophilia");
+                thrombo._characterDescription = "This party member will lose 1 extra Ruptured upon moving.";
+                thrombo._enemyDescription = "This enemy will lose 1 Ruptured upon moving.";
+                thrombo._triggerOn = [TriggerCalls.OnMoved];
+                thrombo.doesPassiveTriggerInformationPanel = false;
+                thrombo.effects =
+                [
+                    Effects.GenerateEffect(RupturedDown, 1, Targeting.Slot_SelfSlot),
+                ];
+                Passives.AddCustomPassiveToPool("Thrombophilia_PA", "Thrombophilia", thrombo);
+            }
+
+            RerollNumberPigmentFromSetColorEffect PurpleDilute = ScriptableObject.CreateInstance<RerollNumberPigmentFromSetColorEffect>();
+            PurpleDilute._targetMana = Pigments.Purple;
+            PurpleDilute._resultMana = [Pigments.PurpleRed, Pigments.PurpleBlue, Pigments.PurpleYellow];
+
+            PerformEffectPassiveAbility pigmentTransformPurple1 = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            pigmentTransformPurple1.name = "AA_Dilution_Purple1_PA";
+            pigmentTransformPurple1._passiveName = "Dilution (Purple, 1)";
+            pigmentTransformPurple1.m_PassiveID = "Dilution";
+            pigmentTransformPurple1.passiveIcon = ResourceLoader.LoadSprite("IconPigmentTransformPurple");
+            pigmentTransformPurple1._characterDescription = "On being directly damaged, split a random pigment color into 1 Purple pigment in the pigment bar.";
+            pigmentTransformPurple1._enemyDescription = pigmentTransformPurple1._characterDescription;
+            pigmentTransformPurple1._triggerOn = [TriggerCalls.OnDirectDamaged];
+            pigmentTransformPurple1.doesPassiveTriggerInformationPanel = true;
+            pigmentTransformPurple1.effects =
+            [
+                Effects.GenerateEffect(PurpleDilute, 1),
+            ];
+
+            // Zelator - Hexed damage bonus passive
+            PercDmgIfStatusModPassiveAbility zelator = ScriptableObject.CreateInstance<PercDmgIfStatusModPassiveAbility>();
+            zelator.name = "Zelator_PA";
+            zelator._passiveName = "Zelator";
+            zelator.m_PassiveID = "Zelator";
+            zelator.passiveIcon = ResourceLoader.LoadSprite("IconCometGaze");
+            zelator._characterDescription = "This party member deals 50% more damage to Hexed targets.";
+            zelator._enemyDescription = "This enemy deals 50% more damage to Hexed targets.";
+            zelator.doesPassiveTriggerInformationPanel = true;
+            zelator._triggerOn = [TriggerCalls.OnWillApplyDamage];
+            zelator._doesIncrease = true;
+            zelator._useDealt = true;
+            zelator._useSimpleInt = false;
+            zelator._percentageToModify = 50;
+            zelator._statusID = "Hexed_ID";
+
+            // Contaminant - Aggregate color manipulation passive
+            PerformEffectPassiveAbility contaminant1 = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            contaminant1.name = "AA_Contaminant1_PA";
+            contaminant1._passiveName = "Contaminant (1)";
+            contaminant1.m_PassiveID = "Contaminant";
+            contaminant1.passiveIcon = ResourceLoader.LoadSprite("IconContaminant");
+            contaminant1._characterDescription = "On being directly damaged, split this party member's health color into 1 random pigment in the pigment bar.";
+            contaminant1._enemyDescription = "On being directly damaged, split this enemy's health color into 1 random pigment in the pigment bar.";
+            contaminant1._triggerOn = [TriggerCalls.OnDirectDamaged];
+            contaminant1.doesPassiveTriggerInformationPanel = true;
+            contaminant1.effects =
+            [
+                Effects.GenerateEffect(ScriptableObject.CreateInstance<PutrefyNumberPigmentCasterHealthColorEffect>(), 1),
+            ];
+
             // Adding to pool
-            CheckerPassivePoolAdd("Shy_PA", "Shy", shy);
             CheckerPassivePoolAdd("Shy_PA", "Shy", shy);
             CheckerPassivePoolAdd("Confrontational_PA", "Confrontational", confrontational);
             CheckerPassivePoolAdd("Gnome_PA", "Gnome", gnomePassive);
@@ -662,6 +901,10 @@ namespace A_Apocrypha.Custom_Passives
             CheckerPassivePoolAdd("Gadsby_PA", "Gadsby", gadsbyPassiv);
             CheckerPassivePoolAdd("JollyJoker_PA", "Jolly", jollyPassive);
             CheckerPassivePoolAdd("Tortured_PA", "Tortured", torturedPassive);
+            CheckerPassivePoolAdd("AA_Dilution_Purple1_PA", "Dilution (Purple, 1)", pigmentTransformPurple1);
+            CheckerPassivePoolAdd("Zelator_PA", "Zelator", zelator);
+            CheckerPassivePoolAdd("AA_Contaminant1_PA", "Contaminant (1)", contaminant1);
+            CheckerPassivePoolAdd("Random4Blooded_2_PA", "Random-Blooded (2)", randomBlooded2);
 
             // Glossary entries
             GlossaryPassives AAShyInfo = new GlossaryPassives("Shy", "Upon performing an ability, this party member/enemy will move to the left or right, prioritizing unopposed spaces, if there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconShy"));
@@ -676,10 +919,14 @@ namespace A_Apocrypha.Custom_Passives
             GlossaryPassives AAPigmentBloodedInfo = new GlossaryPassives("Pigment-Blooded", "Upon receiving direct damage this party member/enemy produces additional pigment of a specific color.", ResourceLoader.LoadSprite("IconStonebloodPrimary"));
             GlossaryPassives AATargeterInfo = new GlossaryPassives("Targeter", "At the start of combat and at the end of the round, this enemy will remember the position of the party member with the highest current health.", ResourceLoader.LoadSprite("IconTargeter"));
             GlossaryPassives AADeploymentInfo = new GlossaryPassives("Deployment", "Dealing damage to this enemy greater than a certain threshold will cause it to attempt to summon a specific enemy.", ResourceLoader.LoadSprite("IconDeployment")); // icon sprited by MillieAmp
-            GlossaryPassives AACondenseInfo = new GlossaryPassives("Condense", "Upon death, fill the pigment bar with pigment of this party member/enemy's health color.", ResourceLoader.LoadSprite("Condense_passive"));
+            GlossaryPassives AACondenseInfo = new GlossaryPassives("Condense", "Upon death, fill the pigment bar with pigment of this party member/enemy's health color. Specific versions of Condense can create specific pigment colors.", ResourceLoader.LoadSprite("Condense_passive"));
             GlossaryPassives AABlackTearsInfo = new GlossaryPassives("Black Tears", "On moving, this unit gains a certain amount of Oil Slicked.", ResourceLoader.LoadSprite("IconBlackTears"));
             GlossaryPassives AASnowstormInfo = new GlossaryPassives("Snowstorm", "On turn start, this party member/enemy applies a certain amount of Hoarfrost to their current position.", ResourceLoader.LoadSprite("IconHoarfrostMirrored"));
             GlossaryPassives AAAntifreezeInfo = new GlossaryPassives("Antifreeze", "This unit is unaffected by Hoarfrost and immune to frost damage.", ResourceLoader.LoadSprite("IconIceskull"));
+            GlossaryPassives AAPatientInfo = new GlossaryPassives("Patient", "When the player turn ends, this enemy queues a specific ability.", ResourceLoader.LoadSprite("IconPatient"));
+            GlossaryPassives AADilutionInfo = new GlossaryPassives("Dilution", "On being directly damaged, split random pigment colors into a set amount of pigments of a specific color in the pigment bar.", ResourceLoader.LoadSprite("IconPigmentTransformPrimary"));
+            GlossaryPassives AAContaminantInfo = new GlossaryPassives("Contaminant", "On being directly damaged, split this party member/enemy's health color into a set amount of random pigment in the pigment bar.", ResourceLoader.LoadSprite("IconContaminant"));
+            GlossaryPassives AAZelatorInfo = new GlossaryPassives("Zelator", "This party member/enemy deals 50% more damage to Hexed targets.", ResourceLoader.LoadSprite("IconCometGaze"));
 
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAShyInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAConfrontationalInfo);
@@ -697,6 +944,10 @@ namespace A_Apocrypha.Custom_Passives
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AABlackTearsInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AASnowstormInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAAntifreezeInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AAPatientInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AADilutionInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AAContaminantInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AAZelatorInfo);
 
             if (!AApocrypha.CrossMod.StewSpecimens)
             {
@@ -714,12 +965,17 @@ namespace A_Apocrypha.Custom_Passives
                 LoadedDBsHandler.GlossaryDB.AddNewPassive(AAJumpyInfo);
                 GlossaryPassives AATornApartInfo = new GlossaryPassives("Torn Apart", "This unit is permanently Gutted.", StatusField.Gutted._EffectInfo.icon);
                 LoadedDBsHandler.GlossaryDB.AddNewPassive(AATornApartInfo);
+                GlossaryPassives AAOverdoseInfo = new GlossaryPassives("Overdose", "On being directly damaged, transform into a random other party member/enemy from a selection of party members/enemies.", ResourceLoader.LoadSprite("OverdosePassive"));
+                LoadedDBsHandler.GlossaryDB.AddNewPassive(AAOverdoseInfo);
             }
 
-            if (!AApocrypha.CrossMod.HellIslandFell)
+            GlossaryPassives BonusSuiteInfo = new GlossaryPassives("Bonus Suite", "This enemy will perform one of a list of moves as a bonus action each turn.", ResourceLoader.LoadSprite("IconBonusSuite"));
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(BonusSuiteInfo);
+
+            if (LoadedDBsHandler.StatusFieldDB._FieldEffects.ContainsKey("Gravity_ID"))
             {
-                GlossaryPassives AltAttacksInfo = new GlossaryPassives("Alt Attacks", "This enemy will perform an additional ability each turn, this ability is randomly selected from a given set.", ResourceLoader.LoadSprite("PassiveAltAttacks"));
-                LoadedDBsHandler.GlossaryDB.AddNewPassive(AltAttacksInfo);
+                GlossaryPassives NoGravInfo = new GlossaryPassives("Fixed Point", "This party member/enemy is unaffected by Gravity.", ResourceLoader.LoadSprite("IconFixedPoint"));
+                LoadedDBsHandler.GlossaryDB.AddNewPassive(NoGravInfo);
             }
         }
 
@@ -747,6 +1003,14 @@ namespace A_Apocrypha.Custom_Passives
             PreviousEffectCondition PreviousFalse = ScriptableObject.CreateInstance<PreviousEffectCondition>();
             PreviousFalse.wasSuccessful = false;
 
+            PassiveLockingEffect PureLock = ScriptableObject.CreateInstance<PassiveLockingEffect>();
+            PureLock._lock = true;
+            PureLock.m_PassiveIDs = [Passives.Pure.m_PassiveID];
+
+            PassiveLockingEffect PureUnlock = ScriptableObject.CreateInstance<PassiveLockingEffect>();
+            PureUnlock._lock = false;
+            PureUnlock.m_PassiveIDs = [Passives.Pure.m_PassiveID];
+
             return GetOrCreatePassive(GeneratedCopyThat, amount, delegate (int x)
             {
                 PerformDoubleEffectPassiveAbility copythat = ScriptableObject.CreateInstance<PerformDoubleEffectPassiveAbility>();
@@ -758,7 +1022,9 @@ namespace A_Apocrypha.Custom_Passives
                 copythat._enemyDescription = $"At the start of combat, select {x} random party members. Copy one passive and two abilities (excluding Slap) from each selected party member onto this enemy. Change this enemy's health color to a combination of all selected party members' health colors.";
                 copythat._triggerOn = [TriggerCalls.OnBeforeCombatStart];
                 copythat.effects = [
+                    Effects.GenerateEffect(PureLock),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CopyThatEffect>(), x, Targeting.Unit_AllOpponents),
+                    Effects.GenerateEffect(PureUnlock),
                 ];
                 copythat._secondTriggerOn = [TriggerCalls.OnDeath];
                 copythat._secondPerformConditions = [ScriptableObject.CreateInstance<IsSelfDeathCondition>()];
@@ -801,8 +1067,8 @@ namespace A_Apocrypha.Custom_Passives
             });
         }
 
-        // Alt Attacks: multi-ability variant of Bonus Attack from Hell Island Fell
-        public static BasePassiveAbilitySO AltAttacksGenerator(List<ExtraAbilityInfo> bonusAbilities)
+        // Bonus Suite: Multiple Bonus Attack Passive to replace Alt Attacks
+        public static BasePassiveAbilitySO BonusSuiteGenerator(List<ExtraAbilityInfo> bonusAbilities)
         {
             List<string> names = [];
             List<ExtraAbilityInfo> weights = [];
@@ -810,7 +1076,7 @@ namespace A_Apocrypha.Custom_Passives
             {
                 if (ability == null || ability.ability == null)
                 {
-                    Debug.Log("Null alt ability: " + ability.ability.name);
+                    Debug.Log("Bonus ability " + ability.ability.name + " does not exist.");
                     return null;
                 }
                 names.Add(ability.ability._abilityName);
@@ -821,31 +1087,29 @@ namespace A_Apocrypha.Custom_Passives
                 if (ability.rarity.canBeRerolled)
                 {
                     ability.rarity = Rarity.Impossible;
-                } 
+                }
                 else
                 {
                     ability.rarity = Rarity.ImpossibleNoReroll;
                 }
             }
 
-            AltAttacksPassiveAbility altAttacksPassiveAbility = ScriptableObject.CreateInstance<AltAttacksPassiveAbility>();
+            BonusSuitePassiveAbility bonusSuitePassiveAbility = ScriptableObject.CreateInstance<BonusSuitePassiveAbility>();
 
-            altAttacksPassiveAbility.name = string.Join("_", names) + "_PA";
-            altAttacksPassiveAbility.m_PassiveID = string.Join("_", names);
-            altAttacksPassiveAbility._passiveName = "Alt Attacks";
-            altAttacksPassiveAbility._characterDescription = "This passive is not meant for party members.";
-            altAttacksPassiveAbility._enemyDescription = "This enemy will perform an additional ability each turn, this ability is randomly selected from the following:" + "\n" + string.Join("\n", names);
-            altAttacksPassiveAbility.passiveIcon = ResourceLoader.LoadSprite("PassiveAltAttacks");
-            altAttacksPassiveAbility._triggerOn = [TriggerCalls.ExtraAdditionalAttacks];
-            altAttacksPassiveAbility.conditions = [];
-            altAttacksPassiveAbility.doesPassiveTriggerInformationPanel = false;
-            altAttacksPassiveAbility.specialStoredData = null;
-            altAttacksPassiveAbility._altAbilities = bonusAbilities;
-            altAttacksPassiveAbility._weights = weights;
-            return altAttacksPassiveAbility;
+            bonusSuitePassiveAbility.name = "BonusSuite_" + string.Join("_", names) + "_PA";
+            bonusSuitePassiveAbility.m_PassiveID = "BonusSuite_" + string.Join("_", names);
+            bonusSuitePassiveAbility._passiveName = "Bonus Suite";
+            bonusSuitePassiveAbility._characterDescription = "This passive is not meant for party members.";
+            bonusSuitePassiveAbility._enemyDescription = "This enemy will perform one of the following moves as a bonus action each turn:" + "\n" + string.Join("\n", names);
+            bonusSuitePassiveAbility.passiveIcon = ResourceLoader.LoadSprite("IconBonusSuite");
+            bonusSuitePassiveAbility._triggerOn = [TriggerCalls.ExtraAdditionalAttacks];
+            bonusSuitePassiveAbility.conditions = [];
+            bonusSuitePassiveAbility.doesPassiveTriggerInformationPanel = false;
+            bonusSuitePassiveAbility.specialStoredData = null;
+            bonusSuitePassiveAbility._suiteAbilities = weights;
+            return bonusSuitePassiveAbility;
         }
 
-        // from hell island fell (custom passives)
         private static TValue GetOrCreatePassive<TKey, TValue>(IDictionary<TKey, TValue> readFrom, TKey key, Func<TKey, TValue> create)
         {
             if (readFrom.TryGetValue(key, out TValue value))
@@ -854,13 +1118,6 @@ namespace A_Apocrypha.Custom_Passives
             }
 
             return readFrom[key] = create(key);
-        }
-        static PreviousEffectCondition PreviousGenerator(bool wasTrue, int number)
-        {
-            PreviousEffectCondition previous = ScriptableObject.CreateInstance<PreviousEffectCondition>();
-            previous.wasSuccessful = wasTrue;
-            previous.previousAmount = number;
-            return previous;
         }
     }
     public class IsSelfDeathCondition : EffectorConditionSO

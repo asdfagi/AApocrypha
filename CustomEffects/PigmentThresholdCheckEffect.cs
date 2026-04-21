@@ -9,10 +9,12 @@ namespace A_Apocrypha.CustomEffects
         public ManaColorSO _color;
         public bool _contains = false;
         public bool _capByPrevious = false;
+        public bool _useCasterHealthColor = false;
         public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
         {
             exitAmount = 0;
             int counter = 0;
+            if (_useCasterHealthColor) { _color = caster.HealthColor; }
             foreach (ManaBarSlot manaSlot in stats.MainManaBar.ManaBarSlots)
             {
                 if (manaSlot.ManaColor != null)

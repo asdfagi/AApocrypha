@@ -26,7 +26,7 @@ namespace A_Apocrypha.CustomEffects
             {
                 if (target.HasUnit)
                 {
-                    Debug.Log("Scrabble Scorer | scoring name " + target.Unit.Name);
+                    //Debug.Log("Scrabble Scorer | scoring name " + target.Unit.Name);
                     foreach (char value in target.Unit.Name)
                     {
                         if (scoreOne.Contains(char.ToLower(value))) { exitAmount++; }
@@ -39,7 +39,7 @@ namespace A_Apocrypha.CustomEffects
                         if (scoreEight.Contains(char.ToLower(value))) { exitAmount += 8; }
                         if (scoreNine.Contains(char.ToLower(value))) { exitAmount += 9; }
                         if (scoreTen.Contains(char.ToLower(value))) { exitAmount += 10; }
-                        Debug.Log($"Scrabble Scorer | adding value of {value} - new total {exitAmount}");
+                        //Debug.Log($"Scrabble Scorer | adding value of {value} - new total {exitAmount}");
                     }
                 }
             }

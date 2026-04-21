@@ -11,21 +11,23 @@ namespace A_Apocrypha.Encounters
             Portals.AddPortalSign("SharpenedAnomaly_Sign", ResourceLoader.LoadSprite("SharpenedAnomalyTimeline", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
             EnemyEncounter_API sharpenedAnomalyMedium = new EnemyEncounter_API(0, Orph.H.Anomaly.Sharpened.Med, "SharpenedAnomaly_Sign")
             {
-                MusicEvent = "event:/AAMusic/MillieAmp/SecondaryColors",
+                MusicEvent = "event:/AAMusic/Ridiculon/WallsOfDenial",
                 RoarEvent = "event:/AAEnemy/Anomaly1Roar",
             };
             sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 2, "MusicMan_EN");
-            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.Blue, 1, Jumble.Red);
-            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.Yellow, 1, Jumble.Blue);
-            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.RedPurpleSplit, 1, Jumble.Red);
-            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.BlueYellowSplit, 1, Jumble.Yellow);
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.Blue, 1, "MusicMan_EN");
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.Yellow, 1, "MusicMan_EN");
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, "MusicMan_EN", 1, Jumble.Red);
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, "MusicMan_EN", 1, Jumble.Blue);
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.RedPurpleSplit, 1, "MusicMan_EN");
+            sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Spoggle.BlueYellowSplit, 1, "MusicMan_EN");
             sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 3, Enemies.Suckle);
             if (AApocrypha.CrossMod.Colophons)
             {
-                sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Colophon.Yellow, 1, Jumble.Red);
+                //sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Colophon.Yellow, 1, Jumble.Red);
                 if (AApocrypha.CrossMod.IntoTheAbyss)
                 {
-                    sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Colophon.Green, 1, Spoggle.BlueYellowSplit);
+                    //sharpenedAnomalyMedium.SimpleAddEncounter(1, Anomalies.Sharpened, 1, Colophon.Green, 1, Spoggle.BlueYellowSplit);
                 }
                 if (AApocrypha.CrossMod.pigmentRainbow)
                 {

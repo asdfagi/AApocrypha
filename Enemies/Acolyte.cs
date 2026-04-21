@@ -22,10 +22,10 @@ namespace A_Apocrypha.Enemies
                 DeathSound = LoadedAssetsHandler.GetEnemy("TaMaGoa_EN").damageSound,
             };
             acolyte.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Acolyte_Enemy/Acolyte_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Acolyte_Enemy/Acolyte_Giblets.prefab").GetComponent<ParticleSystem>());
-            acolyte.AddPassives([Passives.Skittish]);
+            acolyte.AddPassives([Passives.Skittish, Passives.GetCustomPassive("Zelator_PA")]);
 
-            StatusEffect_Apply_Effect ScarsApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
-            ScarsApply._Status = StatusField.Scars;
+            StatusEffect_Apply_Effect HexedApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            HexedApply._Status = StatusField.GetCustomStatusEffect("Hexed_ID");
 
             HealEffect PreviousHeal = ScriptableObject.CreateInstance<HealEffect>();
             PreviousHeal.usePreviousExitValue = true;
@@ -46,44 +46,39 @@ namespace A_Apocrypha.Enemies
 
             Ability hex = new Ability("Hex", "AApocrypha_Hex_A")
             {
-                Description = "Deals a Little damage to the Left and Right party members. Inflicts 1 Scar to the Left and Right party members.",
+                Description = "Deal a Little damage to the Left and Right party members. Apply 1 Hexed to the Left and Right party members.",
                 Cost = [Pigments.RedPurple, Pigments.Purple],
-                Visuals = Visuals.Genesis,
+                Visuals = Visuals.UglyOnTheInside,
                 AnimationTarget = Targeting.Slot_OpponentSides,
                 Effects =
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 2, Targeting.Slot_OpponentSides),
-                    Effects.GenerateEffect(ScarsApply, 1, Targeting.Slot_OpponentSides),
+                    Effects.GenerateEffect(HexedApply, 1, Targeting.Slot_OpponentSides),
                 ],
                 Rarity = Rarity.Common,
                 Priority = Priority.Normal,
             };
-            hex.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Damage_1_2)]);
-            hex.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Status_Scars)]);
+            hex.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Damage_1_2), "Status_Hexed"]);
 
             Ability sunder = new Ability("Sunder", "AApocrypha_Sunder_A")
             {
-                Description = "Deals a Painful amount of damage to the Opposing party member. If the Opposing party member has Scars, remove them and heal this enemy for the amount of Scars removed.",
+                Description = "Deal a Painful amount of damage to the Opposing party member. Apply 2 Hexed to the Opposing party member.",
                 Cost = [Pigments.Red, Pigments.RedPurple],
                 Visuals = Visuals.InvadeTheVeins,
                 AnimationTarget = Targeting.Slot_Front,
                 Effects =
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 4, Targeting.Slot_Front),
-                    Effects.GenerateEffect(HasScars, 1, Targeting.Slot_Front),
-                    Effects.GenerateEffect(ScarsRemove, 1, Targeting.Slot_Front, PreviousCondition),
-                    Effects.GenerateEffect(PreviousHeal, 1, Targeting.Slot_SelfSlot, PreviousCondition)
+                    Effects.GenerateEffect(HexedApply, 2, Targeting.Slot_Front),
                 ],
                 Rarity = Rarity.Common,
                 Priority = Priority.Normal,
             };
-            sunder.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_3_6)]);
-            sunder.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Rem_Status_Scars)]);
-            sunder.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Heal_1_4)]);
-
+            sunder.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_3_6), "Status_Hexed"]);
+            
             Ability invokechaos = new Ability("Invoke Chaos", "AApocrypha_InvokeChaos_A")
             {
-                Description = "Shuffles the positions of the Left, Right and Opposing party members. Applies 1 Scar to the Left, Right and Opposing party members.",
+                Description = "Shuffle the positions of the Left, Right and Opposing party members. Apply 1 Hexed to the Left, Right and Opposing party members.",
                 Cost = [Pigments.PurpleRed, Pigments.RedPurple],
                 Visuals = CustomVisuals.GazeVisualsSO,
                 AnimationTarget = Targeting.Slot_SelfSlot,
@@ -91,13 +86,12 @@ namespace A_Apocrypha.Enemies
                 [
                     Effects.GenerateEffect(Shuffle, 1, Targeting.Slot_FrontAndSides),
                     Effects.GenerateEffect(InvokeAnim, 1, Targeting.Slot_FrontAndSides),
-                    Effects.GenerateEffect(ScarsApply, 1, Targeting.Slot_FrontAndSides),
+                    Effects.GenerateEffect(HexedApply, 1, Targeting.Slot_FrontAndSides),
                 ],
                 Rarity = Rarity.Common,
                 Priority = Priority.VeryFast,
             };
-            invokechaos.AddIntentsToTarget(Targeting.Slot_FrontAndSides, [nameof(IntentType_GameIDs.Swap_Mass)]);
-            invokechaos.AddIntentsToTarget(Targeting.Slot_FrontAndSides, [nameof(IntentType_GameIDs.Status_Scars)]);
+            invokechaos.AddIntentsToTarget(Targeting.Slot_FrontAndSides, [nameof(IntentType_GameIDs.Swap_Mass), "Status_Hexed"]);
 
             acolyte.AddEnemyAbilities(
                 [

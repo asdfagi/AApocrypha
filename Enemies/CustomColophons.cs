@@ -250,6 +250,67 @@ namespace A_Apocrypha.Enemies
             ]);
             redpurpleColo.AddEnemy(true, true, false);
 
+            /*Enemy bluepurpleColo = new Enemy("Misguided Colophon", "ColophonMisguided_EN")
+            {
+                Health = 24,
+                HealthColor = Pigments.BluePurple,
+                Size = 1,
+                CombatSprite = ResourceLoader.LoadSprite("ColophonDualisticTimeline", new Vector2(0.5f, 0f), 32),
+                OverworldDeadSprite = ResourceLoader.LoadSprite("ColophonDualisticDead", new Vector2(0.5f, 0f), 32),
+                OverworldAliveSprite = ResourceLoader.LoadSprite("ColophonDualisticTimeline", new Vector2(0.5f, 0f), 32),
+                DamageSound = LoadedAssetsHandler.GetEnemy("ColophonComposed_EN").damageSound,
+                DeathSound = LoadedAssetsHandler.GetEnemy("ColophonDelighted_EN").deathSound,
+                //DamageSound = "event:/AAEnemy/ColophonSaccharineHurt",
+                //DeathSound = "event:/AAEnemy/ColophonSaccharineDeath",
+            };
+            //bluepurpleColo.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/ColophonMisguided_Enemy/ColophonMisguided_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/ColophonMisguided_Enemy/ColophonMisguided_Giblets.prefab").GetComponent<ParticleSystem>());
+            bluepurpleColo.AddPassives([Passives.Pure, Passives.GetCustomPassive("Pollute_PA")]);
+
+            Ability aid = new Ability("Unwanted Aid", "AApocrypha_UnwantedAid_A")
+            {
+                Description = "Deal an Agonizing amount of damage to the Opposing party member.\nApply 2 Frail to the Far Left, Left, Right and Far Right party members.",
+                Cost = [Pigments.RedPurple, Pigments.Purple],
+                Visuals = Visuals.Conductor,
+                AnimationTarget = Targeting.Slot_Front,
+                Effects =
+                [
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 8, Targeting.Slot_Front),
+                    Effects.GenerateEffect(FrailApply, 2, Targeting.Slot_OpponentSidesAndFarSides),
+                ],
+                Rarity = Rarity.Uncommon,
+                Priority = Priority.Normal,
+            };
+            aid.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_7_10)]);
+            aid.AddIntentsToTarget(Targeting.Slot_OpponentSidesAndFarSides, [nameof(IntentType_GameIDs.Status_Frail)]);
+
+            Ability transplant = new Ability("Fear of Gehenna", "AApocrypha_FearOfGehenna_A")
+            {
+                Description = "Deal a Little damage to the Left and Right party members.\nIf damage was dealt, deal damage to the Opposing party member equal to the damage dealt, then apply 2 Constricted and Fleeting(2) to them.",
+                Cost = [Pigments.PurpleRed, Pigments.Red],
+                Visuals = Visuals.Mitosis,
+                AnimationTarget = Targeting.Slot_Front,
+                Effects =
+                [
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 2, Targeting.Slot_OpponentSides),
+                    Effects.GenerateEffect(DamageByPrevious, 1, Targeting.Slot_Front, PreviousGenerator(true, 1)),
+                    Effects.GenerateEffect(ConstrictedApply, 2, Targeting.Slot_Front, PreviousGenerator(true, 2)),
+                    Effects.GenerateEffect(Fleeting2Apply, 1, Targeting.Slot_Front, PreviousGenerator(true, 3)),
+                ],
+                Rarity = Rarity.Uncommon,
+                Priority = Priority.Normal,
+            };
+            transplant.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Damage_1_2)]);
+            transplant.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_3_6), nameof(IntentType_GameIDs.Field_Constricted), nameof(IntentType_GameIDs.PA_Fleeting)]);
+
+            bluepurpleColo.AddEnemyAbilities(
+            [
+                bias,
+                migraine,
+            ]);
+            bluepurpleColo.AddEnemy(true, true, false);
+
+            LoadedAssetsHandler.GetEnemy("ColophonMisguided_EN").enemyTemplate = LoadedAssetsHandler.GetEnemy("ColophonDualistic_EN").enemyTemplate;*/
+
             if (AApocrypha.CrossMod.pigmentPeppermint)
             {
                 Enemy peppermintColo = new Enemy("Saccharine Colophon", "ColophonSaccharine_EN")

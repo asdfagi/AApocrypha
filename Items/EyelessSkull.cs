@@ -28,6 +28,7 @@ namespace A_Apocrypha.Items
                 [
                     Effects.GenerateEffect(Irrigo, 1, Targeting.Slot_Front),
                 ],
+                OnUnlockUsesTHE = true,
             };
 
             ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(nadirskull.item, new ItemModdedUnlockInfo("EyelessSkull_TW", ResourceLoader.LoadSprite("UnlockMarchWhitlockLocked", null, 32, null), "AApocrypha_Whitlock_Inevitable_ACH"));

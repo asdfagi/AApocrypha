@@ -57,6 +57,10 @@ namespace A_Apocrypha.Encounters
             {
                 phobiasHard.SimpleAddEncounter(2, "Phobia_Phobias_EN", 1, Noses.Red, 1, Enemies.Minister);
             }
+            if (AApocrypha.CrossMod.LeonLegion)
+            {
+                phobiasHard.SimpleAddEncounter(2, "Phobia_Phobias_EN", 1, Martians.Grey, 1, Enemies.Minister);
+            }
             phobiasHard.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.Phobia.Hard, 7, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Hard);
         }

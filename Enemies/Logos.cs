@@ -410,7 +410,7 @@ namespace A_Apocrypha.Enemies
             };
             exchangeburdens.AddIntentsToTarget(Targeting.Slot_AllyAllSlots, [nameof(IntentType_GameIDs.Rem_Field_Fire), nameof(IntentType_GameIDs.Field_Fire)]);
             exchangeburdens.AddIntentsToTarget(Targeting.Slot_OpponentAllSlots, [nameof(IntentType_GameIDs.Rem_Field_Fire), nameof(IntentType_GameIDs.Field_Fire)]);
-            
+
             Ability rotandobliteration = new Ability("Between Rot And Obliteration", "AApocrypha_RotAndObliteration_A")
             {
                 Description = "Remove all Fire from All party member positions and apply Irradiated to each party member equal to the amount of Fire removed from their position.",
@@ -583,10 +583,10 @@ namespace A_Apocrypha.Enemies
                 rarity = Rarity.Uncommon,
             };
 
-            redlogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseRed_PA"), CustomPassives.AltAttacksGenerator([tonguesextrared, placeextra, becomeextra])]);
-            bluelogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseBlue_PA"), CustomPassives.AltAttacksGenerator([tonguesextrablue, lifeextra, burdensextra])]);
-            yellowlogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseYellow_PA"), CustomPassives.AltAttacksGenerator([tonguesextrayellow, rotextra, peerextra])]);
-            purplelogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("BlackTears_2_PA"), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondensePurple_PA"), CustomPassives.AltAttacksGenerator([alchemicalextra, royalextra, languageextra])]);
+            redlogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseRed_PA"), CustomPassives.BonusSuiteGenerator([tonguesextrared, placeextra, becomeextra])]);
+            bluelogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseBlue_PA"), CustomPassives.BonusSuiteGenerator([tonguesextrablue, lifeextra, burdensextra])]);
+            yellowlogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseYellow_PA"), CustomPassives.BonusSuiteGenerator([tonguesextrayellow, rotextra, peerextra])]);
+            purplelogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("BlackTears_2_PA"), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondensePurple_PA"), CustomPassives.BonusSuiteGenerator([alchemicalextra, royalextra, languageextra])]);
 
             redlogos.AddEnemyAbilities(
             [
@@ -617,7 +617,13 @@ namespace A_Apocrypha.Enemies
             yellowlogos.AddEnemy(true, true, false);
             purplelogos.AddEnemy(true, true, false);
 
-            if (AApocrypha.CrossMod.UndivineComedy && LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
+            CasterInOneEdgeCheckEffect CheckLeft = ScriptableObject.CreateInstance<CasterInOneEdgeCheckEffect>();
+            CheckLeft._right = false;
+
+            CasterInOneEdgeCheckEffect CheckRight = ScriptableObject.CreateInstance<CasterInOneEdgeCheckEffect>();
+            CheckRight._right = true;
+
+            if (LoadedDBsHandler.PigmentDB.GetPigment("Broken") != null)
             {
                 Enemy blacklogos = new Enemy("Discordant Logos", "DiscordantLogos_EN")
                 {
@@ -648,14 +654,6 @@ namespace A_Apocrypha.Enemies
                 FrostDamageAdditiveBonus._DamageTypeID = "AA_Frost_Damage";
                 FrostDamageAdditiveBonus._usePreviousExitValue = true;
                 FrostDamageAdditiveBonus._bonusAmount = 2;
-
-                CasterInOneEdgeCheckEffect CheckLeft = ScriptableObject.CreateInstance<CasterInOneEdgeCheckEffect>();
-                CheckLeft._right = false;
-
-                CasterInOneEdgeCheckEffect CheckRight = ScriptableObject.CreateInstance<CasterInOneEdgeCheckEffect>();
-                CheckRight._right = true;
-
-                EffectSO PigmentBreaker = LoadedAssetsHandler.GetCharacterAbility("Defrag_1_A").effects[3].effect;
 
                 FieldEffect_ApplyWithRandomDistribution_Effect HoarfrostDistributeByPrevious = ScriptableObject.CreateInstance<FieldEffect_ApplyWithRandomDistribution_Effect>();
                 HoarfrostDistributeByPrevious.field = StatusField.GetCustomFieldEffect("Hoarfrost_ID");
@@ -739,7 +737,7 @@ namespace A_Apocrypha.Enemies
                     AnimationTarget = Targeting.Slot_SelfSlot,
                     Effects =
                     [
-                        Effects.GenerateEffect(PigmentBreaker),
+                        Effects.GenerateEffect(ScriptableObject.CreateInstance<ShatterBrokenPigmentEffect>()),
                         Effects.GenerateEffect(DamageCascadeByPrevious, 2, Targeting.GenerateSlotTarget([0, -1, 1, -2, 2, -3, 3, -4, 4], false)),
                         Effects.GenerateEffect(ScriptableObject.CreateInstance<RandomizeNumberPigmentCasterHealthColorEffect>(), 4, Targeting.Slot_SelfSlot, PreviousGenerator(false, 2)),
                     ],
@@ -770,7 +768,7 @@ namespace A_Apocrypha.Enemies
                     rarity = Rarity.Uncommon,
                 };
 
-                blacklogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("Snowstorm_1_PA"), Passives.GetCustomPassive("Antifreeze_PA"), Passives.GetCustomPassive("Fragile_PA"), CustomPassives.AltAttacksGenerator([wordsextra, colorsextra, nothingextra])]);
+                blacklogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("Snowstorm_1_PA"), Passives.GetCustomPassive("Antifreeze_PA"), Passives.GetCustomPassive("Fragile_PA"), CustomPassives.BonusSuiteGenerator([wordsextra, colorsextra, nothingextra])]);
 
                 blacklogos.AddEnemyAbilities(
                 [
@@ -779,6 +777,787 @@ namespace A_Apocrypha.Enemies
                 ]);
 
                 blacklogos.AddEnemy(false, false, false);
+            }
+
+            if (AApocrypha.CrossMod.IntoTheAbyss && Abyss.Exists)
+            {
+                //Debug.Log("Orguis | anims");
+                AttackVisualsSO GlitchVisuals = LoadedAssetsHandler.GetCharacterAbility("SamDefrag_A").visuals;
+
+                AnimationVisualsEffect GlitchAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                GlitchAnim._visuals = GlitchVisuals;
+                GlitchAnim._animationTarget = Targeting.Slot_Front;
+
+                AttackVisualsSO ResonateVisuals = LoadedAssetsHandler.GetCharacterAbility("GenevievePeace1_A").visuals;
+
+                AnimationVisualsEffect ResonateAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                ResonateAnim._visuals = ResonateVisuals;
+                ResonateAnim._animationTarget = Targeting.Slot_Front;
+
+                AnimationVisualsEffect PendLAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                PendLAnim._visuals = ITAVisuals.PendulumL;
+                PendLAnim._animationTarget = Targeting.Slot_Front;
+
+                AnimationVisualsEffect PendRAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                PendRAnim._visuals = ITAVisuals.PendulumR;
+                PendRAnim._animationTarget = Targeting.Slot_Front;
+
+                AnimationVisualsEffect LookAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                LookAnim._visuals = Visuals.Providence;
+                LookAnim._animationTarget = Targeting.Slot_Front;
+
+                AnimationVisualsEffect BeamAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                BeamAnim._visuals = Visuals.Excommunicate;
+                BeamAnim._animationTarget = Targeting.Slot_Front;
+
+                RemovePassiveEffect UnFree = ScriptableObject.CreateInstance<RemovePassiveEffect>();
+                UnFree.m_PassiveID = "FreeWilled";
+
+                AddPassiveEffect ReFree = ScriptableObject.CreateInstance<AddPassiveEffect>();
+                ReFree._passiveToAdd = Passives.GetCustomPassive("AA_FreeWilled_PA");
+
+                PassivePopUpOnTargetEffect FreePopup = ScriptableObject.CreateInstance<PassivePopUpOnTargetEffect>();
+                FreePopup._isUnitCharacter = true;
+                FreePopup._sprite = "IconStewSpecimensFreeWill";
+                FreePopup._name = "Free-Willed";
+
+                //Debug.Log("Orguis | iridescent start");
+                if (LoadedDBsHandler.PigmentDB.GetPigment("Iridescent") != null && LoadedDBsHandler.StatusFieldDB._FieldEffects.ContainsKey("Resonance_ID"))
+                {
+                    Enemy iridescentOrguis = new Enemy("Ephialtes Orguis", "EphialtesOrguis_EN")
+                    {
+                        Health = 40,
+                        HealthColor = LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"),
+                        Size = 1,
+                        CombatSprite = ResourceLoader.LoadSprite("OrguisTimelineIridescent", new Vector2(0.5f, 0f), 32),
+                        OverworldDeadSprite = ResourceLoader.LoadSprite("AnomalyDead", new Vector2(0.5f, 0f), 32),
+                        OverworldAliveSprite = ResourceLoader.LoadSprite("OrguisTimelineIridescent", new Vector2(0.5f, 0f), 32),
+                        DamageSound = "event:/AAEnemy/LogosDisco/LogosDiscoHurt",
+                        DeathSound = "event:/AAEnemy/LogosDisco/LogosDiscoDeath",
+                        UnitTypes = ["Logos"],
+                    };
+                    //Debug.Log("Orguis | prefab");
+                    iridescentOrguis.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/OrguisIridescent_Enemy.prefab", AApocrypha.assetBundle, null);
+
+                    FieldEffect_Apply_Effect ResonanceApply = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+                    ResonanceApply._Field = StatusField.GetCustomFieldEffect("Resonance_ID");
+
+                    //Debug.Log("Orguis | euphony");
+                    PerformEffectPassiveAbility euphony2 = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                    euphony2.name = "AA_Euphony2_PA";
+                    euphony2._passiveName = "Euphony (2)";
+                    euphony2.m_PassiveID = "Euphony";
+                    euphony2.passiveIcon = Passives.GetCustomPassive("Euphony2_PA").passiveIcon;
+                    euphony2._characterDescription = "On turn start this party member applies 2 Resonance to its current position.";
+                    euphony2._enemyDescription = "On turn start this enemy applies 2 Resonance to its current position.";
+                    euphony2._triggerOn = [TriggerCalls.OnTurnStart];
+                    euphony2.doesPassiveTriggerInformationPanel = true;
+                    euphony2.effects =
+                    [
+                        Effects.GenerateEffect(ResonanceApply, 2, Targeting.Slot_SelfSlot),
+                    ];
+                    Passives.AddCustomPassiveToPool("AA_Euphony2_PA", "Euphony (2)", euphony2);
+
+                    RemoveFieldEffectEffect RemoveResonance = ScriptableObject.CreateInstance<RemoveFieldEffectEffect>();
+                    RemoveResonance._field = StatusField.GetCustomFieldEffect("Resonance_ID");
+
+                    FieldEffect_Apply_Effect ResonanceByPrevious = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+                    ResonanceByPrevious._Field = StatusField.GetCustomFieldEffect("Resonance_ID");
+                    ResonanceByPrevious._UsePreviousExitValueAsMultiplier = true;
+
+                    FieldEffect_ApplyWithRandomDistribution_Effect ResonanceByPrevious2 = ScriptableObject.CreateInstance<FieldEffect_ApplyWithRandomDistribution_Effect>();
+                    ResonanceByPrevious2.field = StatusField.GetCustomFieldEffect("Resonance_ID");
+                    ResonanceByPrevious2.usePrevious = true;
+
+                    //Debug.Log("Orguis | abilities 1");
+                    Ability orguisiridleft = new Ability("Visionary", "AApocrypha_OrguisIridLeft_A")
+                    {
+                        Description = "Move Left, then apply 2 Resonance to the newly Opposing position. This ability assumes that the grid wraps around.",
+                        Cost = [Pigments.Grey, LoadedDBsHandler.PigmentDB.GetPigment("Iridescent")],
+                        Effects =
+                        [
+                            Effects.GenerateEffect(SwapLeft, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(CheckLeft, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                            Effects.GenerateEffect(ResonateAnim, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(ResonanceApply, 2, Targeting.Slot_Front),
+                        ],
+                        Rarity = Rarity.Common,
+                        Priority = Priority.VeryFast,
+                    };
+                    orguisiridleft.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
+                    orguisiridleft.AddIntentsToTarget(Targeting.Slot_Front, ["Field_Resonance"]);
+
+                    //Debug.Log("Orguis | abilities 2");
+                    Ability orguisiridright = new Ability("Luminary", "AApocrypha_OrguisIridRight_A")
+                    {
+                        Description = "Move Right, then apply 2 Resonance to the newly Opposing position. This ability assumes that the grid wraps around.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"), Pigments.Grey],
+                        Effects =
+                        [
+                            Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(CheckRight, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                            Effects.GenerateEffect(ResonateAnim, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(ResonanceApply, 2, Targeting.Slot_Front),
+                        ],
+                        Rarity = Rarity.Common,
+                        Priority = Priority.VeryFast,
+                    };
+                    orguisiridright.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
+                    orguisiridright.AddIntentsToTarget(Targeting.Slot_Front, ["Field_Resonance"]);
+
+                    //Debug.Log("Orguis | abilities 3 | stat");
+                    StatusEffect_ApplyWithRandomDistribution_Effect DisjuncterRandom = ScriptableObject.CreateInstance<StatusEffect_ApplyWithRandomDistribution_Effect>();
+                    DisjuncterRandom.status = StatusField.GetCustomStatusEffect("Disjunct_ID");
+                    DisjuncterRandom.usePrevious = true;
+
+                    //Debug.Log("Orguis | abilities 4");
+                    Ability promise = new Ability("I Will It, Promise Greatness", "AApocrypha_OrguisPromiseGreatnessIrid_A")
+                    {
+                        Description = "Heal the Opposing party member, then deal damage to them equal to twice the amount of effective healing and grant them Free Will. If they already had Free Will, remove it when performing this ability.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"), LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"), LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"), LoadedDBsHandler.PigmentDB.GetPigment("Iridescent")],
+                        Visuals = CustomVisuals.Whispers,
+                        AnimationTarget = Targeting.Slot_Front,
+                        Effects =
+                        [
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<HealEffect>(), 5, Targeting.Slot_Front),
+                            Effects.GenerateEffect(DamageByPrevious, 2, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(ReFree, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(FreePopup, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(UnFree, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(false, 2)),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    promise.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Heal_5_10), nameof(IntentType_GameIDs.Damage_7_10), "AA_AddPassive", "AA_RemPassive"]);
+
+                    //Debug.Log("Orguis | abilities 3 | ability");
+                    Ability terrify = new Ability("I Will It, Terrify Them", "AApocrypha_OrguisTerrifyThem_A")
+                    {
+                        Description = "Deal damage to the Opposing party member equal to their missing health, then apply the damage dealt as Disjunct spread across all other party members.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"), LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"), LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"), LoadedDBsHandler.PigmentDB.GetPigment("Iridescent")],
+                        Visuals = CustomVisuals.Whispers,
+                        AnimationTarget = Targeting.Slot_Front,
+                        Effects =
+                        [
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<MissingHealthCheckEffect>(), 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(DamageByPrevious, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(DisjuncterRandom, 1, Targeting.Slot_OpponentAllSlots, Effects.CheckPreviousEffectCondition(true, 1)),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    //Debug.Log("Orguis | abilities 3 | intents");
+                    terrify.AddIntentsToTarget(Targeting.Slot_Front, ["Damage_Prop"]);
+                    terrify.AddIntentsToTarget(Targeting.GenerateSlotTarget([-4, -3, -2, -1, 1, 2, 3, 4], false), ["Status_Disjunct"]);
+
+                    //Debug.Log("Orguis | abilities 5");
+                    Ability breakreality = new Ability("I Will It, Break Reality", "AApocrypha_OrguisBreakReality_A")
+                    {
+                        Description = "Remove all Resonance from All positions and apply it to this enemy.\nRemove all Resonance from this enemy's position and distribute it randomly to All occupied positions.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"), LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"), LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"), LoadedDBsHandler.PigmentDB.GetPigment("Iridescent")],
+                        Visuals = GlitchVisuals,
+                        AnimationTarget = AllUnitsTargeting,
+                        Effects =
+                        [
+                            Effects.GenerateEffect(RemoveResonance, 1, Targeting.Slot_AllyAllSlots),
+                            Effects.GenerateEffect(ResonanceByPrevious, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(RemoveResonance, 1, Targeting.Slot_OpponentAllSlots),
+                            Effects.GenerateEffect(ResonanceByPrevious, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(RemoveResonance, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(ResonanceByPrevious2, 1, AllUnitsTargeting),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    breakreality.AddIntentsToTarget(Targeting.Slot_AllyAllSlots, ["Rem_Field_Resonance", "Field_Resonance"]);
+                    breakreality.AddIntentsToTarget(Targeting.Slot_OpponentAllSlots, ["Rem_Field_Resonance", "Field_Resonance"]);
+
+                    //Debug.Log("Orguis | setup");
+                    ExtraAbilityInfo promiseextra = new()
+                    {
+                        ability = promise.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    ExtraAbilityInfo terrifyextra = new()
+                    {
+                        ability = terrify.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    ExtraAbilityInfo realityextra = new()
+                    {
+                        ability = breakreality.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    iridescentOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("AA_Euphony2_PA"), Passives.GetCustomPassive("AA_CondenseIridescent_PA"), CustomPassives.BonusSuiteGenerator([promiseextra, terrifyextra, realityextra])]);
+
+                    iridescentOrguis.AddEnemyAbilities(
+                    [
+                        orguisiridleft,
+                        orguisiridright,
+                    ]);
+
+                    //Debug.Log("Orguis | add");
+                    iridescentOrguis.AddEnemy(true, false, false);
+                }
+
+                if (LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck") != null && LoadedDBsHandler.StatusFieldDB._FieldEffects.ContainsKey("Segfault_ID"))
+                {
+                    Enemy clusterfuckOrguis = new Enemy("Apatelos Orguis", "ApatelosOrguis_EN")
+                    {
+                        Health = 40,
+                        HealthColor = LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"),
+                        Size = 1,
+                        CombatSprite = ResourceLoader.LoadSprite("OrguisTimelineClusterfuck", new Vector2(0.5f, 0f), 32),
+                        OverworldDeadSprite = ResourceLoader.LoadSprite("AnomalyDead", new Vector2(0.5f, 0f), 32),
+                        OverworldAliveSprite = ResourceLoader.LoadSprite("OrguisTimelineClusterfuck", new Vector2(0.5f, 0f), 32),
+                        DamageSound = "event:/AAEnemy/LogosDisco/LogosDiscoHurt",
+                        DeathSound = "event:/AAEnemy/LogosDisco/LogosDiscoDeath",
+                        UnitTypes = ["Logos"],
+                    };
+                    clusterfuckOrguis.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/OrguisClusterfuck_Enemy.prefab", AApocrypha.assetBundle, null);
+
+                    FieldEffect_Apply_Effect SegfaultApply = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+                    SegfaultApply._Field = StatusField.GetCustomFieldEffect("Segfault_ID");
+
+                    //Debug.Log("Orguis | euphony");
+                    PerformEffectPassiveAbility fragmentation1 = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                    fragmentation1.name = "AA_Fragmentation1_PA";
+                    fragmentation1._passiveName = "Fragmentation (1)";
+                    fragmentation1.m_PassiveID = "Fragmentation";
+                    fragmentation1.passiveIcon = ResourceLoader.LoadSprite("IconFragmentation");
+                    fragmentation1._characterDescription = "On turn start this party member applies 1 Segfault to its current position.";
+                    fragmentation1._enemyDescription = "On turn start this enemy applies 1 Segfault to its current position.";
+                    fragmentation1._triggerOn = [TriggerCalls.OnTurnStart];
+                    fragmentation1.doesPassiveTriggerInformationPanel = true;
+                    fragmentation1.effects =
+                    [
+                        Effects.GenerateEffect(SegfaultApply, 1, Targeting.Slot_SelfSlot),
+                    ];
+                    Passives.AddCustomPassiveToPool("AA_Fragmentation1_PA", "Fragmentation (1)", fragmentation1);
+
+                    RemoveFieldEffectEffect RemoveSegfault = ScriptableObject.CreateInstance<RemoveFieldEffectEffect>();
+                    RemoveSegfault._field = StatusField.GetCustomFieldEffect("Segfault_ID");
+
+                    FieldEffect_Apply_Effect SegfaultByPrevious = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+                    SegfaultByPrevious._Field = StatusField.GetCustomFieldEffect("Segfault_ID");
+                    SegfaultByPrevious._UsePreviousExitValueAsMultiplier = true;
+
+                    AnimationVisualsEffect GlitchAnim1 = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                    GlitchAnim1._visuals = GlitchVisuals;
+                    GlitchAnim1._animationTarget = Targeting.Slot_OpponentSides;
+
+                    AnimationVisualsEffect GlitchAnim2 = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                    GlitchAnim2._visuals = GlitchVisuals;
+                    GlitchAnim2._animationTarget = Targeting.Slot_OpponentFarSides;
+
+                    AnimationVisualsEffect GlitchAnim3 = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                    GlitchAnim3._visuals = GlitchVisuals;
+                    GlitchAnim3._animationTarget = Targeting.GenerateSlotTarget([-3, 3], false);
+
+                    AnimationVisualsEffect GlitchAnim4 = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+                    GlitchAnim4._visuals = GlitchVisuals;
+                    GlitchAnim4._animationTarget = Targeting.GenerateSlotTarget([-4, 4], false);
+
+                    Ability orguisclusterleft = new Ability("eDetdmne", "AApocrypha_OrguisClusterLeft_A") //Demented
+                    {
+                        Description = "Move Left, then apply 1 Segfault to the newly Opposing position. This ability assumes that the grid wraps around.",
+                        Cost = [Pigments.Grey, LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck")],
+                        Effects =
+                        [
+                            Effects.GenerateEffect(SwapLeft, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(CheckLeft, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                            Effects.GenerateEffect(GlitchAnim, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(SegfaultApply, 1, Targeting.Slot_Front),
+                        ],
+                        Rarity = Rarity.Common,
+                        Priority = Priority.VeryFast,
+                    };
+                    orguisclusterleft.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
+                    orguisclusterleft.AddIntentsToTarget(Targeting.Slot_Front, ["Field_Segfault"]);
+
+                    //Debug.Log("Orguis | abilities 2");
+                    Ability orguisclusterright = new Ability("liouseDir", "AApocrypha_OrguisClusterRight_A") //Delirious
+                    {
+                        Description = "Move Right, then apply 1 Segfault to the newly Opposing position. This ability assumes that the grid wraps around.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"), Pigments.Grey],
+                        Effects =
+                        [
+                            Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(CheckRight, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                            Effects.GenerateEffect(GlitchAnim, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(SegfaultApply, 1, Targeting.Slot_Front),
+                        ],
+                        Rarity = Rarity.Common,
+                        Priority = Priority.VeryFast,
+                    };
+                    orguisclusterright.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
+                    orguisclusterright.AddIntentsToTarget(Targeting.Slot_Front, ["Field_Segfault"]);
+
+                    DamageEffect ShieldPiercing = ScriptableObject.CreateInstance<DamageEffect>();
+                    ShieldPiercing._ignoreShield = true;
+
+                    HealEffect HealByPrevious = ScriptableObject.CreateInstance<HealEffect>();
+                    HealByPrevious.usePreviousExitValue = true;
+
+                    FieldEffectCheckEffect SegfaultCheck = ScriptableObject.CreateInstance<FieldEffectCheckEffect>();
+                    SegfaultCheck._fields = [StatusField.GetCustomFieldEffect("Segfault_ID")];
+
+                    Ability promise = new Ability("WlI itlI, srePem isasorenGt", "AApocrypha_OrguisPromiseGreatnessCluster_A")
+                    {
+                        Description = "Heal the Opposing party member, then deal damage to them equal to twice the amount of effective healing and grant them Free Will. If they already had Free Will, remove it when performing this ability.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"), LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"), LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"), LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck")],
+                        Visuals = CustomVisuals.Whispers,
+                        AnimationTarget = Targeting.Slot_Front,
+                        Effects =
+                        [
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<HealEffect>(), 5, Targeting.Slot_Front),
+                            Effects.GenerateEffect(DamageByPrevious, 2, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(ReFree, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(FreePopup, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(UnFree, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(false, 2)),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    promise.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Heal_5_10), nameof(IntentType_GameIDs.Damage_7_10), "AA_AddPassive", "AA_RemPassive"]);
+
+                    Ability overwrite = new Ability("WlI itlI, etevti rODawra", "AApocrypha_OrguisOverwriteData_A")
+                    {
+                        Description = "Attempt to deal a Little damage to the Opposing slot. Damage cascades across empty spaces to the Left and Right, doubling until it hits a party member.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"), LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"), LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"), LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck")],
+                        Effects =
+                        [
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(GlitchAnim, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 2, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 2)),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_OpponentSides, Effects.CheckPreviousEffectCondition(false, 3)),
+                            Effects.GenerateEffect(GlitchAnim1, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 4])),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 4, Targeting.Slot_OpponentSides, Effects.CheckMultiplePreviousEffectsCondition([true, false], [2, 5])),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_OpponentFarSides, Effects.CheckMultiplePreviousEffectsCondition([false, false], [3, 6])),
+                            Effects.GenerateEffect(GlitchAnim2, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false, false], [1, 4, 7])),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 8, Targeting.Slot_OpponentFarSides, Effects.CheckMultiplePreviousEffectsCondition([true, false, false], [2, 5, 8])),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.GenerateSlotTarget([-3, 3], false), Effects.CheckMultiplePreviousEffectsCondition([false, false, false], [3, 6, 9])),
+                            Effects.GenerateEffect(GlitchAnim3, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false, false, false], [1, 4, 7, 10])),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 16, Targeting.GenerateSlotTarget([-3, 3], false), Effects.CheckMultiplePreviousEffectsCondition([true, false, false, false], [2, 5, 8, 11])),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.GenerateSlotTarget([-4, 4], false), Effects.CheckMultiplePreviousEffectsCondition([false, false, false, false], [3, 6, 9, 12])),
+                            Effects.GenerateEffect(GlitchAnim4, 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false, false, false, false], [1, 4, 7, 10, 13])),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 32, Targeting.GenerateSlotTarget([-4, 4], false), Effects.CheckMultiplePreviousEffectsCondition([true, false, false, false, false], [2, 5, 8, 11, 14])),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    overwrite.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_1_2)]);
+                    overwrite.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Damage_3_6)]);
+                    overwrite.AddIntentsToTarget(Targeting.Slot_OpponentFarSides, [nameof(IntentType_GameIDs.Damage_7_10)]);
+                    overwrite.AddIntentsToTarget(Targeting.GenerateSlotTarget([-3, 3], false), [nameof(IntentType_GameIDs.Damage_16_20)]);
+                    overwrite.AddIntentsToTarget(Targeting.GenerateSlotTarget([-4, 4], false), [nameof(IntentType_GameIDs.Damage_21)]);
+
+                    TargetPerformEffectViaSubaction InspireSubaction = ScriptableObject.CreateInstance<TargetPerformEffectViaSubaction>();
+                    InspireSubaction.effects =
+                    [
+                        Effects.GenerateEffect(ShieldPiercing, 1, Targeting.Slot_SelfSlot),
+                        Effects.GenerateEffect(HealByPrevious, 2, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 1)),
+                    ];
+
+                    PerformEffectViaSubaction OmNomNom = ScriptableObject.CreateInstance<PerformEffectViaSubaction>();
+                    OmNomNom.effects = [Effects.GenerateEffect(ScriptableObject.CreateInstance<ConsumeRandomManaEffect>(), 5, Targeting.Slot_SelfSlot)];
+
+                    Ability inspire = new Ability("WlI itlI, snerInM daspise", "AApocrypha_OrguisInspireMadness_A")
+                    {
+                        Description = "Double all Segfault on all positions. Make all enemies deal 1 shield-piercing direct damage to themselves, then heal themselves for twice the damage dealt." +
+                        "\nConsume 5 pigment.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"), LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"), LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"), LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck")],
+                        Visuals = GlitchVisuals,
+                        AnimationTarget = Targeting.Slot_SelfSlot,
+                        Effects =
+                        [
+                            Effects.GenerateEffect(RemoveSegfault, 1, Targeting.GenerateGenericTarget([0], true)),
+                            Effects.GenerateEffect(SegfaultByPrevious, 2, Targeting.GenerateGenericTarget([0], true), Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(RemoveSegfault, 1, Targeting.GenerateGenericTarget([1], true)),
+                            Effects.GenerateEffect(SegfaultByPrevious, 2, Targeting.GenerateGenericTarget([1], true), Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(RemoveSegfault, 1, Targeting.GenerateGenericTarget([2], true)),
+                            Effects.GenerateEffect(SegfaultByPrevious, 2, Targeting.GenerateGenericTarget([2], true), Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(RemoveSegfault, 1, Targeting.GenerateGenericTarget([3], true)),
+                            Effects.GenerateEffect(SegfaultByPrevious, 2, Targeting.GenerateGenericTarget([3], true), Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(RemoveSegfault, 1, Targeting.GenerateGenericTarget([4], true)),
+                            Effects.GenerateEffect(SegfaultByPrevious, 2, Targeting.GenerateGenericTarget([4], true), Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(RemoveSegfault, 1, Targeting.GenerateGenericTarget([0], false)),
+                            Effects.GenerateEffect(SegfaultByPrevious, 2, Targeting.GenerateGenericTarget([0], false), Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(RemoveSegfault, 1, Targeting.GenerateGenericTarget([1], false)),
+                            Effects.GenerateEffect(SegfaultByPrevious, 2, Targeting.GenerateGenericTarget([1], false), Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(RemoveSegfault, 1, Targeting.GenerateGenericTarget([2], false)),
+                            Effects.GenerateEffect(SegfaultByPrevious, 2, Targeting.GenerateGenericTarget([2], false), Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(RemoveSegfault, 1, Targeting.GenerateGenericTarget([3], false)),
+                            Effects.GenerateEffect(SegfaultByPrevious, 2, Targeting.GenerateGenericTarget([3], false), Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(RemoveSegfault, 1, Targeting.GenerateGenericTarget([4], false)),
+                            Effects.GenerateEffect(SegfaultByPrevious, 2, Targeting.GenerateGenericTarget([4], false), Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(InspireSubaction, 1, Targeting.Unit_AllAllies),
+                            Effects.GenerateEffect(OmNomNom),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    inspire.AddIntentsToTarget(Targeting.GenerateSlotTarget([-4, -3, -2, -1, 0, 1, 2, 3, 4], true), ["Field_Segfault"]);
+                    inspire.AddIntentsToTarget(Targeting.GenerateSlotTarget([-4, -3, -2, -1, 0, 1, 2, 3, 4], false), ["Field_Segfault"]);
+                    inspire.AddIntentsToTarget(Targeting.Unit_AllAllies, [nameof(IntentType_GameIDs.Damage_1_2), nameof(IntentType_GameIDs.Heal_1_4)]);
+
+                    ExtraAbilityInfo promiseextra = new()
+                    {
+                        ability = promise.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    ExtraAbilityInfo overwriteextra = new()
+                    {
+                        ability = overwrite.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    ExtraAbilityInfo inspireextra = new()
+                    {
+                        ability = inspire.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    clusterfuckOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("AA_Fragmentation1_PA"), Passives.GetCustomPassive("AA_CondenseClusterfuck_PA"), CustomPassives.BonusSuiteGenerator([promiseextra, overwriteextra, inspireextra])]);
+
+                    clusterfuckOrguis.AddEnemyAbilities([
+                        orguisclusterleft.GenerateEnemyAbility(true),
+                        orguisclusterright.GenerateEnemyAbility(true),
+                    ]);
+
+                    clusterfuckOrguis.AddEnemy(true, false, false);
+                }
+
+                if (LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase") != null && LoadedDBsHandler.StatusFieldDB._FieldEffects.ContainsKey("Gravity_ID"))
+                {
+                    Enemy entropicOrguis = new Enemy("Panoptic Orguis", "PanopticOrguis_EN")
+                    {
+                        Health = 40,
+                        HealthColor = LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"),
+                        Size = 1,
+                        CombatSprite = ResourceLoader.LoadSprite("OrguisTimelineEntropic", new Vector2(0.5f, 0f), 32),
+                        OverworldDeadSprite = ResourceLoader.LoadSprite("AnomalyDead", new Vector2(0.5f, 0f), 32),
+                        OverworldAliveSprite = ResourceLoader.LoadSprite("OrguisTimelineEntropic", new Vector2(0.5f, 0f), 32),
+                        DamageSound = "event:/AAEnemy/LogosDisco/LogosDiscoHurt",
+                        DeathSound = "event:/AAEnemy/LogosDisco/LogosDiscoDeath",
+                        UnitTypes = ["Logos"],
+                    };
+
+                    entropicOrguis.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/OrguisEntropic_Enemy.prefab", AApocrypha.assetBundle, null);
+
+                    FieldEffect_Apply_Effect GravityApply = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+                    GravityApply._Field = StatusField.GetCustomFieldEffect("Gravity_ID");
+
+                    //Debug.Log("Orguis | euphony");
+                    PerformEffectPassiveAbility accretion1 = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                    accretion1.name = "AA_Accretion1_PA";
+                    accretion1._passiveName = "Accretion (1)";
+                    accretion1.m_PassiveID = "Accretion";
+                    accretion1.passiveIcon = StatusField.GetCustomFieldEffect("Gravity_ID")._EffectInfo.icon;
+                    accretion1._characterDescription = "On turn start this party member applies 1 Gravity to its current position.";
+                    accretion1._enemyDescription = "On turn start this enemy applies 1 Gravity to its current position.";
+                    accretion1._triggerOn = [TriggerCalls.OnTurnStart];
+                    accretion1.doesPassiveTriggerInformationPanel = true;
+                    accretion1.effects =
+                    [
+                        Effects.GenerateEffect(GravityApply, 1, Targeting.Slot_SelfSlot),
+                    ];
+                    Passives.AddCustomPassiveToPool("AA_Accretion1_PA", "Accretion (1)", accretion1);
+
+                    RemoveFieldEffectEffect RemoveGravity = ScriptableObject.CreateInstance<RemoveFieldEffectEffect>();
+                    RemoveGravity._field = StatusField.GetCustomFieldEffect("Gravity_ID");
+
+                    FieldEffect_Apply_Effect GravityByPrevious = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+                    GravityByPrevious._Field = StatusField.GetCustomFieldEffect("Gravity_ID");
+                    GravityByPrevious._UsePreviousExitValueAsMultiplier = true;
+
+                    Ability orguisentropicleft = new Ability("Conspiracy", "AApocrypha_OrguisEntropicLeft_A")
+                    {
+                        Description = "Move Left, then apply 1 Gravity to the newly Opposing position. This ability assumes that the grid wraps around.",
+                        Cost = [Pigments.Grey, LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase")],
+                        Effects =
+                        [
+                            Effects.GenerateEffect(SwapLeft, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(CheckLeft, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                            Effects.GenerateEffect(LookAnim, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(GravityApply, 1, Targeting.Slot_Front),
+                        ],
+                        Rarity = Rarity.Common,
+                        Priority = Priority.VeryFast,
+                    };
+                    orguisentropicleft.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
+                    orguisentropicleft.AddIntentsToTarget(Targeting.Slot_Front, ["Field_Gravity"]);
+
+                    //Debug.Log("Orguis | abilities 2");
+                    Ability orguisentropicright = new Ability("Controversy", "AApocrypha_OrguisEntropicRight_A")
+                    {
+                        Description = "Move Right, then apply 1 Gravity to the newly Opposing position. This ability assumes that the grid wraps around.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"), Pigments.Grey],
+                        Effects =
+                        [
+                            Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(CheckRight, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                            Effects.GenerateEffect(LookAnim, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(GravityApply, 1, Targeting.Slot_Front),
+                        ],
+                        Rarity = Rarity.Common,
+                        Priority = Priority.VeryFast,
+                    };
+                    orguisentropicright.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
+                    orguisentropicright.AddIntentsToTarget(Targeting.Slot_Front, ["Field_Gravity"]);
+
+                    Ability promise = new Ability("I Will It, Promise Greatness", "AApocrypha_OrguisPromiseGreatnessEntropic_A")
+                    {
+                        Description = "Heal the Opposing party member, then deal damage to them equal to twice the amount of effective healing and grant them Free Will. If they already had Free Will, remove it when performing this ability.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"), LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"), LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"), LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase")],
+                        Visuals = CustomVisuals.Whispers,
+                        AnimationTarget = Targeting.Slot_Front,
+                        Effects =
+                        [
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<HealEffect>(), 5, Targeting.Slot_Front),
+                            Effects.GenerateEffect(DamageByPrevious, 2, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(ReFree, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(FreePopup, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(UnFree, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(false, 2)),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    promise.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Heal_5_10), nameof(IntentType_GameIDs.Damage_7_10), "AA_AddPassive", "AA_RemPassive"]);
+
+                    ExtraAbilityInfo promiseextra = new()
+                    {
+                        ability = promise.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    entropicOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("AA_Accretion1_PA"), Passives.GetCustomPassive("FixedPoint_PA"), Passives.GetCustomPassive("AA_CondenseEntropic_PA"), CustomPassives.BonusSuiteGenerator([promiseextra])]);
+
+                    entropicOrguis.AddEnemyAbilities([
+                        orguisentropicleft.GenerateEnemyAbility(true),
+                        orguisentropicright.GenerateEnemyAbility(true),
+                    ]);
+
+                    entropicOrguis.AddEnemy(false, false, false);
+                }
+
+                if (LoadedDBsHandler.PigmentDB.GetPigment("White") != null && LoadedDBsHandler.StatusFieldDB._FieldEffects.ContainsKey("Absolution_ID") && LoadedDBsHandler.StatusFieldDB._StatusEffects.ContainsKey("Atrophy_ID"))
+                {
+                    Enemy whiteOrguis = new Enemy("Hamalat Orguis", "HamalatOrguis_EN")
+                    {
+                        Health = 40,
+                        HealthColor = LoadedDBsHandler.PigmentDB.GetPigment("White"),
+                        Size = 1,
+                        CombatSprite = ResourceLoader.LoadSprite("OrguisTimelineBase", new Vector2(0.5f, 0f), 32),
+                        OverworldDeadSprite = ResourceLoader.LoadSprite("AnomalyDead", new Vector2(0.5f, 0f), 32),
+                        OverworldAliveSprite = ResourceLoader.LoadSprite("OrguisTimelineBase", new Vector2(0.5f, 0f), 32),
+                        DamageSound = "event:/AAEnemy/LogosDisco/LogosDiscoHurt",
+                        DeathSound = "event:/AAEnemy/LogosDisco/LogosDiscoDeath",
+                        UnitTypes = ["Logos"],
+                    };
+
+                    whiteOrguis.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/OrguisWhite_Enemy.prefab", AApocrypha.assetBundle, null);
+
+                    FieldEffect_Apply_Effect AbsolutionApply = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+                    AbsolutionApply._Field = StatusField.GetCustomFieldEffect("Absolution_ID");
+
+                    RemoveFieldEffectEffect RemoveAbsolution = ScriptableObject.CreateInstance<RemoveFieldEffectEffect>();
+                    RemoveAbsolution._field = StatusField.GetCustomFieldEffect("Absolution_ID");
+
+                    FieldEffect_Apply_Effect AbsolutionByPrevious = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+                    AbsolutionByPrevious._Field = StatusField.GetCustomFieldEffect("Absolution_ID");
+                    AbsolutionByPrevious._UsePreviousExitValueAsMultiplier = true; 
+
+                    FieldEffect_ApplyWithEvenDistributionAllSlots_Effect AbsolutionEvenSpreadByPrevious = ScriptableObject.CreateInstance<FieldEffect_ApplyWithEvenDistributionAllSlots_Effect>();
+                    AbsolutionEvenSpreadByPrevious.field = StatusField.GetCustomFieldEffect("Absolution_ID");
+                    AbsolutionEvenSpreadByPrevious.usePrevious = true;
+                    AbsolutionEvenSpreadByPrevious._includeCaster = false;
+
+                    FieldEffect_ApplyWithEvenDistributionAllSlots_Effect AbsolutionEvenSpreadByPreviousCast = ScriptableObject.CreateInstance<FieldEffect_ApplyWithEvenDistributionAllSlots_Effect>();
+                    AbsolutionEvenSpreadByPreviousCast.field = StatusField.GetCustomFieldEffect("Absolution_ID");
+                    AbsolutionEvenSpreadByPreviousCast.usePrevious = true;
+                    AbsolutionEvenSpreadByPreviousCast._includeCaster = true;
+
+                    RemoveAmountStatusEffectEffect HalveAtrophy = ScriptableObject.CreateInstance<RemoveAmountStatusEffectEffect>();
+                    HalveAtrophy.statusId = "Atrophy_ID";
+                    HalveAtrophy.entryAsPercentage = true;
+
+                    Ability orguiswhiteleft = new Ability("Widdershins", "AApocrypha_OrguisWhiteLeft_A")
+                    {
+                        Description = "Move Left, then eject half of this unit's Atrophy as Absolution spread between its position and the Opposing position. This ability assumes that the grid wraps around.",
+                        Cost = [Pigments.Grey, LoadedDBsHandler.PigmentDB.GetPigment("White")],
+                        Effects =
+                        [
+                            Effects.GenerateEffect(SwapLeft, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(CheckLeft, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                            Effects.GenerateEffect(BeamAnim, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(HalveAtrophy, 50, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(AbsolutionEvenSpreadByPreviousCast, 1, Targeting.Slot_Front),
+                        ],
+                        Rarity = Rarity.Common,
+                        Priority = Priority.VeryFast,
+                    };
+                    orguiswhiteleft.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
+                    orguiswhiteleft.AddIntentsToTarget(Targeting.Slot_Front, ["Field_Absolution"]);
+                    orguiswhiteleft.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["Field_Absolution"]);
+
+                    Ability orguiswhiteright = new Ability("Deosil", "AApocrypha_OrguisWhiteRight_A")
+                    {
+                        Description = "Move Right, then eject half of this unit's Atrophy as Absolution spread between its position and the Opposing position. This ability assumes that the grid wraps around.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("White"), Pigments.Grey],
+                        Effects =
+                        [
+                            Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(CheckRight, 1, Targeting.Slot_SelfSlot, PreviousFalse),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                            Effects.GenerateEffect(BeamAnim, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(HalveAtrophy, 50, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(AbsolutionEvenSpreadByPreviousCast, 1, Targeting.Slot_Front),
+                        ],
+                        Rarity = Rarity.Common,
+                        Priority = Priority.VeryFast,
+                    };
+                    orguiswhiteright.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
+                    orguiswhiteright.AddIntentsToTarget(Targeting.Slot_Front, ["Field_Absolution"]);
+                    orguiswhiteright.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["Field_Absolution"]);
+
+                    AddPassiveEffect Revelate = ScriptableObject.CreateInstance<AddPassiveEffect>();
+                    Revelate._passiveToAdd = Passives.GetCustomPassive("Revelator_PA");
+
+                    RemovePassiveEffect Irrevelate = ScriptableObject.CreateInstance<RemovePassiveEffect>();
+                    Irrevelate.m_PassiveID = Passives.GetCustomPassive("Revelator_PA").m_PassiveID;
+
+                    Ability promise = new Ability("I Will It, Promise Greatness?", "AApocrypha_OrguisPromiseGreatnessWhite_A")
+                    {
+                        Description = "Grant the Opposing party member Revelator until this ability concludes. Greatly heal the Opposing party member, then deal damage to them and this unit equal to the amount of effective healing and grant them Free Will. If they already had Free Will, remove it when performing this ability.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("White"), LoadedDBsHandler.PigmentDB.GetPigment("White"), LoadedDBsHandler.PigmentDB.GetPigment("White"), LoadedDBsHandler.PigmentDB.GetPigment("White")],
+                        Visuals = CustomVisuals.Whispers,
+                        AnimationTarget = Targeting.Slot_Front,
+                        Effects =
+                        [
+                            Effects.GenerateEffect(Revelate, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(ScriptableObject.CreateInstance<HealEffect>(), 10, Targeting.Slot_Front),
+                            Effects.GenerateEffect(DamageByPrevious, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(ReFree, 1, Targeting.Slot_Front),
+                            Effects.GenerateEffect(FreePopup, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 1)),
+                            Effects.GenerateEffect(UnFree, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(false, 2)),
+                            Effects.GenerateEffect(Irrevelate, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 6)),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    promise.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Heal_5_10), nameof(IntentType_GameIDs.Damage_7_10), "AA_AddPassive", "AA_RemPassive"]);
+
+                    Ability angels = new Ability("I Will It, Waking Angels", "AApocrypha_OrguisWakingAngelsWhite_A")
+                    {
+                        Description = "Remove all Absolution from this enemy's position and distribute it evenly between the Left and Right party member positions." +
+                        "\nRemove all Absolution from the enemy side, then apply it to this enemy's position.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("White"), LoadedDBsHandler.PigmentDB.GetPigment("White"), LoadedDBsHandler.PigmentDB.GetPigment("White"), LoadedDBsHandler.PigmentDB.GetPigment("White")],
+                        Visuals = Visuals.Excommunicate,
+                        AnimationTarget = Targeting.Slot_OpponentSides,
+                        Effects =
+                        [
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(AbsolutionEvenSpreadByPrevious, 1, Targeting.Slot_OpponentSides),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.Slot_AllyAllSlots),
+                            Effects.GenerateEffect(AbsolutionByPrevious, 1, Targeting.Slot_SelfSlot),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    angels.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["Rem_Field_Absolution"]);
+                    angels.AddIntentsToTarget(Targeting.Slot_OpponentSides, ["Field_Absolution"]);
+                    angels.AddIntentsToTarget(Targeting.Slot_AllyAllSlots, ["Rem_Field_Absolution"]);
+                    angels.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["Field_Absolution"]);
+
+                    FieldEffect_Apply_Effect CrosshairsByPrevious = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
+                    CrosshairsByPrevious._Field = StatusField.GetCustomFieldEffect("Crosshairs_ID");
+                    CrosshairsByPrevious._UsePreviousExitValueAsMultiplier = true;
+
+                    Ability manna = new Ability("I Will It, Manna Driver", "AApocrypha_OrguisMannaDriverWhite_A")
+                    {
+                        Description = "Convert all Absolution on all other enemy positions to an equivalent amount of Shield." +
+                        "\nConvert all Absolution on all party member positions and this enemy's position to an equivalent amount of Crosshairs.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("White"), LoadedDBsHandler.PigmentDB.GetPigment("White"), LoadedDBsHandler.PigmentDB.GetPigment("White"), LoadedDBsHandler.PigmentDB.GetPigment("White")],
+                        Visuals = Visuals.Excommunicate,
+                        AnimationTarget = AllUnitsTargeting,
+                        Effects =
+                        [
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateSlotTarget([-4], true)),
+                            Effects.GenerateEffect(ShieldByPrevious, 1, Targeting.GenerateSlotTarget([-4], true)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateSlotTarget([-3], true)),
+                            Effects.GenerateEffect(ShieldByPrevious, 1, Targeting.GenerateSlotTarget([-3], true)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateSlotTarget([-2], true)),
+                            Effects.GenerateEffect(ShieldByPrevious, 1, Targeting.GenerateSlotTarget([-2], true)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateSlotTarget([-1], true)),
+                            Effects.GenerateEffect(ShieldByPrevious, 1, Targeting.GenerateSlotTarget([-1], true)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateSlotTarget([1], true)),
+                            Effects.GenerateEffect(ShieldByPrevious, 1, Targeting.GenerateSlotTarget([1], true)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateSlotTarget([2], true)),
+                            Effects.GenerateEffect(ShieldByPrevious, 1, Targeting.GenerateSlotTarget([2], true)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateSlotTarget([3], true)),
+                            Effects.GenerateEffect(ShieldByPrevious, 1, Targeting.GenerateSlotTarget([3], true)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateSlotTarget([4], true)),
+                            Effects.GenerateEffect(ShieldByPrevious, 1, Targeting.GenerateSlotTarget([4], true)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateGenericTarget([0], false)),
+                            Effects.GenerateEffect(CrosshairsByPrevious, 1, Targeting.GenerateGenericTarget([0], false)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateGenericTarget([1], false)),
+                            Effects.GenerateEffect(CrosshairsByPrevious, 1, Targeting.GenerateGenericTarget([1], false)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateGenericTarget([2], false)),
+                            Effects.GenerateEffect(CrosshairsByPrevious, 1, Targeting.GenerateGenericTarget([2], false)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateGenericTarget([3], false)),
+                            Effects.GenerateEffect(CrosshairsByPrevious, 1, Targeting.GenerateGenericTarget([3], false)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.GenerateGenericTarget([4], false)),
+                            Effects.GenerateEffect(CrosshairsByPrevious, 1, Targeting.GenerateGenericTarget([4], false)),
+                            Effects.GenerateEffect(RemoveAbsolution, 1, Targeting.Slot_SelfSlot),
+                            Effects.GenerateEffect(CrosshairsByPrevious, 1, Targeting.Slot_SelfSlot),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    manna.AddIntentsToTarget(Targeting.GenerateSlotTarget([-4, -3, -2, -1, 0, 1, 2, 3, 4], true), ["Rem_Field_Absolution"]);
+                    manna.AddIntentsToTarget(Targeting.GenerateSlotTarget([-4, -3, -2, -1, 1, 2, 3, 4], true), [nameof(IntentType_GameIDs.Field_Shield)]);
+                    manna.AddIntentsToTarget(Targeting.GenerateSlotTarget([-4, -3, -2, -1, 0, 1, 2, 3, 4], false), ["Rem_Field_Absolution", "Field_Crosshairs"]);
+                    manna.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["Field_Crosshairs"]);
+
+                    ExtraAbilityInfo promiseextra = new()
+                    {
+                        ability = promise.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    ExtraAbilityInfo angelsextra = new()
+                    {
+                        ability = angels.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    ExtraAbilityInfo mannaextra = new()
+                    {
+                        ability = manna.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    whiteOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("Erasure_PA"), Passives.GetCustomPassive("AA_CondenseWhite_PA"), CustomPassives.BonusSuiteGenerator([promiseextra, angelsextra, mannaextra])]);
+
+                    whiteOrguis.AddEnemyAbilities([
+                        orguiswhiteleft.GenerateEnemyAbility(true),
+                        orguiswhiteright.GenerateEnemyAbility(true),
+                    ]);
+
+                    whiteOrguis.AddEnemy(false, false, false);
+                }
             }
         }
         static PreviousEffectCondition PreviousGenerator(bool wasTrue, int number)

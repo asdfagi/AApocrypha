@@ -79,6 +79,13 @@ namespace A_Apocrypha.CustomOther
             };
             LoadedDBsHandler.IntentDB.AddNewBasicIntent("AA_Multi5", Multi5Intent);
             // MillieAmp
+            IntentInfoBasic MultiXIntent = new()
+            {
+                _color = Color.white,
+                _sprite = ResourceLoader.LoadSprite("repeat_intent"),
+            };
+            LoadedDBsHandler.IntentDB.AddNewBasicIntent("AA_MultiX", MultiXIntent);
+            // MillieAmp
             IntentInfoBasic NothingIntent = new()
             {
                 _color = Color.white,
@@ -121,6 +128,15 @@ namespace A_Apocrypha.CustomOther
                 _enemySprite = ResourceLoader.LoadSprite("intentScrabbleDamage"),
             };
             LoadedDBsHandler.IntentDB.AddNewDamageIntent("AA_Damage_Scrabble", ScrabbleIntent);
+            // MillieAmp
+            IntentInfoDamage ProportionIntent = new()
+            {
+                _color = LoadedDBsHandler.IntentDB.TryGetIntentInfo("Damage_1_2")._color,
+                _enemyColor = Color.red,
+                _sprite = ResourceLoader.LoadSprite("prop_intent"),
+                _enemySprite = ResourceLoader.LoadSprite("prop_intent"),
+            };
+            LoadedDBsHandler.IntentDB.AddNewDamageIntent("AA_Damage_Prop", ProportionIntent);
         }
     }
 }

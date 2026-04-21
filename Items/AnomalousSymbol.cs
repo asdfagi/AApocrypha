@@ -35,10 +35,13 @@ namespace A_Apocrypha.Items
                     Effects.GenerateEffect(purplify, 1, Targeting.Unit_AllAllySlots),
                     Effects.GenerateEffect(purplecosts, 1, Targeting.Slot_SelfSlot),
                 ],
+                OnUnlockUsesTHE = true,
             };
 
             anomalysymbol.item._ItemTypeIDs =
-            [];
+            [
+                ItemType_GameIDs.Magic.ToString(),
+            ];
 
             ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(anomalysymbol.item, new ItemModdedUnlockInfo("AnomalousSymbol_TW", ResourceLoader.LoadSprite("UnlockMinibossThresholdLocked", null, 32, null), "AApocrypha_Miniboss_Threshold_ACH"));
             BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement("AApocrypha_Miniboss_Threshold_ACH", "AnomalousSymbol_TW");

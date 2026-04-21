@@ -48,7 +48,7 @@ namespace A_Apocrypha.Enemies
 
             Enemy smoldergeist = new Enemy("Smoldergeist", "Smoldergeist_EN")
             {
-                Health = 40,
+                Health = 24,
                 HealthColor = Pigments.Red,
                 Size = 1,
                 CombatSprite = ResourceLoader.LoadSprite("SmoldergeistTimeline", new Vector2(0.5f, 0f), 32),
@@ -136,7 +136,7 @@ namespace A_Apocrypha.Enemies
                 corpsewax.GenerateEnemyAbility(true),
             ]);
 
-            smoldergeist.AddPassives([Passives.Skittish, CustomPassives.ThresholdMasochismGenerator(8), Passives.GetCustomPassive("AA_RectifySmoldergeist_PA"), Passives.GetCustomPassive("MadeOfFire_PA")]);
+            smoldergeist.AddPassives([Passives.Skittish, /*CustomPassives.ThresholdMasochismGenerator(8), */Passives.GetCustomPassive("AA_RectifySmoldergeist_PA"), Passives.GetCustomPassive("MadeOfFire_PA")]);
             smoldergeist.AddEnemy(true, true, false);
         }
         static PreviousEffectCondition PreviousGenerator(bool wasTrue, int number)

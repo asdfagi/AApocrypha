@@ -204,6 +204,39 @@ namespace A_Apocrypha.Encounters
                 public static string Med => "H_ZoneAbyss_MachineGnomes_Medium_EnemyBundle";
                 public static string Hard => "H_ZoneAbyss_MachineGnomes_Hard_EnemyBundle";
             }
+            public static class Orguis
+            {
+                public static class Iridescent
+                {
+                    public static string Med => "H_ZoneAbyss_EphialtesOrguis_Medium_EnemyBundle";
+                    public static string Hard => "H_ZoneAbyss_EphialtesOrguis_Hard_EnemyBundle";
+                }
+                public static class Irid
+                {
+                    public static string Med => Iridescent.Med;
+                    public static string Hard => Iridescent.Hard;
+                }
+                public static class Clusterfuck
+                {
+                    public static string Med => "H_ZoneAbyss_ApatelosOrguis_Medium_EnemyBundle";
+                    public static string Hard => "H_ZoneAbyss_ApatelosOrguis_Hard_EnemyBundle";
+                }
+                public static class Entropic
+                {
+                    public static string Med => "H_ZoneAbyss_PanopticOrguis_Medium_EnemyBundle";
+                    public static string Hard => "H_ZoneAbyss_PanopticOrguis_Hard_EnemyBundle";
+                }
+                public static class White
+                {
+                    public static string Med => "H_ZoneAbyss_HamalatOrguis_Medium_EnemyBundle";
+                    public static string Hard => "H_ZoneAbyss_HamalatOrguis_Hard_EnemyBundle";
+                }
+            }
+            public static class BasicElemental
+            {
+                public static string Easy => "H_ZoneAbyss_BasicElemental_Easy_EnemyBundle";
+                public static string Med => "H_ZoneAbyss_BasicElemental_Medium_EnemyBundle";
+            }
         }
     }
 }

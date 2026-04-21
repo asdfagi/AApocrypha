@@ -98,7 +98,7 @@ namespace A_Apocrypha.Fools
 
             Ability face4 = new Ability("Excise the Face", "WhitlockFace_4")
             {
-                Description = "Deal 13 damage to the Opposing enemy.\nApply Leaky to the Opposing enemy if they do not have it.\nMove the Opposing enemy to the Left or Right.",
+                Description = "Deal 13 damage to the Opposing enemy.\nApply Leaky(1) to the Opposing enemy if they do not have it.\nMove the Opposing enemy to the Left or Right.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconWhitlockFace"),
                 Cost = [Pigments.YellowRed, Pigments.YellowRed],
                 Visuals = Visuals.Flay,

@@ -9,23 +9,6 @@ namespace A_Apocrypha.Enemies
     {
         public static void Add()
         {
-            GenerateColorsByListManaEffect GiveRandomPigment = ScriptableObject.CreateInstance<GenerateColorsByListManaEffect>();
-            GiveRandomPigment._manaColors = [Pigments.Red, Pigments.Red, Pigments.Blue, Pigments.Blue, Pigments.Yellow, Pigments.Yellow, Pigments.Purple];
-
-            PerformEffectPassiveAbility randomBlooded2 = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
-            randomBlooded2.name = "Random4Blooded_2_PA";
-            randomBlooded2._passiveName = "Random-Blooded (2)";
-            randomBlooded2.m_PassiveID = "PigmentBlooded";
-            randomBlooded2.passiveIcon = ResourceLoader.LoadSprite("IconStonebloodPrimary");
-            randomBlooded2._characterDescription = "Upon receiving direct damage this party member produces 2 additional pigment of the four basic colors.";
-            randomBlooded2._enemyDescription = "Upon receiving direct damage this enemy produces 2 additional pigment of the four basic colors.";
-            randomBlooded2._triggerOn = [TriggerCalls.OnDirectDamaged];
-            randomBlooded2.doesPassiveTriggerInformationPanel = true;
-            randomBlooded2.effects =
-            [
-                Effects.GenerateEffect(GiveRandomPigment, 2, Targeting.Slot_SelfSlot),
-            ];
-
             StatusEffect_Apply_Effect Hasten = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             Hasten._RandomBetweenPrevious = true;
             Hasten._Status = StatusField.GetCustomStatusEffect("Haste_ID");
@@ -70,7 +53,7 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Parabolan"],
             };
             weft.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/UnravellingTime_Enemy/UnravellingTime_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/UnravellingTime_Enemy/UnravellingTime_Giblets.prefab").GetComponent<ParticleSystem>());
-            weft.AddPassives([randomBlooded2, Passives.Withering, weftUnravel]);
+            weft.AddPassives([Passives.GetCustomPassive("Random4Blooded_2_PA"), Passives.Withering, weftUnravel]);
 
             SpecificEnemiesTargeting NotWeft = ScriptableObject.CreateInstance<SpecificEnemiesTargeting>();
             NotWeft.blacklist = true;

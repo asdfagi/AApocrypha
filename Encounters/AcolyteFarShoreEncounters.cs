@@ -46,6 +46,7 @@ namespace A_Apocrypha.Encounters
             acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "TearDrinker_EN", 1, "Mung_EN");
             acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, Spoggle.Blue);
             acolyteMedium.SimpleAddEncounter(2, "Acolyte_EN", 1, "Mung_EN");
+            acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "Mung_EN", 1, Aggregates.Red);
             if (AApocrypha.CrossMod.Colophons)
             {
                 acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, Colophon.Blue);
@@ -54,8 +55,8 @@ namespace A_Apocrypha.Encounters
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
-                acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "Chiito_EN");
-                acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "Arceles_EN");
+                acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "Chiito_EN", 1, "LittleBeak_EN");
+                acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "Arceles_EN", 1, "MudLung_EN", 1, "Pinano_EN");
             }
             if (AApocrypha.CrossMod.Mythos)
             {
@@ -66,6 +67,7 @@ namespace A_Apocrypha.Encounters
             if (AApocrypha.CrossMod.Revelry)
             {
                 acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "Teletower_EN");
+                acolyteMedium.SimpleAddEncounter(2, "Acolyte_EN", 1, "Teletower_EN");
             }
             acolyteMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Acolyte.Med, 20, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium); //default: 20

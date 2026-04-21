@@ -13,6 +13,7 @@ namespace A_Apocrypha.CustomOther
         public int[] slotOffsets;
         public bool targetUnitAllySlots; // interpreted in reverse here, don't worry too much about it
         public bool getAllUnitSelfSlots;
+        public bool blacklist = false;
 
         public override bool AreTargetAllies => !targetUnitAllySlots;
         public override bool AreTargetSlots => true;
@@ -33,8 +34,16 @@ namespace A_Apocrypha.CustomOther
                     if (en == null || en.Enemy == null)
                         continue;
 
-                    if (_contains && !en.HealthColor.SharesPigmentColor(_color)) { continue; }
-                    if (!_contains && !en.HealthColor != _color) { continue; }
+                    if (blacklist)
+                    {
+                        if (_contains && en.HealthColor.SharesPigmentColor(_color)) { continue; }
+                        if (!_contains && en.HealthColor == _color) { continue; }
+                    }
+                    else
+                    {
+                        if (_contains && !en.HealthColor.SharesPigmentColor(_color)) { continue; }
+                        if (!_contains && en.HealthColor != _color) { continue; }
+                    }
 
                     var chSID = en.SlotID;
                     var chIsCharacter = en.IsUnitCharacter;
@@ -84,12 +93,20 @@ namespace A_Apocrypha.CustomOther
             {
                 foreach (var ch in chars.Values)
                 {
-                    Debug.Log($"ch {ch} | ch.Character {ch.Character.name}");
+                    //Debug.Log($"ch {ch} | ch.Character {ch.Character.name}");
                     if (ch == null || ch.Character == null)
                         continue;
 
-                    if (_contains && !ch.HealthColor.SharesPigmentColor(_color)) { continue; }
-                    if (!_contains && !ch.HealthColor != _color) { continue; }
+                    if (blacklist)
+                    {
+                        if (_contains && ch.HealthColor.SharesPigmentColor(_color)) { continue; }
+                        if (!_contains && ch.HealthColor == _color) { continue; }
+                    }
+                    else
+                    {
+                        if (_contains && !ch.HealthColor.SharesPigmentColor(_color)) { continue; }
+                        if (!_contains && ch.HealthColor != _color) { continue; }
+                    }
 
                     var chSID = ch.SlotID;
                     var chIsCharacter = ch.IsUnitCharacter;

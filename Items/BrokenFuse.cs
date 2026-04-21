@@ -29,23 +29,27 @@ namespace A_Apocrypha.Items
                 AffectDamageDealtInsteadOfReceived = true,
                 UseSimpleIntegerInsteadOfDamage = false,
                 UseRangeFromTo = true,
+                OnUnlockUsesTHE = true,
             };
 
-            ItemUtils.AddItemToShopStatsCategoryAndGamePool(robotKill.item, new ItemModdedUnlockInfo("BrokenFuse_SW", ResourceLoader.LoadSprite("UnlockBossAssessorBonusLocked", null, 32, null), "AApocrypha_Comedy_AssessorRecycling_ACH"));
-            BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement("AApocrypha_Comedy_AssessorRecycling_ACH", "BrokenFuse_SW");
+            string achievementID = "AApocrypha_Comedy_AssessorRecycling_ACH";
+            string unlockID = "ComedyAssessorRecycling";
 
-            UnlockableModData assessorComedyUnlockData = new UnlockableModData("ComedyAssessorRecycling")
+            ItemUtils.AddItemToShopStatsCategoryAndGamePool(robotKill.item, new ItemModdedUnlockInfo(robotKill.Item_ID, ResourceLoader.LoadSprite("UnlockBossAssessorBonusLocked", null, 32, null), achievementID));
+            BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement(achievementID, robotKill.Item_ID);
+
+            UnlockableModData unlockData = new UnlockableModData(unlockID)
             {
                 hasModdedAchievementUnlock = true,
-                moddedAchievementID = "AApocrypha_Comedy_AssessorRecycling_ACH",
+                moddedAchievementID = achievementID,
                 hasItemUnlock = true,
-                items = ["BrokenFuse_SW"],
+                items = [robotKill.Item_ID],
             };
 
-            ModdedAchievements assessorcomedyrecyclingachievement = new ModdedAchievements("Reduce, Reuse, Recycle", "Watch the entire field undergo a Factory Reset during a confrontation with the Amalgamated Assessor.", ResourceLoader.LoadSprite("AchievementComedyAssessorRecycling", null, 32, null), "AApocrypha_Comedy_AssessorRecycling_ACH");
-            assessorcomedyrecyclingachievement.AddNewAchievementToInGameCategory(AchievementCategoryIDs.ComediesTitleLabel);
+            ModdedAchievements unlockAchievement = new ModdedAchievements("Reduce, Reuse, Recycle", "Watch the entire field undergo a Factory Reset during a confrontation with the Amalgamated Assessor.", ResourceLoader.LoadSprite("AchievementComedyAssessorRecycling", null, 32, null), achievementID);
+            unlockAchievement.AddNewAchievementToInGameCategory(AchievementCategoryIDs.ComediesTitleLabel);
 
-            Unlocks.AddUnlock_ByID(assessorComedyUnlockData);
+            Unlocks.AddUnlock_ByID(unlockData);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using A_Apocrypha.Assets;
 using A_Apocrypha.CustomOther;
+using MythosFriends.Effectsa;
 
 namespace A_Apocrypha.Enemies.Bosses
 {
@@ -11,7 +13,7 @@ namespace A_Apocrypha.Enemies.Bosses
         {
             Enemy assessor = new Enemy("Amalgamated Assessor", "AmalgamatedAssessor_BOSS")
             {
-                Health = 100,
+                Health = 120,
                 HealthColor = Pigments.Grey,
                 Size = 2,
                 CombatSprite = ResourceLoader.LoadSprite("AssessorTimeline", new Vector2(0.5f, 0f), 32),
@@ -136,9 +138,6 @@ namespace A_Apocrypha.Enemies.Bosses
             scrapsTargeterPassive._enemyDescription = "This enemy inherits its Targeted position from the Amalgamated Assessor.";
             Passives.AddCustomPassiveToPool("AA_TargeterAssessorScrap_PA", "Targeter", scrapsTargeterPassive);
 
-            assessor.AddPassives([Passives.Skittish, Passives.Unstable, Passives.GetCustomPassive("AA_TargeterAssessor_PA")]);
-            scraps.AddPassives([Passives.Inanimate, Passives.GetCustomPassive("AA_TargeterAssessorScrap_PA")]);
-
             RemovePassiveEffect TargeterWipe = ScriptableObject.CreateInstance<RemovePassiveEffect>();
             TargeterWipe.m_PassiveID = "Targeter";
 
@@ -200,15 +199,37 @@ namespace A_Apocrypha.Enemies.Bosses
                 Effects.GenerateEffect(RepositoryValueInit, 1, Targeting.Slot_SelfSlot, PreviousGenerator(true, 1)),
             ];
 
+            TargetPerformEffectViaSubaction RepositoryApplySubaction2 = ScriptableObject.CreateInstance<TargetPerformEffectViaSubaction>();
+            RepositoryApplySubaction2.effects =
+            [
+                Effects.GenerateEffect(RepositoryAdd, 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(RepositoryValueInit, 1, Targeting.Slot_SelfSlot, PreviousGenerator(true, 1)),
+                Effects.GenerateEffect(ScriptableObject.CreateInstance<AddTurnCasterToTimelineEffect>(), 1, Targeting.Slot_SelfSlot, PreviousGenerator(true, 2)),
+            ];
+
             SpawnEnemyAnywhereEffect ShedScraps = ScriptableObject.CreateInstance<SpawnEnemyAnywhereEffect>();
             ShedScraps.enemy = scraps.enemy;
             ShedScraps._spawnTypeID = CombatType_GameIDs.Spawn_Basic.ToString();
+
+            PerformEffectViaSubaction TimelineRefresh = ScriptableObject.CreateInstance<PerformEffectViaSubaction>();
+            TimelineRefresh.effects = [
+                Effects.GenerateEffect(ScriptableObject.CreateInstance<ReloadTimelineEffect>()),
+                //Effects.GenerateEffect(ScriptableObject.CreateInstance<ReRollCasterTimelineAbilityIfBlankEntryEffect>(), 1, Targeting.Slot_SelfSlot),
+            ];
 
             PerformEffectViaSubaction AmputationSubactionContainer = ScriptableObject.CreateInstance<PerformEffectViaSubaction>();
             AmputationSubactionContainer.effects =
             [
                 Effects.GenerateEffect(PassToScrapsSubaction),
                 Effects.GenerateEffect(RepositoryApplySubaction, 1, AllScraps),
+            ];
+
+            PerformEffectViaSubaction AmputationSubactionContainer2 = ScriptableObject.CreateInstance<PerformEffectViaSubaction>();
+            AmputationSubactionContainer2.effects =
+            [
+                Effects.GenerateEffect(PassToScrapsSubaction),
+                Effects.GenerateEffect(RepositoryApplySubaction2, 1, AllScraps),
+                Effects.GenerateEffect(TimelineRefresh),
             ];
 
             TryUnlockAchievementEffect AssessorBonusUnlock = ScriptableObject.CreateInstance<TryUnlockAchievementEffect>();
@@ -311,6 +332,30 @@ namespace A_Apocrypha.Enemies.Bosses
             };
             automatedamputation.AddIntentsToTarget(Targeting.Slot_SelfAll, [nameof(IntentType_GameIDs.Other_Spawn), nameof(IntentType_GameIDs.Misc)]);
             automatedamputation.AddIntentsToTarget(AllScraps, [nameof(IntentType_GameIDs.Misc)]);
+
+            ReturnValueComparatorEffectorCondition TenOrMore = ScriptableObject.CreateInstance<ReturnValueComparatorEffectorCondition>();
+            TenOrMore._lessThan = false;
+            TenOrMore._comparator = 10;
+
+            PerformEffectPassiveAbility deploymentAssessor = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            deploymentAssessor.name = "DeploymentAssessor_PA";
+            deploymentAssessor._passiveName = "Deployment (10)";
+            deploymentAssessor.m_PassiveID = "DeploymentAssessor";
+            deploymentAssessor.passiveIcon = ResourceLoader.LoadSprite("IconDeployment");
+            deploymentAssessor._characterDescription = "01100100 01110101 01101101 01100010 00100000 01101001 01100100 01101001 01101111 01110100 00100000 01110010 01101111 01100010 01101111 01110100";
+            deploymentAssessor._enemyDescription = "On taking 10 or more damage, attempt to summon a pile of Shattered Scraps, transfer one of this enemy's abilities to it and immediately make it add one of its actions to the timeline.";
+            deploymentAssessor.doesPassiveTriggerInformationPanel = true;
+            deploymentAssessor._triggerOn = [TriggerCalls.OnDirectDamaged];
+            deploymentAssessor.conditions = [TenOrMore, ScriptableObject.CreateInstance<UnitAliveEffectorCondition>()];
+            deploymentAssessor.effects =
+            [
+                Effects.GenerateEffect(ShedScraps, 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(AmputationSubactionContainer2),
+            ];
+            Passives.AddCustomPassiveToPool("AA_DeploymentAssessor_PA", "Deployment (10)", deploymentAssessor);
+
+            assessor.AddPassives([Passives.Skittish, Passives.Unstable, Passives.GetCustomPassive("AA_TargeterAssessor_PA")]);//, Passives.GetCustomPassive("AA_DeploymentAssessor_PA")]);
+            scraps.AddPassives([Passives.Inanimate, Passives.GetCustomPassive("AA_TargeterAssessorScrap_PA")]);
 
             assessor.AddEnemyAbilities([
                 automatedamputation.GenerateEnemyAbility(true),

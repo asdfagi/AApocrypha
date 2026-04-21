@@ -153,7 +153,7 @@ namespace A_Apocrypha.Fools
             {
                 Description = "Apply 2 Ruptured to the Opposing enemy.\nTry to swap the positions of the Left and Right enemies.\nDeal 2 indirect damage to any targets that were not moved.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergInversion"),
-                Cost = [Pigments.Purple, Pigments.Red, Pigments.Red],
+                Cost = [Pigments.RedPurple, Pigments.Red],
                 Effects =
                 [
                     Effects.GenerateEffect(JauntAnim),
@@ -171,7 +171,7 @@ namespace A_Apocrypha.Fools
             {
                 Description = "Apply 2 Ruptured to the Left and Right enemies.\nTry to swap the positions of the Left and Right enemies.\nDeal 3 indirect damage to any targets that were not moved.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergInversion"),
-                Cost = [Pigments.RedPurple, Pigments.Red, Pigments.Red],
+                Cost = [Pigments.RedPurple, Pigments.Red],
                 Effects =
                 [
                     Effects.GenerateEffect(JauntAnimSides),
@@ -189,7 +189,7 @@ namespace A_Apocrypha.Fools
             {
                 Description = "Apply 3 Ruptured to the Left, Right and Opposing enemies.\nTry to swap the positions of the Left and Right enemies and the Far Left and Far Right enemies.\nDeal 3 indirect damage to any targets that were not moved.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergInversion"),
-                Cost = [Pigments.RedPurple, Pigments.Red, Pigments.Red],
+                Cost = [Pigments.RedPurple, Pigments.RedPurple],
                 Effects =
                 [
                     Effects.GenerateEffect(JauntAnimFrontSides),
@@ -209,7 +209,7 @@ namespace A_Apocrypha.Fools
             {
                 Description = "Apply 3 Ruptured to the Left, Right and Opposing enemies.\nTry to swap the positions of the Left and Right enemies and the Far Left and Far Right enemies.\nDeal 4 indirect damage to any targets that were not moved.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergInversion"),
-                Cost = [Pigments.RedPurple, Pigments.RedPurple, Pigments.Red],
+                Cost = [Pigments.RedPurple, Pigments.RedPurple],
                 Effects =
                 [
                     Effects.GenerateEffect(JauntAnimFrontSides),

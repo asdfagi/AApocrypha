@@ -27,7 +27,7 @@ namespace A_Apocrypha.Enemies
                 DeathSound = LoadedAssetsHandler.GetEnemy("TaMaGoa_EN").damageSound,
             };
             asterism.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Asterism_Enemy/Asterism_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Acolyte_Enemy/Acolyte_Giblets.prefab").GetComponent<ParticleSystem>());
-            asterism.AddPassives([Passives.Formless]);
+            asterism.AddPassives([Passives.Formless, Passives.GetCustomPassive("Zelator_PA")]);
 
             PreviousEffectCondition PreviousTrue = ScriptableObject.CreateInstance<PreviousEffectCondition>();
             PreviousTrue.wasSuccessful = true;

@@ -14,9 +14,9 @@ namespace A_Apocrypha.DamageTypes
             LoadedDBsHandler.CombatDB.AddNewSound(damageId, "event:/AASFX/Damage_Frost");
             TMP_ColorGradient frostGradient = ScriptableObject.CreateInstance<TMP_ColorGradient>();
             frostGradient.topLeft = new Color32(177, 225, 235, 255);
-            frostGradient.topRight = new Color(140, 180, 188, 255);
-            frostGradient.bottomLeft = new Color(140, 180, 188, 255);
-            frostGradient.bottomRight = new Color(177, 225, 235, 255);
+            frostGradient.topRight = new Color32(140, 180, 188, 255);
+            frostGradient.bottomLeft = new Color32(140, 180, 188, 255);
+            frostGradient.bottomRight = new Color32(177, 225, 235, 255);
 
             LoadedDBsHandler.CombatDB.AddNewTextColor(damageId, frostGradient);
         }

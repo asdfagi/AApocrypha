@@ -40,6 +40,7 @@ namespace A_Apocrypha.Fools
             Ability dance = new Ability("Dance!", "AApocrypha_Gnome_Dance_A")
             {
                 Description = "Deal 1 damage to this party member.",
+                AbilitySprite = ResourceLoader.LoadSprite("IconGnomeDance"),
                 Cost = [],
                 Visuals = Visuals.Tango,
                 AnimationTarget = Targeting.Slot_SelfSlot,
@@ -55,6 +56,7 @@ namespace A_Apocrypha.Fools
             Ability steal = new Ability("Steal!", "AApocrypha_Gnome_Steal_A")
             {
                 Description = "Try to consume 3 Pigment of this party member's health color. Heal All Gnomes for twice the amount of Pigment consumed.",
+                AbilitySprite = ResourceLoader.LoadSprite("IconGnomeSteal"),
                 Cost = [],
                 Visuals = Visuals.Leech,
                 AnimationTarget = Targeting.Slot_SelfSlot,
@@ -72,6 +74,7 @@ namespace A_Apocrypha.Fools
             Ability poke = new Ability("Poke!", "AApocrypha_Gnome_Poke_A")
             {
                 Description = "Deal 2 damage to the Left and Right party members.",
+                AbilitySprite = ResourceLoader.LoadSprite("IconGnomePoke"),
                 Cost = [],
                 Visuals = Visuals.Poke,
                 AnimationTarget = Targeting.Slot_AllySides,
@@ -87,6 +90,7 @@ namespace A_Apocrypha.Fools
             Ability bbreak = new Ability("Break!", "AApocrypha_Gnome_Break_A")
             {
                 Description = "Apply 1 Ruptured to the Left and Right party members and Self.",
+                AbilitySprite = ResourceLoader.LoadSprite("IconGnomeBreak"),
                 Cost = [],
                 Visuals = Visuals.Exsanguinate,
                 AnimationTarget = Targeting.Slot_SelfAndSides,
@@ -102,6 +106,7 @@ namespace A_Apocrypha.Fools
             Ability spill = new Ability("Spill!", "AApocrypha_Gnome_Spill_A")
             {
                 Description = "Apply 1 Oil Slicked to the Left and Right party members and Self.",
+                AbilitySprite = ResourceLoader.LoadSprite("IconGnomeSpill"),
                 Cost = [],
                 Visuals = Visuals.OilSlicked,
                 AnimationTarget = Targeting.Slot_SelfAndSides,
@@ -117,6 +122,7 @@ namespace A_Apocrypha.Fools
             Ability focus = new Ability("Focus!", "AApocrypha_Gnome_Focus_A")
             {
                 Description = "Apply Focused to the Left and Right party members and Self.",
+                AbilitySprite = ResourceLoader.LoadSprite("IconGnomeFocus"),
                 Cost = [],
                 Visuals = Visuals.Bosch,
                 AnimationTarget = Targeting.Slot_SelfAndSides,
@@ -144,10 +150,18 @@ namespace A_Apocrypha.Fools
                 DialogueSound = gnomeTalkSound,
                 UnitTypes = gnomeTypes,
             };
+            gnomeCharacter.GenerateMenuCharacter(ResourceLoader.LoadSprite("GnomesMenu"), ResourceLoader.LoadSprite("GnomesLocked"));
+            gnomeCharacter.MenuCharacterIgnoreRandom = true;
+            gnomeCharacter.character.m_SelectionExtraCompanions =
+            [
+                "GnomeBlue_CH",
+                "GnomeGreen_CH",
+                "GnomePurple_CH",
+            ];
             gnomeCharacter.AddPassives(gnomePassives);
 
             gnomeCharacter.AddLevelData(5, [dance, steal, poke]);
-            gnomeCharacter.AddCharacter(true, true);
+            gnomeCharacter.AddCharacter(true, false);
 
             Character gnomeCharacterPurple = new Character("Gnome", "GnomePurple_CH")
             {
@@ -205,6 +219,12 @@ namespace A_Apocrypha.Fools
 
             gnomeCharacterGreen.AddLevelData(5, [dance, steal, spill]);
             gnomeCharacterGreen.AddCharacter(true, true);
+
+            SpeakerBundle speakerBundleGnomes = new SpeakerBundle();
+            speakerBundleGnomes.bundleTextColor = new Color(1.0f, 0.0f, 0.0f);
+            speakerBundleGnomes.dialogueSound = LoadedAssetsHandler.GetCharacter("Gnome_CH").dxSound;
+            speakerBundleGnomes.portrait = ResourceLoader.LoadSprite("GnomesTalk", new Vector2(0.5f, 0f), 32);
+            Dialogues.CreateAndAddCustom_SpeakerData("Gnomes", speakerBundleGnomes, true, false, new SpeakerEmote[0]);
         }
     }
 }

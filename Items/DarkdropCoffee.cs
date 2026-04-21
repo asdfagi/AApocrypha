@@ -31,6 +31,12 @@ namespace A_Apocrypha.Items
                 ],
             };
 
+            coffee.item._ItemTypeIDs =
+            [
+                "FoodID",
+                "Drink",
+            ];
+
             ItemUtils.AddItemToShopStatsCategoryAndGamePool(coffee.item, new ItemModdedUnlockInfo("DarkdropCoffee_SW", ResourceLoader.LoadSprite("UnlockDoulaWhitlockLocked", null, 32, null), "AApocrypha_Whitlock_Abstraction_ACH"));
 
             BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement("AApocrypha_Whitlock_Abstraction_ACH", "DarkdropCoffee_SW");

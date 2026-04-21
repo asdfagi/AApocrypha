@@ -89,4 +89,17 @@ namespace A_Apocrypha.CustomEffects
         public EffectInfo[] effects;
         public bool usePreviousExit;
     }
+
+    public class PerformRandomEffectViaSubaction : EffectSO
+    {
+        public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
+        {
+            exitAmount = 1;
+            int index = UnityEngine.Random.Range(0, this.effects.Count);
+            CombatManager.Instance.AddSubAction(new EffectAction(this.effects[index], caster, 0));
+            return exitAmount > 0;
+        }
+
+        public List<EffectInfo[]> effects;
+    }
 }

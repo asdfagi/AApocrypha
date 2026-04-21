@@ -37,7 +37,7 @@ namespace A_Apocrypha.Enemies
             GivePurple.mana = Pigments.Purple;
 
             AnimationVisualsIfUnitEffect CrushSelfAnim = ScriptableObject.CreateInstance<AnimationVisualsIfUnitEffect>();
-            CrushSelfAnim._visuals = Visuals.Crush;
+            CrushSelfAnim._visuals = ITAVisuals.Explode;
             CrushSelfAnim._animationTarget = Targeting.Slot_SelfSlot;
 
             RandomDamageBetweenPreviousAndEntryEffect IndirectRandom = ScriptableObject.CreateInstance<RandomDamageBetweenPreviousAndEntryEffect>();
@@ -158,8 +158,7 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Impossible,
                 Priority = Priority.ExtremelySlow,
             };
-            instability.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Damage_1_2)]);
-            instability.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Damage_3_6)]);
+            instability.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Damage_1_2), nameof(IntentType_GameIDs.Damage_3_6)]);
 
             ExtraAbilityInfo instabilityextra = new()
             {
@@ -167,7 +166,7 @@ namespace A_Apocrypha.Enemies
                 rarity = Rarity.Impossible,
             };
 
-            unboundanomaly.AddPassives([Passives.Pure, Passives.Absorb, Passives.GetCustomPassive("Confrontational_PA"), Passives.BonusAttackGenerator(instabilityextra)]);
+            unboundanomaly.AddPassives([Passives.Pure, Passives.Absorb, Passives.GetCustomPassive("Confrontational_PA"), Passives.GetCustomPassive("AA_Dilution_Purple1_PA"), Passives.Withering, Passives.BonusAttackGenerator(instabilityextra)]);
 
             unboundanomaly.AddEnemyAbilities(
                 [

@@ -127,7 +127,7 @@ namespace A_Apocrypha.CustomEffects
                     {
                         copiedAbility.priority = Priority.Normal;
                     }
-                    copiedAbility.abilitySprite = ResourceLoader.LoadSprite("ItemHumanHeartAbility");
+                    //copiedAbility.abilitySprite = ResourceLoader.LoadSprite("ItemHumanHeartAbility");
                     ExtraAbilityInfo extraAbility = new()
                     {
                         ability = copiedAbility,

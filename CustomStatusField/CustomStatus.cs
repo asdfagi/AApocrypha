@@ -67,16 +67,51 @@ namespace A_Apocrypha.CustomStatusField
                 IntentInfoBasic IrradiatedIntent = new()
                 {
                     _color = Color.white,
-                    _sprite = ResourceLoader.LoadSprite("IconIrradiated")
+                    _sprite = IrradiatedInfo.icon
                 };
                 LoadedDBsHandler.IntentDB.AddNewBasicIntent("Status_Irradiated", IrradiatedIntent);
 
                 IntentInfoBasic IrradiatedRemIntent = new()
                 {
                     _color = Color.gray,
-                    _sprite = ResourceLoader.LoadSprite("IconIrradiated")
+                    _sprite = IrradiatedInfo.icon
                 };
                 LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Irradiated", IrradiatedRemIntent);
+            }
+
+            if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Hexed_ID"))
+            {
+                StatusEffectInfoSO HexedInfo = ScriptableObject.CreateInstance<StatusEffectInfoSO>();
+                HexedInfo._statusName = "Hexed";
+                HexedInfo._description = "While Hexed, this party member's abilities (except their basic ability) cost 1 additional Purple Pigment. Hexed is reduced by 1 at the end of each turn.";
+                HexedInfo.icon = ResourceLoader.LoadSprite("IconCometGaze");
+
+                LoadedDBsHandler.StatusFieldDB.TryGetStatusEffect("Cursed_ID", out StatusEffect_SO cursed);
+                StatusEffectInfoSO baseinfo = cursed.EffectInfo;
+
+                HexedInfo._applied_SE_Event = baseinfo._applied_SE_Event;//"event:/AASFX/RadiationApply";
+                HexedInfo._removed_SE_Event = baseinfo._removed_SE_Event;
+                HexedInfo._updated_SE_Event = baseinfo._updated_SE_Event;
+
+                Hexed hexed = ScriptableObject.CreateInstance<Hexed>();
+                hexed._StatusID = "Hexed_ID";
+                hexed._EffectInfo = HexedInfo;
+
+                LoadedDBsHandler.StatusFieldDB.AddNewStatusEffect(hexed, true);
+
+                IntentInfoBasic HexedIntent = new()
+                {
+                    _color = Color.white,
+                    _sprite = HexedInfo.icon
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Status_Hexed", HexedIntent);
+
+                IntentInfoBasic HexedRemIntent = new()
+                {
+                    _color = Color.gray,
+                    _sprite = HexedInfo.icon
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Hexed", HexedRemIntent);
             }
             // Into The Abyss - Petrified
             if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Petrified_ID"))

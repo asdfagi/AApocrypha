@@ -37,6 +37,7 @@ namespace A_Apocrypha.Items
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot),
                 ],
+                OnUnlockUsesTHE = true,
             };
 
             ItemUtils.AddItemToShopStatsCategoryAndGamePool(spectacles.item, new ItemModdedUnlockInfo("CosmogoneSpectacles_SW", ResourceLoader.LoadSprite("UnlockOsmanKneynsbergLocked", null, 32, null), "AApocrypha_Kneynsberg_Witness_ACH"));

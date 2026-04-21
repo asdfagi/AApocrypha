@@ -19,6 +19,8 @@ namespace A_Apocrypha.Encounters
             smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, Enemies.Mungling, 1, Spoggle.Yellow);
             smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, Enemies.Mungling, 1, Spoggle.Blue);
             smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "MudLung_EN", 1, "FlaMinGoa_EN");
+            smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, Aggregates.Purple, 2, "Mung_EN");
+            smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, Aggregates.Red, 1, "MudLung_EN");
             if (AApocrypha.CrossMod.Mythos)
             {
                 smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "MudLung_EN", 1, "Madman_EN");
@@ -33,6 +35,7 @@ namespace A_Apocrypha.Encounters
             {
                 smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "Flakkid_EN", 1, "DryBait_EN");
                 smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "Flakkid_EN", 1, Spoggle.Blue);
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "Flakkid_EN", 1, Aggregates.Red);
                 smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 2, "Enno_EN");
             }
             if (AApocrypha.CrossMod.MarmoEnemies)
@@ -41,7 +44,15 @@ namespace A_Apocrypha.Encounters
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {
-                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, Enemies.Unmung);
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, "Arceles_EN");
+            }
+            if (AApocrypha.CrossMod.LeonLegion)
+            {
+                smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, Martians.Red, 1, "MudLung_EN");
+                if (AApocrypha.CrossMod.GlitchsFreaks)
+                {
+                    smoldergeistHard.SimpleAddEncounter(1, "Smoldergeist_EN", 1, Martians.Red, 1, "Flakkid_EN");
+                }
             }
             smoldergeistHard.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Smoldergeist.Hard, 9, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard);
