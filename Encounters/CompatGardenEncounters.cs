@@ -29,7 +29,7 @@ namespace A_Apocrypha.Encounters
             }
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
-                gardenAdd = new AddTo("H_Zone03_Tanehineri_Easy_EnemyBundle");
+                /*gardenAdd = new AddTo("H_Zone03_Tanehineri_Easy_EnemyBundle");
                 gardenAdd.SimpleAddGroup(2, "Tanehineri_EN", 2, "MachineGnomes_EN");
 
                 gardenAdd = new AddTo(Garden.H.WRK.Med);
@@ -47,7 +47,7 @@ namespace A_Apocrypha.Encounters
                 gardenAdd.SimpleAddGroup(2, "ButterflyEffect_EN", 2, "MachineGnomes_EN");
                 
                 gardenAdd = new AddTo("H_Zone03_Plato_Hard_EnemyBundle");
-                gardenAdd.SimpleAddGroup(1, "Plato_EN", 1, Logos.Purple);
+                gardenAdd.SimpleAddGroup(1, "Plato_EN", 1, Logos.Purple);*/
             }
             if (AApocrypha.CrossMod.SaltEnemies)
             {

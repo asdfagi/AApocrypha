@@ -145,6 +145,9 @@ namespace A_Apocrypha.Fools
             };
             naudiz.GenerateMenuCharacter(ResourceLoader.LoadSprite("Naudiz4Menu"), ResourceLoader.LoadSprite("Naudiz4Locked"));
             naudiz.AddPassives([naudizAnalyzer, naudizCosmeticPassive]);
+            naudiz.SetMenuCharacterAsFullSupport();
+            //naudiz.ignoredDPS = [2];
+            //naudiz.ignoredSupport = [0];
 
             AttackVisualsSO AnalysisVisuals = ITAVisuals.Divide;
 

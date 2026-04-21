@@ -9,7 +9,7 @@ namespace A_Apocrypha.Enemies
     {
         public static void Add()
         {
-            Enemy threshold = new Enemy("The Threshold", "Threshold_EN")
+            Enemy threshold = new Enemy("<color=#" + ColorUtility.ToHtmlStringRGB(Color.magenta) + ">The Threshold</color>", "Threshold_EN")
             {
                 Health = 150,
                 HealthColor = Pigments.Purple,
@@ -38,7 +38,7 @@ namespace A_Apocrypha.Enemies
             };
             thresholdgate.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Threshold_Enemy/ThresholdGate_Enemy.prefab", AApocrypha.assetBundle, null);//AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Anomaly_Enemy/Anomaly_Giblets.prefab").GetComponent<ParticleSystem>());
 
-            Enemy partedveil = new Enemy("Parted Veil", "ThresholdMinion_EN")
+            Enemy partedveil = new Enemy("<color=#" + ColorUtility.ToHtmlStringRGB(Color.magenta) + ">Parted Veil</color>", "ThresholdMinion_EN")
             {
                 Health = 10,
                 HealthColor = Pigments.Purple,

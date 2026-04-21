@@ -99,7 +99,7 @@ namespace A_Apocrypha.Items
             PerformEffect_Item truth = new PerformEffect_Item("TRUTH_ID", null, false)
             {
                 Item_ID = "TRUTH_TW",
-                Name = "<color=#" + ColorUtility.ToHtmlStringRGB(new Color32(200, 200, 200, 255)) + ">TRUTH</color>",
+                Name = "<color=#" + ColorUtility.ToHtmlStringRGB(Color.magenta) + ">TRUTH</color>",
                 Flavour = "\"audi alteram partem.\"",
                 Description = "At the beginning of combat, replace the current encounter. Victory will reward you with two treasure items and 10 Coins." +
                 "\nThis item is destroyed upon activation. This item has no effect on bosses.",
