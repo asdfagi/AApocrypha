@@ -55,7 +55,7 @@ namespace A_Apocrypha.Items
             FinalBossCharUnlockCheck unlockCheck = Unlocks.GetUnlock_HeavenFinalBoss();
             unlockCheck.AddUnlockData("Naudiz4_CH", unlockData);
 
-            ModdedAchievements unlockAchievement = new ModdedAchievements("Phasic Scanning Module", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementHeavenNaudiz4", null, 32, null), achievementID);
+            ModdedAchievements unlockAchievement = new ModdedAchievements("Positronic Brain", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementHeavenNaudiz4", null, 32, null), achievementID);
             unlockAchievement.AddNewAchievementToInGameCategory(AchievementCategoryIDs.DivineTitleLabel);
         }
     }

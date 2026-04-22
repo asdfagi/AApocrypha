@@ -66,7 +66,7 @@ namespace A_Apocrypha.Items
             {
                 Item_ID = "SilverBell_TW",
                 Name = "Silver Bell",
-                Flavour = "\"It radiates with an otherworldly prsence.\"",
+                Flavour = "\"It radiates with an otherworldly presence.\"",
                 Description = "At the start of each turn, split purple into a random other party member's health color. Grey health is instead replaced with purple." +
                 "\nThis party member now has \"Command\" as an extra ability, letting them inspire those they have brought into the fold to action.",
                 IsShopItem = false,

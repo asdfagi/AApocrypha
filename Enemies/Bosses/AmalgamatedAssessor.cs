@@ -156,6 +156,9 @@ namespace A_Apocrypha.Enemies.Bosses
             StatusEffect_Apply_Effect ScarsApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             ScarsApply._Status = StatusField.Scars;
 
+            StatusEffect_Apply_Effect RadApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            RadApply._Status = StatusField.GetCustomStatusEffect("Irradiated_ID");
+
             AnimationVisualsEffect RecyclingAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
             RecyclingAnim._visuals = Visuals.Crush;
             RecyclingAnim._animationTarget = AllScraps;
@@ -257,13 +260,14 @@ namespace A_Apocrypha.Enemies.Bosses
 
             Ability ionizingfumes = new Ability("Ionizing Fumes", "AApocrypha_IonizingFumes_A")
             {
-                Description = "Apply 1 Scar to the Opposing party members. Move all Opposing party members to the Left or Right.",
+                Description = "Apply 1 Scar and 1 Irradiated to the Opposing party members. Move all Opposing party members to the Left or Right.",
                 Cost = [Pigments.Grey, Pigments.Grey],
                 Visuals = ITAVisuals.Stank,
                 AnimationTarget = Targeting.Slot_Front,
                 Effects =
                     [
                         Effects.GenerateEffect(ScarsApply, 1, Targeting.Slot_Front),
+                        Effects.GenerateEffect(RadApply, 1, Targeting.Slot_Front),
                         Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapToSidesEffect>(), 1, Targeting.Slot_Front),
                     ],
                 Rarity = Rarity.Common,

@@ -475,6 +475,9 @@ namespace A_Apocrypha.Enemies
             TryUnlockAchievementEffect ScrabbledAchievement = ScriptableObject.CreateInstance<TryUnlockAchievementEffect>();
             ScrabbledAchievement._unlockID = "TragedyPhobophobiaLongWords";
 
+            CheckHasUnitWithIDsEffect checkIsEnemy = ScriptableObject.CreateInstance<CheckHasUnitWithIDsEffect>();
+            checkIsEnemy._ids = ["Phobia_Rare_LongWords_EN"];
+
             Ability rareScrabbled = new Ability("Oxyphenbutazone", "AApocrypha_PhobiaLongWordsScrabbled_A")
             {
                 Description = "Deal an amount of damage equal to the Scrabble score of the Opposing party member's name to the Opposing party member." +
@@ -485,6 +488,8 @@ namespace A_Apocrypha.Enemies
                 //AnimationTarget = Targeting.Slot_Front,
                 Effects =
                 [
+                    Effects.GenerateEffect(checkIsEnemy, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(ScrabbledAchievement, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 1)),
                     Effects.GenerateEffect(BlackoutOn, 0),
                     Effects.GenerateEffect(MuteToggleOn, 0),
                     Effects.GenerateEffect(CutOutSFX, 0),
@@ -493,7 +498,6 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(DamageByPreviousKill, 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<ReturnTargetsScrabbleScoreEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 1)),
                     Effects.GenerateEffect(DamageByPreviousKill, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 2)),
-                    Effects.GenerateEffect(ScrabbledAchievement, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 3)),
                     Effects.GenerateEffect(BlackoutOffDelay, 0),
                 ],
                 Rarity = Rarity.ExtremelyCommon,

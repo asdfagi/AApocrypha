@@ -113,7 +113,7 @@ namespace A_Apocrypha.Items
                 items = [scrabble.Item_ID],
             };
 
-            ModdedAchievements unlockAchievement = new ModdedAchievements("Antidisestablishmentarianism", "Get a party member killed by their fear of long words.", ResourceLoader.LoadSprite("AchievementTragedyPhobophobiaLongWords", null, 32, null), achievementID);
+            ModdedAchievements unlockAchievement = new ModdedAchievements("Antidisestablishmentarianism", "Witness the actions of the fear of long words made manifest.", ResourceLoader.LoadSprite("AchievementTragedyPhobophobiaLongWords", null, 32, null), achievementID);
             unlockAchievement.AddNewAchievementToInGameCategory(AchievementCategoryIDs.TragediesTitleLabel);
 
             Unlocks.AddUnlock_ByID(unlockData);
