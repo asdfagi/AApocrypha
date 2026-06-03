@@ -50,7 +50,7 @@ namespace A_Apocrypha.Enemies
                 Size = 1,
                 CombatSprite = ResourceLoader.LoadSprite("SimulacrumTimeline", new Vector2(0.5f, 0f), 32),
                 OverworldDeadSprite = ResourceLoader.LoadSprite("AnomalyDead", new Vector2(0.5f, 0f), 32),
-                OverworldAliveSprite = ResourceLoader.LoadSprite("SimulacrumTimeline", new Vector2(0.5f, 0f), 32),
+                OverworldAliveSprite = ResourceLoader.LoadSprite("SimulacrumOverworld", new Vector2(0.5f, 0f), 32),
                 DamageSound = "event:/AAEnemy/SimulacrumHurt",
                 DeathSound = "event:/AAEnemy/SimulacrumDeath",
                 CombatEnterEffects = [

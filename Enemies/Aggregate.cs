@@ -111,6 +111,22 @@ namespace A_Apocrypha.Enemies
             };
             spoilT3.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Pigment_Transform", "AA_Pigment_Transform"]);
 
+            Ability spoilT0 = new Ability("Stain", "AApocrypha_AggregateStain_A")
+            {
+                Description = "Fully convert 1 random pigment in the pigment tray containing this enemy's health color. Split this enemy's health color into 1 random pigment in the pigment tray.",
+                Cost = [],
+                Visuals = Visuals.Melt,
+                AnimationTarget = Targeting.Slot_SelfSlot,
+                Effects =
+                [
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<PurifyNumberPigmentCasterHealthColorEffect>(), 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<PutrefyNumberPigmentCasterHealthColorEffect>(), 1, Targeting.Slot_SelfSlot),
+                ],
+                Rarity = Rarity.Rare,
+                Priority = Priority.Normal,
+            };
+            spoilT0.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["AA_Pigment_Transform", "AA_Pigment_Transform"]);
+
             Enemy redMold = new Enemy("Vicious Aggregate", "RedAggregate_EN")
             {
                 Health = 14,
@@ -338,6 +354,161 @@ namespace A_Apocrypha.Enemies
                 yellowOil,
             ]);
             yellowMold.AddEnemy(true, true, false);
+
+            SwapToOneSideEffect SwapLeft = ScriptableObject.CreateInstance<SwapToOneSideEffect>();
+            SwapLeft._swapRight = false;
+
+            SwapToOneSideEffect SwapRight = ScriptableObject.CreateInstance<SwapToOneSideEffect>();
+            SwapRight._swapRight = true;
+
+            CasterInOneEdgeCheckEffect CheckLeft = ScriptableObject.CreateInstance<CasterInOneEdgeCheckEffect>();
+            CheckLeft._right = false;
+
+            CasterInOneEdgeCheckEffect CheckRight = ScriptableObject.CreateInstance<CasterInOneEdgeCheckEffect>();
+            CheckRight._right = true;
+
+            AnimationVisualsEffect RaspRepeatAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            RaspRepeatAnim._visuals = Visuals.Exsanguinate;
+            RaspRepeatAnim._animationTarget = Targeting.Slot_Front;
+
+            AnimationVisualsEffect RaspRepeatAnimL = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            RaspRepeatAnimL._visuals = Visuals.Exsanguinate;
+            RaspRepeatAnimL._animationTarget = Targeting.GenerateSlotTarget([-1, 4]);
+
+            AnimationVisualsEffect RaspRepeatAnimR = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            RaspRepeatAnimR._visuals = Visuals.Exsanguinate;
+            RaspRepeatAnimR._animationTarget = Targeting.GenerateSlotTarget([-4, 1]);
+
+            if (AApocrypha.CrossMod.IntoTheAbyss && LoadedDBsHandler.PigmentDB.GetPigment("White") != null)
+            {
+                Enemy whiteMold = new Enemy("Copious Aggregate", "WhiteAggregate_EN")
+                {
+                    Health = 34,
+                    HealthColor = LoadedDBsHandler.PigmentDB.GetPigment("White"),
+                    Size = 1,
+                    CombatSprite = ResourceLoader.LoadSprite("AggregateWhiteTimeline", new Vector2(0.5f, 0f), 32),
+                    OverworldDeadSprite = ResourceLoader.LoadSprite("AggregateWhiteDead", new Vector2(0.5f, 0f), 32),
+                    OverworldAliveSprite = ResourceLoader.LoadSprite("AggregateWhiteTimeline", new Vector2(0.5f, 0f), 32),
+                    DamageSound = LoadedAssetsHandler.GetEnemy("SilverSuckle_EN").damageSound,
+                    DeathSound = LoadedAssetsHandler.GetEnemy("SilverSuckle_EN").deathSound,
+                };
+                whiteMold.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Aggregate_Enemy/AggregateWhite_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Aggregate_Enemy/AggregateWhite_Giblets.prefab").GetComponent<ParticleSystem>());
+                whiteMold.AddPassives([Passives.Pure, Passives.GetCustomPassive("AA_Contaminant1_PA"), Passives.GetCustomPassive("Confrontational_PA")]);
+
+                PercentageEffectCondition FiftyFifty = ScriptableObject.CreateInstance<PercentageEffectCondition>();
+                FiftyFifty.percentage = 50;
+
+                PerformEffectViaSubaction LeftRepeatMover = ScriptableObject.CreateInstance<PerformEffectViaSubaction>();
+                LeftRepeatMover.effects = [
+                    Effects.GenerateEffect(SwapLeft, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(CheckLeft, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(false, 1)),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                ];
+
+                PerformEffectViaSubaction RightRepeatMover = ScriptableObject.CreateInstance<PerformEffectViaSubaction>();
+                RightRepeatMover.effects = [
+                    Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(CheckRight, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(false, 1)),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<MirrorPositionEffect>(), 1, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([true, false], [1, 2])),
+                ];
+
+                PerformEffectViaSubaction AttackAction = ScriptableObject.CreateInstance<PerformEffectViaSubaction>();
+                AttackAction.effects = [
+                    Effects.GenerateEffect(RaspRepeatAnim, 1, Targeting.Slot_Front),
+                    Effects.GenerateEffect(ScriptableObject.CreateInstance<DamageEffect>(), 5, Targeting.Slot_Front),
+                ];
+
+                PerformEffectXTimesViaSubaction LeftRepeat = ScriptableObject.CreateInstance<PerformEffectXTimesViaSubaction>();
+                LeftRepeat.effects = [
+                    Effects.GenerateEffect(AttackAction),
+                    Effects.GenerateEffect(LeftRepeatMover),
+                ];
+
+                PerformEffectXTimesViaSubaction RightRepeat = ScriptableObject.CreateInstance<PerformEffectXTimesViaSubaction>();
+                RightRepeat.effects = [
+                    Effects.GenerateEffect(AttackAction),
+                    Effects.GenerateEffect(RightRepeatMover),
+                ];
+
+                PerformEffectXTimesViaSubaction LeftRepeatPrevious = ScriptableObject.CreateInstance<PerformEffectXTimesViaSubaction>();
+                LeftRepeatPrevious.effects = [
+                    Effects.GenerateEffect(AttackAction),
+                    Effects.GenerateEffect(LeftRepeatMover),
+                ];
+                LeftRepeatPrevious.usePreviousExit = true;
+
+                PerformEffectXTimesViaSubaction RightRepeatPrevious = ScriptableObject.CreateInstance<PerformEffectXTimesViaSubaction>();
+                RightRepeatPrevious.effects = [
+                    Effects.GenerateEffect(AttackAction),
+                    Effects.GenerateEffect(RightRepeatMover),
+                ];
+                RightRepeatPrevious.usePreviousExit = true;
+
+                PigmentAmountAnyCheckEffect HalfRoundup = ScriptableObject.CreateInstance<PigmentAmountAnyCheckEffect>();
+                HalfRoundup._returnPercentage = 50;
+                HalfRoundup._roundUp = true;
+
+                PigmentAmountAnyCheckEffect HalfRounddown = ScriptableObject.CreateInstance<PigmentAmountAnyCheckEffect>();
+                HalfRounddown._returnPercentage = 50;
+                HalfRounddown._roundUp = false;
+
+                PigmentAmountAnyCheckEffect HalfRounddownBonus1 = ScriptableObject.CreateInstance<PigmentAmountAnyCheckEffect>();
+                HalfRounddownBonus1._returnPercentage = 50;
+                HalfRounddownBonus1._roundUp = false;
+                HalfRounddownBonus1._staticBonus = 1;
+
+                Ability raspRepeat = new Ability("Unravel", "AApocrypha_AggregateWhiteUnravel_A")
+                {
+                    Description = "Deal a Painful amount of damage to the Opposing party member, then move Left or Right, assuming the grid wraps around. Repeat this once for every 2 pigment in the pigment tray without changing the movement direction.",
+                    Cost = [],
+                    Effects =
+                    [
+                        Effects.GenerateEffect(ScriptableObject.CreateInstance<ExtraVariableForNextEffect>(), 1, Targeting.Slot_SelfSlot, FiftyFifty),
+                        Effects.GenerateEffect(HalfRounddownBonus1),
+                        Effects.GenerateEffect(LeftRepeatPrevious, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(false, 2)),
+                        Effects.GenerateEffect(HalfRounddownBonus1),
+                        Effects.GenerateEffect(RightRepeatPrevious, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 4)),
+                    ],
+                    Rarity = Rarity.Common,
+                    Priority = Priority.Normal,
+                };
+                raspRepeat.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left), nameof(IntentType_GameIDs.Swap_Right)]);
+                raspRepeat.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Damage_3_6), "AA_MultiX", nameof(IntentType_GameIDs.Mana_Modify)]);
+
+                StatusEffect_ApplyWithRandomDistribution_Effect Alacring = ScriptableObject.CreateInstance<StatusEffect_ApplyWithRandomDistribution_Effect>();
+                Alacring.usePrevious = true;
+                Alacring.previousIsRange = false;
+                Alacring.status = StatusField.GetCustomStatusEffect("Alacrity_ID");
+
+                StatusEffect_Apply_Effect AlacringSingle = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+                AlacringSingle._Status = StatusField.GetCustomStatusEffect("Alacrity_ID");
+
+                Ability doItAgain = new Ability("Do It Again", "AApocrypha_AggregateWhiteAlacrity_A")
+                {
+                    Description = "Randomly distribute Alacrity to all other enemies equal to half the amount of pigment in the pigment tray, rounded up." +
+                    "\nIf this fails, apply 1 Alacrity to this enemy.",
+                    Cost = [],
+                    Visuals = ITAVisuals.PendulumFinisher,
+                    AnimationTarget = Targeting.Slot_SelfSlot,
+                    Effects =
+                    [
+                        Effects.GenerateEffect(HalfRoundup),
+                        Effects.GenerateEffect(Alacring, 1, Targeting.Unit_OtherAllies),
+                        Effects.GenerateEffect(AlacringSingle, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(false, 1)),
+                    ],
+                    Rarity = Rarity.Common,
+                    Priority = Priority.Normal,
+                };
+                doItAgain.AddIntentsToTarget(Targeting.Unit_OtherAllies, ["Status_Alacrity"]);
+                doItAgain.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["Status_Alacrity"]);
+
+                whiteMold.AddEnemyAbilities([
+                    raspRepeat,
+                    spoilT0,
+                    doItAgain,
+                ]);
+                whiteMold.AddEnemy(false, false, false);
+            }
         }
     }
 }

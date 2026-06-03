@@ -19,7 +19,7 @@ namespace A_Apocrypha.Enemies
                 OverworldAliveSprite = ResourceLoader.LoadSprite("BasicElementalOverworld", new Vector2(0.5f, 0f), 32),
                 DamageSound = "event:/AAEnemy/Anomaly1Hurt",
                 DeathSound = "event:/AAEnemy/Anomaly1Death",
-                UnitTypes = ["Loathing"],
+                UnitTypes = ["Loathing", "TuringComplete"],
             };
             basic.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/BasicElemental_Enemy/BasicElemental_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/BasicElemental_Enemy/BasicElemental_Giblets.prefab").GetComponent<ParticleSystem>());
             if (AApocrypha.CrossMod.IntoTheAbyss)

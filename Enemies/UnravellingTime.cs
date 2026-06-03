@@ -9,9 +9,9 @@ namespace A_Apocrypha.Enemies
     {
         public static void Add()
         {
-            StatusEffect_Apply_Effect Hasten = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
-            Hasten._RandomBetweenPrevious = true;
-            Hasten._Status = StatusField.GetCustomStatusEffect("Haste_ID");
+            StatusEffect_Apply_Effect Celeritize = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            Celeritize._RandomBetweenPrevious = true;
+            Celeritize._Status = StatusField.GetCustomStatusEffect("Celerity_ID");
 
             StatusEffect_Apply_Effect Stunnen = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             Stunnen._RandomBetweenPrevious = true;
@@ -21,7 +21,7 @@ namespace A_Apocrypha.Enemies
             UnravelSelf.effects =
             [
                 Effects.GenerateEffect(ScriptableObject.CreateInstance<ExtraVariableForNextEffect>(), 0, Targeting.Slot_SelfSlot),
-                Effects.GenerateEffect(Hasten, 2, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(Celeritize, 2, Targeting.Slot_SelfSlot),
                 Effects.GenerateEffect(ScriptableObject.CreateInstance<ExtraVariableForNextEffect>(), 0, Targeting.Slot_SelfSlot),
                 Effects.GenerateEffect(Stunnen, 1, Targeting.Slot_SelfSlot),
             ];
@@ -31,8 +31,8 @@ namespace A_Apocrypha.Enemies
             weftUnravel._passiveName = "Unravelling";
             weftUnravel.m_PassiveID = "Unravelling";
             weftUnravel.passiveIcon = ResourceLoader.LoadSprite("IconUnravelling");
-            weftUnravel._characterDescription = "On death, apply 0-2 Haste and 0-1 Stunned to all party members.";
-            weftUnravel._enemyDescription = "On death, apply 0-2 Haste and 0-1 Stunned to all enemies.";
+            weftUnravel._characterDescription = "On death, apply 0-2 Celerity and 0-1 Stunned to all party members.";
+            weftUnravel._enemyDescription = "On death, apply 0-2 Celerity and 0-1 Stunned to all enemies.";
             weftUnravel._triggerOn = [TriggerCalls.OnDeath];
             weftUnravel.doesPassiveTriggerInformationPanel = true;
             weftUnravel.effects =
@@ -62,38 +62,38 @@ namespace A_Apocrypha.Enemies
             NotWeft.targetUnitAllySlots = true;
             NotWeft._excludeCaster = true;
 
-            StatusEffect_Apply_Effect Hasten2 = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
-            Hasten2._RandomBetweenPrevious = false;
-            Hasten2._Status = StatusField.GetCustomStatusEffect("Haste_ID");
+            StatusEffect_Apply_Effect Celeritize2 = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            Celeritize2._RandomBetweenPrevious = false;
+            Celeritize2._Status = StatusField.GetCustomStatusEffect("Celerity_ID");
 
             StatusEffect_Apply_Effect Stunnen2 = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             Stunnen2._RandomBetweenPrevious = false;
             Stunnen2._Status = StatusField.Stunned;
             Stunnen2._JustOneRandomTarget = true;
 
-            AnimationVisualsEffect HastenAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
-            HastenAnim._visuals = Visuals.Genesis;
-            HastenAnim._animationTarget = Targeting.Slot_SelfSlot;
+            AnimationVisualsEffect CeleritizeAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
+            CeleritizeAnim._visuals = Visuals.Genesis;
+            CeleritizeAnim._animationTarget = Targeting.Slot_SelfSlot;
 
             RandomTargetPerformEffectViaSubaction BoostEnemy = ScriptableObject.CreateInstance<RandomTargetPerformEffectViaSubaction>();
             BoostEnemy.effects =
             [
-                Effects.GenerateEffect(HastenAnim, 1, Targeting.Slot_SelfSlot),
-                Effects.GenerateEffect(Hasten2, 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(CeleritizeAnim, 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(Celeritize2, 1, Targeting.Slot_SelfSlot),
                 Effects.GenerateEffect(Stunnen2, 1, NotWeft),
             ];
 
             RandomTargetPerformEffectViaSubaction BoostFool = ScriptableObject.CreateInstance<RandomTargetPerformEffectViaSubaction>();
             BoostFool.effects =
             [
-                Effects.GenerateEffect(HastenAnim, 1, Targeting.Slot_SelfSlot),
-                Effects.GenerateEffect(Hasten2, 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(CeleritizeAnim, 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(Celeritize2, 1, Targeting.Slot_SelfSlot),
                 Effects.GenerateEffect(Stunnen2, 1, Targeting.Unit_OtherAllies),
             ];
 
             Ability abilityEnemySide = new Ability("What Was, Will Be", "AApocrypha_WeftAbilityEnemy_A")
             {
-                Description = "Apply 1 Haste to a random enemy and 1 Stunned to a random other enemy.",
+                Description = "Apply 1 Celerity to a random enemy and 1 Stunned to a random other enemy.",
                 Cost = [Pigments.Grey, Pigments.Grey],
                 Effects =
                 [
@@ -102,11 +102,11 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.ExtremelyCommon,
                 Priority = Priority.ExtremelySlow,
             };
-            abilityEnemySide.AddIntentsToTarget(Targeting.Unit_OtherAllies, ["Status_Haste", nameof(IntentType_GameIDs.Status_Stunned)]);
+            abilityEnemySide.AddIntentsToTarget(Targeting.Unit_OtherAllies, ["Status_Celerity", nameof(IntentType_GameIDs.Status_Stunned)]);
 
             Ability abilityFoolSide = new Ability("What Will Be, Was", "AApocrypha_WeftAbilityFool_A")
             {
-                Description = "Apply 1 Haste to a random party member and 1 Stunned to a random other party member.",
+                Description = "Apply 1 Celerity to a random party member and 1 Stunned to a random other party member.",
                 Cost = [Pigments.Grey, Pigments.Grey],
                 Effects =
                 [
@@ -115,7 +115,7 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.ExtremelyCommon,
                 Priority = Priority.ExtremelySlow,
             };
-            abilityFoolSide.AddIntentsToTarget(Targeting.Unit_AllOpponents, ["Status_Haste", nameof(IntentType_GameIDs.Status_Stunned)]);
+            abilityFoolSide.AddIntentsToTarget(Targeting.Unit_AllOpponents, ["Status_Celerity", nameof(IntentType_GameIDs.Status_Stunned)]);
 
             weft.AddEnemyAbilities([
                 abilityEnemySide,

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static UnityEngine.UI.CanvasScaler;
 
 namespace A_Apocrypha.CustomEffects
 {
@@ -90,6 +91,33 @@ namespace A_Apocrypha.CustomEffects
         public bool usePreviousExit;
     }
 
+    public class PerformEffectXTimesStoredValueViaSubaction : EffectSO
+    {
+        public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
+        {
+            exitAmount = 1;
+            if (this.usePreviousExit)
+            {
+                entryVariable *= base.PreviousExitValue;
+            }
+            List<EffectInfo> loopedEffects = [];
+            int value = caster.SimpleGetStoredValue(m_unitStoredDataID);
+            for (int i = 0; i < value; i++)
+            {
+                foreach (EffectInfo effect in this.effects)
+                {
+                    loopedEffects.Add(effect);
+                }
+            }
+            CombatManager.Instance.AddSubAction(new EffectAction(loopedEffects.ToArray(), caster, 0));
+            return exitAmount > 0;
+        }
+
+        public EffectInfo[] effects;
+        public bool usePreviousExit;
+        public string m_unitStoredDataID = "";
+    }
+
     public class PerformRandomEffectViaSubaction : EffectSO
     {
         public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
@@ -101,5 +129,62 @@ namespace A_Apocrypha.CustomEffects
         }
 
         public List<EffectInfo[]> effects;
+    }
+    public class AltPerformEffectXTimesViaSubaction : EffectSO
+    {// harvested from ITA - I wonder what the story behind this one is
+        public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
+        {
+            exitAmount = 1;
+            bool flag = this.usePreviousExit;
+            if (flag)
+            {
+                entryVariable *= base.PreviousExitValue;
+            }
+            for (int i = 0; i < entryVariable; i++)
+            {
+                CombatManager.Instance.AddSubAction(new EffectAction(this.effects, caster, 0));
+            }
+            return exitAmount > 0;
+        }
+
+        public EffectInfo[] effects;
+
+        public bool usePreviousExit;
+    }
+
+    public class TargetPerformEffectByTimelineAbilityAmountViaSubaction : EffectSO
+    {
+        public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
+        {
+            exitAmount = 0;
+            foreach (TargetSlotInfo targetSlotInfo in targets)
+            {
+                if (targetSlotInfo.HasUnit)
+                {
+                    int instanceCounter = 0;
+                    if (targetSlotInfo.Unit is EnemyCombat en)
+                    {
+                        foreach (TurnInfo thingy in stats.timeline.Round)
+                        {
+                            if (thingy.turnUnit.ID == en.ID)
+                            {
+                                instanceCounter++;
+                            }
+                        }
+                    }
+                    int instances = 0;
+                    while ( instances < instanceCounter)
+                    {
+                        CombatManager.Instance.AddSubAction(new EffectAction(this.effects, targetSlotInfo.Unit, 0));
+                        exitAmount++;
+                        instances++;
+                    }
+                }
+            }
+
+            return exitAmount > 0;
+        }
+
+        public EffectInfo[] effects;
     }
 }

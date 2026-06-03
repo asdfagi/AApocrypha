@@ -522,6 +522,14 @@ namespace A_Apocrypha.Encounters
                 public static string Med => "H_Zone03_Phobias_Medium_EnemyBundle";
                 public static string Hard => "H_Zone03_Phobias_Hard_EnemyBundle";
             }
+            public static class Aggregates
+            {
+                public static class White
+                {
+                    public static string Easy => "H_Zone03_WhiteAggregate_Easy_EnemyBundle";
+                    public static string Med => "H_Zone03_WhiteAggregate_Medium_EnemyBundle";
+                }
+            }
         }
     }
 }

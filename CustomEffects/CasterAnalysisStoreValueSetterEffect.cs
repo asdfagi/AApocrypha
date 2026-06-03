@@ -8,6 +8,7 @@ namespace A_Apocrypha.CustomEffects
     public class CasterAnalysisStoreValueSetterEffect : EffectSO
     {
         public string m_unitStoredDataID = "";
+        public bool _alwaysReturnTrue = false;
 
         public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
         {
@@ -42,6 +43,13 @@ namespace A_Apocrypha.CustomEffects
                 int targetID = keylist[0];
                 results.TryGetValue(keylist[0], out string targetName);
                 Debug.Log("storing entry " + entryVariable + " to storage");
+                bool newValue = false;
+                if (caster.TryGetStoredData(m_unitStoredDataID, out var checkHolder))
+                {
+                    Debug.Log("Analyzer | stored value is!");
+                    if (checkHolder.m_MainData == targetID) { newValue = false; }
+                    else { newValue = true; }
+                } else { newValue = true; }
                 caster.SimpleSetStoredValue(m_unitStoredDataID, targetID);
                 if (caster.IsUnitCharacter)
                 {
@@ -60,7 +68,8 @@ namespace A_Apocrypha.CustomEffects
                     }
                 }
                 Debug.Log("stored as " + targetName + " - " + targetID);
-                return true;
+                if (_alwaysReturnTrue) { return true; }
+                return newValue;
             }
             return false;
         }

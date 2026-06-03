@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using A_Apocrypha.Animations;
+using A_Apocrypha.CustomOther;
 using BrutalAPI;
 using UnityEngine;
 
@@ -29,6 +30,18 @@ namespace A_Apocrypha.Enemies
             RupturedApply._Status = StatusField.Ruptured;
 
             SwapToSidesEffect SwapEither = ScriptableObject.CreateInstance<SwapToSidesEffect>();
+
+            HighestHealthAllyNotCasterIfPassiveTargeting NSlippery = ScriptableObject.CreateInstance<HighestHealthAllyNotCasterIfPassiveTargeting>();
+            NSlippery.slotOffsets = [0];
+            NSlippery._blacklist = true;
+            NSlippery.targetUnitAllySlots = true;
+            NSlippery._passive = Passives.Slippery;
+
+            HighestHealthAllyNotCasterIfPassiveTargeting Slippery = ScriptableObject.CreateInstance<HighestHealthAllyNotCasterIfPassiveTargeting>();
+            Slippery.slotOffsets = [0];
+            Slippery._blacklist = false;
+            Slippery.targetUnitAllySlots = true;
+            Slippery._passive = Passives.Slippery;
 
             Ability pulverize = new Ability("Pulverize", "AApocrypha_Pulverize_A")
             {

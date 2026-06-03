@@ -242,6 +242,8 @@ namespace A_Apocrypha.Enemies
             HalfOil._Status = StatusField.OilSlicked;
             HalfOil._entryVariableAsPercentage = true;
 
+            RaritySO CommonNoReroll = Rarity.CreateAndAddCustomRarityToPool("LogosMoveCommonNoReroll", 10, false);
+
             Ability westwheel = new Ability("Turn To The West", "AApocrypha_LogosLeft_A")
             {
                 Description = "Move Left, then apply 1 Fire to the newly Opposing position.",
@@ -252,7 +254,7 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(TorchAnim, 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(ApplyFire, 1, Targeting.Slot_Front),
                 ],
-                Rarity = Rarity.Common,
+                Rarity = CommonNoReroll,
                 Priority = Priority.VeryFast,
             };
             westwheel.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
@@ -268,7 +270,7 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(TorchAnim, 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(ApplyFire, 1, Targeting.Slot_Front),
                 ],
-                Rarity = Rarity.Common,
+                Rarity = CommonNoReroll,
                 Priority = Priority.VeryFast,
             };
             eastwheel.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
@@ -285,7 +287,7 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(OilAnim, 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(OilApply, 1, Targeting.Slot_Front),
                 ],
-                Rarity = Rarity.Common,
+                Rarity = CommonNoReroll,
                 Priority = Priority.VeryFast,
             };
             westflow.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
@@ -303,7 +305,7 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(OilAnim, 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(OilApply, 1, Targeting.Slot_Front),
                 ],
-                Rarity = Rarity.Common,
+                Rarity = CommonNoReroll,
                 Priority = Priority.VeryFast,
             };
             eastflow.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
@@ -583,10 +585,10 @@ namespace A_Apocrypha.Enemies
                 rarity = Rarity.Uncommon,
             };
 
-            redlogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseRed_PA"), CustomPassives.BonusSuiteGenerator([tonguesextrared, placeextra, becomeextra])]);
-            bluelogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseBlue_PA"), CustomPassives.BonusSuiteGenerator([tonguesextrablue, lifeextra, burdensextra])]);
-            yellowlogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseYellow_PA"), CustomPassives.BonusSuiteGenerator([tonguesextrayellow, rotextra, peerextra])]);
-            purplelogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("BlackTears_2_PA"), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondensePurple_PA"), CustomPassives.BonusSuiteGenerator([alchemicalextra, royalextra, languageextra])]);
+            redlogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseRed_PA"), CustomPassives.BonusSuiteRerollGenerator("PartyAction", [tonguesextrared, placeextra, becomeextra])]);
+            bluelogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseBlue_PA"), CustomPassives.BonusSuiteRerollGenerator("PartyAction", [tonguesextrablue, lifeextra, burdensextra])]);
+            yellowlogos.AddPassives([Passives.MultiAttack3, Passives.InfernoGenerator(1), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondenseYellow_PA"), CustomPassives.BonusSuiteRerollGenerator("PartyAction", [tonguesextrayellow, rotextra, peerextra])]);
+            purplelogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("BlackTears_2_PA"), Passives.GetCustomPassive("MadeOfFire_PA"), Passives.GetCustomPassive("AA_CondensePurple_PA"), CustomPassives.BonusSuiteRerollGenerator("PartyAction", [alchemicalextra, royalextra, languageextra])]);
 
             redlogos.AddEnemyAbilities(
             [
@@ -671,7 +673,7 @@ namespace A_Apocrypha.Enemies
                         Effects.GenerateEffect(NothingAnim, 1, Targeting.Slot_Front),
                         Effects.GenerateEffect(HoarfrostApply, 1, Targeting.Slot_Front),
                     ],
-                    Rarity = Rarity.Common,
+                    Rarity = CommonNoReroll,
                     Priority = Priority.VeryFast,
                 };
                 turnback.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right)]);
@@ -689,7 +691,7 @@ namespace A_Apocrypha.Enemies
                         Effects.GenerateEffect(NothingAnim, 1, Targeting.Slot_Front),
                         Effects.GenerateEffect(HoarfrostApply, 1, Targeting.Slot_Front),
                     ],
-                    Rarity = Rarity.Common,
+                    Rarity = CommonNoReroll,
                     Priority = Priority.VeryFast,
                 };
                 turnforth.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Left)]);
@@ -768,7 +770,7 @@ namespace A_Apocrypha.Enemies
                     rarity = Rarity.Uncommon,
                 };
 
-                blacklogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("Snowstorm_1_PA"), Passives.GetCustomPassive("Antifreeze_PA"), Passives.GetCustomPassive("Fragile_PA"), CustomPassives.BonusSuiteGenerator([wordsextra, colorsextra, nothingextra])]);
+                blacklogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("Snowstorm_1_PA"), Passives.GetCustomPassive("Antifreeze_PA"), Passives.GetCustomPassive("Fragile_PA"), CustomPassives.BonusSuiteRerollGenerator("PartyAction", [wordsextra, colorsextra, nothingextra])]);
 
                 blacklogos.AddEnemyAbilities(
                 [
@@ -834,7 +836,7 @@ namespace A_Apocrypha.Enemies
                         OverworldAliveSprite = ResourceLoader.LoadSprite("OrguisTimelineIridescent", new Vector2(0.5f, 0f), 32),
                         DamageSound = "event:/AAEnemy/LogosDisco/LogosDiscoHurt",
                         DeathSound = "event:/AAEnemy/LogosDisco/LogosDiscoDeath",
-                        UnitTypes = ["Logos"],
+                        UnitTypes = ["Zoincaillan", "Logos"],
                     };
                     //Debug.Log("Orguis | prefab");
                     iridescentOrguis.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/OrguisIridescent_Enemy.prefab", AApocrypha.assetBundle, null);
@@ -993,7 +995,7 @@ namespace A_Apocrypha.Enemies
                         rarity = Rarity.Uncommon,
                     };
 
-                    iridescentOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("AA_Euphony2_PA"), Passives.GetCustomPassive("AA_CondenseIridescent_PA"), CustomPassives.BonusSuiteGenerator([promiseextra, terrifyextra, realityextra])]);
+                    iridescentOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("AA_Euphony2_PA"), Passives.GetCustomPassive("AA_CondenseIridescent_PA"), CustomPassives.BonusSuiteRerollGenerator("PartyAction", [promiseextra, terrifyextra, realityextra])]);
 
                     iridescentOrguis.AddEnemyAbilities(
                     [
@@ -1017,7 +1019,7 @@ namespace A_Apocrypha.Enemies
                         OverworldAliveSprite = ResourceLoader.LoadSprite("OrguisTimelineClusterfuck", new Vector2(0.5f, 0f), 32),
                         DamageSound = "event:/AAEnemy/LogosDisco/LogosDiscoHurt",
                         DeathSound = "event:/AAEnemy/LogosDisco/LogosDiscoDeath",
-                        UnitTypes = ["Logos"],
+                        UnitTypes = ["Zoincaillan", "Logos"],
                     };
                     clusterfuckOrguis.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/OrguisClusterfuck_Enemy.prefab", AApocrypha.assetBundle, null);
 
@@ -1226,7 +1228,7 @@ namespace A_Apocrypha.Enemies
                         rarity = Rarity.Uncommon,
                     };
 
-                    clusterfuckOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("AA_Fragmentation1_PA"), Passives.GetCustomPassive("AA_CondenseClusterfuck_PA"), CustomPassives.BonusSuiteGenerator([promiseextra, overwriteextra, inspireextra])]);
+                    clusterfuckOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("AA_Fragmentation1_PA"), Passives.GetCustomPassive("AA_CondenseClusterfuck_PA"), CustomPassives.BonusSuiteRerollGenerator("PartyAction", [promiseextra, overwriteextra, inspireextra])]);
 
                     clusterfuckOrguis.AddEnemyAbilities([
                         orguisclusterleft.GenerateEnemyAbility(true),
@@ -1236,7 +1238,7 @@ namespace A_Apocrypha.Enemies
                     clusterfuckOrguis.AddEnemy(true, false, false);
                 }
 
-                if (LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase") != null && LoadedDBsHandler.StatusFieldDB._FieldEffects.ContainsKey("Gravity_ID"))
+                if (LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase") != null && LoadedDBsHandler.StatusFieldDB._FieldEffects.ContainsKey("Gravity_ID") && LoadedDBsHandler.StatusFieldDB._StatusEffects.ContainsKey("Collapse_ID"))
                 {
                     Enemy entropicOrguis = new Enemy("Panoptic Orguis", "PanopticOrguis_EN")
                     {
@@ -1248,13 +1250,19 @@ namespace A_Apocrypha.Enemies
                         OverworldAliveSprite = ResourceLoader.LoadSprite("OrguisTimelineEntropic", new Vector2(0.5f, 0f), 32),
                         DamageSound = "event:/AAEnemy/LogosDisco/LogosDiscoHurt",
                         DeathSound = "event:/AAEnemy/LogosDisco/LogosDiscoDeath",
-                        UnitTypes = ["Logos"],
+                        UnitTypes = ["Zoincaillan", "Logos"],
                     };
 
                     entropicOrguis.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/OrguisEntropic_Enemy.prefab", AApocrypha.assetBundle, null);
 
                     FieldEffect_Apply_Effect GravityApply = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
                     GravityApply._Field = StatusField.GetCustomFieldEffect("Gravity_ID");
+
+                    StatusEffect_ApplyByPrevious_Effect CollapsePrevious = ScriptableObject.CreateInstance<StatusEffect_ApplyByPrevious_Effect>();
+                    CollapsePrevious._Status = StatusField.GetCustomStatusEffect("Collapse_ID");
+
+                    StatusEffect_Apply_Effect CollapseApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+                    CollapseApply._Status = StatusField.GetCustomStatusEffect("Collapse_ID");
 
                     //Debug.Log("Orguis | euphony");
                     PerformEffectPassiveAbility accretion1 = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
@@ -1278,6 +1286,23 @@ namespace A_Apocrypha.Enemies
                     FieldEffect_Apply_Effect GravityByPrevious = ScriptableObject.CreateInstance<FieldEffect_Apply_Effect>();
                     GravityByPrevious._Field = StatusField.GetCustomFieldEffect("Gravity_ID");
                     GravityByPrevious._UsePreviousExitValueAsMultiplier = true;
+
+                    FieldEffectCheckEffect GravityCheck = ScriptableObject.CreateInstance<FieldEffectCheckEffect>();
+                    GravityCheck._fields = [StatusField.GetCustomFieldEffect("Gravity_ID")];
+
+                    SpecificOpponentSlotsByStatusTargeting TheUnscrunched = ScriptableObject.CreateInstance<SpecificOpponentSlotsByStatusTargeting>();
+                    TheUnscrunched._statusEffectID = "Collapse_ID";
+                    TheUnscrunched.targetUnitAllySlots = false;
+                    TheUnscrunched._inverted = true;
+
+                    SpecificOpponentSlotsByStatusTargeting TheScrunched = ScriptableObject.CreateInstance<SpecificOpponentSlotsByStatusTargeting>();
+                    TheScrunched._statusEffectID = "Collapse_ID";
+                    TheScrunched.targetUnitAllySlots = false;
+                    TheScrunched._inverted = false;
+
+                    StatusEffectCheckerEffect IsScrunched = ScriptableObject.CreateInstance<StatusEffectCheckerEffect>();
+                    IsScrunched._status = StatusField.GetCustomStatusEffect("Collapse_ID");
+                    IsScrunched._allTargetsHaveStatusEffect = false;
 
                     Ability orguisentropicleft = new Ability("Conspiracy", "AApocrypha_OrguisEntropicLeft_A")
                     {
@@ -1335,13 +1360,58 @@ namespace A_Apocrypha.Enemies
                     };
                     promise.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Heal_5_10), nameof(IntentType_GameIDs.Damage_7_10), "AA_AddPassive", "AA_RemPassive"]);
 
+                    Ability scrunch = new Ability("I Will It, Fold Space", "AApocrypha_OrguisCollapseMoveEntropic_A")
+                    {
+                        Description = "Apply Collapse to all party members in odd-numbered positions equal to the amount of Gravity on all occupied party member positions.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"), LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"), LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"), LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase")],
+                        Visuals = Visuals.Crush,
+                        AnimationTarget = Targeting.GenerateGenericTarget([0, 2, 4], false),
+                        Effects =
+                        [
+                            Effects.GenerateEffect(GravityCheck, 1, Targeting.Unit_AllOpponentSlots),
+                            Effects.GenerateEffect(CollapsePrevious, 1, Targeting.GenerateGenericTarget([0, 2, 4], false), Effects.CheckPreviousEffectCondition(true, 1)),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    scrunch.AddIntentsToTarget(Targeting.Unit_AllOpponentSlots, [nameof(IntentType_GameIDs.Misc_Hidden)]);
+                    scrunch.AddIntentsToTarget(Targeting.GenerateGenericTarget([0, 2, 4], false), ["Status_Collapse"]);
+
+                    Ability zorp = new Ability("I Will It, Open Leylines", "AApocrypha_OrguisGravityMoveEntropic_A")
+                    {
+                        Description = "Apply 1 Gravity to all party member positions NOT occupied by party members with Collapse.",
+                        Cost = [LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"), LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"), LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"), LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase")],
+                        Visuals = ITAVisuals.Divide,
+                        AnimationTarget = TheUnscrunched,
+                        Effects =
+                        [
+                            Effects.GenerateEffect(GravityApply, 1, TheUnscrunched),
+                        ],
+                        Rarity = Rarity.Impossible,
+                        Priority = Priority.Fast,
+                    };
+                    zorp.AddIntentsToTarget(TheScrunched, [nameof(IntentType_GameIDs.Misc)]);
+                    zorp.AddIntentsToTarget(TheUnscrunched, ["Field_Gravity"]);
+
                     ExtraAbilityInfo promiseextra = new()
                     {
                         ability = promise.GenerateEnemyAbility().ability,
                         rarity = Rarity.Uncommon,
                     };
 
-                    entropicOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("AA_Accretion1_PA"), Passives.GetCustomPassive("FixedPoint_PA"), Passives.GetCustomPassive("AA_CondenseEntropic_PA"), CustomPassives.BonusSuiteGenerator([promiseextra])]);
+                    ExtraAbilityInfo scrunchextra = new()
+                    {
+                        ability = scrunch.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    ExtraAbilityInfo zorpextra = new()
+                    {
+                        ability = zorp.GenerateEnemyAbility().ability,
+                        rarity = Rarity.Uncommon,
+                    };
+
+                    entropicOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("AA_Accretion1_PA"), Passives.GetCustomPassive("FixedPoint_PA"), Passives.GetCustomPassive("AA_CondenseEntropic_PA"), CustomPassives.BonusSuiteRerollGenerator("PartyAction", [promiseextra, scrunchextra, zorpextra])]);
 
                     entropicOrguis.AddEnemyAbilities([
                         orguisentropicleft.GenerateEnemyAbility(true),
@@ -1355,15 +1425,15 @@ namespace A_Apocrypha.Enemies
                 {
                     Enemy whiteOrguis = new Enemy("Hamalat Orguis", "HamalatOrguis_EN")
                     {
-                        Health = 40,
+                        Health = 80,
                         HealthColor = LoadedDBsHandler.PigmentDB.GetPigment("White"),
                         Size = 1,
-                        CombatSprite = ResourceLoader.LoadSprite("OrguisTimelineBase", new Vector2(0.5f, 0f), 32),
+                        CombatSprite = ResourceLoader.LoadSprite("OrguisTimelineWhite", new Vector2(0.5f, 0f), 32),
                         OverworldDeadSprite = ResourceLoader.LoadSprite("AnomalyDead", new Vector2(0.5f, 0f), 32),
-                        OverworldAliveSprite = ResourceLoader.LoadSprite("OrguisTimelineBase", new Vector2(0.5f, 0f), 32),
+                        OverworldAliveSprite = ResourceLoader.LoadSprite("OrguisTimelineWhite", new Vector2(0.5f, 0f), 32),
                         DamageSound = "event:/AAEnemy/LogosDisco/LogosDiscoHurt",
                         DeathSound = "event:/AAEnemy/LogosDisco/LogosDiscoDeath",
-                        UnitTypes = ["Logos"],
+                        UnitTypes = ["Zoincaillan", "Logos"],
                     };
 
                     whiteOrguis.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Logos_Enemy/OrguisWhite_Enemy.prefab", AApocrypha.assetBundle, null);
@@ -1549,7 +1619,7 @@ namespace A_Apocrypha.Enemies
                         rarity = Rarity.Uncommon,
                     };
 
-                    whiteOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("Erasure_PA"), Passives.GetCustomPassive("AA_CondenseWhite_PA"), CustomPassives.BonusSuiteGenerator([promiseextra, angelsextra, mannaextra])]);
+                    whiteOrguis.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("Erasure_PA"), Passives.GetCustomPassive("AA_CondenseWhite_PA"), Passives.Enfeebled, CustomPassives.BonusSuiteRerollGenerator("PartyAction", [promiseextra, angelsextra, mannaextra])]);
 
                     whiteOrguis.AddEnemyAbilities([
                         orguiswhiteleft.GenerateEnemyAbility(true),

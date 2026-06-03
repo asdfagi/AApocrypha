@@ -494,6 +494,10 @@ namespace A_Apocrypha.Encounters
                     public static string Med => "H_Zone02_YellowAggregate_Medium_EnemyBundle";
                 }
             }
+            public static class CobaltCurator
+            {
+                public static string Med => "H_Zone02_CobaltCurator_Medium_EnemyBundle";
+            }
 
 
             //ita

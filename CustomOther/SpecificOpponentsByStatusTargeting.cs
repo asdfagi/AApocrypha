@@ -12,6 +12,7 @@ namespace A_Apocrypha.CustomOther
         public int[] slotOffsets;
         public bool targetUnitAllySlots; // interpreted in reverse here, don't worry too much about it
         public bool getAllUnitSelfSlots;
+        public bool _inverted = false;
 
         public override bool AreTargetAllies => !targetUnitAllySlots;
         public override bool AreTargetSlots => true;
@@ -32,7 +33,10 @@ namespace A_Apocrypha.CustomOther
                     if (en == null || en.Enemy == null)
                         continue;
 
-                    if (!en.ContainsStatusEffect(_status.StatusID))
+                    if (!en.ContainsStatusEffect(_status.StatusID) && !_inverted)
+                        continue;
+
+                    if (en.ContainsStatusEffect(_status.StatusID) && _inverted)
                         continue;
 
                     var chSID = en.SlotID;
@@ -87,7 +91,10 @@ namespace A_Apocrypha.CustomOther
                     if (ch == null || ch.Character == null)
                         continue;
 
-                    if (!ch.ContainsStatusEffect(_status.StatusID))
+                    if (!ch.ContainsStatusEffect(_status.StatusID) && !_inverted)
+                        continue;
+
+                    if (ch.ContainsStatusEffect(_status.StatusID) && _inverted)
                         continue;
 
                     var chSID = ch.SlotID;

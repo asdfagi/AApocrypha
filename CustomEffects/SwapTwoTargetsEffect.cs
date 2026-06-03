@@ -25,7 +25,7 @@ namespace A_Apocrypha.CustomEffects
                 {
                     if (stats.combatSlots.CanEnemiesSwap(targets[1].SlotID, targets[0].SlotID, out int num, out int num2))
                     {
-                        if (num >= 5 || num2 >= 5 || num < 0 || num2 < 0)
+                        if (num >= 4 || num2 >= 4 || num < 0 || num2 < 0)
                         {
                             Debug.LogWarning("Enemy Swapper | Out of Bounds! Skipping...");
                             return false;
@@ -52,7 +52,7 @@ namespace A_Apocrypha.CustomEffects
                 {
                     if (stats.combatSlots.CanEnemiesSwap(targets[0].SlotID, targets[1].SlotID, out int num, out int num2))
                     {
-                        if (num >= 5 || num2 >= 5 || num < 0 || num2 < 0)
+                        if (num >= 4 || num2 >= 4 || num < 0 || num2 < 0)
                         {
                             Debug.LogWarning("Enemy Swapper | Out of Bounds! Skipping...");
                             return false;

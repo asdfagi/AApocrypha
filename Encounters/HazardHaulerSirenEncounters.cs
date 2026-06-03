@@ -18,6 +18,8 @@ namespace A_Apocrypha.Encounters
             hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "Boiler_EN", 1, "BirdBath_EN");
             hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "Boiler_EN", 1, "BirdBath_EN", 1, "Tassnn_EN");
             hazardHaulerSirenMedium.SimpleAddEncounter(2, "HazardHauler_Siren_EN", 2, "BirdBath_EN");
+            hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "CobaltCurator_EN", 1, "Boiler_EN");
+            hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "CobaltCurator_EN", 1, "Boiler_EN", 1, "BirdBath_EN");
             if (AApocrypha.CrossMod.SaltEnemies)
             {
                 hazardHaulerSirenMedium.SimpleAddEncounter(1, "HazardHauler_Siren_EN", 1, "Boiler_EN", 1, "BirdBath_EN", 1, Ecstasy.Random);

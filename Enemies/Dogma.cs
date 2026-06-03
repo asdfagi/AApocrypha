@@ -430,7 +430,7 @@ namespace A_Apocrypha.Enemies
                 rarity = Rarity.AbsurdlyRare,
             };
 
-            dogma.AddPassive(CustomPassives.BonusSuiteGenerator([woundsextra, sorrowextra, lightextra, whispersextra]));
+            dogma.AddPassive(CustomPassives.BonusSuiteRerollGenerator("Formless", [woundsextra, sorrowextra, lightextra, whispersextra]));
 
             dogma.AddEnemy(true, false, false);
         }

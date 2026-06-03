@@ -13,7 +13,7 @@ namespace A_Apocrypha.Encounters
                 Portals.AddPortalSign("OrguisClusterfuckSign", ResourceLoader.LoadSprite("OrguisTimelineClusterfuck", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
                 EnemyEncounter_API clusterfuckOrguisMed = new EnemyEncounter_API(0, Abyss.H.Orguis.Clusterfuck.Med, "OrguisClusterfuckSign")
                 {
-                    MusicEvent = "event:/AAMusic/MillieAmp/DurianDetonator",
+                    MusicEvent = "event:/AAMusic/AzureLazuline/DurianDementia",
                     RoarEvent = "event:/AAEnemy/LogosDisco/LogosDiscoRoar",
                 };
                 clusterfuckOrguisMed.SimpleAddEncounter(1, Orguis.Clusterfuck, 1, "YesMan_EN", 1, "Streetlight_EN");
@@ -30,7 +30,7 @@ namespace A_Apocrypha.Encounters
 
                 EnemyEncounter_API clusterfuckOrguisHard = new EnemyEncounter_API(0, Abyss.H.Orguis.Clusterfuck.Hard, "OrguisClusterfuckSign")
                 {
-                    MusicEvent = "event:/AAMusic/MillieAmp/DurianDetonator",
+                    MusicEvent = "event:/AAMusic/AzureLazuline/DurianDementia",
                     RoarEvent = "event:/AAEnemy/LogosDisco/LogosDiscoRoar",
                 };
                 clusterfuckOrguisHard.SimpleAddEncounter(1, Orguis.Clusterfuck, 2, "Bear_EN", 1, "WRK_EN");

@@ -21,7 +21,10 @@ namespace A_Apocrypha.CustomOther
         public override TargetSlotInfo[] GetTargets(SlotsCombat slots, int casterSlotID, bool isCasterCharacter)
         {
             if (_color == null || slotOffsets == null)
+            {
+                Debug.Log("early returned?");
                 return [];
+            }
 
             var enemies = CombatManager.Instance._stats.EnemiesOnField;
             var chars = CombatManager.Instance._stats.CharactersOnField;
@@ -97,6 +100,7 @@ namespace A_Apocrypha.CustomOther
                     if (ch == null || ch.Character == null)
                         continue;
 
+                    Debug.Log("target has " + ch.HealthColor.pigmentID + ", comparing to color " + _color.pigmentID);
                     if (blacklist)
                     {
                         if (_contains && ch.HealthColor.SharesPigmentColor(_color)) { continue; }

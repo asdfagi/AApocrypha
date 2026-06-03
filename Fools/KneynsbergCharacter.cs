@@ -21,7 +21,7 @@ namespace A_Apocrypha.Fools
                 DamageSound = LoadedAssetsHandler.GetCharacter("Griffin_CH").damageSound,
                 DeathSound = LoadedAssetsHandler.GetCharacter("Griffin_CH").deathSound,
                 DialogueSound = LoadedAssetsHandler.GetCharacter("Griffin_CH").dxSound,
-                UnitTypes = ["Male_ID", "Sandwich_Spirit", "Neathy"],
+                UnitTypes = ["MaleID", "Sandwich_Spirit", "Neathy"],
             };
             kneynsberg.GenerateMenuCharacter(ResourceLoader.LoadSprite("KneynsbergMenu"), ResourceLoader.LoadSprite("KneynsbergLocked"));
             kneynsberg.AddPassives([Passives.GetCustomPassive("DriedOut_PA")]);
@@ -33,8 +33,8 @@ namespace A_Apocrypha.Fools
             StatusEffect_Apply_Effect AddScars = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             AddScars._Status = StatusField.Scars;
 
-            AddPassiveEffect AddLeaky = ScriptableObject.CreateInstance<AddPassiveEffect>();
-            AddLeaky._passiveToAdd = Passives.Leaky1;
+            StatusEffect_Apply_Effect AddFrail = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            AddFrail._Status = StatusField.Frail;
 
             HealEffect HealPrevious = ScriptableObject.CreateInstance<HealEffect>();
             HealPrevious.usePreviousExitValue = true;
@@ -81,7 +81,7 @@ namespace A_Apocrypha.Fools
             DamageEffect IndirectDamage = ScriptableObject.CreateInstance<DamageEffect>();
             IndirectDamage._indirect = true;
 
-            Ability jaunt1 = new Ability("Cutting Jaunt", "KneynsbergJaunt_1")
+            Ability jaunt1 = new Ability("Cutting Jaunt", "KneynsbergJaunt_1_A")
             {
                 Description = "Mirror this party member's position and deal 5 damage to the newly Opposing enemy.\nApply 2 Ruptured to the Opposing enemy.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergJaunt"),
@@ -98,7 +98,7 @@ namespace A_Apocrypha.Fools
             jaunt1.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Damage_3_6)]);
             jaunt1.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Status_Ruptured)]);
 
-            Ability jaunt2 = new Ability("Splintering Jaunt", "KneynsbergJaunt_2")
+            Ability jaunt2 = new Ability("Splintering Jaunt", "KneynsbergJaunt_2_A")
             {
                 Description = "Mirror this party member's position and deal 7 damage to the newly Opposing enemy.\nApply 2 Ruptured to the Opposing enemy.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergJaunt"),
@@ -115,7 +115,7 @@ namespace A_Apocrypha.Fools
             jaunt2.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Damage_7_10)]);
             jaunt2.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Status_Ruptured)]);
 
-            Ability jaunt3 = new Ability("Shattering Jaunt", "KneynsbergJaunt_3")
+            Ability jaunt3 = new Ability("Shattering Jaunt", "KneynsbergJaunt_3_A")
             {
                 Description = "Mirror this party member's position and deal 9 damage to the newly Opposing enemy.\nApply 3 Ruptured to the Opposing enemy.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergJaunt"),
@@ -132,7 +132,7 @@ namespace A_Apocrypha.Fools
             jaunt3.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Damage_7_10)]);
             jaunt3.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Status_Ruptured)]);
 
-            Ability jaunt4 = new Ability("Eviscerating Jaunt", "KneynsbergJaunt_4")
+            Ability jaunt4 = new Ability("Eviscerating Jaunt", "KneynsbergJaunt_4_A")
             {
                 Description = "Mirror this party member's position and deal 11 damage to the newly Opposing enemy.\nApply 3 Ruptured to the Opposing enemy.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergJaunt"),
@@ -149,9 +149,9 @@ namespace A_Apocrypha.Fools
             jaunt4.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Damage_11_15)]);
             jaunt4.AddIntentsToTarget(TbazTargeting.Mirror(false), [nameof(IntentType_GameIDs.Status_Ruptured)]);
 
-            Ability inversion1 = new Ability("Trivial Inversion", "KneynsbergInversion_1")
+            Ability inversion1 = new Ability("Trivial Inversion", "KneynsbergInversion_1_A")
             {
-                Description = "Apply 2 Ruptured to the Opposing enemy.\nTry to swap the positions of the Left and Right enemies.\nDeal 2 indirect damage to any targets that were not moved.",
+                Description = "Apply 2 Ruptured to the Opposing enemy.\nTry to swap the positions of the Left and Right enemies.\nDeal 7 indirect damage to targets that were moved and apply 1 Frail to targets that were not moved.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergInversion"),
                 Cost = [Pigments.RedPurple, Pigments.Red],
                 Effects =
@@ -160,16 +160,16 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(AddRuptured, 2, Targeting.Slot_Front),
                     Effects.GenerateEffect(InvAnimSides),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapTwoTargetsEffect>(), 1, Targeting.Slot_OpponentSides),
-                    Effects.GenerateEffect(IndirectDamage, 2, Targeting.Slot_OpponentSides, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(IndirectDamage, 7, Targeting.Slot_OpponentSides, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(AddFrail, 1, Targeting.Slot_OpponentSides, Effects.CheckPreviousEffectCondition(false, 2)),
                 ]
             };
             inversion1.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Status_Ruptured)]);
-            inversion1.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Swap_Mass)]);
-            inversion1.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Damage_1_2)]);
+            inversion1.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Swap_Mass), nameof(IntentType_GameIDs.Damage_7_10), nameof(IntentType_GameIDs.Status_Frail)]);
 
-            Ability inversion2 = new Ability("Simple Inversion", "KneynsbergInversion_2")
+            Ability inversion2 = new Ability("Simple Inversion", "KneynsbergInversion_2_A")
             {
-                Description = "Apply 2 Ruptured to the Left and Right enemies.\nTry to swap the positions of the Left and Right enemies.\nDeal 3 indirect damage to any targets that were not moved.",
+                Description = "Apply 2 Ruptured to the Left and Right enemies.\nTry to swap the positions of the Left and Right enemies.\nDeal 9 indirect damage to targets that were moved and apply 1 Frail to targets that were not moved.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergInversion"),
                 Cost = [Pigments.RedPurple, Pigments.Red],
                 Effects =
@@ -178,16 +178,16 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(AddRuptured, 2, Targeting.Slot_OpponentSides),
                     Effects.GenerateEffect(InvAnimSides),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapTwoTargetsEffect>(), 1, Targeting.Slot_OpponentSides),
-                    Effects.GenerateEffect(IndirectDamage, 3, Targeting.Slot_OpponentSides, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(IndirectDamage, 9, Targeting.Slot_OpponentSides, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(AddFrail, 1, Targeting.Slot_OpponentSides, Effects.CheckPreviousEffectCondition(false, 2)),
                 ]
             };
             inversion2.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Status_Ruptured)]);
-            inversion2.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Swap_Mass)]);
-            inversion2.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Damage_3_6)]);
+            inversion2.AddIntentsToTarget(Targeting.Slot_OpponentSides, [nameof(IntentType_GameIDs.Swap_Mass), nameof(IntentType_GameIDs.Damage_7_10), nameof(IntentType_GameIDs.Status_Frail)]);
 
-            Ability inversion3 = new Ability("Complex Inversion", "KneynsbergInversion_3")
+            Ability inversion3 = new Ability("Complex Inversion", "KneynsbergInversion_3_A")
             {
-                Description = "Apply 3 Ruptured to the Left, Right and Opposing enemies.\nTry to swap the positions of the Left and Right enemies and the Far Left and Far Right enemies.\nDeal 3 indirect damage to any targets that were not moved.",
+                Description = "Apply 3 Ruptured to the Left, Right and Opposing enemies.\nTry to swap the positions of the Left and Right enemies and the Far Left and Far Right enemies.\nDeal 9 indirect damage to targets that were moved and apply 2 Frail to targets that were not moved.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergInversion"),
                 Cost = [Pigments.RedPurple, Pigments.RedPurple],
                 Effects =
@@ -196,18 +196,19 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(AddRuptured, 3, Targeting.Slot_FrontAndSides),
                     Effects.GenerateEffect(InvAnimFarSides),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapTwoTargetsEffect>(), 1, Targeting.Slot_OpponentSides),
-                    Effects.GenerateEffect(IndirectDamage, 3, Targeting.Slot_OpponentSides, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(IndirectDamage, 9, Targeting.Slot_OpponentSides, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(AddFrail, 2, Targeting.Slot_OpponentSides, Effects.CheckPreviousEffectCondition(false, 2)),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapTwoTargetsEffect>(), 1, Targeting.Slot_OpponentFarSides),
-                    Effects.GenerateEffect(IndirectDamage, 3, Targeting.Slot_OpponentFarSides, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(IndirectDamage, 9, Targeting.Slot_OpponentFarSides, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(AddFrail, 2, Targeting.Slot_OpponentFarSides, Effects.CheckPreviousEffectCondition(false, 2)),
                 ]
             };
             inversion3.AddIntentsToTarget(Targeting.Slot_FrontAndSides, [nameof(IntentType_GameIDs.Status_Ruptured)]);
-            inversion3.AddIntentsToTarget(Targeting.Slot_OpponentSidesAndFarSides, [nameof(IntentType_GameIDs.Swap_Mass)]);
-            inversion3.AddIntentsToTarget(Targeting.Slot_OpponentSidesAndFarSides, [nameof(IntentType_GameIDs.Damage_3_6)]);
+            inversion3.AddIntentsToTarget(Targeting.Slot_OpponentSidesAndFarSides, [nameof(IntentType_GameIDs.Swap_Mass), nameof(IntentType_GameIDs.Damage_7_10), nameof(IntentType_GameIDs.Status_Frail)]);
 
-            Ability inversion4 = new Ability("Parabolan Inversion", "KneynsbergInversion_4")
+            Ability inversion4 = new Ability("Parabolan Inversion", "KneynsbergInversion_4_A")
             {
-                Description = "Apply 3 Ruptured to the Left, Right and Opposing enemies.\nTry to swap the positions of the Left and Right enemies and the Far Left and Far Right enemies.\nDeal 4 indirect damage to any targets that were not moved.",
+                Description = "Apply 3 Ruptured to the Left, Right and Opposing enemies.\nTry to swap the positions of the Left and Right enemies and the Far Left and Far Right enemies.\nDeal 11 indirect damage to targets that were moved and apply 2 Frail to targets that were not moved.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergInversion"),
                 Cost = [Pigments.RedPurple, Pigments.RedPurple],
                 Effects =
@@ -216,16 +217,17 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(AddRuptured, 3, Targeting.Slot_FrontAndSides),
                     Effects.GenerateEffect(InvAnimFarSides),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapTwoTargetsEffect>(), 1, Targeting.Slot_OpponentSides),
-                    Effects.GenerateEffect(IndirectDamage, 4, Targeting.Slot_OpponentSides, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(IndirectDamage, 11, Targeting.Slot_OpponentSides, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(AddFrail, 2, Targeting.Slot_OpponentSides, Effects.CheckPreviousEffectCondition(false, 2)),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<SwapTwoTargetsEffect>(), 1, Targeting.Slot_OpponentFarSides),
-                    Effects.GenerateEffect(IndirectDamage, 4, Targeting.Slot_OpponentFarSides, PreviousGenerator(false, 1)),
+                    Effects.GenerateEffect(IndirectDamage, 11, Targeting.Slot_OpponentFarSides, Effects.CheckPreviousEffectCondition(true, 1)),
+                    Effects.GenerateEffect(AddFrail, 2, Targeting.Slot_OpponentFarSides, Effects.CheckPreviousEffectCondition(false, 2)),
                 ]
             };
             inversion4.AddIntentsToTarget(Targeting.Slot_FrontAndSides, [nameof(IntentType_GameIDs.Status_Ruptured)]);
-            inversion4.AddIntentsToTarget(Targeting.Slot_OpponentSidesAndFarSides, [nameof(IntentType_GameIDs.Swap_Mass)]);
-            inversion4.AddIntentsToTarget(Targeting.Slot_OpponentSidesAndFarSides, [nameof(IntentType_GameIDs.Damage_3_6)]);
+            inversion4.AddIntentsToTarget(Targeting.Slot_OpponentSidesAndFarSides, [nameof(IntentType_GameIDs.Swap_Mass), nameof(IntentType_GameIDs.Damage_11_15), nameof(IntentType_GameIDs.Status_Frail)]);
 
-            Ability reflection1 = new Ability("Faint Reflection", "KneynsbergReflection_1")
+            Ability reflection1 = new Ability("Faint Reflection", "KneynsbergReflection_1_A")
             {
                 Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all status effects on this party member by 2. If this fails, apply 1 Scar to this party member.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergReflection"),
@@ -246,7 +248,7 @@ namespace A_Apocrypha.Fools
             reflection1.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Swap_Sides)]);
             reflection1.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Status_Scars)]);
 
-            Ability reflection2 = new Ability("Hazy Reflection", "KneynsbergReflection_2")
+            Ability reflection2 = new Ability("Hazy Reflection", "KneynsbergReflection_2_A")
             {
                 Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all status effects on this party member by 2. If this fails, apply 1 Scar to this party member.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergReflection"),
@@ -267,7 +269,7 @@ namespace A_Apocrypha.Fools
             reflection2.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Swap_Sides)]);
             reflection2.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Status_Scars)]);
 
-            Ability reflection3 = new Ability("Blurry Reflection", "KneynsbergReflection_3")
+            Ability reflection3 = new Ability("Blurry Reflection", "KneynsbergReflection_3_A")
             {
                 Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all status effects on this party member by 3. If this fails, apply 2 Scars to this party member.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergReflection"),
@@ -288,7 +290,7 @@ namespace A_Apocrypha.Fools
             reflection3.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Swap_Sides)]);
             reflection3.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Status_Scars)]);
 
-            Ability reflection4 = new Ability("Clear Reflection", "KneynsbergReflection_4")
+            Ability reflection4 = new Ability("Clear Reflection", "KneynsbergReflection_4_A")
             {
                 Description = "Swap status effects with the Opposing enemy.\nMove the Opposing enemy to the Left or Right.\nIncrease all status effects on this party member by 3. If this fails, apply 3 Scars to this party member.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconKneynsbergReflection"),
@@ -319,7 +321,8 @@ namespace A_Apocrypha.Fools
             if (AApocrypha.CrossMod.EnemyPack) { kneynsberg.AddFinalBossAchievementData("DoulaBoss", "AApocrypha_Kneynsberg_Abstraction_ACH"); }
             if (AApocrypha.CrossMod.GlitchsFreaks) { kneynsberg.AddFinalBossAchievementData("March_BOSS", "AApocrypha_Kneynsberg_Inevitable_ACH"); }
             if (AApocrypha.CrossMod.IntoTheAbyss) { kneynsberg.AddFinalBossAchievementData("Nobody_BOSS", "AApocrypha_Kneynsberg_Forgotten_ACH"); }
-            //if (AApocrypha.CrossMod.SaltEnemies) { kneynsberg.AddFinalBossAchievementData("BlueSky_BOSS", "AApocrypha_Kneynsberg_Dreamer_ACH"); }
+            //if (AApocrypha.CrossMod.IntoTheAbyss) { kneynsberg.AddFinalBossAchievementData("Katalixi_BOSS", "AApocrypha_Kneynsberg_Boundary_ACH"); }
+            if (AApocrypha.CrossMod.SaltEnemies) { kneynsberg.AddFinalBossAchievementData("BlueSky_BOSS", "AApocrypha_Kneynsberg_Dreamer_ACH"); }
             kneynsberg.AddCharacter(true, false);
 
             SpeakerBundle speakerBundleKneynsberg = new SpeakerBundle();

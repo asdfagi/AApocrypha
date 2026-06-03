@@ -5,7 +5,7 @@ using BrutalAPI.Items;
 
 namespace A_Apocrypha.Items
 {
-    internal class CosmogoneSpectacles
+    public class CosmogoneSpectacles
     {
         public static void Add()
         {

@@ -18,7 +18,7 @@ namespace A_Apocrypha.Encounters
             gnomesMedium.SimpleAddEncounter(1, "MachineGnomes_EN", 1, Enemies.Shivering, 1, "InHisImage_EN");
             gnomesMedium.SimpleAddEncounter(1, "MachineGnomes_EN", 2, "InHisImage_EN");
             gnomesMedium.SimpleAddEncounter(1, "MachineGnomes_EN", 2, "InHerImage_EN", 1, "NextOfKin_EN");
-            gnomesMedium.SimpleAddEncounter(2, "MachineGnomes_EN");
+            //gnomesMedium.SimpleAddEncounter(2, "MachineGnomes_EN");
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
                 gnomesMedium.SimpleAddEncounter(1, "MachineGnomes_EN", 1, "Streetlight_EN");
@@ -82,7 +82,7 @@ namespace A_Apocrypha.Encounters
             gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "Streetlight_EN");
             gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "Bear_EN");
             gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "WanderFellow_EN", 1, "YesMan_EN");
-            gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN");
+            //gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN");
             gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "WRK_EN");
             gnomesAbyssMedium.SimpleAddEncounter(2, "MachineGnomes_EN", 1, "BasicElemental_EN");
             if (AApocrypha.CrossMod.SaltEnemies)

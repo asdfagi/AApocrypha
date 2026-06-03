@@ -46,7 +46,6 @@ namespace A_Apocrypha.Encounters
             }
             public static class Kcolclock
             {
-                public static string Med => "H_ZoneAbyss_Kcolclock_Medium_EnemyBundle";
                 public static string Hard => "H_ZoneAbyss_Kcolclock_Hard_EnemyBundle";
             }
             public static class WRK
@@ -236,6 +235,19 @@ namespace A_Apocrypha.Encounters
             {
                 public static string Easy => "H_ZoneAbyss_BasicElemental_Easy_EnemyBundle";
                 public static string Med => "H_ZoneAbyss_BasicElemental_Medium_EnemyBundle";
+            }
+            public static class BFElemental
+            {
+                public static string Easy => "H_ZoneAbyss_BFElemental_Easy_EnemyBundle";
+                public static string Med => "H_ZoneAbyss_BFElemental_Medium_EnemyBundle";
+            }
+            public static class Aggregates
+            {
+            }
+            public static class Crossword
+            {
+                public static string Easy => "H_ZoneAbyss_Crossword_Easy_EnemyBundle";
+                public static string Med => "H_ZoneAbyss_Crossword_Medium_EnemyBundle";
             }
         }
     }

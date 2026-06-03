@@ -13,6 +13,15 @@ namespace A_Apocrypha.CustomEffects
         {
             exitAmount = 0;
             if (_useCasterHealthColor) { _mana = caster.HealthColor; }
+            if (AApocrypha.CrossMod.IntoTheAbyss) {
+                if (LoadedDBsHandler.PigmentDB.GetPigment("White") != null)
+                {
+                    if (_mana == LoadedDBsHandler.PigmentDB.GetPigment("White"))
+                    {
+                        _mana = Pigments.Grey;
+                    }
+                }
+            }
             List<int> list = new List<int>();
             ManaBarSlot[] manaBarSlots = stats.MainManaBar.ManaBarSlots;
             for (int i = 0; i < manaBarSlots.Length; i++)

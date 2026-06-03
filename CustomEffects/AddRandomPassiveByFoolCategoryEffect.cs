@@ -1,0 +1,144 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using BrutalAPI;
+
+namespace A_Apocrypha.CustomEffects
+{
+    public class AddRandomPassiveByFoolCategoryEffect : EffectSO
+    {
+        //public BasePassiveAbilitySO[] _passivesToAdd;
+        public BasePassiveAbilitySO[] _basePassivePool;
+        public BasePassiveAbilitySO[] _supportPassivePool;
+        public BasePassiveAbilitySO[] _DPSPassivePool;
+        public bool _popup = false;
+        public int _fixedCap = 0;
+        public bool _miscIsAll = true;
+
+        public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
+        {
+            exitAmount = 0;
+            List<TargetSlotInfo> targetsList = new List<TargetSlotInfo>();
+            if (_basePassivePool == null || _supportPassivePool == null || _DPSPassivePool == null) { return false; }
+            foreach (TargetSlotInfo target in targets)
+            {
+                if (target.HasUnit == true || target.Unit != null)
+                {
+                    targetsList.Add(target);
+                }
+            }
+            targets = targetsList.ToArray();
+
+            int cap = (_fixedCap > 0 ? _fixedCap : entryVariable);
+
+            foreach (TargetSlotInfo targetSlotInfo in targets)
+            {
+                if (targetSlotInfo.HasUnit)
+                {
+                    List<BasePassiveAbilitySO> passivesWillAdd = new List<BasePassiveAbilitySO>();
+                    if (targetSlotInfo.Unit is CharacterCombat ch)
+                    {
+                        if (LoadedDBsHandler.CharacterDB.IsCharacterSupport(ch.Character, 12345678))
+                        {
+                            passivesWillAdd.AddRange(_supportPassivePool);
+                        }
+                        else if (LoadedDBsHandler.CharacterDB.IsCharacterDPS(ch.Character, 12345678))
+                        {
+                            passivesWillAdd.AddRange(_DPSPassivePool);
+                        }
+                        else
+                        {
+                            passivesWillAdd.AddRange(_basePassivePool);
+                            if (_miscIsAll)
+                            {
+                                passivesWillAdd.AddRange(_supportPassivePool);
+                                passivesWillAdd.AddRange(_DPSPassivePool);
+                            }
+                        }
+                    } else
+                    {
+                        passivesWillAdd.AddRange(_basePassivePool);
+                        if (_miscIsAll)
+                        {
+                            passivesWillAdd.AddRange(_supportPassivePool);
+                            passivesWillAdd.AddRange(_DPSPassivePool);
+                        }
+                    }
+                    BasePassiveAbilitySO[] _passivesToAdd = passivesWillAdd.ToArray();
+
+                    List<BasePassiveAbilitySO> filteredPassives = new List<BasePassiveAbilitySO>();
+                    foreach (BasePassiveAbilitySO passive in _passivesToAdd)
+                    {
+                        string mID = passive.m_PassiveID;
+                        if (targetSlotInfo.Unit is CharacterCombat unitCH)
+                        {
+                            bool addToFiltered = true;
+                            foreach (BasePassiveAbilitySO targetPassive in unitCH.PassiveAbilities)
+                            {
+                                string target_mID = targetPassive.m_PassiveID;
+                                if (mID == target_mID)
+                                {
+                                    addToFiltered = false;
+                                    break;
+                                }
+                            }
+                            if (addToFiltered)
+                            {
+                                filteredPassives.Add(passive);
+                            }
+                        }
+                        else if (targetSlotInfo.Unit is EnemyCombat unitEN)
+                        {
+                            bool addToFiltered = true;
+                            foreach (BasePassiveAbilitySO targetPassive in unitEN.PassiveAbilities)
+                            {
+                                string target_mID = targetPassive.m_PassiveID;
+                                if (mID == target_mID)
+                                {
+                                    addToFiltered = false;
+                                    break;
+                                }
+                            }
+                            if (addToFiltered)
+                            {
+                                filteredPassives.Add(passive);
+                            }
+                        }
+                    }
+
+                    bool limitReached = false;
+                    if (targetSlotInfo.Unit is CharacterCombat targetCH)
+                    {
+                        if (targetCH.PassiveAbilities.Count >= cap)
+                        {
+                            limitReached = true;
+                        }
+                    }
+                    else if (targetSlotInfo.Unit is EnemyCombat targetEN)
+                    {
+                        if (targetEN.PassiveAbilities.Count >= cap)
+                        {
+                            limitReached = true;
+                        }
+                    }
+
+                    if (filteredPassives.Count > 0 && !limitReached)
+                    {
+                        int randomIndex = UnityEngine.Random.Range(0, filteredPassives.Count);
+                        Debug.Log($"AddRandomPassive | filteredPassives.Count = {filteredPassives.Count} | randomIndex = {randomIndex}");
+                        BasePassiveAbilitySO passiveToAdd = filteredPassives[randomIndex];
+                        if (targetSlotInfo.HasUnit && targetSlotInfo.Unit.AddPassiveAbility(passiveToAdd))
+                        {
+                            exitAmount++;
+                            if (_popup) { CombatManager.Instance.AddUIAction(new ShowPassiveInformationUIAction(targetSlotInfo.Unit.ID, targetSlotInfo.Unit.IsUnitCharacter, passiveToAdd._passiveName, passiveToAdd.passiveIcon)); }
+                        }
+                        Debug.Log($"AddRandomPassive | adding passive {passiveToAdd._passiveName} with mID {passiveToAdd.m_PassiveID}");
+                    }
+                }
+            }
+
+            return exitAmount > 0;
+        }
+    }
+}

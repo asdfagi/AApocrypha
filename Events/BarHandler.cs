@@ -45,9 +45,16 @@ namespace A_Apocrypha.Events
                 },
             });
 
+            SpeakerBundle speakerBundleSeeker = new SpeakerBundle();
+            speakerBundleSeeker.bundleTextColor = new Color32(108, 43, 43, 255);
+            speakerBundleSeeker.dialogueSound = "event:/Characters/NPC/CHR_NPC_HyperDef_Dx";
+            speakerBundleSeeker.portrait = ResourceLoader.LoadSprite("SeekerTalk", new Vector2(0.5f, 0f), 32);
+            Dialogues.CreateAndAddCustom_SpeakerData("AA_Seeker", speakerBundleSeeker, true, false, new SpeakerEmote[0]);
+
             string text = "Whitlock_Bar_Dialogue";
             //string text2 = "WeirdSeat_Bar_Dialogue";
             string text2 = "InstituteMeasurer_Bar_Dialogue";
+            string text3 = "Seeker_Bar_Dialogue";
             ZoneBGDataBaseSO shorehard = LoadedAssetsHandler.GetZoneDB("ZoneDB_Hard_01") as ZoneBGDataBaseSO;
             
             YarnProgram yarnProgram = AApocrypha.assetBundle.LoadAsset<YarnProgram>(string.Format("Assets/Apocrypha_Rooms/WhitlockBarScript.yarn"));
@@ -57,6 +64,10 @@ namespace A_Apocrypha.Events
             YarnProgram yarnProgram2 = AApocrypha.assetBundle.LoadAsset<YarnProgram>(string.Format("Assets/Apocrypha_Rooms/IGRMeasurerBarScript.yarn"));
             Dialogues.AddCustom_DialogueProgram(text2, yarnProgram2);
             Dialogues.CreateAndAddCustom_DialogueSO(text2, yarnProgram2, text2, "AApocrypha.Institute.Measurer.BarStart");
+
+            YarnProgram yarnProgram3 = AApocrypha.assetBundle.LoadAsset<YarnProgram>(string.Format("Assets/Apocrypha_Rooms/SeekerBarScript.yarn"));
+            Dialogues.AddCustom_DialogueProgram(text3, yarnProgram3);
+            Dialogues.CreateAndAddCustom_DialogueSO(text3, yarnProgram3, text3, "AApocrypha.Seeker.BarStart");
 
             /*CharacterInPartyConditionSO whitlockHere = ScriptableObject.CreateInstance<CharacterInPartyConditionSO>();
             whitlockHere._characterID = "Whitlock_CH";
@@ -81,7 +92,16 @@ namespace A_Apocrypha.Events
                 GameInt_GenericCondition.GenerateIntCondition("AA_BarSeatShuffler1", true, 0, 1),
             ];
 
-            _seats = [whitlockSeatData, measurerSeatData];
+            BarSeatData seekerSeatData = new BarSeatData();
+            seekerSeatData.m_Sprite = ResourceLoader.LoadSprite("SeekerBar", new Vector2(0.5f, 0f), 32);
+            seekerSeatData.m_EntityID = "SeekerOfTheName";
+            seekerSeatData.m_Dialogue = text3;
+            seekerSeatData.m_Conditions =
+            [
+                GameInt_GenericCondition.GenerateIntCondition("AA_BarSeatShuffler1", true, 0, 2),
+            ];
+
+            _seats = [whitlockSeatData, measurerSeatData, seekerSeatData];
             //int index = UnityEngine.Random.Range(0, _seats.Length);
             foreach (BarSeatData seat in _seats) { OverworldRooms.Add_Bar_SeatOption(shorehard._barRoom.ToString(), seat, 1); }
             //Debug.Log("Bar Handler | loaded " + _seats[index].m_EntityID);

@@ -256,7 +256,7 @@ namespace A_Apocrypha.Fools
 
             Ability prepare1 = new Ability("Prepare for Observation", "NaudizPrepare_1_A")
             {
-                Description = "Mark the Opposing enemy for analysis. Apply 1 Scar to them and produce 2 pigment of their health color." +
+                Description = "Mark the Opposing enemy for analysis and produce 2 pigment of their health color. Apply 1 Scar to them if they weren't already marked." +
                 "\nIf there is no Opposing enemy, heal this party member 1 health per enemy killed this combat while marked for analysis.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconNaudiz4Prepare"),
                 Visuals = Visuals.Providence,
@@ -267,7 +267,7 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(AnalysisAlive, 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(SetAnalysis, 1, Targeting.Slot_Front, Effects.CheckMultiplePreviousEffectsCondition([false, true], [1, 2])),
-                    Effects.GenerateEffect(AddScars, 1, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 3)),
+                    Effects.GenerateEffect(AddScars, 1, Targeting.Slot_Front, Effects.CheckMultiplePreviousEffectsCondition([true, true], [1, 3])),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<GenerateHealthColorManaPerTargetEffect>(), 2, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 4)),
                     Effects.GenerateEffect(healByKills, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(false, 5)),
                 ],
@@ -280,7 +280,7 @@ namespace A_Apocrypha.Fools
 
             Ability prepare2 = new Ability("Prepare for Examination", "NaudizPrepare_2_A")
             {
-                Description = "Mark the Opposing enemy for analysis. Apply 2 Scars to them and produce 2 pigment of their health color." +
+                Description = "Mark the Opposing enemy for analysis and produce 2 pigment of their health color. Apply 1 Scar to them if they weren't already marked." +
                 "\nIf there is no Opposing enemy, heal this party member 1 health per enemy killed this combat while marked for analysis.",
                 AbilitySprite = prepare1.ability.abilitySprite,
                 Visuals = Visuals.Providence,
@@ -291,7 +291,7 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(AnalysisAlive, 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(SetAnalysis, 1, Targeting.Slot_Front, Effects.CheckMultiplePreviousEffectsCondition([false, true], [1, 2])),
-                    Effects.GenerateEffect(AddScars, 2, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 3)),
+                    Effects.GenerateEffect(AddScars, 1, Targeting.Slot_Front, Effects.CheckMultiplePreviousEffectsCondition([true, true], [1, 3])),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<GenerateHealthColorManaPerTargetEffect>(), 2, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 4)),
                     Effects.GenerateEffect(healByKills, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(false, 5)),
                 ],
@@ -304,7 +304,7 @@ namespace A_Apocrypha.Fools
 
             Ability prepare3 = new Ability("Prepare for Dissection", "NaudizPrepare_3_A")
             {
-                Description = "Mark the Opposing enemy for analysis. Apply 2 Scars to them and produce 2 pigment of their health color." +
+                Description = "Mark the Opposing enemy for analysis and produce 2 pigment of their health color. Apply 2 Scars to them if they weren't already marked." +
                 "\nIf there is no Opposing enemy, heal this party member 2 health per enemy killed this combat while marked for analysis.",
                 AbilitySprite = prepare1.ability.abilitySprite,
                 Visuals = Visuals.Providence,
@@ -315,7 +315,7 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(AnalysisAlive, 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(SetAnalysis, 1, Targeting.Slot_Front, Effects.CheckMultiplePreviousEffectsCondition([false, true], [1, 2])),
-                    Effects.GenerateEffect(AddScars, 2, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 3)),
+                    Effects.GenerateEffect(AddScars, 2, Targeting.Slot_Front, Effects.CheckMultiplePreviousEffectsCondition([true, true], [1, 3])),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<GenerateHealthColorManaPerTargetEffect>(), 2, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 4)),
                     Effects.GenerateEffect(healByKills, 2, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(false, 5)),
                 ],
@@ -328,7 +328,7 @@ namespace A_Apocrypha.Fools
 
             Ability prepare4 = new Ability("Prepare for Vivisection", "NaudizPrepare_4_A")
             {
-                Description = "Mark the Opposing enemy for analysis. Apply 3 Scars to them and produce 2 pigment of their health color." +
+                Description = "Mark the Opposing enemy for analysis and produce 2 pigment of their health color. Apply 3 Scars to them if they weren't already marked." +
                 "\nIf there is no Opposing enemy, heal this party member 2 health per enemy killed this combat while marked for analysis.",
                 AbilitySprite = prepare1.ability.abilitySprite,
                 Visuals = Visuals.Providence,
@@ -339,7 +339,7 @@ namespace A_Apocrypha.Fools
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(AnalysisAlive, 1, Targeting.Slot_Front),
                     Effects.GenerateEffect(SetAnalysis, 1, Targeting.Slot_Front, Effects.CheckMultiplePreviousEffectsCondition([false, true], [1, 2])),
-                    Effects.GenerateEffect(AddScars, 3, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 3)),
+                    Effects.GenerateEffect(AddScars, 3, Targeting.Slot_Front, Effects.CheckMultiplePreviousEffectsCondition([true, true], [1, 3])),
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<GenerateHealthColorManaPerTargetEffect>(), 2, Targeting.Slot_Front, Effects.CheckPreviousEffectCondition(true, 4)),
                     Effects.GenerateEffect(healByKills, 2, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(false, 5)),
                 ],

@@ -142,6 +142,12 @@ namespace A_Apocrypha.Encounters
 
         public static string Entropic => "SuperpositionedJumbleGuts_EN";
 
+        public static string Clusterfuck => "SynestheticJumbleGuts_EN";
+
+        public static string Fuck => Clusterfuck;
+
+        public static string White => "JumbleGuts_Veiled_EN";
+
         public static string RedBlue => "JumbleGuts_Bonded_EN";
         public static string BlueRed => RedBlue;
         public static string YellowPurple => "JumbleGuts_Parasitic_EN";
@@ -355,6 +361,10 @@ namespace A_Apocrypha.Encounters
         public static string Green => "GreenAggregate_EN";
         public static string Grey => "GreyAggregate_EN";
         public static string Gray => Grey;
+        public static string Iridescent => "IridescentAggregate_EN";
+        public static string Entropic => "EntropicAggregate_EN";
+        public static string Clusterfuck => "ClusterfuckAggregate_EN";
+        public static string White => "WhiteAggregate_EN";
     }
     public static class Enemies
     {

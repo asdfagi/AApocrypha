@@ -14,12 +14,17 @@ namespace A_Apocrypha.Encounters
                 AddTo abyssAdd = new AddTo(Abyss.H.YesMan.Med);
                 abyssAdd.SimpleAddGroup(1, "YesMan_EN", 1, "MachineGnomes_EN");
                 abyssAdd.SimpleAddGroup(1, "YesMan_EN", 1, "MachineGnomes_EN", 1, "Streetlight_EN");
+                abyssAdd.SimpleAddGroup(1, "YesMan_EN", 1, "Crossword_EN", 1, "Streetlight_EN");
 
                 abyssAdd = new AddTo(Abyss.H.Bear.Med);
                 abyssAdd.SimpleAddGroup(1, "Bear_EN", 2, "MachineGnomes_EN");
+                abyssAdd.SimpleAddGroup(1, "Bear_EN", 1, "WanderFellow_EN", 1, "BasicElemental_EN");
 
                 abyssAdd = new AddTo(Abyss.H.Receiver.Med);
                 abyssAdd.SimpleAddGroup(2, "Receiver_EN", 1, "MachineGnomes_EN");
+
+                abyssAdd = new AddTo(Abyss.H.Kcolclock.Hard);
+                abyssAdd.SimpleAddGroup(1, "Kcolclock_EN", 1, "BFElemental_EN");
             } 
         }
     }

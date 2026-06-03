@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using BrutalAPI;
+using static A_Apocrypha.Encounters.Orph.H;
 
 namespace A_Apocrypha.Fools
 {
@@ -260,6 +261,7 @@ namespace A_Apocrypha.Fools
             if (AApocrypha.CrossMod.EnemyPack) { whitlock.AddFinalBossAchievementData("DoulaBoss", "AApocrypha_Whitlock_Abstraction_ACH"); }
             if (AApocrypha.CrossMod.GlitchsFreaks) { whitlock.AddFinalBossAchievementData("March_BOSS", "AApocrypha_Whitlock_Inevitable_ACH"); }
             if (AApocrypha.CrossMod.IntoTheAbyss) { whitlock.AddFinalBossAchievementData("Nobody_BOSS", "AApocrypha_Whitlock_Forgotten_ACH"); }
+            //if (AApocrypha.CrossMod.IntoTheAbyss) { whitlock.AddFinalBossAchievementData("Katalixi_BOSS", "AApocrypha_Whitlock_Boundary_ACH"); }
             if (AApocrypha.CrossMod.SaltEnemies) { whitlock.AddFinalBossAchievementData("BlueSky_BOSS", "AApocrypha_Whitlock_Dreamer_ACH"); }
             whitlock.AddCharacter(true, false);
 
@@ -267,7 +269,24 @@ namespace A_Apocrypha.Fools
             speakerBundleWhitlock.bundleTextColor = new Color(0.65f, 0.21f, 0.21f);
             speakerBundleWhitlock.dialogueSound = LoadedAssetsHandler.GetCharacter("Whitlock_CH").dxSound;
             speakerBundleWhitlock.portrait = ResourceLoader.LoadSprite("WhitlockTalk", new Vector2(0.5f, 0f), 32);
-            var dia = Dialogues.CreateAndAddCustom_SpeakerData("Whitlock", speakerBundleWhitlock, true, false, new SpeakerEmote[0]);
+
+            SpeakerBundle speakerBundleWhitlockGlance = new SpeakerBundle();
+            speakerBundleWhitlockGlance.bundleTextColor = speakerBundleWhitlock.bundleTextColor;
+            speakerBundleWhitlockGlance.dialogueSound = speakerBundleWhitlock.dialogueSound;
+            speakerBundleWhitlockGlance.portrait = ResourceLoader.LoadSprite("WhitlockTalkGlance", new Vector2(0.5f, 0f), 32);
+            var dia = Dialogues.CreateAndAddCustom_SpeakerData("Whitlock", speakerBundleWhitlock, true, false, new SpeakerEmote[1]
+            {
+                new SpeakerEmote {
+                    emotion = "Glance",
+                    bundle = speakerBundleWhitlockGlance,
+                },
+            });
+
+            SpeakerBundle speakerBundleWhitlockMain = new SpeakerBundle();
+            speakerBundleWhitlockMain.bundleTextColor = speakerBundleWhitlock.bundleTextColor;
+            speakerBundleWhitlockMain.dialogueSound = speakerBundleWhitlock.dialogueSound;
+            speakerBundleWhitlockMain.portrait = ResourceLoader.LoadSprite("WhitlockFront", new Vector2(0.5f, 0f), 32);
+            var diaMain = Dialogues.CreateAndAddCustom_SpeakerData("WhitlockMain", speakerBundleWhitlockMain, false, false, new SpeakerEmote[0]);
         }
     }
 }

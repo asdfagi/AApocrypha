@@ -21,7 +21,7 @@ using HarmonyLib;
 
 namespace A_Apocrypha
 {
-    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.8")]
+    [BepInPlugin("asdfagi.A_Apocrypha", "asdfagi's Abominable Apocrypha", "0.2.10")]
     [BepInDependency("BrutalOrchestra.BrutalAPI", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("Tairbaz.ColophonConundrum", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("TairbazPeep.EnemyPack", BepInDependency.DependencyFlags.SoftDependency)]
@@ -45,8 +45,11 @@ namespace A_Apocrypha
     public class AApocrypha : BaseUnityPlugin
     {
         public static AssetBundle assetBundle;
+        //public static AssetBundle whitmoreBundle;
+
         public static ConfigEntry<bool> hemisphere;
         public static ConfigEntry<bool> eyebitevisual;
+        public static ConfigEntry<bool> journalmode;
 
         public static Moon.PhaseResult MoonData;
 
@@ -70,6 +73,10 @@ namespace A_Apocrypha
             public static bool pigmentRainbow = false;
             public static bool pigmentPeppermint = false;
             public static bool pigmentPink = false;
+            public static bool pigmentIridescent = false;
+            public static bool pigmentClusterfuck = false;
+            public static bool pigmentEntropic = false;
+            public static bool pigmentWhite = false;
             public static void Check()
             {
                 foreach (var plugin in Chainloader.PluginInfos)
@@ -100,7 +107,25 @@ namespace A_Apocrypha
                 if (GlitchsFreaks) { Debug.Log("hello freaks of glitch"); }
                 if (SaltEnemies) { Debug.Log("hello salt enemies"); }
                 if (HellIslandFell) { Debug.Log("hello fallen hell island"); }
-                if (IntoTheAbyss) { Debug.Log("hello abyss"); }
+                if (IntoTheAbyss) {
+                    Debug.Log("hello abyss");
+                    if (LoadedDBsHandler.PigmentDB.GetPigment("Iridescent") != null) {
+                        pigmentIridescent = true;
+                        Debug.Log("with iridescent pigment"); 
+                    }
+                    if (LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck") != null) {
+                        pigmentClusterfuck = true;
+                        Debug.Log("with clusterfuck pigment"); 
+                    }
+                    if (LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase") != null) {
+                        pigmentEntropic = true;
+                        Debug.Log("with entropic pigment");
+                    }
+                    if (LoadedDBsHandler.PigmentDB.GetPigment("White") != null) {
+                        pigmentWhite = true;
+                        Debug.Log("with white pigment"); 
+                    }
+                }
                 if (StewSpecimens) { Debug.Log("hello specimens of stew"); }
                 if (Siren) { Debug.Log("hello the siren"); }
                 if (Mythos) { Debug.Log("hello mythos friends"); }
@@ -142,9 +167,11 @@ namespace A_Apocrypha
             ConfigFile config = new ConfigFile(System.IO.Path.Combine(Paths.ConfigPath, "AApocrypha.cfg"), true);
             hemisphere = config.Bind("Preferences", "Southern Hemisphere Override", false, "Set this to true if you're more of a southern hemisphere kind of individual. Adjusts Season and Moon Phase.");
             eyebitevisual = config.Bind("Triggers & Phobias", "Eye Gouging Animation", false, "Set this to true to enable the eye gouging animation for the Tear Drinker. [CURRENTLY UNIMPLEMENTED]");
+            journalmode = config.Bind("Gameplay - Misc", "Journal Mode", false, "EXPERIMENTAL - Set this to true to enable Journal Mode, giving certain fools the means to reveal more lore about themselves and their worlda of origin.");
 
             //Asset Bundles
             assetBundle = AssetBundle.LoadFromMemory(ResourceLoader.ResourceBinary("aapocrypha_assetbundle"));
+            //whitmoreBundle = AssetBundle.LoadFromMemory(ResourceLoader.ResourceBinary("whitmore"));
 
             //Calendar Test
             MoonData = Moon.Now(hemisphere.Value ? "south" : "north");
@@ -171,16 +198,6 @@ namespace A_Apocrypha
             //Status & Field Effects
             CustomStatus.Add();
             CustomField.Add();
-            //Modded Status & Field Effects (ignored if already exists)
-            if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Haste_ID"))
-            {
-                Debug.Log("Status | Haste not found - loading Haste");
-                SaltHaste.Add();
-            }
-            else
-            {
-                Debug.Log("Status | Haste found");
-            }
 
             //Tags & Types
             if (CrossMod.IntoTheAbyss)
@@ -250,13 +267,22 @@ namespace A_Apocrypha
             NaudizCharacter.Add();
             Debug.Log("Characters | Robot Minions");
             RobotMinionCharacter.Add();
+            Debug.Log("Characters | The Correspondent");
+            AmbroseCharacter.Add();
+            Debug.Log("Characters | The Teneral");
+            VaughanCharacter.Add();
             Debug.Log("Characters | Initialized");
+
+            if (journalmode.Value) { JournalHandler.Add(); }
 
             //Free Fool Events
             //Far Shore
             WhitlockFreeEvent.Add();
             KneynsbergFreeEvent.Add();
             Naudiz4FreeEvent.Add();
+            AmbroseFreeEvent.Add();
+            //Orpheum
+            VaughanFreeEvent.Add();
             //Abyss
             if (CrossMod.IntoTheAbyss && Abyss.Exists)
             {
@@ -266,11 +292,13 @@ namespace A_Apocrypha
 
             //Free Fool Event Tester
             //FreeFoolEventTester.Add();
+            //BonusCardHandler.Add();
 
             //Bar Handler
             BarHandler.Add();
 
             //Other Events
+            WhitlockStashEvent.Add();
 
             //Enemies
             Debug.Log("Enemies | Loading Enemies...");
@@ -294,6 +322,7 @@ namespace A_Apocrypha
             Rift.Add();
             Bloatfinger.Add();
             Blemmigan.Add();
+            CobaltCurator.Add();
             Debug.Log("Enemies | Orpheum Enemies Initialized");
             //Siren
             if (CrossMod.Siren)
@@ -310,6 +339,14 @@ namespace A_Apocrypha
             PhobiaEnemies.Add();
             Dogma.Add();
             Debug.Log("Enemies | Garden Enemies Initialized");
+            //Abyss
+            if (CrossMod.IntoTheAbyss)
+            {
+                BrainfuckElemental.Add();
+                TuringTarpit.Add();
+                Crossword.Add();
+                Debug.Log("Enemies | Abyss Enemies Initialized");
+            }
             //Unclassified, Multiple
             CustomSpoggles.Add();
             CustomJumbleGuts.Add();
@@ -380,6 +417,7 @@ namespace A_Apocrypha
                 ColophonHereticalEncounters.Add();
             }
             YellowAggregateEncounters.Add();
+            CobaltCuratorEncounters.Add();
             CompatOrpheumEncounters.Add();
             //Siren
             if (CrossMod.Siren)
@@ -405,14 +443,22 @@ namespace A_Apocrypha
             }
             EnlightenedEncounters.Add();
             PhobiaEncounters.Add();
+            if (CrossMod.IntoTheAbyss)
+            { 
+                //WhiteAggregateEncounters.Add();
+            }
             CompatGardenEncounters.Add();
             //Abyss
             if (CrossMod.IntoTheAbyss)
             {
                 IridescentOrguisEncounters.Add();
                 ClusterfuckOrguisEncounters.Add();
+                EntropicOrguisEncounters.Add();
                 WhiteOrguisEncounters.Add();
                 BasicElementalEncounters.Add();
+                BFElementalEncounters.Add();
+                TuringTarpitEncounter.Add();
+                CrosswordEncounters.Add();
                 CompatAbyssEncounters.Add();
             }
             //Minibosses
@@ -433,10 +479,16 @@ namespace A_Apocrypha
             //Enemies
             //Smoking Shore
             //Drowned Forest
+            //Pillared Coast
+            //Sea of Spines
             //Other
             UnravellingTime.Add();
 
             //Encounters
+            //Smoking Shore
+            //Drowned Forest
+            //Pillared Coast
+            //Sea of Spines
 
             // ITEMS & ACHIEVEMENTS
             // Boss Unlocks
@@ -456,21 +508,37 @@ namespace A_Apocrypha
             {
                 AnomalousSymbol.Add();
             }
+            if (CrossMod.IntoTheAbyss)
+            {
+                LangtonAnt.Add();
+            }
             // Comedies
             HumanHeart.Add();
             GnomeHat.Add();
             // Tragedies
             LetterTile.Add();
+            // Tragedies - the False-Saints
+            StArthurCandle.Add();
+            //StBeauCandle.Add();
+            //StCeriseCandle.Add();
+            //StDestinCandle.Add();
+            //StErzulieCandle.Add();
+            //StFortiganCandle.Add();
+            //StGawainCandle.Add();
             // Osman Unlocks
             TinctureOfVigour.Add();
             CosmogoneSpectacles.Add();
             FiiF.Add();
             ScanningModule.Add();
+            SunBox.Add();
+            GlisteningAmber.Add();
             // Heaven Unlocks
             HesperideanCider.Add();
             SerpentEffigy.Add();
             ToadFungusRorschach.Add();
             Posibrain.Add();
+            ElementOfDawn.Add();
+            StarvedBanner.Add();
             // Doula Unlocks
             if (CrossMod.EnemyPack)
             {
@@ -478,6 +546,8 @@ namespace A_Apocrypha
                 Dustwine.Add();
                 RipEnemyPack.Add();
                 MMI.Add();
+                BetrayerOfMeasures.Add();
+                AmbergrisEarring.Add();
             }
             // March Unlocks
             if (CrossMod.GlitchsFreaks)
@@ -486,6 +556,8 @@ namespace A_Apocrypha
                 Emergence.Add();
                 DownloadFailure.Add();
                 BridgeCircuit.Add();
+                StarstoneDemark.Add();
+                PanopticalSkull.Add();
             }
             if (CrossMod.IntoTheAbyss)
             {
@@ -494,23 +566,34 @@ namespace A_Apocrypha
                 Moondial.Add();
                 SpicyPillowSequel.Add();
                 RadarDish.Add();
+
+                AigulSpine.Add();
                 // Katalixi Unlocks
+
+
+                ImSoMetaEvenThisAcronym.Add();
                 //RandomDistortion.Add(); //very unstable
+
+
             }
             // Bluw Sky Unlocks
             if (CrossMod.SaltEnemies)
             {
                 FourthCityAirag.Add();
+                AdulterineMasonry.Add();
                 TruthItem.Add();
                 FrontalLobeImplant.Add();
             }
             // Miscellaneous Items
             CranesSavesTheRun.Add();
             Gadsby.Add();
+            WhitlockBarPoison.Add();
+            WhitlockBarLaudanum.Add();
             Debug.Log("Items & Achievements | Initialized");
 
             //Events
             //KneynsbergParabolaShoreEvent.Add();
+            DarkWaterShoreEvent.Add();
 
             //Gauntlet
             //GauntletEvents.Add();
@@ -532,8 +615,26 @@ namespace A_Apocrypha
                 "\nInner Child: 16 (1 + 1 + 1 + 1 + 1 + 0 + 3 + 4 + 1 + 1 + 2)" +
                 "\nNowak: 12 (1 + 1 + 4 + 1 + 5)"));
 
+            //Game Over Lines (hopefully)
+            LoadedDBsHandler.GameOverDialogueDB.AddGameOverLinesData([
+                "It's like going to sleep. If going to sleep really hurt.",
+                "b",
+            ]);
+
             // Testers
             //ElVibrato.TranslationTester();
+            /*if (CrossMod.IntoTheAbyss)
+            {
+                Logger.LogInfo("ITA Pigment Checker");
+                ManaColorSO Pigment1 = LoadedDBsHandler.PigmentDB.GetPigment("Iridescent");
+                ManaColorSO Pigment2 = LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck");
+                ManaColorSO Pigment3 = LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase");
+                ManaColorSO Pigment4 = LoadedDBsHandler.PigmentDB.GetPigment("White");
+                Logger.LogInfo($"WE ARE TESTING PIGMENT \"Iridescent\", which has ID {Pigment1.pigmentID}");
+                Logger.LogInfo($"WE ARE TESTING PIGMENT \"Clusterfuck\", which has ID {Pigment2.pigmentID}");
+                Logger.LogInfo($"WE ARE TESTING PIGMENT \"EntropicBase\", which has ID {Pigment3.pigmentID}");
+                Logger.LogInfo($"WE ARE TESTING PIGMENT \"White\", which has ID {Pigment4.pigmentID}");
+            }*/
 
             Logger.LogInfo("Asdfagi's Abominable Apocrypha activated.");
         }

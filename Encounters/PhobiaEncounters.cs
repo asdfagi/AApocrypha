@@ -32,6 +32,10 @@ namespace A_Apocrypha.Encounters
                 phobiasMed.SimpleAddEncounter(1, "Phobia_Phobias_EN", 1, Jumble.Entropic);
                 phobiasMed.SimpleAddEncounter(1, "Phobia_Phobias_EN", 1, Jumble.Irid);
                 phobiasMed.SimpleAddEncounter(1, "Phobia_Phobias_EN", 1, Spoggle.Irid);
+                if (AApocrypha.CrossMod.pigmentWhite)
+                {
+                    //phobiasMed.SimpleAddEncounter(2, "Phobia_Phobias_EN", 1, Aggregates.White);
+                }
             }
             phobiasMed.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Garden.H.Phobia.Med, 9, ZoneType_GameIDs.Garden_Hard, BundleDifficulty.Medium);

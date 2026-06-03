@@ -30,6 +30,18 @@ namespace A_Apocrypha.Patches
                     break;
                 }
             }
+            if (__instance.inGameData.GetStringData("AA_MainCharacter") == "Whitlock_CH")
+            {
+                foreach (RunZoneData data in __instance.zoneData)
+                {
+                    Debug.Log(data._zoneDBName);
+                    if (data._zoneDBName == "ZoneDB_Hard_01")
+                    {
+                        //ZoneBGDataBaseSO zoneBG = LoadedAssetsHandler.GetZoneDB("ZoneDB_Hard_01") as ZoneBGDataBaseSO;
+                        //zoneBG._QuestPool.Add("Whitlock_Stash");
+                    }
+                }
+            }
         }
     }
 }

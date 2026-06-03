@@ -275,38 +275,38 @@ namespace A_Apocrypha.Enemies
             oathtwister.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Misc_Hidden)]);
             oathtwister.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Mana_Modify)]);
 
-            StatusEffect_Apply_Effect HasteApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
-            HasteApply._Status = StatusField.GetCustomStatusEffect("Haste_ID");
+            StatusEffect_Apply_Effect CelerityApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            CelerityApply._Status = StatusField.GetCustomStatusEffect("Celerity_ID");
 
             Ability memoryofsilver = new Ability("Memory of Silver", "AApocrypha_SisterMemoryA_A")
             {
-                Description = "Apply 1 Haste to this enemy.\n\"Better not dwell on this.\"",
+                Description = "Apply 1 Celerity to this enemy.\n\"Better not dwell on this.\"",
                 Cost = [Pigments.Grey, Pigments.Red],
                 Visuals = Visuals.Bosch,
                 AnimationTarget = Targeting.Slot_SelfSlot,
                 Effects =
                 [
-                    Effects.GenerateEffect(HasteApply, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(CelerityApply, 1, Targeting.Slot_SelfSlot),
                 ],
                 Rarity = Rarity.Rare,
                 Priority = Priority.Normal,
             };
-            memoryofsilver.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["Status_Haste"]);
+            memoryofsilver.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["Status_Celerity"]);
 
             Ability memoryoffire = new Ability("Memory of Fire", "AApocrypha_SisterMemoryB_A")
             {
-                Description = "Apply 1 Haste to this enemy.\n\"It was painful to lose your sister-self.\"",
+                Description = "Apply 1 Celerity to this enemy.\n\"It was painful to lose your sister-self.\"",
                 Cost = [Pigments.Grey, Pigments.Red],
                 Visuals = Visuals.Bosch,
                 AnimationTarget = Targeting.Slot_SelfSlot,
                 Effects =
                 [
-                    Effects.GenerateEffect(HasteApply, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(CelerityApply, 1, Targeting.Slot_SelfSlot),
                 ],
                 Rarity = Rarity.Rare,
                 Priority = Priority.Normal,
             };
-            memoryoffire.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["Status_Haste"]);
+            memoryoffire.AddIntentsToTarget(Targeting.Slot_SelfSlot, ["Status_Celerity"]);
 
             fullsister.AddEnemyAbilities(
             [

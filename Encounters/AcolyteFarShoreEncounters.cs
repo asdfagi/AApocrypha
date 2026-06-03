@@ -69,6 +69,11 @@ namespace A_Apocrypha.Encounters
                 acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "Teletower_EN");
                 acolyteMedium.SimpleAddEncounter(2, "Acolyte_EN", 1, "Teletower_EN");
             }
+            if (AApocrypha.CrossMod.IntoTheAbyss)
+            {
+                acolyteMedium.SimpleAddEncounter(2, "Acolyte_EN", 1, "Goomba_EN");
+                acolyteMedium.SimpleAddEncounter(2, "Acolyte_EN", 1, "StillLife_EN");
+            }
             acolyteMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Acolyte.Med, 20, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium); //default: 20
         }

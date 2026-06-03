@@ -212,6 +212,8 @@ namespace A_Apocrypha.Fools
             ];
             RandomNegativeRestrictor._superBlacklist = [
                 "Nemesis_ID",
+                "Hand_ID",
+                "Hellbound_ID",
             ];
 
             PassivePopUpOnTargetEffect PurpleBlooderPopup = ScriptableObject.CreateInstance<PassivePopUpOnTargetEffect>();
@@ -495,6 +497,7 @@ namespace A_Apocrypha.Fools
             if (AApocrypha.CrossMod.EnemyPack) { anomaly.AddFinalBossAchievementData("DoulaBoss", "AApocrypha_AnnaMolly_Abstraction_ACH"); }
             if (AApocrypha.CrossMod.GlitchsFreaks) { anomaly.AddFinalBossAchievementData("March_BOSS", "AApocrypha_AnnaMolly_Inevitable_ACH"); }
             if (AApocrypha.CrossMod.IntoTheAbyss) { anomaly.AddFinalBossAchievementData("Nobody_BOSS", "AApocrypha_AnnaMolly_Forgotten_ACH"); }
+            if (AApocrypha.CrossMod.IntoTheAbyss) { anomaly.AddFinalBossAchievementData("Katalixi_BOSS", "AApocrypha_AnnaMolly_Boundary_ACH"); }
             if (AApocrypha.CrossMod.SaltEnemies) { anomaly.AddFinalBossAchievementData("BlueSky_BOSS", "AApocrypha_AnnaMolly_Dreamer_ACH"); }
 
             ModUnlockInfo modUnlockInfo = new ModUnlockInfo();

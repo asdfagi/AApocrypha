@@ -9,6 +9,8 @@ namespace A_Apocrypha.CustomEffects
     public class AddRandomPassiveEffect : EffectSO
     {
         public BasePassiveAbilitySO[] _passivesToAdd;
+        public bool _popup = false;
+        public int _fixedCap = 0;
 
         public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
         {
@@ -22,6 +24,8 @@ namespace A_Apocrypha.CustomEffects
                 }
             }
             targets = targetsList.ToArray();
+
+            int cap = (_fixedCap > 0 ? _fixedCap : entryVariable);
 
             foreach (TargetSlotInfo targetSlotInfo in targets)
             {
@@ -70,14 +74,14 @@ namespace A_Apocrypha.CustomEffects
                     bool limitReached = false;
                     if (targetSlotInfo.Unit is CharacterCombat targetCH)
                     {
-                        if (targetCH.PassiveAbilities.Count >= entryVariable)
+                        if (targetCH.PassiveAbilities.Count >= cap)
                         {
                             limitReached = true;
                         }
                     }
                     else if (targetSlotInfo.Unit is EnemyCombat targetEN)
                     {
-                        if (targetEN.PassiveAbilities.Count >= entryVariable)
+                        if (targetEN.PassiveAbilities.Count >= cap)
                         {
                             limitReached = true;
                         }
@@ -91,11 +95,11 @@ namespace A_Apocrypha.CustomEffects
                         if (targetSlotInfo.HasUnit && targetSlotInfo.Unit.AddPassiveAbility(passiveToAdd))
                         {
                             exitAmount++;
+                            if (_popup) { CombatManager.Instance.AddUIAction(new ShowPassiveInformationUIAction(targetSlotInfo.Unit.ID, targetSlotInfo.Unit.IsUnitCharacter, passiveToAdd._passiveName, passiveToAdd.passiveIcon)); }
                         }
                         Debug.Log($"AddRandomPassive | adding passive {passiveToAdd._passiveName} with mID {passiveToAdd.m_PassiveID}");
                     }
                 }
-                
             }
 
             return exitAmount > 0;

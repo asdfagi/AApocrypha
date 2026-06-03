@@ -10,10 +10,10 @@ namespace A_Apocrypha.Encounters
         {
             if (Abyss.Exists)
             {
-                Portals.AddPortalSign("OrguisWhiteSign", ResourceLoader.LoadSprite("OrguisTimelineBase", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
+                Portals.AddPortalSign("OrguisWhiteSign", ResourceLoader.LoadSprite("OrguisTimelineWhite", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
                 EnemyEncounter_API wOrguisMed = new EnemyEncounter_API(0, Abyss.H.Orguis.White.Med, "OrguisWhiteSign")
                 {
-                    MusicEvent = "event:/AAMusic/MillieAmp/DurianDetonator",
+                    MusicEvent = "event:/AAMusic/AzureLazuline/DurianDeity",
                     RoarEvent = "event:/AAEnemy/LogosDisco/LogosDiscoRoar",
                 };
                 wOrguisMed.SimpleAddEncounter(1, Orguis.White, 1, "YesMan_EN", 1, "Streetlight_EN");
@@ -31,7 +31,7 @@ namespace A_Apocrypha.Encounters
 
                 EnemyEncounter_API wOrguisHard = new EnemyEncounter_API(0, Abyss.H.Orguis.White.Hard, "OrguisWhiteSign")
                 {
-                    MusicEvent = "event:/AAMusic/MillieAmp/DurianDetonator",
+                    MusicEvent = "event:/AAMusic/AzureLazuline/DurianDeity",
                     RoarEvent = "event:/AAEnemy/LogosDisco/LogosDiscoRoar",
                 };
                 wOrguisHard.SimpleAddEncounter(1, Orguis.White, 2, "Bear_EN", 1, "WRK_EN");

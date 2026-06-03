@@ -30,6 +30,7 @@ namespace A_Apocrypha.Encounters
             yellowMoldMed.SimpleAddEncounter(1, Aggregates.Yellow, 1, "MusicMan_EN", 2, "SingingStone_EN");
             yellowMoldMed.SimpleAddEncounter(1, Aggregates.Yellow, 1, "MusicMan_EN", 2, "Blemmigan_EN");
             yellowMoldMed.SimpleAddEncounter(1, Aggregates.Yellow, 1, "MusicMan_EN", 1, HiddenBloatfinger.OrpheumRandom);
+            yellowMoldMed.SimpleAddEncounter(1, Aggregates.Yellow, 2, "MusicMan_EN", 1, "CobaltCurator_EN");
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
                 yellowMoldMed.SimpleAddEncounter(1, Aggregates.Yellow, 2, Frostbites.Normal);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine.AI;
 using UnityEngine.PlayerLoop;
 
 namespace A_Apocrypha.CustomStatusField
@@ -32,14 +33,14 @@ namespace A_Apocrypha.CustomStatusField
                 IntentInfoBasic PoisonedIntent = new()
                 {
                     _color = Color.white,
-                    _sprite = ResourceLoader.LoadSprite("IconPoisoned")
+                    _sprite = PoisonedInfo.icon,
                 };
                 LoadedDBsHandler.IntentDB.AddNewBasicIntent("Status_Poisoned", PoisonedIntent);
 
                 IntentInfoBasic PoisonedRemIntent = new()
                 {
                     _color = Color.gray,
-                    _sprite = ResourceLoader.LoadSprite("IconPoisoned")
+                    _sprite = PoisonedInfo.icon,
                 };
                 LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Poisoned", PoisonedRemIntent);
             }
@@ -67,7 +68,7 @@ namespace A_Apocrypha.CustomStatusField
                 IntentInfoBasic IrradiatedIntent = new()
                 {
                     _color = Color.white,
-                    _sprite = IrradiatedInfo.icon
+                    _sprite = IrradiatedInfo.icon,
                 };
                 LoadedDBsHandler.IntentDB.AddNewBasicIntent("Status_Irradiated", IrradiatedIntent);
 
@@ -113,6 +114,78 @@ namespace A_Apocrypha.CustomStatusField
                 };
                 LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Hexed", HexedRemIntent);
             }
+
+            if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Smouldering_ID"))
+            {
+                StatusEffectInfoSO SmoulderingInfo = ScriptableObject.CreateInstance<StatusEffectInfoSO>();
+                SmoulderingInfo._statusName = "Smouldering";
+                SmoulderingInfo._description = "At the end of each round, take fire damage equal to the amount of Smouldering. Smouldering does not decrease over time. Smouldering is capped at 7, with any Smouldering applied above 7 instead being converted to indirect fire damage.";
+                SmoulderingInfo.icon = ResourceLoader.LoadSprite("IconSmouldering2");
+
+                LoadedDBsHandler.StatusFieldDB.TryGetStatusEffect("Scars_ID", out StatusEffect_SO scars);
+                StatusEffectInfoSO baseinfo = scars.EffectInfo;
+
+                SmoulderingInfo._applied_SE_Event = baseinfo._applied_SE_Event;
+                SmoulderingInfo._removed_SE_Event = baseinfo._removed_SE_Event;
+                SmoulderingInfo._updated_SE_Event = baseinfo._updated_SE_Event;
+
+                Smouldering smouldering = ScriptableObject.CreateInstance<Smouldering>();
+                smouldering._StatusID = "Smouldering_ID";
+                smouldering._EffectInfo = SmoulderingInfo;
+
+                LoadedDBsHandler.StatusFieldDB.AddNewStatusEffect(smouldering, true);
+
+                IntentInfoBasic SmoulderingIntent = new()
+                {
+                    _color = Color.white,
+                    _sprite = SmoulderingInfo.icon
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Status_Smouldering", SmoulderingIntent);
+
+                IntentInfoBasic SmoulderingRemIntent = new()
+                {
+                    _color = Color.gray,
+                    _sprite = SmoulderingInfo.icon
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Smouldering", SmoulderingRemIntent);
+            }
+
+            if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Overclock_ID"))
+            {
+                StatusEffectInfoSO OverclockInfo = ScriptableObject.CreateInstance<StatusEffectInfoSO>();
+                OverclockInfo._statusName = "Overclock";
+                OverclockInfo._description = "While Overclocked, all direct damage dealt is doubled." +
+                    "\nPerforming an ability reduces Overclock by 1.";
+                OverclockInfo.icon = ResourceLoader.LoadSprite("IconOverclock");
+
+                LoadedDBsHandler.StatusFieldDB.TryGetStatusEffect("Linked_ID", out StatusEffect_SO linked);
+                StatusEffectInfoSO baseinfo = linked.EffectInfo;
+
+                OverclockInfo._applied_SE_Event = "event:/AASFX/OverclockApply";
+                OverclockInfo._removed_SE_Event = baseinfo._removed_SE_Event;
+                OverclockInfo._updated_SE_Event = baseinfo._updated_SE_Event;
+
+                Overclock overclock = ScriptableObject.CreateInstance<Overclock>();
+                overclock._StatusID = "Overclock_ID";
+                overclock._EffectInfo = OverclockInfo;
+
+                LoadedDBsHandler.StatusFieldDB.AddNewStatusEffect(overclock, true);
+
+                IntentInfoBasic OverclockIntent = new()
+                {
+                    _color = Color.white,
+                    _sprite = OverclockInfo.icon,
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Status_Overclock", OverclockIntent);
+
+                IntentInfoBasic OverclockRemIntent = new()
+                {
+                    _color = Color.gray,
+                    _sprite = OverclockInfo.icon,
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Overclock", OverclockRemIntent);
+            }
+
             // Into The Abyss - Petrified
             if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Petrified_ID"))
             {
@@ -128,27 +201,67 @@ namespace A_Apocrypha.CustomStatusField
                 ModuInfo._applied_SE_Event = "event:/AASFX/ITA/Petrified";
                 ModuInfo._removed_SE_Event = baseinfo._removed_SE_Event;
                 ModuInfo._updated_SE_Event = baseinfo._updated_SE_Event;
-                //ModuInfo.
+                
                 Petrified modu = ScriptableObject.CreateInstance<Petrified>();
                 modu._StatusID = "Petrified_ID";
                 modu._EffectInfo = ModuInfo;
-                //modu.IsPositive = false;
 
                 LoadedDBsHandler.StatusFieldDB.AddNewStatusEffect(modu, true);
 
                 IntentInfoBasic PetrifiedIntent = new()
                 {
                     _color = Color.white,
-                    _sprite = ResourceLoader.LoadSprite("status_petrified.png")
+                    _sprite = ModuInfo.icon
                 };
                 LoadedDBsHandler.IntentDB.AddNewBasicIntent("Status_Petrified", PetrifiedIntent);
 
                 IntentInfoBasic PetrifiedRemIntent = new()
                 {
                     _color = Color.gray,
-                    _sprite = ResourceLoader.LoadSprite("status_petrified.png")
+                    _sprite = ModuInfo.icon
                 };
                 LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Petrified", PetrifiedRemIntent);
+            }
+
+            // Into The Abyss - Celerity
+            if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Celerity_ID"))
+            {
+                string statID = "Celerity_ID";
+                string intentID = "Status_Celerity";
+
+                StatusEffectInfoSO ModuInfo = ScriptableObject.CreateInstance<StatusEffectInfoSO>();
+                ModuInfo._statusName = "Celerity";
+                ModuInfo._description = "For each point of Celerity, this unit gets to perform an extra ability next turn, after which 1 point of Celerity is lost." +
+                    "\nOn characters, on using an ability, refresh after performing the ability and reduce Celerity by 1.";
+                ModuInfo.icon = ResourceLoader.LoadSprite("Celerity.png");
+
+
+                LoadedDBsHandler.StatusFieldDB.TryGetStatusEffect(StatusField.Focused._StatusID, out StatusEffect_SO focus);
+                StatusEffectInfoSO baseinfo = focus.EffectInfo;
+
+                ModuInfo._applied_SE_Event = baseinfo._applied_SE_Event;//"event:/AASFX/ITA/Petrified";
+                ModuInfo._removed_SE_Event = baseinfo._removed_SE_Event;
+                ModuInfo._updated_SE_Event = baseinfo._updated_SE_Event;
+                
+                CeleritySE_SO modu = ScriptableObject.CreateInstance<CeleritySE_SO>();
+                modu._StatusID = statID;
+                modu._EffectInfo = ModuInfo;
+
+                LoadedDBsHandler.StatusFieldDB.AddNewStatusEffect(modu, true);
+
+                IntentInfoBasic CelerityIntent = new()
+                {
+                    _color = Color.white,
+                    _sprite = ModuInfo.icon
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent(intentID, CelerityIntent);
+
+                IntentInfoBasic CelerityRemIntent = new()
+                {
+                    _color = Color.gray,
+                    _sprite = ModuInfo.icon
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_" + intentID, CelerityRemIntent);
             }
         }
     }

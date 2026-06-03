@@ -42,8 +42,8 @@ namespace A_Apocrypha.Encounters
                 shoreAdd.SimpleAddGroup(1, "ToyUfo_EN", 1, "MudLung_EN", 1, "FungusColumn_EN");
 
                 shoreAdd = new AddTo(Shore.H.Grave.Easy);
-                shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, "SandSifter_EN");
-                shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, "ToyUfo_EN", 1, "SandSifter_EN");
+                //shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, "SandSifter_EN");
+                //shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, "ToyUfo_EN", 1, "SandSifter_EN");
                 shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 2, "Acolyte_EN");
                 shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, Aggregates.Red);
                 shoreAdd.SimpleAddGroup(1, "NobodyGrave_EN", 1, Aggregates.Purple);

@@ -311,7 +311,7 @@ namespace A_Apocrypha.Enemies
 
             LoadedAssetsHandler.GetEnemy("ColophonMisguided_EN").enemyTemplate = LoadedAssetsHandler.GetEnemy("ColophonDualistic_EN").enemyTemplate;*/
 
-            if (AApocrypha.CrossMod.pigmentPeppermint)
+            if (AApocrypha.CrossMod.pigmentPeppermint == true && LoadedDBsHandler.PigmentDB.GetPigment("Peppermint") != null)
             {
                 Enemy peppermintColo = new Enemy("Saccharine Colophon", "ColophonSaccharine_EN")
                 {
@@ -327,8 +327,8 @@ namespace A_Apocrypha.Enemies
                 peppermintColo.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/ColophonPeppermint_Enemy/ColophonPeppermint_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/ColophonPeppermint_Enemy/ColophonPeppermint_Giblets.prefab").GetComponent<ParticleSystem>());
                 peppermintColo.AddPassives([Passives.Pure, Passives.GetCustomPassive("Pollute_PA")]);
 
-                StatusEffect_Apply_Effect HasteApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
-                HasteApply._Status = StatusField.GetCustomStatusEffect("Haste_ID");
+                StatusEffect_Apply_Effect CelerityApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+                CelerityApply._Status = StatusField.GetCustomStatusEffect("Celerity_ID");
 
                 QueueTimelineAbilityByNameEffect QueueRush = ScriptableObject.CreateInstance<QueueTimelineAbilityByNameEffect>();
                 QueueRush._abilityName = "Sugar Rush";
@@ -336,7 +336,7 @@ namespace A_Apocrypha.Enemies
                 Ability sugarrush = new Ability("Sugar Rush", "AApocrypha_SugarRush_A")
                 {
                     // technically the wording on this is inaccurate but I can't for the life of me find a better way to word it
-                    Description = "Move this enemy to the Left or Right, prioritizing occupied spaces.\nIf this enemy swapped positions with (or was blocked by) another enemy, apply 1 Haste to that enemy, else 50% chance to queue this ability into the timeline again.",
+                    Description = "Move this enemy to the Left or Right, prioritizing occupied spaces.\nIf this enemy swapped positions with (or was blocked by) another enemy, apply 1 Celerity to that enemy, else 50% chance to queue this ability into the timeline again.",
                     Cost = [],
                     Visuals = Visuals.Bosch,
                     AnimationTarget = Targeting.Slot_SelfSlot,
@@ -344,10 +344,10 @@ namespace A_Apocrypha.Enemies
                     [
                         Effects.GenerateEffect(ScriptableObject.CreateInstance<LeftOrRightToEnemyChanceForNextEffect>(), 1, Targeting.Slot_SelfSlot),
                         Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_AllyLeft, PreviousGenerator(false, 1)),
-                        Effects.GenerateEffect(HasteApply, 1, Targeting.Slot_AllyLeft, PreviousGenerator(true, 1)),
+                        Effects.GenerateEffect(CelerityApply, 1, Targeting.Slot_AllyLeft, PreviousGenerator(true, 1)),
                         Effects.GenerateEffect(SwapLeft, 1, Targeting.Slot_SelfSlot, PreviousGenerator(false, 3)),
                         Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Slot_AllyRight, PreviousGenerator(true, 4)),
-                        Effects.GenerateEffect(HasteApply, 1, Targeting.Slot_AllyRight, PreviousGenerator(true, 1)),
+                        Effects.GenerateEffect(CelerityApply, 1, Targeting.Slot_AllyRight, PreviousGenerator(true, 1)),
                         Effects.GenerateEffect(SwapRight, 1, Targeting.Slot_SelfSlot, PreviousGenerator(true, 6)),
                         Effects.GenerateEffect(ScriptableObject.CreateInstance<PercentageChanceForNextEffect>(), 50, Targeting.Slot_SelfSlot, Effects.CheckMultiplePreviousEffectsCondition([false, false], [7, 5])),
                         Effects.GenerateEffect(ScriptableObject.CreateInstance<CheckHasUnitEffect>(), 1, Targeting.Unit_OtherAlliesSlots),
@@ -360,7 +360,7 @@ namespace A_Apocrypha.Enemies
                     Priority = Priority.Normal,
                 };
                 sugarrush.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Sides)]);
-                sugarrush.AddIntentsToTarget(Targeting.Slot_AllySides, ["Status_Haste"]);
+                sugarrush.AddIntentsToTarget(Targeting.Slot_AllySides, ["Status_Celerity"]);
                 sugarrush.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Misc_Additional)]);
 
                 peppermintColo.AddEnemyAbilities(

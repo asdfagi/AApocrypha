@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using A_Apocrypha.Assets;
 using A_Apocrypha.Custom_Passives;
@@ -12,6 +13,7 @@ namespace A_Apocrypha.Custom_Passives
 {
     public class CustomPassives
     {
+        private static readonly Dictionary<int, BasePassiveAbilitySO> GeneratedSaltLockstep = new Dictionary<int, BasePassiveAbilitySO>();
         public static void Add()
         {
             // Movers
@@ -95,6 +97,30 @@ namespace A_Apocrypha.Custom_Passives
             alterTracker.m_CompareDataToThis = -1;
             alterTracker.m_ShowIfDataIsOver = true;
             LoadedDBsHandler.MiscDB.AddNewUnitStoreData("AlterStoredValue", alterTracker);
+
+            UnitStoreData_ModIntSO byteTracker = ScriptableObject.CreateInstance<UnitStoreData_ModIntSO>();
+            byteTracker.m_Text = "Byte: {0}";
+            byteTracker._UnitStoreDataID = "ByteStoredValue";
+            byteTracker.m_TextColor = new Color32(230, 230, 255, 255);
+            byteTracker.m_CompareDataToThis = -1;
+            byteTracker.m_ShowIfDataIsOver = true;
+            LoadedDBsHandler.MiscDB.AddNewUnitStoreData("ByteStoredValue", byteTracker);
+
+            UnitStoreData_ModIntSO langtonTracker = ScriptableObject.CreateInstance<UnitStoreData_ModIntSO>();
+            langtonTracker.m_Text = "Langton's Ant: {0}";
+            langtonTracker._UnitStoreDataID = "LangtonAntStoredValue";
+            langtonTracker.m_TextColor = new Color32(54, 112, 255, 255);
+            langtonTracker.m_CompareDataToThis = -1;
+            langtonTracker.m_ShowIfDataIsOver = true;
+            LoadedDBsHandler.MiscDB.AddNewUnitStoreData("LangtonAntStoredValue", langtonTracker);
+
+            UnitStoreData_ModIntSO ambroseLeadTracker = ScriptableObject.CreateInstance<UnitStoreData_ModIntSO>();
+            ambroseLeadTracker.m_Text = "Lead Tablets: {0}";
+            ambroseLeadTracker._UnitStoreDataID = "LeadTabletStoredValue";
+            ambroseLeadTracker.m_TextColor = new Color32(69, 72, 83, 255);
+            ambroseLeadTracker.m_CompareDataToThis = -1;
+            ambroseLeadTracker.m_ShowIfDataIsOver = true;
+            LoadedDBsHandler.MiscDB.AddNewUnitStoreData("LeadTabletStoredValue", ambroseLeadTracker);
 
             // Shy - Skittish, but only if there is an opposing unit.
             PerformEffectPassiveAbility shy = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
@@ -872,6 +898,54 @@ namespace A_Apocrypha.Custom_Passives
                 Effects.GenerateEffect(ScriptableObject.CreateInstance<PutrefyNumberPigmentCasterHealthColorEffect>(), 1),
             ];
 
+            // Poor-Faced (Esoteric) - why did I do this
+            if (AApocrypha.CrossMod.pigmentIridescent && AApocrypha.CrossMod.pigmentEntropic && AApocrypha.CrossMod.pigmentClusterfuck && AApocrypha.CrossMod.pigmentWhite)
+            {
+                ChangeToRandomHealthColorEffect nowDoTheEsotericShuffle = ScriptableObject.CreateInstance<ChangeToRandomHealthColorEffect>();
+                nowDoTheEsotericShuffle._healthColors = [
+                    LoadedDBsHandler.PigmentDB.GetPigment("Iridescent"),
+                    LoadedDBsHandler.PigmentDB.GetPigment("Clusterfuck"),
+                    LoadedDBsHandler.PigmentDB.GetPigment("EntropicBase"),
+                    LoadedDBsHandler.PigmentDB.GetPigment("White")
+                ];
+
+                PerformEffectPassiveAbility poorfacedesoteric = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+                poorfacedesoteric.name = "AA_PoorFacedICEW_PA";
+                poorfacedesoteric._passiveName = "Poor-Faced";
+                poorfacedesoteric.m_PassiveID = "PoorFaced";
+                poorfacedesoteric.passiveIcon = ResourceLoader.LoadSprite("IconPoorFacedICEW");
+                poorfacedesoteric._characterDescription = "On being directly damaged and at the end of each round, this unit's health color is randomized to Iridescent, Clusterfuck, Entropic or White.";
+                poorfacedesoteric._enemyDescription = poorfacedesoteric._characterDescription;
+                poorfacedesoteric._triggerOn = [TriggerCalls.OnDirectDamaged, TriggerCalls.OnRoundFinished];
+                poorfacedesoteric.doesPassiveTriggerInformationPanel = true;
+                poorfacedesoteric.effects = [
+                    Effects.GenerateEffect(nowDoTheEsotericShuffle, 1, Targeting.Slot_SelfSlot),
+                ];
+                CheckerPassivePoolAdd("AA_PoorFacedICEW_PA", "Poor-Faced", poorfacedesoteric);
+            }
+
+            RerollBonusAbilityLastEffect SuiteRerollLast = ScriptableObject.CreateInstance<RerollBonusAbilityLastEffect>();
+            SuiteRerollLast._bonusSuite = true;
+
+            RerollBonusAbilityLastEffect BonusRerollLast = ScriptableObject.CreateInstance<RerollBonusAbilityLastEffect>();
+            BonusRerollLast._bonusSuite = false;
+
+            // Boneless - bonus formless (get it)
+            PerformEffectPassiveAbility bonelessSuiteLast = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            bonelessSuiteLast.name = "AA_Boneless_SuiteLast_PA";
+            bonelessSuiteLast._passiveName = "Boneless";
+            bonelessSuiteLast.m_PassiveID = "Boneless";
+            bonelessSuiteLast.passiveIcon = ResourceLoader.LoadSprite("IconBonusFormless");
+            bonelessSuiteLast._characterDescription = "okay, first of all, how, and second of all, why? what would this ever do? what would bonus suite even do on a party member?";
+            bonelessSuiteLast._enemyDescription = "On any party member performing an ability, reroll this enemy's Bonus Suite ability.";
+            bonelessSuiteLast._triggerOn = [TriggerCalls.OnAnyAbilityUsed];
+            bonelessSuiteLast.conditions = [ScriptableObject.CreateInstance<UnitAliveEffectorCondition>(), ScriptableObject.CreateInstance<IsPlayerTurnEffectorCondition>()];
+            bonelessSuiteLast.doesPassiveTriggerInformationPanel = true;
+            bonelessSuiteLast.effects =
+            [
+                Effects.GenerateEffect(SuiteRerollLast, 1, Targeting.Slot_SelfSlot),
+            ];
+
             // Adding to pool
             CheckerPassivePoolAdd("Shy_PA", "Shy", shy);
             CheckerPassivePoolAdd("Confrontational_PA", "Confrontational", confrontational);
@@ -905,6 +979,7 @@ namespace A_Apocrypha.Custom_Passives
             CheckerPassivePoolAdd("Zelator_PA", "Zelator", zelator);
             CheckerPassivePoolAdd("AA_Contaminant1_PA", "Contaminant (1)", contaminant1);
             CheckerPassivePoolAdd("Random4Blooded_2_PA", "Random-Blooded (2)", randomBlooded2);
+            CheckerPassivePoolAdd("AA_Boneless_SuiteLast_PA", "Boneless", bonelessSuiteLast);
 
             // Glossary entries
             GlossaryPassives AAShyInfo = new GlossaryPassives("Shy", "Upon performing an ability, this party member/enemy will move to the left or right, prioritizing unopposed spaces, if there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconShy"));
@@ -927,6 +1002,7 @@ namespace A_Apocrypha.Custom_Passives
             GlossaryPassives AADilutionInfo = new GlossaryPassives("Dilution", "On being directly damaged, split random pigment colors into a set amount of pigments of a specific color in the pigment bar.", ResourceLoader.LoadSprite("IconPigmentTransformPrimary"));
             GlossaryPassives AAContaminantInfo = new GlossaryPassives("Contaminant", "On being directly damaged, split this party member/enemy's health color into a set amount of random pigment in the pigment bar.", ResourceLoader.LoadSprite("IconContaminant"));
             GlossaryPassives AAZelatorInfo = new GlossaryPassives("Zelator", "This party member/enemy deals 50% more damage to Hexed targets.", ResourceLoader.LoadSprite("IconCometGaze"));
+            GlossaryPassives AABonelessInfo = new GlossaryPassives("Boneless", "On any party member performing an ability, reroll this enemy's Bonus Suite ability.", ResourceLoader.LoadSprite("IconBonusFormless"));
 
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAShyInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAConfrontationalInfo);
@@ -948,6 +1024,7 @@ namespace A_Apocrypha.Custom_Passives
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AADilutionInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAContaminantInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAZelatorInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AABonelessInfo);
 
             if (!AApocrypha.CrossMod.StewSpecimens)
             {
@@ -1110,6 +1187,78 @@ namespace A_Apocrypha.Custom_Passives
             return bonusSuitePassiveAbility;
         }
 
+        // Bonus Suite variants with reroll capabilities
+        public static BasePassiveAbilitySO BonusSuiteRerollGenerator(string rerollType, List<ExtraAbilityInfo> bonusAbilities)
+        {
+            List<string> names = [];
+            List<ExtraAbilityInfo> weights = [];
+            foreach (ExtraAbilityInfo ability in bonusAbilities)
+            {
+                if (ability == null || ability.ability == null)
+                {
+                    Debug.Log("Bonus ability " + ability.ability.name + " does not exist.");
+                    return null;
+                }
+                names.Add(ability.ability._abilityName);
+                for (int i = 0; i < ability.rarity.rarityValue; i++)
+                {
+                    weights.Add(ability);
+                }
+                if (ability.rarity.canBeRerolled)
+                {
+                    ability.rarity = Rarity.Impossible;
+                }
+                else
+                {
+                    ability.rarity = Rarity.ImpossibleNoReroll;
+                }
+            }
+
+            string typeID = "Invalid";
+            string typeDisplay = "";
+            string typeDesc = "Someone set the rerollType incorrectly!";
+            string typeIcon = "IconBonusSuiteAlt";
+            TriggerCalls[] typeTriggers = [];
+            EffectorConditionSO[] typeConditions = [];
+            switch (rerollType)
+            {
+                case "Formless":
+                    typeID = rerollType;
+                    typeDisplay = "Formless";
+                    typeDesc = "On being directly damaged, reroll the ability added by this passive.";
+                    typeIcon = "IconBonusSuiteFormless";
+                    typeTriggers = [TriggerCalls.OnDirectDamaged];
+                    typeConditions = [ScriptableObject.CreateInstance<UnitAliveEffectorCondition>()];
+                    break;
+                case "PartyAction":
+                    typeID = rerollType;
+                    typeDisplay = "Semimaterial";
+                    typeDesc = "On any party member performing an ability, reroll the ability added by this passive.";
+                    typeIcon = "IconBonusSuiteImmaterial";
+                    typeTriggers = [TriggerCalls.OnAnyAbilityUsed];
+                    typeConditions = [ScriptableObject.CreateInstance<UnitAliveEffectorCondition>(), ScriptableObject.CreateInstance<IsPlayerTurnEffectorCondition>()];
+                    break;
+            }
+
+            BonusSuiteWithRerollConditionPassiveAbility bonusSuitePassiveAbility = ScriptableObject.CreateInstance<BonusSuiteWithRerollConditionPassiveAbility>();
+
+            bonusSuitePassiveAbility.name = "BonusSuiteReroll_" + typeID + "_" + string.Join("_", names) + "_PA";
+            bonusSuitePassiveAbility.m_PassiveID = "BonusSuiteReroll_" + typeID + "_" + string.Join("_", names);
+            bonusSuitePassiveAbility._passiveName = "Bonus Suite (" + typeDisplay + ")";
+            bonusSuitePassiveAbility._characterDescription = "This passive is still not meant for party members.";
+            bonusSuitePassiveAbility._enemyDescription = "This enemy will perform one of the following moves as a bonus action each turn:" + "\n" + string.Join("\n", names) + "\n\n" + typeDesc;
+            bonusSuitePassiveAbility.passiveIcon = ResourceLoader.LoadSprite(typeIcon);
+            bonusSuitePassiveAbility._triggerOn = [TriggerCalls.ExtraAdditionalAttacks];
+            bonusSuitePassiveAbility.conditions = [];
+            bonusSuitePassiveAbility.doesPassiveTriggerInformationPanel = false;
+            bonusSuitePassiveAbility.specialStoredData = null;
+            bonusSuitePassiveAbility._suiteAbilities = weights;
+            bonusSuitePassiveAbility._secondDoesPerformPopUp = true;
+            bonusSuitePassiveAbility._secondTriggerOn = typeTriggers;
+            bonusSuitePassiveAbility._secondPerformConditions = typeConditions;
+            return bonusSuitePassiveAbility;
+        }
+
         private static TValue GetOrCreatePassive<TKey, TValue>(IDictionary<TKey, TValue> readFrom, TKey key, Func<TKey, TValue> create)
         {
             if (readFrom.TryGetValue(key, out TValue value))
@@ -1118,6 +1267,93 @@ namespace A_Apocrypha.Custom_Passives
             }
 
             return readFrom[key] = create(key);
+        }
+        public static BasePassiveAbilitySO SaltLockstepGenerator(int amount)
+        {
+            return CustomPassives.GetOrCreatePassive<int, BasePassiveAbilitySO>(CustomPassives.GeneratedSaltLockstep, amount, delegate (int x)
+            {
+                string storedValue = "LockstepDir_SV";
+                int num = 1;
+                int num2 = 2;
+                MoveByCasterStoredValueEffect moveByCasterStoredValueEffect = ScriptableObject.CreateInstance<MoveByCasterStoredValueEffect>();
+                moveByCasterStoredValueEffect.storedValue = storedValue;
+                moveByCasterStoredValueEffect.LeftValue = num;
+                moveByCasterStoredValueEffect.RightValue = num2;
+                SwapCasterStoredValueEffect swapCasterStoredValueEffect = ScriptableObject.CreateInstance<SwapCasterStoredValueEffect>();
+                swapCasterStoredValueEffect.storedValue = storedValue;
+                swapCasterStoredValueEffect.firstValue = num;
+                swapCasterStoredValueEffect.secondValue = num2;
+                CasterSwapAnimationParametersByStoredValueEffect casterSwapAnimationParametersByStoredValueEffect = ScriptableObject.CreateInstance<CasterSwapAnimationParametersByStoredValueEffect>();
+                casterSwapAnimationParametersByStoredValueEffect._parameterName = "Flip";
+                casterSwapAnimationParametersByStoredValueEffect.storedValue = storedValue;
+                casterSwapAnimationParametersByStoredValueEffect.LeftValue = num;
+                casterSwapAnimationParametersByStoredValueEffect.RightValue = num2;
+                casterSwapAnimationParametersByStoredValueEffect.setAsIfLeft = 0;
+                casterSwapAnimationParametersByStoredValueEffect.setAsIfRight = 1;
+                PreviousEffectCondition previousEffectCondition = ScriptableObject.CreateInstance<PreviousEffectCondition>();
+                previousEffectCondition.previousAmount = 1;
+                previousEffectCondition.wasSuccessful = false;
+                PreviousEffectCondition previousEffectCondition2 = ScriptableObject.CreateInstance<PreviousEffectCondition>();
+                previousEffectCondition2.previousAmount = 2;
+                previousEffectCondition2.wasSuccessful = false;
+                PreviousEffectCondition previousEffectCondition3 = ScriptableObject.CreateInstance<PreviousEffectCondition>();
+                previousEffectCondition3.previousAmount = 3;
+                previousEffectCondition3.wasSuccessful = false;
+                EffectInfo[] effects = new EffectInfo[]
+                {
+                    Effects.GenerateEffect(moveByCasterStoredValueEffect, 1, Targeting.Slot_SelfSlot, null),
+                    Effects.GenerateEffect(swapCasterStoredValueEffect, 0, null, previousEffectCondition),
+                    Effects.GenerateEffect(casterSwapAnimationParametersByStoredValueEffect, 0, null, previousEffectCondition2),
+                    Effects.GenerateEffect(moveByCasterStoredValueEffect, 1, Targeting.Slot_SelfSlot, previousEffectCondition3)
+                };
+                ExtraVariableForNext_SVEffect extraVariableForNext_SVEffect = ScriptableObject.CreateInstance<ExtraVariableForNext_SVEffect>();
+                extraVariableForNext_SVEffect.m_unitStoredDataID = "LockstepAmount_SV";
+                AltPerformEffectXTimesViaSubaction altPerformEffectXTimesViaSubaction = ScriptableObject.CreateInstance<AltPerformEffectXTimesViaSubaction>();
+                altPerformEffectXTimesViaSubaction.usePreviousExit = true;
+                altPerformEffectXTimesViaSubaction.effects = effects;
+                StoredValueSetOnceEffectorCondition storedValueSetOnceEffectorCondition = ScriptableObject.CreateInstance<StoredValueSetOnceEffectorCondition>();
+                storedValueSetOnceEffectorCondition.m_unitStoredDataID = "LockstepAmount_SV";
+                CasterStoreValueSetterEffect casterStoreValueSetterEffect = ScriptableObject.CreateInstance<CasterStoreValueSetterEffect>();
+                casterStoreValueSetterEffect.m_unitStoredDataID = "LockstepAmount_SV";
+                casterStoreValueSetterEffect._ignoreIfContains = true;
+                CasterStoreValuePreviousExitSetterEffect casterStoreValuePreviousExitSetterEffect = ScriptableObject.CreateInstance<CasterStoreValuePreviousExitSetterEffect>();
+                casterStoreValuePreviousExitSetterEffect.m_unitStoredDataID = "LockstepDir_SV";
+                casterStoreValuePreviousExitSetterEffect._ignoreIfContains = true;
+                ExtraVariableForNext_RandomBetweenVariable_Effect extraVariableForNext_RandomBetweenVariable_Effect = ScriptableObject.CreateInstance<ExtraVariableForNext_RandomBetweenVariable_Effect>();
+                extraVariableForNext_RandomBetweenVariable_Effect._MinValue = 1;
+                extraVariableForNext_RandomBetweenVariable_Effect._EntryInclusive = true;
+                PerformDoubleEffectPassiveAbility performDoubleEffectPassiveAbility = ScriptableObject.CreateInstance<PerformDoubleEffectPassiveAbility>();
+                performDoubleEffectPassiveAbility.name = string.Format("SaltLockstep_{0}_PA", x);
+                performDoubleEffectPassiveAbility.m_PassiveID = "Lockstep_ID";
+                performDoubleEffectPassiveAbility._passiveName = string.Format("Lockstep ({0})", x);
+                performDoubleEffectPassiveAbility._characterDescription = string.Format("After performing an ability, this character will attempt to move {0} times in their Lockstep direction, switching directions if this movement fails.", x);
+                performDoubleEffectPassiveAbility._enemyDescription = string.Format("After performing an ability, this enemy will attempt to move {0} times in their Lockstep direction, switching directions if this movement fails.", x);
+                performDoubleEffectPassiveAbility.passiveIcon = ResourceLoader.LoadSprite("lockstep_passive.png", null, 32, null);
+                performDoubleEffectPassiveAbility._triggerOn = new TriggerCalls[]
+                {
+                    TriggerCalls.OnAbilityUsed
+                };
+                performDoubleEffectPassiveAbility.effects = new EffectInfo[]
+                {
+                    Effects.GenerateEffect(extraVariableForNext_SVEffect, 1, Slots.Self, null),
+                    Effects.GenerateEffect(altPerformEffectXTimesViaSubaction, 1, Slots.Self, null)
+                };
+                performDoubleEffectPassiveAbility._secondTriggerOn = new TriggerCalls[]
+                {
+                    TriggerCalls.OnAbilityWillBeUsed
+                };
+                performDoubleEffectPassiveAbility._secondEffects = new EffectInfo[]
+                {
+                    Effects.GenerateEffect(casterStoreValueSetterEffect, amount, Slots.Self, null),
+                    Effects.GenerateEffect(extraVariableForNext_RandomBetweenVariable_Effect, 2, Slots.Self, null),
+                    Effects.GenerateEffect(casterStoreValuePreviousExitSetterEffect, 1, Slots.Self, null)
+                };
+                performDoubleEffectPassiveAbility.conditions = new EffectorConditionSO[0];
+                performDoubleEffectPassiveAbility.doesPassiveTriggerInformationPanel = true;
+                performDoubleEffectPassiveAbility._secondDoesPerformPopUp = false;
+                performDoubleEffectPassiveAbility.specialStoredData = LoadedDBsHandler.MiscDB.GetUnitStoreData("LockstepDir_SV", false);
+                return performDoubleEffectPassiveAbility;
+            });
         }
     }
     public class IsSelfDeathCondition : EffectorConditionSO

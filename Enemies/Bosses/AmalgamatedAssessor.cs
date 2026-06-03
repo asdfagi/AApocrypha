@@ -273,7 +273,7 @@ namespace A_Apocrypha.Enemies.Bosses
                 Rarity = Rarity.Common,
                 Priority = Priority.Fast,
             };
-            ionizingfumes.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Status_Scars), nameof(IntentType_GameIDs.Swap_Sides)]);
+            ionizingfumes.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Status_Scars), "Status_Irradiated", nameof(IntentType_GameIDs.Swap_Sides)]);
 
             Ability frayedwires = new Ability("Frayed Wires", "AApocrypha_FrayedWires_A")
             {

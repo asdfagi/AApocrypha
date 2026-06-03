@@ -47,7 +47,7 @@ namespace A_Apocrypha.Items
             string achievementID = "AApocrypha_Naudiz4_Forgotten_ACH";
             string unlockID = "AApocrypha_Naudiz4_Forgotten_Unlock";
 
-            ItemUtils.AddItemToShopStatsCategoryAndGamePool(radar.item, new ItemModdedUnlockInfo(radar.Item_ID, ResourceLoader.LoadSprite("UnlockNobodyWhitlockLocked", null, 32, null), achievementID));
+            ItemUtils.AddItemToShopStatsCategoryAndGamePool(radar.item, new ItemModdedUnlockInfo(radar.Item_ID, ResourceLoader.LoadSprite("UnlockNobodyNaudiz4Locked", null, 32, null), achievementID));
 
             BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement(achievementID, radar.Item_ID);
 

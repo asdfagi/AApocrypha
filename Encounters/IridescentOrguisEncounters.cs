@@ -13,7 +13,7 @@ namespace A_Apocrypha.Encounters
                 Portals.AddPortalSign("OrguisIridescentSign", ResourceLoader.LoadSprite("OrguisTimelineIridescent", new Vector2(0.5f, 0f), 32), Portals.EnemyIDColor);
                 EnemyEncounter_API iridOrguisMed = new EnemyEncounter_API(0, Abyss.H.Orguis.Iridescent.Med, "OrguisIridescentSign")
                 {
-                    MusicEvent = "event:/AAMusic/MillieAmp/DurianDetonator",
+                    MusicEvent = "event:/AAMusic/AzureLazuline/DurianDarkness",
                     RoarEvent = "event:/AAEnemy/LogosDisco/LogosDiscoRoar",
                 };
                 iridOrguisMed.SimpleAddEncounter(1, Orguis.Iridescent, 1, "YesMan_EN", 1, "Streetlight_EN");
@@ -30,7 +30,7 @@ namespace A_Apocrypha.Encounters
 
                 EnemyEncounter_API iridOrguisHard = new EnemyEncounter_API(0, Abyss.H.Orguis.Iridescent.Hard, "OrguisIridescentSign")
                 {
-                    MusicEvent = "event:/AAMusic/MillieAmp/DurianDetonator",
+                    MusicEvent = "event:/AAMusic/AzureLazuline/DurianDarkness",
                     RoarEvent = "event:/AAEnemy/LogosDisco/LogosDiscoRoar",
                 };
                 iridOrguisHard.SimpleAddEncounter(1, Orguis.Iridescent, 2, "Bear_EN", 1, "WRK_EN");

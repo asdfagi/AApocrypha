@@ -218,7 +218,7 @@ namespace A_Apocrypha.Fools
             gnomeCharacterGreen.AddPassives(gnomePassives);
 
             gnomeCharacterGreen.AddLevelData(5, [dance, steal, spill]);
-            gnomeCharacterGreen.AddCharacter(true, true);
+            gnomeCharacterGreen.AddCharacter(true, !Abyss.Exists);
 
             SpeakerBundle speakerBundleGnomes = new SpeakerBundle();
             speakerBundleGnomes.bundleTextColor = new Color(1.0f, 0.0f, 0.0f);

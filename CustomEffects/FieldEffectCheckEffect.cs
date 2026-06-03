@@ -11,17 +11,38 @@ namespace A_Apocrypha.CustomEffects
         public override bool PerformEffect(CombatStats stats, IUnit caster, TargetSlotInfo[] targets, bool areTargetSlots, int entryVariable, out int exitAmount)
         {
             exitAmount = 0;
-            for (int i = 0; i < targets.Length; i++)
+            foreach (TargetSlotInfo target in targets)
             {
-                if (!targets[i].HasUnit)
+                if (!target.HasUnit)
                 {
                     continue;
                 }
                 foreach (FieldEffect_SO fieldEffect in _fields)
                 {
-                    if (targets[i].Unit.ContainsFieldEffect(fieldEffect._FieldID))
+                    if (target.Unit.ContainsFieldEffect(fieldEffect._FieldID))
                     {
-                        exitAmount++;
+                        if (target.Unit is CharacterCombat ch)
+                        {
+                            IFieldSlotEffector fieldEffector = stats.combatSlots.CharacterSlots[ch.SlotID];
+                            foreach (IFieldEffect field in fieldEffector.FieldEffects)
+                            {
+                                if (field.FieldID == fieldEffect.FieldID)
+                                {
+                                    exitAmount += field.FieldContent;
+                                }
+                            }
+                        }
+                        if (target.Unit is EnemyCombat en)
+                        {
+                            IFieldSlotEffector fieldEffector = stats.combatSlots.EnemySlots[en.SlotID];
+                            foreach (IFieldEffect field in fieldEffector.FieldEffects)
+                            {
+                                if (field.FieldID == fieldEffect.FieldID)
+                                {
+                                    exitAmount += field.FieldContent;
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -47,11 +47,11 @@ namespace A_Apocrypha.CustomEffects
             }
             else
             {
-                for (int j = 0; j < targets.Length; j++)
+                foreach (TargetSlotInfo target in targets)
                 {
-                    if (targets[j].HasUnit)
+                    if (target.HasUnit)
                     {
-                        exitAmount += ApplyStatusEffect(targets[j].Unit, entryVariable);
+                        exitAmount += ApplyStatusEffect(target.Unit, entryVariable);
                     }
                 }
             }
