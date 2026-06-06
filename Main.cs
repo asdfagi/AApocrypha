@@ -15,6 +15,7 @@ using A_Apocrypha.Encounters.Bosses;
 using A_Apocrypha.Enemies.Bosses;
 using A_Apocrypha.Events;
 using A_Apocrypha.Items;
+using A_Apocrypha.Items.TradeItems;
 using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using HarmonyLib;
@@ -587,8 +588,11 @@ namespace A_Apocrypha
             // Miscellaneous Items
             CranesSavesTheRun.Add();
             Gadsby.Add();
+            WhitlockBarTincture.Add();
             WhitlockBarPoison.Add();
             WhitlockBarLaudanum.Add();
+            SeekerBarMysteryMeat.Add();
+            SeekerBarMarrow.Add();
             Debug.Log("Items & Achievements | Initialized");
 
             //Events

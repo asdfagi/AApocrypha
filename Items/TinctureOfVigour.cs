@@ -28,10 +28,10 @@ namespace A_Apocrypha.Items
                 Icon = ResourceLoader.LoadSprite("UnlockOsmanWhitlock"),
                 TriggerOn = TriggerCalls.OnCombatStart,
                 Conditions = [Injured],
+                ConsumeOnUse = true,
                 Effects =
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<HealEffect>(), 10, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ConsumeItemEffect>(), 1, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(HalfFull),
                 ],
             };
@@ -49,10 +49,10 @@ namespace A_Apocrypha.Items
                 Icon = ResourceLoader.LoadSprite("UnlockOsmanWhitlockAlt"),
                 TriggerOn = TriggerCalls.OnCombatStart,
                 Conditions = [Injured],
+                ConsumeOnUse = true,
                 Effects =
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<HealEffect>(), 10, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ConsumeItemEffect>(), 1, Targeting.Slot_SelfSlot),
                 ],
             };
 

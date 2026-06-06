@@ -159,6 +159,7 @@ namespace A_Apocrypha.Patches
             }
             if (item != null)
             {
+                //Debug.Log("AA_GiveItemByID | selected item " + item._itemName);
                 bool hasItemSpace = run.playerData.HasItemSpace;
                 StringTrioData itemLocData = item.GetItemLocData();
                 string text = string.Format(LocUtils.GameLoc.GetUIData(UILocID.PrizeGetLabel), itemLocData.text);

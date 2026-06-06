@@ -75,7 +75,7 @@ namespace A_Apocrypha.Fools
                 UnitTypes = ["FemaleID", UnitType_GameIDs.FemaleLooking.ToString(), "Sandwich_Gore", "Neathy"],
             };
             vaughan.GenerateMenuCharacter(ResourceLoader.LoadSprite("VaughanMenu"), ResourceLoader.LoadSprite("VaughanLocked"));
-            vaughan.AddPassive(vaughanShapePassive);
+            vaughan.AddPassives([Passives.Delicate, vaughanShapePassive]);
             vaughan.SetMenuCharacterAsFullSupport();
 
             HealEffect heal = ScriptableObject.CreateInstance<HealEffect>();
@@ -83,6 +83,18 @@ namespace A_Apocrypha.Fools
 
             StatusEffect_Apply_Effect ScarsApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             ScarsApply._Status = StatusField.Scars;
+
+            SpecificAlliesByMPassiveIDTargeting AlteredAllies = ScriptableObject.CreateInstance<SpecificAlliesByMPassiveIDTargeting>();
+            AlteredAllies.slotOffsets = [0];
+            AlteredAllies.targetUnitAllySlots = true;
+            AlteredAllies.getAllUnitSelfSlots = false;
+            AlteredAllies.m_passiveID = "ShapelingArt";
+
+            TargetPerformEffectViaSubaction swapAlterSelf = ScriptableObject.CreateInstance<TargetPerformEffectViaSubaction>();
+            swapAlterSelf.effects = [
+                Effects.GenerateEffect(shapelingClear, 1, Targeting.Slot_SelfSlot),
+                Effects.GenerateEffect(shapelingAny, 1, Targeting.Slot_SelfSlot),
+            ];
 
             Ability amber1 = new Ability("Warm Amber", "VaughanAmber_1_A")
             {
@@ -255,70 +267,70 @@ namespace A_Apocrypha.Fools
             Ability form1 = new Ability("Stiff Form", "VaughanForm_1_A")
             {
                 Description = "Heal this party member 1 health." +
-                "\nApply a random Alteration to this party member.",
+                "\nApply a random Alteration to all party members with an Alteration.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconVaughanForm"),
                 Cost = [Pigments.BluePurple],
                 Visuals = Visuals.UglyOnTheInside,
-                AnimationTarget = Targeting.Slot_SelfSlot,
+                AnimationTarget = AlteredAllies,
                 Effects =
                 [
                     Effects.GenerateEffect(heal, 1, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(shapelingClear, 1, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(shapelingAny, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(swapAlterSelf, 1, AlteredAllies),
                 ],
             };
-            form1.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Heal_1_4), "AA_AddPassive"]);
+            form1.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Heal_1_4)]);
+            form1.AddIntentsToTarget(AlteredAllies, ["AA_AddPassive"]);
 
             Ability form2 = new Ability("Limber Form", "VaughanForm_2_A")
             {
                 Description = "Heal this party member 2 health." +
-                "\nApply a random Alteration to this party member.",
+                "\nApply a random Alteration to all party members with an Alteration.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconVaughanForm"),
                 Cost = [Pigments.BluePurple],
                 Visuals = Visuals.UglyOnTheInside,
-                AnimationTarget = Targeting.Slot_SelfSlot,
+                AnimationTarget = AlteredAllies,
                 Effects =
                 [
                     Effects.GenerateEffect(heal, 2, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(shapelingClear, 1, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(shapelingAny, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(swapAlterSelf, 1, AlteredAllies),
                 ],
             };
-            form2.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Heal_1_4), "AA_AddPassive"]);
+            form2.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Heal_1_4)]);
+            form2.AddIntentsToTarget(AlteredAllies, ["AA_AddPassive"]);
 
             Ability form3 = new Ability("Flexible Form", "VaughanForm_3_A")
             {
                 Description = "Heal this party member 3 health." +
-                "\nApply a random Alteration to this party member.",
+                "\nApply a random Alteration to all party members with an Alteration.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconVaughanForm"),
                 Cost = [Pigments.BluePurple],
                 Visuals = Visuals.UglyOnTheInside,
-                AnimationTarget = Targeting.Slot_SelfSlot,
+                AnimationTarget = AlteredAllies,
                 Effects =
                 [
                     Effects.GenerateEffect(heal, 3, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(shapelingClear, 1, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(shapelingAny, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(swapAlterSelf, 1, AlteredAllies),
                 ],
             };
-            form3.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Heal_1_4), "AA_AddPassive"]);
+            form3.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Heal_1_4)]);
+            form3.AddIntentsToTarget(AlteredAllies, ["AA_AddPassive"]);
 
             Ability form4 = new Ability("Unrestrained Form", "VaughanForm_4_A")
             {
                 Description = "Heal this party member 4 health." +
-                "\nApply a random Alteration to this party member.",
+                "\nApply a random Alteration to all party members with an Alteration.",
                 AbilitySprite = ResourceLoader.LoadSprite("IconVaughanForm"),
                 Cost = [Pigments.BluePurple],
                 Visuals = Visuals.UglyOnTheInside,
-                AnimationTarget = Targeting.Slot_SelfSlot,
+                AnimationTarget = AlteredAllies,
                 Effects =
                 [
                     Effects.GenerateEffect(heal, 4, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(shapelingClear, 1, Targeting.Slot_SelfSlot),
-                    Effects.GenerateEffect(shapelingAny, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(swapAlterSelf, 1, AlteredAllies),
                 ],
             };
-            form4.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Heal_1_4), "AA_AddPassive"]);
+            form4.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Heal_1_4)]);
+            form4.AddIntentsToTarget(AlteredAllies, ["AA_AddPassive"]);
 
             vaughan.AddLevelData(12, [amber1, ecdysis1, form1]);
             vaughan.AddLevelData(14, [amber2, ecdysis2, form2]);

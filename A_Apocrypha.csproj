@@ -227,6 +227,7 @@
 	<None Remove="Sprites\Icons\Passives\IconDeployment.png" />
 	<None Remove="Sprites\Icons\Passives\IconE.png" />
 	<None Remove="Sprites\Icons\Passives\IconEnemyPack.png" />
+	<None Remove="Sprites\Icons\Passives\IconFireSafety.png" />
 	<None Remove="Sprites\Icons\Passives\IconFixedPoint.png" />
 	<None Remove="Sprites\Icons\Passives\IconFragmentation.png" />
 	<None Remove="Sprites\Icons\Passives\IconHoarfrostMirrored.png" />
@@ -235,6 +236,7 @@
 	<None Remove="Sprites\Icons\Passives\IconJournalMode.png" />
 	<None Remove="Sprites\Icons\Passives\IconLeadwright.png" />
 	<None Remove="Sprites\Icons\Passives\IconMalleable.png" />
+	<None Remove="Sprites\Icons\Passives\IconMarrowSeeker.png" />
 	<None Remove="Sprites\Icons\Passives\IconNoE.png" />
 	<None Remove="Sprites\Icons\Passives\IconPatient.png" />
 	<None Remove="Sprites\Icons\Passives\IconPigmentTransformBlue.png" />
@@ -421,6 +423,7 @@
 	<None Remove="Sprites\Pigments\BrokenManaHealth.png" />
 	<None Remove="Sprites\Pigments\BrokenManaUsed.png" />
 	<None Remove="Sprites\prop_intent.png" />
+	<None Remove="Sprites\SeekerBarItemMarrow.png" />
 	<None Remove="Sprites\SharpenedAnomalyDead.png" />
 	<None Remove="Sprites\SharpenedAnomalyTimeline.png" />
 	<None Remove="Sprites\SculptorBirdDead.png" />
@@ -820,6 +823,7 @@
     <EmbeddedResource Include="Sprites\Icons\Passives\IconDeployment.png" />
     <EmbeddedResource Include="Sprites\Icons\Passives\IconE.png" />
     <EmbeddedResource Include="Sprites\Icons\Passives\IconEnemyPack.png" />
+    <EmbeddedResource Include="Sprites\Icons\Passives\IconFireSafety.png" />
     <EmbeddedResource Include="Sprites\Icons\Passives\IconFixedPoint.png" />
     <EmbeddedResource Include="Sprites\Icons\Passives\IconFragmentation.png" />
     <EmbeddedResource Include="Sprites\Icons\Passives\IconHoarfrostMirrored.png" />
@@ -828,6 +832,7 @@
     <EmbeddedResource Include="Sprites\Icons\Passives\IconJournalMode.png" />
     <EmbeddedResource Include="Sprites\Icons\Passives\IconLeadwright.png" />
     <EmbeddedResource Include="Sprites\Icons\Passives\IconMalleable.png" />
+    <EmbeddedResource Include="Sprites\Icons\Passives\IconMarrowSeeker.png" />
     <EmbeddedResource Include="Sprites\Icons\Passives\IconNoE.png" />
     <EmbeddedResource Include="Sprites\Icons\Passives\IconPatient.png" />
     <EmbeddedResource Include="Sprites\Icons\Passives\IconPigmentTransformBlue.png" />
@@ -1041,6 +1046,7 @@
     <EmbeddedResource Include="Sprites\Pigments\BrokenManaCostUnselected.png" />
     <EmbeddedResource Include="Sprites\Pigments\BrokenManaHealth.png" />
     <EmbeddedResource Include="Sprites\Pigments\BrokenManaUsed.png" />
+    <EmbeddedResource Include="Sprites\Items\TradeItems\SeekerBarItemMarrow.png" />
     <EmbeddedResource Include="Sprites\SimulacrumOverworld.png" />
     <EmbeddedResource Include="Sprites\SimulacrumTimeline.png" />
     <EmbeddedResource Include="Sprites\Enemy\Gnomes\GnomesOverworld.png" />
@@ -1191,8 +1197,8 @@
     <EmbeddedResource Include="Sprites\Achievements\BossUnlocks\MarchPearl.png" />
     <EmbeddedResource Include="Sprites\Achievements\BossUnlocks\NobodyPearl.png" />
     <EmbeddedResource Include="Sprites\Achievements\BossUnlocks\BlueSkyPearl.png" />
-    <EmbeddedResource Include="Sprites\WhitlockBarItemAbominableSalts.png" />
-    <EmbeddedResource Include="Sprites\WhitlockBarItemLaudanum.png" />
+    <EmbeddedResource Include="Sprites\Items\TradeItems\WhitlockBarItemAbominableSalts.png" />
+    <EmbeddedResource Include="Sprites\Items\TradeItems\WhitlockBarItemLaudanum.png" />
   </ItemGroup>
 
   <ItemGroup>

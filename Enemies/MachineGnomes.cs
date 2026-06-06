@@ -75,6 +75,10 @@ namespace A_Apocrypha.Enemies
             CheckIsAliveMultiplyByEntryOrPreviousEffect IsUnitPassPrevious = ScriptableObject.CreateInstance<CheckIsAliveMultiplyByEntryOrPreviousEffect>();
             IsUnitPassPrevious._usePreviousExitValue = true;
 
+            SpecificOpponentSlotsByOccupancyTargeting EmptySlots = ScriptableObject.CreateInstance<SpecificOpponentSlotsByOccupancyTargeting>();
+            EmptySlots.targetUnitAllySlots = false;
+            EmptySlots._inverted = true;
+
             Ability splitgroup = new Ability("Split the Group", "AApocrypha_SplitGroup_A")
             {
                 Description = "Deal a Painful amount of indirect damage to this enemy. If the damage did not kill, spawn a horde of Machine Gnomes with maximum health equal to twice the damage dealt.",
@@ -128,7 +132,7 @@ namespace A_Apocrypha.Enemies
                 Rarity = Rarity.Uncommon,
                 Priority = Priority.Normal,
             };
-            playwiththem.AddIntentsToTarget(Targeting.Slot_Front, [nameof(IntentType_GameIDs.Other_Spawn)]);
+            playwiththem.AddIntentsToTarget(EmptySlots, [nameof(IntentType_GameIDs.Other_Spawn)]);
             playwiththem.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Damage_3_6)]);
 
             gnomes.AddPassives([Passives.Slippery, Passives.GetCustomPassive("AA_Heterochromia_PA"), Passives.GetCustomPassive("Gnome_PA")]);

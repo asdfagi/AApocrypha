@@ -119,7 +119,7 @@ namespace A_Apocrypha.CustomStatusField
             {
                 StatusEffectInfoSO SmoulderingInfo = ScriptableObject.CreateInstance<StatusEffectInfoSO>();
                 SmoulderingInfo._statusName = "Smouldering";
-                SmoulderingInfo._description = "At the end of each round, take fire damage equal to the amount of Smouldering. Smouldering does not decrease over time. Smouldering is capped at 7, with any Smouldering applied above 7 instead being converted to indirect fire damage.";
+                SmoulderingInfo._description = "At the end of each round, take fire damage equal to the amount of Smouldering. Smouldering does not decrease over time. Smouldering is capped at 7, with any Smouldering applied above 7 instead being converted to fire damage."; //; On party members, also reduce it by 1
                 SmoulderingInfo.icon = ResourceLoader.LoadSprite("IconSmouldering2");
 
                 LoadedDBsHandler.StatusFieldDB.TryGetStatusEffect("Scars_ID", out StatusEffect_SO scars);
