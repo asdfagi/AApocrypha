@@ -36,6 +36,7 @@ namespace A_Apocrypha.Encounters
             purpleMoldMed.SimpleAddEncounter(1, Aggregates.Purple, 2, "Acolyte_EN");
             purpleMoldMed.SimpleAddEncounter(1, Aggregates.Purple, 1, Enemies.Mungling, 1, "Flarblet_EN");
             purpleMoldMed.SimpleAddEncounter(1, Aggregates.Purple, 2, "MudLung_EN", 1, "Flarblet_EN");
+            purpleMoldMed.SimpleAddEncounter(1, Aggregates.Purple, 1, Enemies.Mungling, 2, "TangledGuests_EN");
             purpleMoldMed.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Aggregates.Purple.Med, 9, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);
         }

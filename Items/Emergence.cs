@@ -47,11 +47,11 @@ namespace A_Apocrypha.Items
                 Conditions = [ScriptableObject.CreateInstance<UnitDeadEffectorCondition>(), NotDying, NotStatue],
                 Effects =
                 [
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ConsumeItemEffect>(), 1, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(HealByPercentage, 50, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(RupturedRestrictorApply, 1, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(Moth),
                 ],
+                ConsumeOnUse = true,
             };
 
             ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(emergence.item, new ItemModdedUnlockInfo("Emergence_TW", ResourceLoader.LoadSprite("UnlockMarchKneynsbergLocked", null, 32, null), "AApocrypha_Kneynsberg_Inevitable_ACH"));

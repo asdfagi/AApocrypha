@@ -4,8 +4,8 @@ using System.Text;
 using A_Apocrypha.CustomOther;
 using BrutalAPI;
 using BrutalAPI.Items;
-using static A_Apocrypha.Encounters.Orph.H;
-using static UnityEngine.GraphicsBuffer;
+//using static A_Apocrypha.Encounters.Orph.H;
+//using static UnityEngine.GraphicsBuffer;
 
 namespace A_Apocrypha.Fools
 {
@@ -30,6 +30,11 @@ namespace A_Apocrypha.Fools
             targetListAmbrose.Add("Blemmigan_EN", "Blemmigan");
             targetListAmbrose.Add("UttershroomSpore_EN", "Uttershroom");
             targetListAmbrose.Add("Minotaur_EN", "Minotaur");
+            targetListAmbrose.Add("Supergiant_EN", "Supergiant");
+            targetListAmbrose.Add("UnboundAnomaly_EN", "Anomaly");
+            targetListAmbrose.Add("EncasedAnomaly_EN", "Anomaly");
+            targetListAmbrose.Add("SharpenedAnomaly_EN", "Anomaly");
+            targetListAmbrose.Add("Threshold_EN", "Threshold");
 
             Dictionary<string, Dictionary<string, string>> targetAltListAmbrose = new Dictionary<string, Dictionary<string, string>>();
 
@@ -42,6 +47,15 @@ namespace A_Apocrypha.Fools
                 targetListAmbroseSoreka.Add("HamalatOrguis_EN", "OrguisWhite");
                 targetAltListAmbrose.Add("Soreka_CH", targetListAmbroseSoreka);
             }
+            if (LoadedAssetsHandler.GetCharacter("ThresholdFool_CH") != null)
+            {
+                Dictionary<string, string> targetListAmbroseAnnaMolly = new Dictionary<string, string>();
+                targetListAmbroseAnnaMolly.Add("UnboundAnomaly_EN", "AnomalyConsultant");
+                targetListAmbroseAnnaMolly.Add("EncasedAnomaly_EN", "AnomalyConsultant");
+                targetListAmbroseAnnaMolly.Add("SharpenedAnomaly_EN", "AnomalyConsultant");
+                targetListAmbroseAnnaMolly.Add("Threshold_EN", "ThresholdConsultant");
+                targetAltListAmbrose.Add("ThresholdFool_CH", targetListAmbroseAnnaMolly);
+            }
 
             string ambroseDiaID = "Ambrose_Journal_Dialogue";
             YarnProgram ambroseYarn = AApocrypha.assetBundle.LoadAsset<YarnProgram>(string.Format("Assets/Apocrypha_Misc/AmbroseJournalScript.yarn"));
@@ -51,6 +65,7 @@ namespace A_Apocrypha.Fools
             //NAUDIZ 4
             Dictionary<string, string> targetListNaudiz = new Dictionary<string, string>();
             targetListNaudiz.Add("SandSifter_EN", "SandSifter");
+            targetListNaudiz.Add("SandSifterSummon_EN", "SandSifter");
             targetListNaudiz.Add("DuneThresher_EN", "DuneThresher");
             targetListNaudiz.Add("HazardHauler_Siren_EN", "HazardHauler");
             targetListNaudiz.Add("AmalgamatedAssessor_BOSS", "Assessor");
@@ -59,6 +74,10 @@ namespace A_Apocrypha.Fools
             targetListNaudiz.Add("TuringTarpit_EN", "TuringTarpit");
             targetListNaudiz.Add("Eater_Invis_EN", "InvisEater");
             targetListNaudiz.Add("CobaltCurator_EN", "CobaltCurator");
+            targetListNaudiz.Add("ArtilleryWitch_EN", "ArtilleryWitch");
+            targetListNaudiz.Add("YNL_EN", "YNL");
+            targetListNaudiz.Add("MechanicalLens_EN", "MechanicalLens");
+            targetListNaudiz.Add("AgeOfDestruction_Obliterator_EN", "DestructionObliterator");
 
             Dictionary<string, Dictionary<string, string>> targetAltListNaudiz4 = new Dictionary<string, Dictionary<string, string>>();
 
@@ -81,6 +100,10 @@ namespace A_Apocrypha.Fools
             targetListWhitlock.Add("Bloatfinger_EN", "Bloatfinger");
             targetListWhitlock.Add("StillLife_EN", "DeadGuy");
             targetListWhitlock.Add("Home_EN", "CallOfTheVoid");
+            targetListWhitlock.Add("LornFluke_BOSS", "LornFluke");
+            targetListWhitlock.Add("SkullHermit_Hidden_EN", "SkullHermit1");
+            targetListWhitlock.Add("SkullHermit_Exposed_EN", "SkullHermit2");
+            targetListWhitlock.Add("Parfait_EN", "Parfait");
 
             Dictionary<string, Dictionary<string, string>> targetAltListWhitlock = new Dictionary<string, Dictionary<string, string>>();
 
@@ -96,11 +119,23 @@ namespace A_Apocrypha.Fools
             Dialogues.AddCustom_DialogueProgram(whitlockDiaID, whitlockYarn);
             DialogueSO whitlockDialogue = Dialogues.CreateAndAddCustom_DialogueSO(whitlockDiaID, whitlockYarn, whitlockDiaID, "AApocrypha.Whitlock.Journal");
 
+            //KNEYNSBERG
+            Dictionary<string, string> targetListKneynsberg = new Dictionary<string, string>();
+            targetListKneynsberg.Add("CageGarden_Item_EN", "CageGarden");
+            targetListKneynsberg.Add("CageGarden_EN", "CageGarden");
+
+            Dictionary<string, Dictionary<string, string>> targetAltListKneynsberg = new Dictionary<string, Dictionary<string, string>>();
+
+            string kneynsbergDiaID = "Kneynsberg_Journal_Dialogue";
+            YarnProgram kneynsbergYarn = AApocrypha.assetBundle.LoadAsset<YarnProgram>(string.Format("Assets/Apocrypha_Misc/KneynsbergJournalScript.yarn"));
+            Dialogues.AddCustom_DialogueProgram(kneynsbergDiaID, kneynsbergYarn);
+            DialogueSO kneynsbergDialogue = Dialogues.CreateAndAddCustom_DialogueSO(kneynsbergDiaID, kneynsbergYarn, kneynsbergDiaID, "AApocrypha.Kneynsberg.Journal");
+
             //AMBROSE JOURNAL
             if (LoadedAssetsHandler.GetCharacter("Ambrose_CH") != null)
             {
                 Debug.Log("Journal Mode | Dr. Ambrose journal setup");
-                JournalSetup("Ambrose_CH", "Ambrose", "Dr. Ambrose", ["he", "him", "his"], "Dr. Ambrose's Journal", "Overflowing with pages. Lightly singed.", "", targetListAmbrose, targetAltListAmbrose, ambroseDialogue);
+                JournalSetup("Ambrose_CH", "Ambrose", "Dr. Ambrose", ["he", "him", "his"], "Correspondent's Tome", "Overflowing with pages. Lightly singed.", "", targetListAmbrose, targetAltListAmbrose, ambroseDialogue);
             }
             //NAUDIZ 4 JOURNAL
             if (LoadedAssetsHandler.GetCharacter("Naudiz4_CH") != null)
@@ -112,7 +147,13 @@ namespace A_Apocrypha.Fools
             if (LoadedAssetsHandler.GetCharacter("Whitlock_CH") != null)
             {
                 Debug.Log("Journal Mode | Whitlock journal setup");
-                JournalSetup("Whitlock_CH", "Whitlock", "Whitlock", ["she", "her", "her"], "Whitlock's Journal", "One journal, many faces.", "", targetListWhitlock, targetAltListWhitlock, whitlockDialogue);
+                JournalSetup("Whitlock_CH", "Whitlock", "Whitlock", ["she", "her", "her"], "Snuffer's Logbook", "One mind, many faces.", "", targetListWhitlock, targetAltListWhitlock, whitlockDialogue);
+            }
+            //KNEYNSBERG JOURNAL
+            if (LoadedAssetsHandler.GetCharacter("Kneynsberg_CH") != null)
+            {
+                Debug.Log("Journal Mode | Kneynsberg journal setup");
+                JournalSetup("Kneynsberg_CH", "Kneynsberg", "Kneynsberg", ["he", "him", "his"], "Moth-Eaten Dream Journal", "Hard to read, harder to grasp.", "", targetListKneynsberg, targetAltListKneynsberg, kneynsbergDialogue);
             }
         }
         public static void JournalSetup(string foolID, string foolIDnoCH, string foolName, string[] pronouns, string itemName, string flavorText, string hint, Dictionary<string, string> targets, Dictionary<string, Dictionary<string, string>> altTargets, DialogueSO dialogue)
@@ -198,6 +239,17 @@ namespace A_Apocrypha.Fools
             ];
 
             return journalPassive;
+        }
+
+        public static void AddMiscSpeakers()
+        {
+            Sprite blankSprite = ResourceLoader.LoadSprite("AnomalyDead", new Vector2(0.5f, 0f), 32);
+
+            SpeakerBundle speakerBundleThreshold = new SpeakerBundle();
+            speakerBundleThreshold.bundleTextColor = new Color32(101, 25, 135, 255);
+            speakerBundleThreshold.dialogueSound = "event:/AAEnemy/Threshold/ThresholdHurt";
+            speakerBundleThreshold.portrait = blankSprite;
+            Dialogues.CreateAndAddCustom_SpeakerData("Threshold", speakerBundleThreshold, true, true, new SpeakerEmote[0]);
         }
     }
 }

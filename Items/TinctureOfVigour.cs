@@ -62,11 +62,7 @@ namespace A_Apocrypha.Items
                 "Drink",
             ];
 
-            tincturehalf.item._ItemTypeIDs =
-            [
-                "FoodID",
-                "Drink",
-            ];
+            tincturehalf.item._ItemTypeIDs = tincture.item._ItemTypeIDs;
 
             ItemUtils.AddItemToShopStatsCategoryAndGamePool(tincture.item, new ItemModdedUnlockInfo("TinctureOfVigour_SW", ResourceLoader.LoadSprite("UnlockOsmanWhitlockLocked", null, 32, null), "AApocrypha_Whitlock_Witness_ACH"));
 

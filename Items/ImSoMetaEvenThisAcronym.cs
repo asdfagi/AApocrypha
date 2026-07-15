@@ -56,7 +56,7 @@ namespace A_Apocrypha.Items
                 items = [ismeta.Item_ID],
             };
 
-            FinalBossCharUnlockCheck unlockCheck = Unlocks.GetOrCreateUnlock_CustomFinalBoss("Katalixi_BOSS", ResourceLoader.LoadSprite("KatalixiPearl", null, 32, null));
+            FinalBossCharUnlockCheck unlockCheck = Unlocks.GetOrCreateUnlock_CustomFinalBoss("Katalixi_BOSS", ResourceLoader.LoadSprite("KatalixiPearl", null, 16, null));
             unlockCheck.AddUnlockData("ThresholdFool_CH", unlockData);
 
             ModdedAchievements unlockAchievement = new ModdedAchievements("Asdfagi's Abominable Apocrypha", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementKatalixiAnnaMolly", null, 32, null), achievementID);

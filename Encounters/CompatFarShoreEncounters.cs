@@ -80,7 +80,7 @@ namespace A_Apocrypha.Encounters
                 shoreAdd.SimpleAddGroup(1, Martians.Blue, 1, "MudLung_EN", 1, Aggregates.Purple);
 
                 shoreAdd = new AddTo(Shore.H.Keklets.Med);
-                shoreAdd.SimpleAddGroup(1, "Keklets_EN", 1, "Keko_EN", 1, "FungusColumn_EN");
+                shoreAdd.SimpleAddGroup(1, "Keklets_EN", 2, "Keko_EN", 1, "FungusColumn_EN");
             }
         }
     }

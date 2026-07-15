@@ -46,7 +46,7 @@ namespace A_Apocrypha.CustomStatusField
                     oilCheck = true;
                     u.TryRemoveStatusEffect(StatusField.OilSlicked.StatusID);
                 }
-                u.Damage((oilCheck ? holder.m_ContentMain * 2 : holder.m_ContentMain), null, DeathType_GameIDs.Obliteration.ToString(), 0, false, false, true, (isLogos ? CombatType_GameIDs.Dmg_Linked.ToString() : CombatType_GameIDs.Dmg_Fire.ToString()));
+                u.Damage((oilCheck ? (holder.m_ContentMain + holder.Restrictor) * 2 : holder.m_ContentMain + holder.Restrictor), null, DeathType_GameIDs.Obliteration.ToString(), 0, false, false, true, (isLogos ? CombatType_GameIDs.Dmg_Linked.ToString() : CombatType_GameIDs.Dmg_Fire.ToString()));
             }
         }
 

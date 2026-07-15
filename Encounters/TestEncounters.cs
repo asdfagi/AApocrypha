@@ -9,12 +9,12 @@ namespace A_Apocrypha.Encounters
         public static void Add()
         {
             Debug.LogWarning("Encounters | Warning! TestEncounters.cs is enabled!");
-            EnvironmentTools.PrepareCombatEnvPrefab("Assets/Apocrypha_Environments/Parabola/Parabola_SmokingShore_CombatEnv.prefab", "TestEncounterEnv", AApocrypha.assetBundle);
+            //EnvironmentTools.PrepareCombatEnvPrefab("Assets/Apocrypha_Environments/Parabola/Parabola_SmokingShore_CombatEnv.prefab", "TestEncounterEnv", AApocrypha.assetBundle);
             //EnvironmentTools.PrepareCombatEnvPrefab("Assets/Whitmore/WhitmoreArena.prefab", "TestEncounterEnv", AApocrypha.whitmoreBundle);
             Portals.AddPortalSign("Test_Sign", ResourceLoader.LoadSprite("testencountericon", new Vector2(0.5f, 0f), 32), Portals.BossIDColor);
             EnemyEncounter_API testMedium = new EnemyEncounter_API(EncounterType.Specific, "H_Zone01_Test_Medium_EnemyBundle", "Test_Sign")
             {
-                MusicEvent = "event:/AAMusic/ReLogic/Skeletron",
+                MusicEvent = "event:/AAMusic/Downwell/Limbo2",
                 //MusicEvent = "event:/AAMusic/EXCELSIOR/RockerSwitch",
                 //RoarEvent = LoadedAssetsHandler.GetEnemyBundle("H_Zone03_ChoirBoy_Easy_EnemyBundle")._roarReference.roarEvent,
                 //RoarEvent = LoadedAssetsHandler.GetEnemy("Sepulchre_EN").deathSound,
@@ -23,10 +23,12 @@ namespace A_Apocrypha.Encounters
                 //RoarEvent = "event:/AAEnemy/BFElemental/BFElementalRoar",
                 //SpecialEnvironmentID = "TestEncounterEnv",
             };
-            testMedium.AddSpecialEnvironment("TestEncounterEnv");
+            //testMedium.AddSpecialEnvironment("TestEncounterEnv");
             testMedium.CreateNewEnemyEncounterData([
-                "PanopticOrguis_EN",
-            ], [2]);
+                "GuestColony_EN",
+                "TangledGuests_EN",
+                "TangledGuests_EN",
+            ], [1, 0, 3]);
             //testMedium.SimpleAddEncounter(1, "Threshold_EN");
             testMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector("H_Zone01_Test_Medium_EnemyBundle", 9999, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Medium);

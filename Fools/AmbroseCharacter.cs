@@ -427,7 +427,7 @@ namespace A_Apocrypha.Fools
             ambrose.AddFinalBossAchievementData(BossType_GameIDs.Heaven.ToString(), "AApocrypha_Ambrose_Divine_ACH");
             if (AApocrypha.CrossMod.EnemyPack) { ambrose.AddFinalBossAchievementData("DoulaBoss", "AApocrypha_Ambrose_Abstraction_ACH"); }
             if (AApocrypha.CrossMod.GlitchsFreaks) { ambrose.AddFinalBossAchievementData("March_BOSS", "AApocrypha_Ambrose_Inevitable_ACH"); }
-            //if (AApocrypha.CrossMod.IntoTheAbyss) { ambrose.AddFinalBossAchievementData("Nobody_BOSS", "AApocrypha_Ambrose_Forgotten_ACH"); }
+            if (AApocrypha.CrossMod.IntoTheAbyss) { ambrose.AddFinalBossAchievementData("Nobody_BOSS", "AApocrypha_Ambrose_Forgotten_ACH"); }
             //if (AApocrypha.CrossMod.IntoTheAbyss) { ambrose.AddFinalBossAchievementData("Katalixi_BOSS", "AApocrypha_Ambrose_Boundary_ACH"); }
             //if (AApocrypha.CrossMod.SaltEnemies) { ambrose.AddFinalBossAchievementData("BlueSky_BOSS", "AApocrypha_Ambrose_Dreamer_ACH"); }
             ambrose.AddCharacter(true, false);

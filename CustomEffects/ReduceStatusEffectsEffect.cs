@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Text;
 
 namespace A_Apocrypha.CustomEffects
@@ -35,6 +36,9 @@ namespace A_Apocrypha.CustomEffects
                         {
                             if (((status.IsPositive && _decreasePositives) || (!status.IsPositive && _decreaseNegatives)) && !_blacklist.Contains(status.StatusID))
                             {
+                                RemoveStatusEffectEffect wipeStatus = ScriptableObject.CreateInstance<RemoveStatusEffectEffect>();
+                                wipeStatus._status = StatusField.GetCustomStatusEffect(status.StatusID);
+
                                 if (status.StatusContent > Math.Abs(entryVariable))
                                 {
                                     if (status.TryAddContent(entryVariable, 0))
@@ -45,7 +49,8 @@ namespace A_Apocrypha.CustomEffects
                                 }
                                 else
                                 {
-                                    exitAmount += targetCH.TryRemoveStatusEffect(status.StatusID);
+                                    exitAmount += status.StatusContent;
+                                    CombatManager.Instance.AddSubAction(new EffectAction([Effects.GenerateEffect(wipeStatus, 1, Targeting.Slot_SelfSlot)], targetCH, 0));
                                 }
                             }
                         }
@@ -56,6 +61,9 @@ namespace A_Apocrypha.CustomEffects
                         {
                             if (((status.IsPositive && _decreasePositives) || (!status.IsPositive && _decreaseNegatives)) && !_blacklist.Contains(status.StatusID))
                             {
+                                RemoveStatusEffectEffect wipeStatus = ScriptableObject.CreateInstance<RemoveStatusEffectEffect>();
+                                wipeStatus._status = StatusField.GetCustomStatusEffect(status.StatusID);
+
                                 if (status.StatusContent > Math.Abs(entryVariable))
                                 {
                                     if (status.TryAddContent(entryVariable, 0))
@@ -66,7 +74,8 @@ namespace A_Apocrypha.CustomEffects
                                 }
                                 else
                                 {
-                                    exitAmount += targetEN.TryRemoveStatusEffect(status.StatusID);
+                                    exitAmount += status.StatusContent;
+                                    CombatManager.Instance.AddSubAction(new EffectAction([Effects.GenerateEffect(wipeStatus, 1, Targeting.Slot_SelfSlot)], targetEN, 0));
                                 }
                             }
                         }

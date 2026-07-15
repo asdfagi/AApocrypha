@@ -10,6 +10,9 @@ namespace A_Apocrypha.Enemies
     {
         public static void Add()
         {
+            string sculptorBirdDataPath = (AApocrypha.zambosauce.Value ? "SculptorBird_Banban" : "SculptorBird");
+            string sirenBirdDataPath = (AApocrypha.zambosauce.Value ? "SirenBird_Banban" : "SirenBird");
+
             Enemy sculptorbird = new Enemy("Sculptor Bird", "SculptorBird_EN")
             {
                 Health = 35,
@@ -23,7 +26,7 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Bird"],
                 AbilitySelector = ScriptableObject.CreateInstance<AbilitySelector_SculptorBird>(),
             };
-            sculptorbird.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/SculptorBird_Enemy/SculptorBird_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/SculptorBird_Enemy/SculptorBird_Giblets.prefab").GetComponent<ParticleSystem>());
+            sculptorbird.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/SculptorBird_Enemy/" + sculptorBirdDataPath + "_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/SculptorBird_Enemy/" + sculptorBirdDataPath + "_Giblets.prefab").GetComponent<ParticleSystem>());
             
             DamageEffect IndirectDamage = ScriptableObject.CreateInstance<DamageEffect>();
             IndirectDamage._indirect = true;
@@ -342,7 +345,7 @@ namespace A_Apocrypha.Enemies
                     UnitTypes = ["Bird"],
                     AbilitySelector = ScriptableObject.CreateInstance<AbilitySelector_SculptorBird>(),
                 };
-                sirenbird.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/SculptorBird_Enemy/SirenBird_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/SculptorBird_Enemy/SculptorBird_Giblets.prefab").GetComponent<ParticleSystem>());
+                sirenbird.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/SculptorBird_Enemy/" + sirenBirdDataPath + "_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/SculptorBird_Enemy/" + sculptorBirdDataPath + "_Giblets.prefab").GetComponent<ParticleSystem>());
 
                 sirenbird.AddPassives([Passives.Slippery, Passives.BonusAttackGenerator(wetpaintextra)]);
 

@@ -8,6 +8,8 @@ namespace A_Apocrypha.Items
     {
         public static void Add()
         {
+            if (!LoadedDBsHandler._StatusFieldDB._StatusEffects.ContainsKey("Weakness_ID")) { return; }
+
             StatusEffect_Apply_Effect weakerer = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             weakerer._Status = StatusField.GetCustomStatusEffect("Weakness_ID");
 
@@ -22,7 +24,7 @@ namespace A_Apocrypha.Items
                 ShopPrice = 9,
                 StartsLocked = true,
                 DoesPopUpInfo = true,
-                Icon = ResourceLoader.LoadSprite("UnlockNobodyVaughan"),
+                Icon = ResourceLoader.LoadSprite("UnlockBossLornFluke"),
                 TriggerOn = TriggerCalls.OnWillApplyDamage,
                 SecondaryDoesPopUpInfo = true,
                 SecondaryConsumeOnUse = false,
@@ -34,26 +36,7 @@ namespace A_Apocrypha.Items
                 OnUnlockUsesTHE = true,
             };
 
-            string achievementID = "AApocrypha_Vaughan_Forgotten_ACH";
-            string unlockID = "AApocrypha_Vaughan_Forgotten_Unlock";
-
-            ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(aigul.item, new ItemModdedUnlockInfo(aigul.Item_ID, ResourceLoader.LoadSprite("UnlockNobodyVaughanLocked", null, 32, null), achievementID));
-
-            BrutalAPI.BackwardsUnlockCompatibility.TryLockItemBehindAchievement(achievementID, aigul.Item_ID);
-
-            UnlockableModData unlockData = new UnlockableModData(unlockID)
-            {
-                hasModdedAchievementUnlock = true,
-                moddedAchievementID = achievementID,
-                hasItemUnlock = true,
-                items = [aigul.Item_ID],
-            };
-
-            FinalBossCharUnlockCheck unlockCheck = Unlocks.GetOrCreateUnlock_CustomFinalBoss("Nobody_BOSS", ResourceLoader.LoadSprite("NobodyPearl", null, 32, null));
-            unlockCheck.AddUnlockData("Vaughan_CH", unlockData);
-
-            ModdedAchievements unlockAchievement = new ModdedAchievements("Spine of Regret", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementNobodyVaughan", null, 32, null), achievementID);
-            unlockAchievement.AddNewAchievementToCUSTOMCategory("ForgottenTitleLabel", "The Forgotten");
+            ItemUtils.AddItemToTreasureStatsCategoryAndGamePool(aigul.item, new ItemModdedUnlockInfo(aigul.Item_ID, ResourceLoader.LoadSprite("UnlockBossLornFlukeLocked", null, 32, null), "LornFlukeBoss_ACH"));
         }
     }
 }

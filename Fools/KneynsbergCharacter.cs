@@ -43,7 +43,7 @@ namespace A_Apocrypha.Fools
             PreviousTrue.wasSuccessful = true;
 
             AttackVisualsSO JauntVisuals = Visuals.Crush;
-            if (AApocrypha.CrossMod.SaltEnemies)
+            if (AApocrypha.CrossMod.SaltEnemies && LoadedAssetsHandler.GetEnemy("GlassedSun_EN") != null)
             {
                 JauntVisuals = LoadedAssetsHandler.GetEnemyAbility("Reflections_A").visuals;
             }
@@ -321,7 +321,7 @@ namespace A_Apocrypha.Fools
             if (AApocrypha.CrossMod.EnemyPack) { kneynsberg.AddFinalBossAchievementData("DoulaBoss", "AApocrypha_Kneynsberg_Abstraction_ACH"); }
             if (AApocrypha.CrossMod.GlitchsFreaks) { kneynsberg.AddFinalBossAchievementData("March_BOSS", "AApocrypha_Kneynsberg_Inevitable_ACH"); }
             if (AApocrypha.CrossMod.IntoTheAbyss) { kneynsberg.AddFinalBossAchievementData("Nobody_BOSS", "AApocrypha_Kneynsberg_Forgotten_ACH"); }
-            //if (AApocrypha.CrossMod.IntoTheAbyss) { kneynsberg.AddFinalBossAchievementData("Katalixi_BOSS", "AApocrypha_Kneynsberg_Boundary_ACH"); }
+            if (AApocrypha.CrossMod.IntoTheAbyss) { kneynsberg.AddFinalBossAchievementData("Katalixi_BOSS", "AApocrypha_Kneynsberg_Boundary_ACH"); }
             if (AApocrypha.CrossMod.SaltEnemies) { kneynsberg.AddFinalBossAchievementData("BlueSky_BOSS", "AApocrypha_Kneynsberg_Dreamer_ACH"); }
             kneynsberg.AddCharacter(true, false);
 

@@ -111,6 +111,14 @@ namespace A_Apocrypha.Enemies
             PerformEffectViaSubaction mendSub = ScriptableObject.CreateInstance<PerformEffectViaSubaction>();
             mendSub.effects = [Effects.GenerateEffect(Mend, 1, Targeting.Unit_AllOpponents)];
 
+            ExtraLootEffect Treasure = ScriptableObject.CreateInstance<ExtraLootEffect>();
+            Treasure._isTreasure = true;
+            Treasure._getLocked = false;
+
+            ExtraLootEffect Treasurent = ScriptableObject.CreateInstance<ExtraLootEffect>();
+            Treasurent._isTreasure = false;
+            Treasurent._getLocked = false;
+
             Enemy dogma = new Enemy("Tarnished Divinity", "TarnishedDivinity_EN")
             {
                 Health = 200,
@@ -122,21 +130,25 @@ namespace A_Apocrypha.Enemies
                 DamageSound = "event:/AAEnemy/Phobias/PhobiasRoar",
                 DeathSound = "event:/AAEnemy/Phobias/DogmaDeath",
                 UnitTypes = [],
-                AbilitySelector = ScriptableObject.CreateInstance <AbilitySelector_NoDuplicate>(),
+                AbilitySelector = ScriptableObject.CreateInstance<AbilitySelector_NoDuplicate>(),
                 CombatEnterEffects = [
                     Effects.GenerateEffect(DogmaValueReset, 0, Targeting.Slot_SelfSlot),
                     Effects.GenerateEffect(MusicToggleReset),
                     Effects.GenerateEffect(DogmaAdd, 1, Targeting.Slot_SelfSlot),
                 ],
+                CombatExitEffects = [
+                    Effects.GenerateEffect(Treasure, 1, Targeting.Slot_SelfSlot),
+                    Effects.GenerateEffect(Treasurent, 1, Targeting.Slot_SelfSlot),
+                ],
             };
             dogma.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Dogma_Enemy/Dogma_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Dogma_Enemy/Dogma_Giblets.prefab").GetComponent<ParticleSystem>());
-            dogma.AddPassives([Passives.GetCustomPassive("Fragile_PA"), Passives.MultiAttack2, Passives.GetCustomPassive("Thrombophilia_PA"), Passives.Dying]);
+            dogma.AddPassives([Passives.GetCustomPassive("Fragile_PA"), Passives.MultiAttack2, /*Passives.GetCustomPassive("Thrombophilia_PA"), */Passives.Dying]);
 
             Ability worship = new Ability("Your Hollow Worship", "AApocrypha_DogmaAmplify_A")
             {
                 Description = "Apply 1 Scar to this enemy." +
-                "\nShatter all Broken pigment in the pigment tray. For each pigment shattered, produce one pigment of a random color. If 5 or more Pigment was shattered, increase Dogma by 1." +
-                "\nIf all non-Pure party members have Broken health, deal a Painful amount of indirect damage to All party members with Broken health, then randomize the health color of all party members.",
+                "\nShatter all Broken pigment and replace it with pigment of random colors. If 5 or more Pigment was shattered, increase Dogma by 1." +
+                "\nIf all non-Pure party members have Broken health, randomize the health color of all party members.",
                 Cost = [Pigments.Grey],
                 Visuals = Visuals.UglyOnTheInside,
                 AnimationTarget = Targeting.Slot_SelfSlot,
@@ -151,7 +163,7 @@ namespace A_Apocrypha.Enemies
                     Effects.GenerateEffect(DogmaAdd, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 3)),
                     Effects.GenerateEffect(AllIsBroken, 1, Targeting.Unit_AllOpponents),
                     Effects.GenerateEffect(SmiteBrokenAnim, 1, Targeting.Slot_SelfSlot, Effects.CheckPreviousEffectCondition(true, 1)),
-                    Effects.GenerateEffect(BasicEffects.Indirect, 4, partyBroken, Effects.CheckPreviousEffectCondition(true, 2)),
+                    //Effects.GenerateEffect(BasicEffects.Indirect, 4, partyBroken, Effects.CheckPreviousEffectCondition(true, 2)),
                     Effects.GenerateEffect(mendSub, 1, Targeting.Unit_AllOpponents, Effects.CheckPreviousEffectCondition(true, 2)),
                 ],
                 Rarity = Rarity.ImpossibleNoReroll,

@@ -16,7 +16,6 @@ namespace A_Apocrypha.Encounters
             };
             sandSifterEasy.SimpleAddEncounter(1, "SandSifter_EN", 1, "Mung_EN");
             sandSifterEasy.SimpleAddEncounter(1, "SandSifter_EN", 1, "MudLung_EN", 1, "Mung_EN");
-            sandSifterEasy.SimpleAddEncounter(1, "SandSifter_EN", 1, "Keko_EN");
             sandSifterEasy.SimpleAddEncounter(1, "SandSifter_EN", 2, "Keko_EN");
             if (AApocrypha.CrossMod.HellIslandFell)
             {

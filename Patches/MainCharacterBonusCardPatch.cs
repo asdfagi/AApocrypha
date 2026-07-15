@@ -18,7 +18,7 @@ namespace A_Apocrypha.Patches
             //LoadedDBsHandler.UnlockablesDB.TryGetMiscUnlockCheck("Lucina", out check);
             string loadedMC = LoadedDBsHandler.InfoHolder.Run.inGameData.GetStringData("AA_MainCharacter");
             //Debug.Log("cardType: " + info.cardType.ToString() + ", loadedMC: " + loadedMC);
-            if (info.cardType == ForceAddType && loadedMC == "Whitlock_CH")
+            if (info.cardType == BonusMainForceAddType && loadedMC == "Whitlock_CH")
             {
                 Debug.Log("whitlock bonus card generated");
                 GenerateWhitlockBonusCard(__instance, info);
@@ -31,7 +31,7 @@ namespace A_Apocrypha.Patches
         public static CardTypeInfo bonusCard;
         public static BasicEncounterSO bonusEncounter;
 
-        public static CardType ForceAddType => (CardType)787;
+        public static CardType BonusMainForceAddType => (CardType)770;
 
         public static void AddWhitlockBonusEncounter(BasicEncounterSO BasicEncounter, string zoneDB_ID)
         {
@@ -40,7 +40,7 @@ namespace A_Apocrypha.Patches
 
             CardTypeInfo FWCard = new CardTypeInfo();
             FWCard._cardInfo = new CardInfo();
-            FWCard._cardInfo.cardType = ForceAddType;
+            FWCard._cardInfo.cardType = BonusMainForceAddType;
             FWCard._cardInfo.pilePosition = PilePositionType.Any;
             FWCard._usePercentage = true;
             FWCard._percentage = 75;

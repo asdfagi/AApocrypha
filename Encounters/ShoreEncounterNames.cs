@@ -443,6 +443,20 @@ namespace A_Apocrypha.Encounters
                     public static string Med => "H_Zone01_PurpleAggregate_Medium_EnemyBundle";
                 }
             }
+
+            public static class Guests
+            {
+                public static class Cluster
+                {
+                    public static string Easy => "H_Zone01_TangledGuests_Easy_EnemyBundle";
+                    public static string Med => "H_Zone01_TangledGuests_Medium_EnemyBundle";
+                }
+                public static class Colony
+                {
+                    public static string Med => "H_Zone01_GuestColony_Medium_EnemyBundle";
+                    public static string Hard => "H_Zone01_GuestColony_Hard_EnemyBundle";
+                }
+            }
         }
     }
 }

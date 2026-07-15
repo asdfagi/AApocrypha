@@ -35,6 +35,16 @@ namespace A_Apocrypha.Enemies
                 UnitTypes = ["Robot"],
             };
 
+            AddPassiveEffect OpportunityRobot = ScriptableObject.CreateInstance<AddPassiveEffect>();
+            OpportunityRobot._passiveToAdd = Passives.GetCustomPassive("AA_Opportunity_RobotLoot_PA");
+
+            GameBoolDataEffectCondition IsRobotLootTime = ScriptableObject.CreateInstance<GameBoolDataEffectCondition>();
+            IsRobotLootTime._VariableName = "AA_InstituteRobotLootCheck";
+            IsRobotLootTime._PassIfTrue = true;
+
+            sandsifter.CombatEnterEffects = [Effects.GenerateEffect(OpportunityRobot, 1, Targeting.Slot_SelfSlot, IsRobotLootTime)];
+            sandsiftersummon.CombatEnterEffects = [Effects.GenerateEffect(OpportunityRobot, 1, Targeting.Slot_SelfSlot, IsRobotLootTime)];
+
             SwapToOneRandomSideXTimesEffect SwapRandomFar = ScriptableObject.CreateInstance<SwapToOneRandomSideXTimesEffect>();
 
             ForceGenerateRandomManaBetweenEffect WeirdRandomPigmentSimple = ScriptableObject.CreateInstance<ForceGenerateRandomManaBetweenEffect>();

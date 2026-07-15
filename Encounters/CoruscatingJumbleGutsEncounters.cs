@@ -17,20 +17,17 @@ namespace A_Apocrypha.Encounters
             rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Blue, 1, "MusicMan_EN");
             rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Purple, 1, "MusicMan_EN");
             rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Purple, 1, Jumble.Red);
-            rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Purple, 1, Spoggle.Red);
+            //rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Purple, 1, Spoggle.Red);
             rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 2, "MusicMan_EN", 1, "SingingStone_EN");
             rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, "MusicMan_EN", 1, "Scrungie_EN");
-            if (AApocrypha.CrossMod.Colophons)
+            /*if (AApocrypha.CrossMod.Colophons)
             {
                 rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Colophon.Yellow, 1, "MusicMan_EN");
                 rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Colophon.Purple, 1, "MusicMan_EN", 1, "SingingStone_EN");
-            }
+            }*/
             if (AApocrypha.CrossMod.IntoTheAbyss)
             {
-                if (AApocrypha.CrossMod.Colophons)
-                {
-                    rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Colophon.Green, 1, "MusicMan_EN", 1, "SingingStone_EN");
-                }
+                rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, "Fanatic_EN", 1, "MusicMan_EN", 1, "SingingStone_EN");
                 if (AApocrypha.CrossMod.pigmentGilded)
                 {
                     rainbowGutsMedium.SimpleAddEncounter(1, Jumble.Rainbow, 1, Jumble.Gilded, 1, "MusicMan_EN");

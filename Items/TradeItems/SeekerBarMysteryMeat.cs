@@ -10,8 +10,10 @@ namespace A_Apocrypha.Items.TradeItems
     {
         public static void Add()
         {
+            PerformEffectWearable originalmeat = LoadedAssetsHandler.GetWearable("MysteryRation_SW") as PerformEffectWearable;
+
             PerformEffect_Item mysterymeat = new PerformEffect_Item("SeekerMysteryMeat_ID", null, false)
-            { // yes, this is just a copy of mystery ration - circumventing that weird whitlock bar bug again
+            { // yes, this is just a copy of mystery ration - turns out there is no such thing as "the whitlock bar bug" but :sparkles:flavour:sparkles:
                 Item_ID = "SeekerMysteryMeat_ExtraW",
                 Name = "Mystery Meat",
                 Flavour = "\"Every moving thing that liveth shall be meat for you.\"",
@@ -20,14 +22,17 @@ namespace A_Apocrypha.Items.TradeItems
                 ShopPrice = 4,
                 DoesPopUpInfo = true,
                 StartsLocked = false,
-                Icon = LoadedAssetsHandler.GetWearable("MysteryRation_SW").wearableImage,
+                Icon = originalmeat.wearableImage,
                 TriggerOn = TriggerCalls.OnDeath,
                 ConsumeOnUse = true,
-                Effects =
-                [
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<FullHealEffect>(), 1, Targeting.Unit_OtherAllies),
-                ],
+                Effects = originalmeat.effects,
             };
+
+            mysterymeat.item._ItemTypeIDs =
+            [
+                "FoodID",
+                "Meat",
+            ];
 
             ItemUtils.JustAddItemSoItCanBeLoaded(mysterymeat.item);
         }

@@ -18,7 +18,6 @@ namespace A_Apocrypha.Encounters
             asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "MudLung_EN", 1, "Mung_EN");
             asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "MudLung_EN", 2, "Mung_EN");
             asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "MunglingMudLung_EN", 1, "Mung_EN");
-            asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Keko_EN");
             asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 2, "Keko_EN");
             asterismMedium.SimpleAddEncounter(2, "Asterism_EN");
             asterismMedium.SimpleAddEncounter(1, "Asterism_EN", 1, "Acolyte_EN");

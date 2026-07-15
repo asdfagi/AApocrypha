@@ -51,6 +51,7 @@ namespace A_Apocrypha
         public static ConfigEntry<bool> hemisphere;
         public static ConfigEntry<bool> eyebitevisual;
         public static ConfigEntry<bool> journalmode;
+        public static ConfigEntry<bool> zambosauce;
 
         public static Moon.PhaseResult MoonData;
 
@@ -160,7 +161,7 @@ namespace A_Apocrypha
         public void Awake()
         {
             Logger.LogInfo("Asdfagi's Abominable Apocrypha activating...");
-            //Logger.LogInfo("This is a testing build - Enjoy!");
+            Logger.LogInfo("This is a testing build - Enjoy!");
 
             var harmony = new Harmony("asdfagi.A_Apocrypha");
             harmony.PatchAll();
@@ -168,7 +169,8 @@ namespace A_Apocrypha
             ConfigFile config = new ConfigFile(System.IO.Path.Combine(Paths.ConfigPath, "AApocrypha.cfg"), true);
             hemisphere = config.Bind("Preferences", "Southern Hemisphere Override", false, "Set this to true if you're more of a southern hemisphere kind of individual. Adjusts Season and Moon Phase.");
             eyebitevisual = config.Bind("Triggers & Phobias", "Eye Gouging Animation", false, "Set this to true to enable the eye gouging animation for the Tear Drinker. [CURRENTLY UNIMPLEMENTED]");
-            journalmode = config.Bind("Gameplay - Misc", "Journal Mode", false, "EXPERIMENTAL - Set this to true to enable Journal Mode, giving certain fools the means to reveal more lore about themselves and their worlda of origin.");
+            journalmode = config.Bind("Gameplay - Misc", "Journal Mode", false, "EXPERIMENTAL - Set this to true to enable Journal Mode, giving certain fools the means to reveal more lore about themselves and their worlds of origin.");
+            zambosauce = config.Bind("Joke Settings", "Zambo Sauce", false, "Blame rovn.");
 
             //Asset Bundles
             assetBundle = AssetBundle.LoadFromMemory(ResourceLoader.ResourceBinary("aapocrypha_assetbundle"));
@@ -272,8 +274,13 @@ namespace A_Apocrypha
             AmbroseCharacter.Add();
             Debug.Log("Characters | The Teneral");
             VaughanCharacter.Add();
+            Debug.Log("Haborym | The Apostate");
+            HaborymCharacter.Add();
+            Debug.Log("Characters | The Exceptionally Teneral");
+            TeneralNymphCharacter.Add();
             Debug.Log("Characters | Initialized");
 
+            JournalHandler.AddMiscSpeakers(); // added regardless of journal mode in case I want them for something else or someone else uses them
             if (journalmode.Value) { JournalHandler.Add(); }
 
             //Free Fool Events
@@ -284,6 +291,7 @@ namespace A_Apocrypha
             AmbroseFreeEvent.Add();
             //Orpheum
             VaughanFreeEvent.Add();
+            HaborymFreeEvent.Add();
             //Abyss
             if (CrossMod.IntoTheAbyss && Abyss.Exists)
             {
@@ -313,6 +321,7 @@ namespace A_Apocrypha
             Gammamite.Add();
             Smoldergeist.Add();
             DuneThresher.Add();
+            Guests.Add();
             Debug.Log("Enemies | Far Shore Enemies Initialized");
             //Orpheum
             UnboundAnomaly.Add();
@@ -360,9 +369,12 @@ namespace A_Apocrypha
             TruthEncounterEnemies.Add();
             Aggregate.Add();
             BasicElemental.Add();
+            CageGarden.Add();
+            AgeOfDestructionEnemies.Add();
             Debug.Log("Enemies | Misc Enemies Initialized");
             //Friendly
             MachineGnomesFriendly.Add();
+            Exuviae.Add();
             Debug.Log("Enemies | Friendly Enemies Initialized");
 
             //Bosses
@@ -371,6 +383,8 @@ namespace A_Apocrypha
             AmdusiasEncounter.Add();
             Debug.Log("The Zelator");
             //Orpheum
+            LornFluke.Add();
+            LornFlukeEncounter.Add();
             //Siren
             if (CrossMod.Siren)
             {
@@ -399,6 +413,7 @@ namespace A_Apocrypha
             }
             RedAggregateEncounters.Add();
             PurpleAggregateEncounters.Add();
+            GuestsEncounters.Add();
             CompatFarShoreEncounters.Add();
             //Orpheum
             //UnboundAnomalyEncounters.Add();
@@ -476,6 +491,7 @@ namespace A_Apocrypha
             Debug.Log("Encounters | Initialized");
 
             //Parabola
+            ParabolaHandler.AddEnvironments();
 
             //Enemies
             //Smoking Shore
@@ -496,6 +512,8 @@ namespace A_Apocrypha
             // Amdusias
             AnomalousScepter.Add();
             SilverBell.Add();
+            // The Regret-Beyond-Death
+            AigulSpine.Add();
             // Amalgamated Assessor
             if (CrossMod.Siren)
             {
@@ -518,6 +536,7 @@ namespace A_Apocrypha
             GnomeHat.Add();
             // Tragedies
             LetterTile.Add();
+            ShardOfHaborym.Add();
             // Tragedies - the False-Saints
             StArthurCandle.Add();
             //StBeauCandle.Add();
@@ -533,6 +552,7 @@ namespace A_Apocrypha
             ScanningModule.Add();
             SunBox.Add();
             GlisteningAmber.Add();
+            FrozenIdol.Add();
             // Heaven Unlocks
             HesperideanCider.Add();
             SerpentEffigy.Add();
@@ -540,6 +560,7 @@ namespace A_Apocrypha
             Posibrain.Add();
             ElementOfDawn.Add();
             StarvedBanner.Add();
+            PermafrostPactsign.Add();
             // Doula Unlocks
             if (CrossMod.EnemyPack)
             {
@@ -549,6 +570,7 @@ namespace A_Apocrypha
                 MMI.Add();
                 BetrayerOfMeasures.Add();
                 AmbergrisEarring.Add();
+                OccultistsTablets.Add();
             }
             // March Unlocks
             if (CrossMod.GlitchsFreaks)
@@ -559,6 +581,7 @@ namespace A_Apocrypha
                 BridgeCircuit.Add();
                 StarstoneDemark.Add();
                 PanopticalSkull.Add();
+                Apostasia.Add();
             }
             if (CrossMod.IntoTheAbyss)
             {
@@ -567,32 +590,38 @@ namespace A_Apocrypha
                 Moondial.Add();
                 SpicyPillowSequel.Add();
                 RadarDish.Add();
+                BoneMarketManifest.Add();
+                MemoryOfChange.Add();
 
-                AigulSpine.Add();
                 // Katalixi Unlocks
-
-
+                SpiriferFork.Add();
+                AtlasOfTheUnreal.Add();
                 ImSoMetaEvenThisAcronym.Add();
                 //RandomDistortion.Add(); //very unstable
 
 
+
             }
-            // Bluw Sky Unlocks
+            // Blue Sky Unlocks
             if (CrossMod.SaltEnemies)
             {
                 FourthCityAirag.Add();
                 AdulterineMasonry.Add();
                 TruthItem.Add();
                 FrontalLobeImplant.Add();
+
+
+                AcolyteFish.Add();
             }
             // Miscellaneous Items
             CranesSavesTheRun.Add();
             Gadsby.Add();
-            WhitlockBarTincture.Add();
+            //WhitlockBarTincture.Add();
             WhitlockBarPoison.Add();
             WhitlockBarLaudanum.Add();
             SeekerBarMysteryMeat.Add();
             SeekerBarMarrow.Add();
+            MeasurerBarRobotScrap.Add();
             Debug.Log("Items & Achievements | Initialized");
 
             //Events
@@ -644,14 +673,14 @@ namespace A_Apocrypha
         }
         static void TagCharIfExists(string ID, string unitType)
         {
-            if (LoadedAssetsHandler.GetCharacter(ID) != false && LoadedAssetsHandler.GetCharacter(ID) != null) { 
+            if (LoadedAssetsHandler.LoadedCharacters.ContainsKey(ID)) { 
                 LoadedAssetsHandler.GetCharacter(ID).unitTypes.Add(unitType);
                 Debug.Log($"Tags & Types | successfully tagged character {LoadedAssetsHandler.GetCharacter(ID)._characterName} ({ID}) as {unitType}");
             }
         }
         static void TagEnemyIfExists(string ID, string unitType)
         {
-            if (LoadedAssetsHandler.GetEnemy(ID) != false && LoadedAssetsHandler.GetEnemy(ID) != null) { 
+            if (LoadedAssetsHandler.LoadedEnemies.ContainsKey(ID)) { 
                 LoadedAssetsHandler.GetEnemy(ID).unitTypes.Add(unitType);
                 Debug.Log($"Tags & Types | successfully tagged enemy {LoadedAssetsHandler.GetEnemy(ID)._enemyName} ({ID}) as {unitType}");
             }

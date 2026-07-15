@@ -543,6 +543,33 @@ namespace A_Apocrypha.Fools
 
             anomaly.AddCharacter(false, true);
             anomaly.MenuCharacterTrackData = ScriptableObject.CreateInstance<AnnaMollyTrackData>();
+
+            SpeakerBundle speakerBundleAnnaMolly = new SpeakerBundle();
+            speakerBundleAnnaMolly.bundleTextColor = new Color32(170, 0, 241, 255);
+            speakerBundleAnnaMolly.dialogueSound = LoadedAssetsHandler.GetCharacter("ThresholdFool_CH").dxSound;
+            speakerBundleAnnaMolly.portrait = ResourceLoader.LoadSprite("ThresholdFoolFront1", new Vector2(0.5f, 0f), 32);
+
+            SpeakerBundle speakerBundleAnnaMollyAlt1 = new SpeakerBundle();
+            speakerBundleAnnaMollyAlt1.bundleTextColor = speakerBundleAnnaMolly.bundleTextColor;
+            speakerBundleAnnaMollyAlt1.dialogueSound = speakerBundleAnnaMolly.dialogueSound;
+            speakerBundleAnnaMollyAlt1.portrait = ResourceLoader.LoadSprite("ThresholdFoolFront2", new Vector2(0.5f, 0f), 32);
+
+            SpeakerBundle speakerBundleAnnaMollyAlt2 = new SpeakerBundle();
+            speakerBundleAnnaMollyAlt2.bundleTextColor = speakerBundleAnnaMolly.bundleTextColor;
+            speakerBundleAnnaMollyAlt2.dialogueSound = speakerBundleAnnaMolly.dialogueSound;
+            speakerBundleAnnaMollyAlt2.portrait = ResourceLoader.LoadSprite("ThresholdFoolFront3", new Vector2(0.5f, 0f), 32);
+
+            var dia = Dialogues.CreateAndAddCustom_SpeakerData("ThresholdFool", speakerBundleAnnaMolly, true, false, new SpeakerEmote[2]
+            {
+                new SpeakerEmote {
+                    emotion = "Alt1",
+                    bundle = speakerBundleAnnaMollyAlt1,
+                },
+                new SpeakerEmote {
+                    emotion = "Alt2",
+                    bundle = speakerBundleAnnaMollyAlt2,
+                },
+            });
         }
     }
 }

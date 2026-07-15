@@ -23,8 +23,7 @@ namespace A_Apocrypha.Enemies
             bloatfinger.PrepareEnemyPrefab("Assets/Apocrypha_Enemies/Bloatfinger_Enemy/Bloatfinger_Enemy.prefab", AApocrypha.assetBundle, AApocrypha.assetBundle.LoadAsset<GameObject>("Assets/Apocrypha_Enemies/Bloatfinger_Enemy/Bloatfinger_Giblets.prefab").GetComponent<ParticleSystem>());
             bloatfinger.AddPassives([Passives.Slippery, Passives.Abomination1, Passives.Fleeting4]);
 
-            AttackVisualsSO PoisonVisuals = Visuals.Exsanguinate;
-            if (AApocrypha.CrossMod.IntoTheAbyss) { PoisonVisuals = LoadedAssetsHandler.GetCharacterAbility("FlorenzBasic_A").visuals; }
+            AttackVisualsSO PoisonVisuals = ITAVisuals.Stank;
 
             StatusEffect_Apply_Effect RandomPreviousPoisonedApply = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             RandomPreviousPoisonedApply._Status = StatusField.GetCustomStatusEffect("Poisoned_ID");

@@ -119,7 +119,8 @@ namespace A_Apocrypha.Enemies
             StatusEffect_Apply_Effect ApplyDisjunct = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
             ApplyDisjunct._Status = StatusField.GetCustomStatusEffect("Disjunct_ID");
 
-            AttackVisualsSO GlitchVisuals = LoadedAssetsHandler.GetCharacterAbility("SamDefrag_A").visuals;
+            AttackVisualsSO GlitchVisuals = ITAVisuals.Divide;
+            if (LoadedAssetsHandler.GetCharacter("Sam_CH") != null) { GlitchVisuals = LoadedAssetsHandler.GetCharacterAbility("SamDefrag_A").visuals; }
 
             //Velato Piet Brainfuck Whitespace
 

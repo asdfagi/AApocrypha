@@ -646,7 +646,11 @@ namespace A_Apocrypha.Enemies
                 HoarfrostApply._Field = StatusField.GetCustomFieldEffect("Hoarfrost_ID");
 
                 RemoveFieldEffectEffect HoarfrostRemove = ScriptableObject.CreateInstance<RemoveFieldEffectEffect>();
-                HoarfrostRemove._field = StatusField.GetCustomFieldEffect("Hoarfrost_ID");
+                HoarfrostRemove._field = HoarfrostApply._Field;
+
+                FieldEffect_ApplyWithEvenDistributionAllSlots_Effect HoarfrostDistributeEvenByPrevious = ScriptableObject.CreateInstance<FieldEffect_ApplyWithEvenDistributionAllSlots_Effect>();
+                HoarfrostDistributeEvenByPrevious.field = HoarfrostApply._Field;
+                HoarfrostDistributeEvenByPrevious.usePrevious = true;
 
                 AnimationVisualsEffect NothingAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
                 NothingAnim._visuals = CustomVisuals.Nothing;
@@ -663,7 +667,7 @@ namespace A_Apocrypha.Enemies
 
                 Ability turnback = new Ability("NOT CLOCKWISE", "AApocrypha_LogosLeftDisco_A")
                 {
-                    Description = "Do not move Right, then do not apply 1 Hoarfrost to the newly Opposing position. This ability does not assume that the grip loops around.\n\"THE MONARCH DOES NOT SPEAK THE TRUTH\"",
+                    Description = "Do not move Right, then do not apply 1 Hoarfrost to the newly Opposing position. This ability does not assume that the grip wraps around.\n\"THE MONARCH DOES NOT SPEAK THE TRUTH\"",
                     Cost = [Pigments.Grey, LoadedDBsHandler.PigmentDB.GetPigment("Broken")],
                     Effects =
                     [
@@ -681,7 +685,7 @@ namespace A_Apocrypha.Enemies
 
                 Ability turnforth = new Ability("NOT COUNTERCLOCKWISE", "AApocrypha_LogosRightDisco_A")
                 {
-                    Description = "Do not move Left, then do not apply 1 Hoarfrost to the newly Opposing position. This ability does not assume that the grip loops around.\n\"LEFT IS NOT LEFT, RIGHT IS NOT RIGHT\"",
+                    Description = "Do not move Left, then do not apply 1 Hoarfrost to the newly Opposing position. This ability does not assume that the grip wraps around.\n\"LEFT IS NOT LEFT, RIGHT IS NOT RIGHT\"",
                     Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Broken"), Pigments.Grey],
                     Effects =
                     [
@@ -699,7 +703,7 @@ namespace A_Apocrypha.Enemies
 
                 Ability nowordsspoken = new Ability("NO WORDS SHALL BE SPOKEN", "AApocrypha_NoWordsSpoken_A")
                 {
-                    Description = "Do not remove all Hoarfrost from the Opposing position, then do not deal a Painful amount of frost damage to the Left and Right party members. This damage is not increased by two for each stack of Hoarfrost removed. This ability does not assume that the grid loops around.",
+                    Description = "Do not remove all Hoarfrost from the Opposing position, then do not deal a Painful amount of frost damage to the Left and Right party members. This damage is not increased by two for each stack of Hoarfrost removed. This ability does not assume that the grid wraps around.",
                     Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken")],
                     Visuals = CustomVisuals.Whispers,
                     AnimationTarget = Targeting.GenerateSlotTarget([-1, 1, -4, 4], false),
@@ -770,7 +774,30 @@ namespace A_Apocrypha.Enemies
                     rarity = Rarity.Uncommon,
                 };
 
-                blacklogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("Snowstorm_1_PA"), Passives.GetCustomPassive("Antifreeze_PA"), Passives.GetCustomPassive("Fragile_PA"), CustomPassives.BonusSuiteRerollGenerator("PartyAction", [wordsextra, colorsextra, nothingextra])]);
+                Ability uncountedstones = new Ability("UNCOUNTED STONES", "AApocrypha_DiscordanceLessHorrible_A")
+                {
+                    Description = "Do not redistribute all Hoarfrost on the Opposing side of the battlefield to the Left and Right party member positions. This ability does not assume that the grid wraps around.",
+                    Cost = [LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken"), LoadedDBsHandler.PigmentDB.GetPigment("Broken")],
+                    Visuals = CustomVisuals.Nothing,
+                    AnimationTarget = Targeting.Slot_SelfSlot,
+                    Effects =
+                    [
+                        Effects.GenerateEffect(HoarfrostRemove, 1, Targeting.GenerateGenericTarget([0, 1, 2, 3, 4], false)),
+                        Effects.GenerateEffect(HoarfrostDistributeEvenByPrevious, 1, Targeting.GenerateSlotTarget([-4, -1, 1, 4], false), Effects.CheckPreviousEffectCondition(true, 1)),
+                    ],
+                    Rarity = Rarity.Impossible,
+                    Priority = Priority.VerySlow,
+                };
+                uncountedstones.AddIntentsToTarget(Targeting.GenerateGenericTarget([0, 1, 2, 3, 4], false), ["Field_Hoarfrost"]);
+                uncountedstones.AddIntentsToTarget(Targeting.GenerateSlotTarget([-4, -1, 1, 4], false), ["Rem_Field_Hoarfrost"]);
+
+                ExtraAbilityInfo stonesextra = new()
+                {
+                    ability = uncountedstones.GenerateEnemyAbility().ability,
+                    rarity = Rarity.ImpossibleNoReroll,
+                };
+
+                blacklogos.AddPassives([Passives.MultiAttack3, Passives.GetCustomPassive("Snowstorm_1_PA"), Passives.GetCustomPassive("Antifreeze_PA"), Passives.GetCustomPassive("Fragile_PA"), CustomPassives.BonusSuiteRerollGenerator("PartyAction", [wordsextra, colorsextra, nothingextra]), Passives.BonusAttackGenerator(stonesextra)]);
 
                 blacklogos.AddEnemyAbilities(
                 [
@@ -784,13 +811,15 @@ namespace A_Apocrypha.Enemies
             if (AApocrypha.CrossMod.IntoTheAbyss && Abyss.Exists)
             {
                 //Debug.Log("Orguis | anims");
-                AttackVisualsSO GlitchVisuals = LoadedAssetsHandler.GetCharacterAbility("SamDefrag_A").visuals;
+                AttackVisualsSO GlitchVisuals = ITAVisuals.Divide;
+                if (LoadedAssetsHandler.GetCharacter("Sam_CH") != null) { GlitchVisuals = LoadedAssetsHandler.GetCharacterAbility("SamDefrag_A").visuals; }
 
                 AnimationVisualsEffect GlitchAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
                 GlitchAnim._visuals = GlitchVisuals;
                 GlitchAnim._animationTarget = Targeting.Slot_Front;
 
-                AttackVisualsSO ResonateVisuals = LoadedAssetsHandler.GetCharacterAbility("GenevievePeace1_A").visuals;
+                AttackVisualsSO ResonateVisuals = CustomVisuals.MicrowaveVisualsSO;
+                if (LoadedAssetsHandler.GetCharacter("Genevieve_CH") != null) { GlitchVisuals = LoadedAssetsHandler.GetCharacterAbility("GenevievePeace1_A").visuals; }
 
                 AnimationVisualsEffect ResonateAnim = ScriptableObject.CreateInstance<AnimationVisualsEffect>();
                 ResonateAnim._visuals = ResonateVisuals;
@@ -849,7 +878,7 @@ namespace A_Apocrypha.Enemies
                     euphony2.name = "AA_Euphony2_PA";
                     euphony2._passiveName = "Euphony (2)";
                     euphony2.m_PassiveID = "Euphony";
-                    euphony2.passiveIcon = Passives.GetCustomPassive("Euphony2_PA").passiveIcon;
+                    euphony2.passiveIcon = ResourceLoader.LoadSprite("IconEuphony");
                     euphony2._characterDescription = "On turn start this party member applies 2 Resonance to its current position.";
                     euphony2._enemyDescription = "On turn start this enemy applies 2 Resonance to its current position.";
                     euphony2._triggerOn = [TriggerCalls.OnTurnStart];

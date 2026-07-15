@@ -11,7 +11,7 @@ namespace A_Apocrypha.Events
             CardInfo info = new CardInfo()
             {
                 pilePosition = PilePositionType.Any,
-                cardType = (CardType)787
+                cardType = (CardType)770 //Bonus Forceload Card - Main Character
             };
             CardTypeInfo card = new CardTypeInfo();
             card._cardInfo = info;

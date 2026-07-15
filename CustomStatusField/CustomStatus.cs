@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine.AI;
 using UnityEngine.PlayerLoop;
+using static A_Apocrypha.Encounters.Orph.H;
 
 namespace A_Apocrypha.CustomStatusField
 {
@@ -184,6 +185,79 @@ namespace A_Apocrypha.CustomStatusField
                     _sprite = OverclockInfo.icon,
                 };
                 LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Overclock", OverclockRemIntent);
+            }
+
+            if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Frostbite_ID"))
+            {
+                StatusEffectInfoSO FrostbiteInfo = ScriptableObject.CreateInstance<StatusEffectInfoSO>();
+                FrostbiteInfo._statusName = "Frostbite";
+                FrostbiteInfo._description = "On performing an ability, increase Frostbite intensity by 1." +
+                    "\nWhen Frostbite is removed, receive direct damage equal to twice the Frostbite intensity." +
+                    "\nFrostbite is halved at the end of each round.";
+                FrostbiteInfo.icon = ResourceLoader.LoadSprite("IconFrostbite");
+
+                LoadedDBsHandler.StatusFieldDB.TryGetStatusEffect("Scars_ID", out StatusEffect_SO scars);
+                StatusEffectInfoSO baseinfo = scars.EffectInfo;
+
+                FrostbiteInfo._applied_SE_Event = "event:/AASFX/HoarfrostApply";
+                FrostbiteInfo._removed_SE_Event = baseinfo._removed_SE_Event;
+                FrostbiteInfo._updated_SE_Event = baseinfo._updated_SE_Event;
+
+                FrostbiteSE frostbite = ScriptableObject.CreateInstance<FrostbiteSE>();
+                frostbite._StatusID = "Frostbite_ID";
+                frostbite._EffectInfo = FrostbiteInfo;
+
+                LoadedDBsHandler.StatusFieldDB.AddNewStatusEffect(frostbite, true);
+
+                IntentInfoBasic FrostbiteIntent = new()
+                {
+                    _color = Color.white,
+                    _sprite = FrostbiteInfo.icon
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Status_Frostbite", FrostbiteIntent);
+
+                IntentInfoBasic FrostbiteRemIntent = new()
+                {
+                    _color = Color.gray,
+                    _sprite = FrostbiteInfo.icon
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Frostbite", FrostbiteRemIntent);
+            }
+
+            if (!LoadedDBsHandler.StatusFieldDB.StatusEffects.ContainsKey("Mucus_ID"))
+            {
+                StatusEffectInfoSO MucusInfo = ScriptableObject.CreateInstance<StatusEffectInfoSO>();
+                MucusInfo._statusName = "Mucus";
+                MucusInfo._description = "All direct damage taken by this unit will be increased by the amount of Mucus on all other allied units." +
+                    "\nMucus is halved when taking direct damage and entirely removed when taking any fire damage.";
+                MucusInfo.icon = ResourceLoader.LoadSprite("IconMucus");
+
+                LoadedDBsHandler.StatusFieldDB.TryGetStatusEffect(StatusField.OilSlicked.StatusID, out StatusEffect_SO oil);
+                StatusEffectInfoSO baseinfo = oil.EffectInfo;
+
+                MucusInfo._applied_SE_Event = baseinfo._applied_SE_Event;
+                MucusInfo._removed_SE_Event = baseinfo._removed_SE_Event;
+                MucusInfo._updated_SE_Event = baseinfo._updated_SE_Event;
+
+                MucusSE_SO mucus = ScriptableObject.CreateInstance<MucusSE_SO>();
+                mucus._StatusID = "Mucus_ID";
+                mucus._EffectInfo = MucusInfo;
+
+                LoadedDBsHandler.StatusFieldDB.AddNewStatusEffect(mucus, true);
+
+                IntentInfoBasic MucusIntent = new()
+                {
+                    _color = Color.white,
+                    _sprite = MucusInfo.icon
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Status_Mucus", MucusIntent);
+
+                IntentInfoBasic MucusRemIntent = new()
+                {
+                    _color = Color.gray,
+                    _sprite = MucusInfo.icon
+                };
+                LoadedDBsHandler.IntentDB.AddNewBasicIntent("Rem_Status_Mucus", MucusRemIntent);
             }
 
             // Into The Abyss - Petrified

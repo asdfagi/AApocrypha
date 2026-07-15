@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using A_Apocrypha.CustomOther;
 using BrutalAPI.Items;
 
 namespace A_Apocrypha.Items
@@ -25,14 +26,14 @@ namespace A_Apocrypha.Items
                 StartsLocked = true,
                 Icon = ResourceLoader.LoadSprite("UnlockOsmanAnnaMolly"),
                 TriggerOn = TriggerCalls.OnTurnStart,
+                Conditions = [ScriptableObject.CreateInstance<EnemiesInCombatEffectorCondition>()],
                 Effects =
                 [
                     Effects.GenerateEffect(ScriptableObject.CreateInstance<FiiFItemEffect>(), 1, Targeting.Unit_AllOpponents),
                 ],
                 SecondaryTriggerOn = [TriggerCalls.OnCombatEnd],
-                SecondaryEffects = [
-                    Effects.GenerateEffect(ScriptableObject.CreateInstance<ConsumeItemEffect>(), 1, Targeting.Slot_SelfSlot),
-                ],
+                SecondaryEffects = [],
+                SecondaryConsumeOnUse = true,
                 UsesSpecialUnlockText = true,
                 SpecialUnlockID = UILocID.ItemFishLocationLabel,
                 OnUnlockUsesTHE = true,
@@ -56,6 +57,7 @@ namespace A_Apocrypha.Items
             UnlockCheck.AddUnlockData("ThresholdFool_CH", UnlockData);
 
             ModdedAchievements unlockAchievement = new ModdedAchievements("FiiF", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementOsmanAnnaMolly", null, 32, null), "AApocrypha_AnnaMolly_Witness_ACH");
+            unlockAchievement.IsSecret = true;
             unlockAchievement.AddNewAchievementToInGameCategory(AchievementCategoryIDs.WitnessTitleLabel);
         }
     }

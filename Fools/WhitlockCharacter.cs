@@ -8,9 +8,10 @@ namespace A_Apocrypha.Fools
 {
     public class WhitlockCharacter
     {
+        public static Character whitlock;
         public static void Add()
         {
-            Character whitlock = new Character("Whitlock", "Whitlock_CH")
+            whitlock = new Character("Whitlock", "Whitlock_CH")
             {
                 HealthColor = Pigments.Purple,
                 UsesBasicAbility = true,
@@ -261,7 +262,7 @@ namespace A_Apocrypha.Fools
             if (AApocrypha.CrossMod.EnemyPack) { whitlock.AddFinalBossAchievementData("DoulaBoss", "AApocrypha_Whitlock_Abstraction_ACH"); }
             if (AApocrypha.CrossMod.GlitchsFreaks) { whitlock.AddFinalBossAchievementData("March_BOSS", "AApocrypha_Whitlock_Inevitable_ACH"); }
             if (AApocrypha.CrossMod.IntoTheAbyss) { whitlock.AddFinalBossAchievementData("Nobody_BOSS", "AApocrypha_Whitlock_Forgotten_ACH"); }
-            //if (AApocrypha.CrossMod.IntoTheAbyss) { whitlock.AddFinalBossAchievementData("Katalixi_BOSS", "AApocrypha_Whitlock_Boundary_ACH"); }
+            if (AApocrypha.CrossMod.IntoTheAbyss) { whitlock.AddFinalBossAchievementData("Katalixi_BOSS", "AApocrypha_Whitlock_Boundary_ACH"); }
             if (AApocrypha.CrossMod.SaltEnemies) { whitlock.AddFinalBossAchievementData("BlueSky_BOSS", "AApocrypha_Whitlock_Dreamer_ACH"); }
             whitlock.AddCharacter(true, false);
 

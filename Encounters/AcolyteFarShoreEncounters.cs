@@ -19,7 +19,6 @@ namespace A_Apocrypha.Encounters
             acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "Mung_EN");
             acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 2, "Mung_EN");
             acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "MudLung_EN", 1, "Mung_EN");
-            acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "Keko_EN");
             if (AApocrypha.CrossMod.GlitchsFreaks)
             {
                 acolyteEasy.SimpleAddEncounter(1, "Acolyte_EN", 1, "Flakkid_EN");
@@ -47,6 +46,7 @@ namespace A_Apocrypha.Encounters
             acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, Spoggle.Blue);
             acolyteMedium.SimpleAddEncounter(2, "Acolyte_EN", 1, "Mung_EN");
             acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, "Mung_EN", 1, Aggregates.Red);
+            acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 2, "Keko_EN");
             if (AApocrypha.CrossMod.Colophons)
             {
                 acolyteMedium.SimpleAddEncounter(1, "Acolyte_EN", 1, Colophon.Blue);

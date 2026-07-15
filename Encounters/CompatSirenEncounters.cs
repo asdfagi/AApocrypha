@@ -29,6 +29,7 @@ namespace A_Apocrypha.Encounters
                 sirenAdd = new AddTo(Siren.H.Boiler.Med);
                 sirenAdd.SimpleAddGroup(2, "Boiler_EN", 1, "HazardHauler_Siren_EN");
                 sirenAdd.SimpleAddGroup(2, "Boiler_EN", 1, "BirdBath_EN", 1, "WinterLantern_EN");
+                sirenAdd.SimpleAddGroup(2, "Boiler_EN", 1, "BirdBath_EN", 1, Aggregates.Blue);
 
                 sirenAdd = new AddTo(Siren.H.Olmic.Med);
                 sirenAdd.SimpleAddGroup(1, "Olmic_EN", 1, "Boiler_EN", 1, "WinterLantern_EN");
@@ -37,6 +38,7 @@ namespace A_Apocrypha.Encounters
                 sirenAdd = new AddTo(Siren.H.Scuttlebunk.Hard);
                 sirenAdd.SimpleAddGroup(1, "Scuttlebunk_EN", 1, "Boiler_EN", 1, "WinterLantern_EN");
                 sirenAdd.SimpleAddGroup(1, "Scuttlebunk_EN", 1, "Tassnn_EN", 1, "WinterLantern_EN");
+                sirenAdd.SimpleAddGroup(1, "Scuttlebunk_EN", 1, "Boiler_EN", 1, Aggregates.Blue);
                 /*if (AApocrypha.CrossMod.SaltEnemies)
                 {
                     List<RandomEnemyGroup> wolvesMedium = new List<RandomEnemyGroup>(((RandomEnemyBundleSO)LoadedAssetsHandler.GetEnemyBundle("H_ZoneSiren_WolfColony_Medium_EnemyBundle"))._enemyBundles)
@@ -83,6 +85,16 @@ namespace A_Apocrypha.Encounters
                     }
                 }
             }
+        }
+        public static void PostAdd()
+        {
+            if (Siren.Exists)
+            {
+                Debug.Log("AA Compat Encounters | Siren Compat Postloading");
+                AddTo sirenAdd = new AddTo("H_ZoneSiren_WolfColony_Medium_EnemyBundle");
+                sirenAdd.SimpleAddGroup(2, "WolfColony_EN", 1, "HazardHauler_Siren_EN");
+            }
+
         }
     }
 }

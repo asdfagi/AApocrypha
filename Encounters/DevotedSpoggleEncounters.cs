@@ -50,8 +50,8 @@ namespace A_Apocrypha.Encounters
             if (AApocrypha.CrossMod.SaltEnemies)
             {
                 devotedSpoggleMedium.SimpleAddEncounter(1, Spoggle.PurpleRedSplit, 1, "Rabies_EN", 1, "Blemmigan_EN");
-                devotedSpoggleMedium.SimpleAddEncounter(1, Spoggle.PurpleRedSplit, 1, Spoggle.Blue, 1, Bots.Red);
-                devotedSpoggleMedium.SimpleAddEncounter(1, Spoggle.PurpleRedSplit, 1, Spoggle.BlueYellowSplit, 1, Bots.Red);
+                //devotedSpoggleMedium.SimpleAddEncounter(1, Spoggle.PurpleRedSplit, 1, Spoggle.Blue, 1, Bots.Red);
+                //devotedSpoggleMedium.SimpleAddEncounter(1, Spoggle.PurpleRedSplit, 1, Spoggle.BlueYellowSplit, 1, Bots.Red);
                 devotedSpoggleMedium.SimpleAddEncounter(1, Spoggle.PurpleRedSplit, 1, "MusicMan_EN", 1, "Something_EN");
             }
             devotedSpoggleMedium.AddEncounterToDataBases();

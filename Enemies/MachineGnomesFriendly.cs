@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using A_Apocrypha.CustomOther;
+using static A_Apocrypha.Enemies.Bloatfinger;
 
 namespace A_Apocrypha.Enemies
 {
@@ -41,6 +42,7 @@ namespace A_Apocrypha.Enemies
                 [
                     Effects.GenerateEffect(GnomeReward, 1, Targeting.Slot_SelfSlot),    
                 ],
+                UnitTypes = ["Friendly"],
             };
 
             DamageEffect IndirectDamage = ScriptableObject.CreateInstance<DamageEffect>();

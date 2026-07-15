@@ -58,6 +58,12 @@ namespace A_Apocrypha.Items.TradeItems
                 ],
             };
 
+            marrow.item._ItemTypeIDs =
+            [
+                "FoodID",
+                "Meat",
+            ];
+
             ItemUtils.JustAddItemSoItCanBeLoaded(marrow.item);
         }
     }

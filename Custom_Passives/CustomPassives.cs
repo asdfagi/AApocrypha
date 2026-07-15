@@ -122,6 +122,30 @@ namespace A_Apocrypha.Custom_Passives
             ambroseLeadTracker.m_ShowIfDataIsOver = true;
             LoadedDBsHandler.MiscDB.AddNewUnitStoreData("LeadTabletStoredValue", ambroseLeadTracker);
 
+            UnitStoreData_ModIntSO axileTracker = ScriptableObject.CreateInstance<UnitStoreData_ModIntSO>();
+            axileTracker.m_Text = "Grieve: {0}";
+            axileTracker._UnitStoreDataID = "LornFlukeGrieveStoredValue";
+            axileTracker.m_TextColor = new Color32(102, 70, 111, 255);
+            axileTracker.m_CompareDataToThis = -1;
+            axileTracker.m_ShowIfDataIsOver = true;
+            LoadedDBsHandler.MiscDB.AddNewUnitStoreData("LornFlukeGrieveStoredValue", axileTracker);
+
+            UnitStoreData_TurnCount_ModIntSO patientNumericalTracker = ScriptableObject.CreateInstance<UnitStoreData_TurnCount_ModIntSO>();
+            patientNumericalTracker.m_Text = "Turn Count: {0}";
+            patientNumericalTracker._UnitStoreDataID = "PatientTurnCountStoredValue";
+            patientNumericalTracker.m_TextColor = new Color32(255, 255, 0, 255);
+            patientNumericalTracker.m_CompareDataToThis = -1;
+            patientNumericalTracker.m_ShowIfDataIsOver = true;
+            LoadedDBsHandler.MiscDB.AddNewUnitStoreData("PatientTurnCountStoredValue", patientNumericalTracker);
+
+            UnitStoreData_ModIntSO frostbiteTracker = ScriptableObject.CreateInstance<UnitStoreData_ModIntSO>();
+            frostbiteTracker.m_Text = "Frostbite: {0}";
+            frostbiteTracker._UnitStoreDataID = "FrostbiteIntensityStoredValue";
+            frostbiteTracker.m_TextColor = new Color32(177, 225, 235, 255);
+            frostbiteTracker.m_CompareDataToThis = -1;
+            frostbiteTracker.m_ShowIfDataIsOver = true;
+            LoadedDBsHandler.MiscDB.AddNewUnitStoreData("FrostbiteIntensityStoredValue", frostbiteTracker);
+
             // Shy - Skittish, but only if there is an opposing unit.
             PerformEffectPassiveAbility shy = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
             shy.name = "Shy_PA";
@@ -946,6 +970,44 @@ namespace A_Apocrypha.Custom_Passives
                 Effects.GenerateEffect(SuiteRerollLast, 1, Targeting.Slot_SelfSlot),
             ];
 
+            // Mucous - apply Mucus to others when moving
+            StatusEffect_Apply_Effect CoverInGunge = ScriptableObject.CreateInstance<StatusEffect_Apply_Effect>();
+            CoverInGunge._Status = StatusField.GetCustomStatusEffect("Mucus_ID");
+
+            PerformEffectPassiveAbility mucous1 = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            mucous1.name = "AA_Mucous_1_PA";
+            mucous1._passiveName = "Mucous (1)";
+            mucous1.m_PassiveID = "Mucous";
+            mucous1.passiveIcon = ResourceLoader.LoadSprite("IconMucus");
+            mucous1._characterDescription = "On moving, apply 1 Mucus to the Opposing enemy.";
+            mucous1._enemyDescription = "On moving, apply 1 Mucus to the Opposing party member.";
+            mucous1._triggerOn = [TriggerCalls.OnMoved];
+            mucous1.doesPassiveTriggerInformationPanel = true;
+            mucous1.effects =
+            [
+                Effects.GenerateEffect(CoverInGunge, 1, Targeting.Slot_Front),
+            ];
+
+            // An Opportunity (IGR Measurer Robot Loot) - a loot handler, of sorts
+            ExtraLootListEffect RobotLoot = ScriptableObject.CreateInstance<ExtraLootListEffect>();
+            RobotLoot._nothingPercentage = 0;
+            RobotLoot._shopPercentage = 0;
+            RobotLoot._treasurePercentage = 0;
+            RobotLoot._lockedLootableItems = [];
+            RobotLoot._lootableItems = [new LootItemProbability("AA_RobotBarLoot1_ExtraW", 1)];
+
+            PerformEffectPassiveAbility OpportunityRobotLoot = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+            OpportunityRobotLoot.name = "AA_Opportunity_RobotLoot_PA";
+            OpportunityRobotLoot._passiveName = "An Opportunity!";
+            OpportunityRobotLoot.m_PassiveID = "AA_Opportunity";
+            OpportunityRobotLoot.passiveIcon = ResourceLoader.LoadSprite("IconOpportunity");
+            OpportunityRobotLoot._characterDescription = "literally how";
+            OpportunityRobotLoot._enemyDescription = "This robot will drop scrap if killed, which will be useful later.";
+            OpportunityRobotLoot._triggerOn = [TriggerCalls.OnDeath];
+            OpportunityRobotLoot.conditions = [ScriptableObject.CreateInstance<IsntWitheringDeathCondition>()];
+            OpportunityRobotLoot.doesPassiveTriggerInformationPanel = true;
+            OpportunityRobotLoot.effects = [Effects.GenerateEffect(RobotLoot, 1)];
+
             // Adding to pool
             CheckerPassivePoolAdd("Shy_PA", "Shy", shy);
             CheckerPassivePoolAdd("Confrontational_PA", "Confrontational", confrontational);
@@ -980,6 +1042,8 @@ namespace A_Apocrypha.Custom_Passives
             CheckerPassivePoolAdd("AA_Contaminant1_PA", "Contaminant (1)", contaminant1);
             CheckerPassivePoolAdd("Random4Blooded_2_PA", "Random-Blooded (2)", randomBlooded2);
             CheckerPassivePoolAdd("AA_Boneless_SuiteLast_PA", "Boneless", bonelessSuiteLast);
+            CheckerPassivePoolAdd("AA_Mucous_1_PA", "Mucous (1)", mucous1);
+            CheckerPassivePoolAdd("AA_Opportunity_RobotLoot_PA", "An Opportunity!", OpportunityRobotLoot);
 
             // Glossary entries
             GlossaryPassives AAShyInfo = new GlossaryPassives("Shy", "Upon performing an ability, this party member/enemy will move to the left or right, prioritizing unopposed spaces, if there is an enemy/party member opposing them.", ResourceLoader.LoadSprite("IconShy"));
@@ -998,11 +1062,12 @@ namespace A_Apocrypha.Custom_Passives
             GlossaryPassives AABlackTearsInfo = new GlossaryPassives("Black Tears", "On moving, this unit gains a certain amount of Oil Slicked.", ResourceLoader.LoadSprite("IconBlackTears"));
             GlossaryPassives AASnowstormInfo = new GlossaryPassives("Snowstorm", "On turn start, this party member/enemy applies a certain amount of Hoarfrost to their current position.", ResourceLoader.LoadSprite("IconHoarfrostMirrored"));
             GlossaryPassives AAAntifreezeInfo = new GlossaryPassives("Antifreeze", "This unit is unaffected by Hoarfrost and immune to frost damage.", ResourceLoader.LoadSprite("IconIceskull"));
-            GlossaryPassives AAPatientInfo = new GlossaryPassives("Patient", "When the player turn ends, this enemy queues a specific ability.", ResourceLoader.LoadSprite("IconPatient"));
+            GlossaryPassives AAPatientInfo = new GlossaryPassives("Patient", "When the player turn ends, this enemy queues a specific ability. If a numerical value is present, Patient will only trigger if the turn count is at or above that number.", ResourceLoader.LoadSprite("IconPatient"));
             GlossaryPassives AADilutionInfo = new GlossaryPassives("Dilution", "On being directly damaged, split random pigment colors into a set amount of pigments of a specific color in the pigment bar.", ResourceLoader.LoadSprite("IconPigmentTransformPrimary"));
             GlossaryPassives AAContaminantInfo = new GlossaryPassives("Contaminant", "On being directly damaged, split this party member/enemy's health color into a set amount of random pigment in the pigment bar.", ResourceLoader.LoadSprite("IconContaminant"));
             GlossaryPassives AAZelatorInfo = new GlossaryPassives("Zelator", "This party member/enemy deals 50% more damage to Hexed targets.", ResourceLoader.LoadSprite("IconCometGaze"));
             GlossaryPassives AABonelessInfo = new GlossaryPassives("Boneless", "On any party member performing an ability, reroll this enemy's Bonus Suite ability.", ResourceLoader.LoadSprite("IconBonusFormless"));
+            GlossaryPassives AAMucousInfo = new GlossaryPassives("Mucous", "On moving, apply a certain amount of Mucus to the Opposing enemy/party member.", ResourceLoader.LoadSprite("IconMucus"));
 
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAShyInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAConfrontationalInfo);
@@ -1025,6 +1090,7 @@ namespace A_Apocrypha.Custom_Passives
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAContaminantInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AAZelatorInfo);
             LoadedDBsHandler.GlossaryDB.AddNewPassive(AABonelessInfo);
+            LoadedDBsHandler.GlossaryDB.AddNewPassive(AAMucousInfo);
 
             if (!AApocrypha.CrossMod.StewSpecimens)
             {

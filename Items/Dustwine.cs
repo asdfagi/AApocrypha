@@ -22,7 +22,7 @@ namespace A_Apocrypha.Items
             PerformEffect_Item dustwine = new PerformEffect_Item("CupOfDustwine_ID", null, false)
             {
                 Item_ID = "CupOfDustwine_SW",
-                Name = "Cup Of Dustwine",
+                Name = "Cup of Dustwine",
                 Flavour = "\"Addles the mind. Tastes of roses.\"",
                 Description = "This party member now has Shy as a passive.\nUpon this party member moving, heal them 0-2 health and apply 0-2 Poisoned to the Left and Right enemies.",
                 IsShopItem = true,
@@ -62,7 +62,7 @@ namespace A_Apocrypha.Items
             FinalBossCharUnlockCheck UnlockAbstractionKneynsberg = Unlocks.GetOrCreateUnlock_CustomFinalBoss("DoulaBoss", ResourceLoader.LoadSprite("DoulaPearl", null, 32, null));
             UnlockAbstractionKneynsberg.AddUnlockData("Kneynsberg_CH", kneynsbergDoulaUnlockData);
 
-            ModdedAchievements kneynsbergdoulaachievement = new ModdedAchievements("Cup Of Dustwine", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementDoulaKneynsberg", null, 32, null), "AApocrypha_Kneynsberg_Abstraction_ACH");
+            ModdedAchievements kneynsbergdoulaachievement = new ModdedAchievements("Cup of Dustwine", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementDoulaKneynsberg", null, 32, null), "AApocrypha_Kneynsberg_Abstraction_ACH");
             kneynsbergdoulaachievement.AddNewAchievementToCUSTOMCategory("AbstractionTitleLabel", "The Abstraction");
         }
     }

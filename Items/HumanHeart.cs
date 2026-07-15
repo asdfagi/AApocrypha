@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using A_Apocrypha.CustomOther;
 using BrutalAPI.Items;
 
 namespace A_Apocrypha.Items
@@ -27,6 +28,7 @@ namespace A_Apocrypha.Items
                 StartsLocked = true,
                 Icon = ResourceLoader.LoadSprite("UnlockComedySimulacrumKillSelf"),
                 TriggerOn = TriggerCalls.OnTurnStart,
+                Conditions = [ScriptableObject.CreateInstance<EnemiesInCombatEffectorCondition>()],
                 Effects =
                 [
                     Effects.GenerateEffect(CopyAnim, 1, Targeting.Slot_SelfSlot),

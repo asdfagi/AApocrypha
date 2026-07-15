@@ -50,7 +50,7 @@ namespace A_Apocrypha.Items
             FinalBossCharUnlockCheck unlockCheck = Unlocks.GetUnlock_OsmanFinalBoss();
             unlockCheck.AddUnlockData("Ambrose_CH", unlockData);
 
-            ModdedAchievements unlockAchievement = new ModdedAchievements("Sun-Stamped Mirrorcatch Box", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementOsmanAmbrose", null, 32, null), achievementID);
+            ModdedAchievements unlockAchievement = new ModdedAchievements("Sun-Stamped Mirrorcatch Box", "Unlocked a new item.", ResourceLoader.LoadSprite("AchievementOsmanAmbrose", null, 16, null), achievementID);
             unlockAchievement.AddNewAchievementToInGameCategory(AchievementCategoryIDs.WitnessTitleLabel);
         }
     }

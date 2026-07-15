@@ -68,6 +68,12 @@ namespace A_Apocrypha.Encounters
                     orphAdd.SimpleAddGroup(2, "FerrousFeaster_EN", 1, "Neoplasm_EN", 1, Aggregates.Red);
                 }
             }
+            if (AApocrypha.CrossMod.EnemyPack)
+            {
+                orphAdd = new AddTo("OphanimHard");
+                orphAdd.SimpleAddGroup(1, "Ophanim_EN", 1, "MusicMan_EN", 1, "CobaltCurator_EN");
+                orphAdd.SimpleAddGroup(1, "Ophanim_EN", 1, "MusicMan_EN", 1, Aggregates.Yellow);
+            }
         }
     }
 }

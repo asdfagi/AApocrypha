@@ -13,7 +13,15 @@ namespace A_Apocrypha.CustomEffects
             exitAmount = 0;
             if (caster is EnemyCombat enemy)
             {
-                stats.timeline.AddExtraEnemyTurns(new List<EnemyCombat>() { enemy }, new List<int>() { enemy.GetLastAbilityIDFromNameUsingAbilityName(_abilityName) });
+                try
+                {
+                    stats.timeline.AddExtraEnemyTurns(new List<EnemyCombat>() { enemy }, new List<int>() { enemy.GetLastAbilityIDFromNameUsingAbilityName(_abilityName) });
+                }
+                catch 
+                {
+                    Debug.LogWarning("Queue Ability By Name | Something went wrong! Most likely, the ability \'" + _abilityName + "\' is missing.");
+                    return false;
+                }
             }
             return true;
         }

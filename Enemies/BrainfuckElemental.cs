@@ -162,7 +162,8 @@ namespace A_Apocrypha.Enemies
                 };
                 rspecial.AddIntentsToTarget(Targeting.Slot_SelfSlot, [nameof(IntentType_GameIDs.Swap_Right), "AA_MultiX", nameof(IntentType_GameIDs.Misc)]);
 
-                AttackVisualsSO GlitchVisuals = LoadedAssetsHandler.GetCharacterAbility("SamDefrag_A").visuals;
+                AttackVisualsSO GlitchVisuals = ITAVisuals.Divide;
+                if (LoadedAssetsHandler.GetCharacter("Sam_CH") != null) { GlitchVisuals = LoadedAssetsHandler.GetCharacterAbility("SamDefrag_A").visuals; }
 
                 Ability malfunctionatorinator = new Ability(".", "AApocrypha_BFBonusAttack_A")
                 {

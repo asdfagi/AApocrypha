@@ -5,7 +5,7 @@ using BrutalAPI.Items;
 
 namespace A_Apocrypha.Items.TradeItems
 {
-    public class WhitlockBarTincture
+    public class WhitlockBarTincture //OBSOLETE
     {
         public static void Add()
         {

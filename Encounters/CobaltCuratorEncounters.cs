@@ -45,6 +45,15 @@ namespace A_Apocrypha.Encounters
                 curatorMedium.SimpleAddEncounter(1, "CobaltCurator_EN", 1, "Mistaken_EN", 1, "Mistake_EN");
                 curatorMedium.SimpleAddEncounter(1, "CobaltCurator_EN", 1, "Scrungie_EN", 1, "Fanatic_EN");
             }
+            if (AApocrypha.CrossMod.Revelry)
+            {
+                curatorMedium.SimpleAddEncounter(1, "CobaltCurator_EN", 1, "Shawled_Shuffler_EN", 1, "MusicMan_EN");
+            }
+            if (AApocrypha.CrossMod.SaltEnemies)
+            {
+                curatorMedium.SimpleAddEncounter(1, "CobaltCurator_EN", 1, Bots.Red, 1, "MusicMan_EN");
+                curatorMedium.SimpleAddEncounter(1, "CobaltCurator_EN", 1, Bots.Purple, 1, "Rabies_EN");
+            }
             curatorMedium.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Orph.H.CobaltCurator.Med, 9, ZoneType_GameIDs.Orpheum_Hard, BundleDifficulty.Medium);
         }

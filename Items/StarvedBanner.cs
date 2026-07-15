@@ -26,6 +26,11 @@ namespace A_Apocrypha.Items
                 OnUnlockUsesTHE = true,
             };
 
+            banner.item._ItemTypeIDs =
+            [
+                ItemType_GameIDs.Fabric.ToString(),
+            ];
+
             string achievementID = "AApocrypha_Vaughan_Divine_ACH";
             string unlockID = "AApocrypha_Vaughan_Divine_Unlock";
 

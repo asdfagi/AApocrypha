@@ -17,9 +17,11 @@ namespace A_Apocrypha.Enemies
             CasterStoredValueSetEffect LockstepNumSet = ScriptableObject.CreateInstance<CasterStoredValueSetEffect>();
             LockstepNumSet._valueName = "LockstepAmount_SV";
 
-            AttackVisualsSO NullVisuals = LoadedAssetsHandler.GetEnemyAbility("ContLeft_A").visuals;
+            AttackVisualsSO NullVisuals = CustomVisuals.Nothing;
+            if (LoadedAssetsHandler.GetEnemy("Continuum_BOSS") != null) { NullVisuals = LoadedAssetsHandler.GetEnemyAbility("ContLeft_A").visuals; }
 
-            AttackVisualsSO GlitchVisuals = LoadedAssetsHandler.GetCharacterAbility("SamDefrag_A").visuals;
+            AttackVisualsSO GlitchVisuals = ITAVisuals.Divide;
+            if (LoadedAssetsHandler.GetCharacter("Sam_CH") != null) { GlitchVisuals = LoadedAssetsHandler.GetCharacterAbility("SamDefrag_A").visuals; }
 
             Enemy crossword = new Enemy("Crossword", "Crossword_EN")
             {

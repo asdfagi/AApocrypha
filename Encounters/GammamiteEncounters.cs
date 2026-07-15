@@ -57,6 +57,10 @@ namespace A_Apocrypha.Encounters
                 gammamiteHard.SimpleAddEncounter(1, "Gammamite_EN", 1, "MudLung_EN", 1, "Madman_EN");
                 gammamiteHard.SimpleAddEncounter(1, "Gammamite_EN", 1, "TearDrinker_EN", 1, "Mung_EN", 1, "Madman_EN");
             }
+            if (AApocrypha.CrossMod.Revelry)
+            {
+                gammamiteHard.SimpleAddEncounter(1, "Gammamite_EN", 1, "Teletower_EN", 1, "MudLung_EN");
+            }
             gammamiteHard.AddEncounterToDataBases();
             EnemyEncounterUtils.AddEncounterToZoneSelector(Shore.H.Gammamite.Hard, 10, ZoneType_GameIDs.FarShore_Hard, BundleDifficulty.Hard); //default: 10
         }
